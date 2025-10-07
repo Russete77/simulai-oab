@@ -1,0 +1,890 @@
+📋 PRD - Simulai OAB
+Product Requirements Document
+1. VISÃO GERAL DO PRODUTO
+1.1 Descrição
+O Simulai OAB é uma plataforma completa de preparação para o Exame da Ordem dos Advogados do Brasil, utilizando inteligência artificial para personalizar a experiência de aprendizado através de simulados adaptativos, análise de desempenho e revisão inteligente.
+1.2 Objetivo Principal
+Criar um sistema didático e funcional que maximize as chances de aprovação no exame da OAB através de simulados baseados em questões reais, com feedback imediato e recomendações personalizadas de estudo.
+1.3 Público-Alvo
+
+Bacharéis em Direito preparando-se para o Exame da OAB
+Estudantes de Direito em fase de preparação antecipada
+Advogados buscando atualização e prática
+
+2. ARQUITETURA TÉCNICA
+2.1 Stack Tecnológica
+Frontend
+
+Framework: Next.js 14+ (App Router)
+Linguagem: TypeScript
+Estilização: Tailwind CSS + shadcn/ui
+Gráficos: Recharts
+Estado: React Hooks + Context API
+PWA: Service Workers para funcionamento offline
+
+Backend
+
+Runtime: Node.js
+API: Next.js API Routes (RESTful)
+ORM: Prisma
+Validação: Zod
+Queue: Bull + Redis
+Cache: Redis
+
+Banco de Dados
+
+Principal: PostgreSQL
+Cache: Redis
+Sessões: JWT + NextAuth.js
+
+Infraestrutura
+
+Hospedagem: Vercel (Frontend) + Supabase (Database)
+CDN: Cloudflare
+Storage: AWS S3 (arquivos estáticos)
+Monitoring: Sentry + Vercel Analytics
+
+3. DATASET - HUGGING FACE
+3.1 Fonte de Dados
+Dataset: russ7/oab_exams_2011_2025_combined
+
+Período: 16 anos de exames (2010-2025)
+Volume: 5.605 questões
+Formato: Parquet (convertido para JSON)
+
+3.2 Estrutura do Dataset
+typescriptinterface QuestionDataset {
+  id: string;              // Formato: "ANO-FASE_NUMERO" (ex: "2023-01_15")
+  question_number: number; // 1-100
+  exam_id: string;        // "2023-01"
+  exam_year: string;      // "2023"
+  question_type: string;  // Área do direito (ex: "ETHICS", "CONSTITUTIONAL")
+  nullified: boolean;     // Questão anulada
+  question: string;       // Enunciado completo
+  choices: {
+    label: string[];    // ["A", "B", "C", "D"]
+    text: string[];     // Textos das alternativas
+  };
+  answerKey: number;     // 0-3 (índice da resposta correta)
+}
+3.3 Áreas do Direito (question_type)
+ETHICS              → Ética Profissional
+CONSTITUTIONAL      → Direito Constitucional
+CIVIL               → Direito Civil
+CIVIL_PROCEDURE     → Processo Civil
+CRIMINAL            → Direito Penal
+CRIMINAL_PROCEDURE  → Processo Penal
+LABOUR              → Direito do Trabalho
+LABOUR_PROCEDURE    → Processo do Trabalho
+ADMINISTRATIVE      → Direito Administrativo
+TAXES               → Direito Tributário
+BUSINESS            → Direito Empresarial
+CONSUMER            → Direito do Consumidor
+ENVIRONMENTAL       → Direito Ambiental
+CHILDREN            → Estatuto da Criança e Adolescente
+INTERNATIONAL       → Direito Internacional
+HUMAN_RIGHTS        → Direitos Humanos
+3.4 Padrão de Resposta (answerKey)
+
+Formato: número inteiro
+Valor: 0-3 (índice da resposta correta no array choices.text)
+Exemplos:
+  - answerKey = 0 → Resposta correta é choices.label[0] (geralmente "A")
+  - answerKey = 1 → Resposta correta é choices.label[1] (geralmente "B")
+  - answerKey = 2 → Resposta correta é choices.label[2] (geralmente "C")
+  - answerKey = 3 → Resposta correta é choices.label[3] (geralmente "D")
+
+4. MODELO DE DADOS
+4.1 Schema Principal (Prisma)
+prisma// QUESTÕES
+model Question {
+  id               String    @id @default(cuid())
+  examId           String    // "2023-01"
+  examYear         Int       
+  examPhase        Int       // 1 ou 2
+  questionNumber   Int       // 1-100
+  subject          Subject   // Enum das áreas
+  statement        String    @db.Text
+  explanation      String?   @db.Text
+  nullified        Boolean   @default(false)
+  
+  // Metadados calculados
+  difficulty       Difficulty?
+  averageTime      Float?    
+  successRate      Float?    
+  
+  // Features extraídas via NLP
+  keywords         String[]  
+  legalReferences  Json?     
+  
+  alternatives     Alternative[]
+  answers          UserAnswer[]
+  
+  @@unique([examId, questionNumber])
+  @@index([subject, difficulty])
+}
+
+model Alternative {
+  id           String    @id
+  questionId   String
+  label        String    // A, B, C, D, E
+  text         String    @db.Text
+  isCorrect    Boolean   
+  
+  question     Question  @relation(...)
+  
+  @@unique([questionId, label])
+}
+
+model UserAnswer {
+  id             String    @id
+  userId         String
+  questionId     String
+  alternativeId  String
+  simulationId   String?
+  
+  isCorrect      Boolean
+  timeSpent      Int       // segundos
+  confidence     Int?      // 1-5
+  
+  createdAt      DateTime
+}
+
+model Simulation {
+  id              String    @id
+  userId          String
+  type            SimulationType
+  status          SimulationStatus
+  
+  totalQuestions  Int
+  score           Float?
+  timeSpent       Int?
+  
+  questions       SimulationQuestion[]
+  answers         UserAnswer[]
+}
+5. APIs PRINCIPAIS
+5.1 Endpoints de Questões
+typescript// Buscar próxima questão (modo adaptativo)
+GET /api/questions/next
+Query: { subject?, difficulty?, excludeAnswered }
+Response: Question com alternativas
+
+// Registrar resposta
+POST /api/questions/answer
+Body: { questionId, alternativeId, timeSpent, confidence }
+Response: { isCorrect, explanation, statistics }
+
+// Importar dataset
+POST /api/admin/import
+Body: { source: "huggingface", dataset: "russ7/oab_exams_2011_2025_combined" }
+5.2 Endpoints de Simulados
+typescript// Criar simulado
+POST /api/simulations/create
+Body: { type: "FULL" | "ADAPTIVE" | "QUICK", subjects?: [] }
+Response: { simulationId, questions[] }
+
+// Finalizar simulado
+POST /api/simulations/finish
+Body: { simulationId, answers[] }
+Response: { score, report, recommendations }
+5.3 Endpoints de Analytics
+typescript// Dashboard de performance
+GET /api/analytics/dashboard
+Response: {
+  totalQuestions,
+  accuracy,
+  bySubject: { subject, accuracy, trend }[],
+  weakAreas: string[],
+  predictions: { examScore, probability }
+}
+6. FUNCIONALIDADES CORE
+6.1 Sistema de Questões
+Modos de Prática
+
+Aleatório: Questões aleatórias de todas as matérias
+Por Matéria: Foco em área específica
+Por Dificuldade: Progressão gradual
+Adaptativo: Ajusta baseado no desempenho
+
+Features por Questão
+
+Timer individual com pause
+Marcação para revisão posterior
+Anotações pessoais
+Explicação detalhada pós-resposta
+Estatísticas (taxa de acerto, tempo médio)
+Referências legais extraídas
+
+6.2 Gerador de Simulados
+Tipos de Simulado
+typescriptinterface SimulationTypes {
+  FULL_EXAM: {        // Formato oficial OAB
+    questions: 80,
+    time: 300,        // 5 horas
+    distribution: {   // Distribuição por matéria
+      ETHICS: 8,
+      CONSTITUTIONAL: 7,
+      CIVIL: 7,
+      // ... conforme exame real
+    }
+  },
+  ADAPTIVE: {         // Personalizado por IA
+    questions: 40,
+    adjustDifficulty: true
+  },
+  QUICK_PRACTICE: {   // Prática rápida
+    questions: 20,
+    time: 60
+  },
+  ERROR_REVIEW: {     // Revisão de erros
+    source: "previous_errors"
+  }
+}
+Relatório Pós-Simulado
+
+Score geral e por matéria
+Comparação com média de usuários
+Questões erradas com explicação
+Tempo gasto vs. tempo médio
+Recomendações de estudo
+
+6.3 Sistema de IA e Personalização
+Algoritmos Implementados
+
+Dificuldade Adaptativa: Ajusta baseado em taxa de acerto
+Repetição Espaçada: SuperMemo 2 para revisão otimizada
+Predição de Performance: ML para prever score no exame
+Identificação de Gaps: Detecta lacunas de conhecimento
+
+Processamento NLP
+python# Extração automática de features
+def extract_features(question_text):
+    return {
+        'keywords': extract_legal_terms(question_text),
+        'laws': extract_law_references(question_text),
+        'articles': extract_article_numbers(question_text),
+        'complexity': calculate_complexity_score(question_text)
+    }
+7. FLUXOS DE USUÁRIO
+7.1 Fluxo de Primeiro Acesso
+mermaid1. Landing Page → Cadastro/Login
+2. Onboarding (objetivos, tempo disponível)
+3. Teste diagnóstico (20 questões)
+4. Dashboard personalizado
+5. Recomendação de plano de estudos
+7.2 Fluxo de Simulado
+mermaid1. Selecionar tipo de simulado
+2. Configurar parâmetros (matérias, tempo)
+3. Iniciar simulado
+4. Responder questões (com timer)
+5. Finalizar ou pausar
+6. Ver relatório detalhado
+7. Salvar para revisão
+7.3 Fluxo de Revisão
+mermaid1. Acessar questões erradas/marcadas
+2. Refazer questões
+3. Ver explicação expandida
+4. Adicionar anotações
+5. Marcar como compreendida
+8. GAMIFICAÇÃO
+8.1 Sistema de Pontos
+typescriptinterface PointSystem {
+  correctAnswer: 100,
+  speedBonus: (time < 30) ? 50 : 0,
+  difficultyMultiplier: {
+    EASY: 0.8,
+    MEDIUM: 1.0,
+    HARD: 1.5,
+    VERY_HARD: 2.0
+  },
+  streakBonus: days * 10
+}
+8.2 Conquistas
+
+🎯 Primeira Questão Correta
+🔥 7 Dias de Sequência
+🏆 100% em um Simulado
+📚 Mestre da Matéria (90% de acerto)
+⚡ Velocista (10 questões < 30s)
+🎓 1000 Questões Respondidas
+
+9. PLANOS E MONETIZAÇÃO
+9.1 Estrutura de Planos
+FeatureFREEBASIC (R$29)PRO (R$49)Questões/dia550IlimitadoSimulados/semana15IlimitadoHistórico30 dias90 diasCompletoAnalyticsBásicoIntermediárioAvançadoIA Adaptativa❌Parcial✅Revisão Espaçada❌❌✅Exportar Relatórios❌PDFPDF + Excel
+10. MÉTRICAS DE SUCESSO
+10.1 KPIs Principais
+
+Engagement: DAU/MAU > 40%
+Retenção: D30 > 25%
+Conversão: Free→Paid > 5%
+Accuracy: Predição vs. Resultado Real > 85%
+NPS: > 50
+
+10.2 Métricas Técnicas
+
+Performance: LCP < 2.5s
+API Response: P95 < 200ms
+Uptime: > 99.9%
+Error Rate: < 0.1%
+
+11. ROADMAP DE IMPLEMENTAÇÃO
+Fase 1: MVP (4 semanas)
+
+ Setup infraestrutura base
+ Importação do dataset
+ Sistema de questões básico
+ Simulado simples
+ Autenticação
+
+Fase 2: Core Features (4 semanas)
+
+ Simulados completos
+ Analytics básico
+ Sistema de pagamento
+ Gamificação
+
+Fase 3: IA e Otimização (4 semanas)
+
+ Algoritmos adaptativos
+ Repetição espaçada
+ Predição de performance
+ PWA e offline mode
+
+12. REQUISITOS NÃO-FUNCIONAIS
+12.1 Performance
+
+Tempo de carregamento < 3s
+Suporte a 10.000 usuários simultâneos
+Cache de questões frequentes
+Lazy loading de componentes
+
+12.2 Segurança
+
+Criptografia de dados sensíveis
+Rate limiting nas APIs
+Validação de inputs (Zod)
+CORS configurado adequadamente
+
+12.3 Usabilidade
+
+Mobile-first responsive
+Acessibilidade WCAG 2.1 AA
+Dark mode
+Offline support (PWA)
+
+
+🎨 Design System - Simulai OAB
+1. CONCEITO VISUAL
+1.1 Identidade Visual
+Conceito: "Legal Tech Moderna" - Uma fusão entre a seriedade do Direito e a modernidade da tecnologia, criando uma experiência que inspira confiança mas não intimida.
+Personalidade da Marca:
+
+Profissional mas não antiquado
+Moderno mas não infantil
+Motivador mas não invasivo
+Tech-savvy mas acessível
+
+2. PALETA DE CORES
+scss// Cores Primárias
+$navy-950: #0F172A;    // Background principal
+$navy-900: #1E293B;    // Cards e containers
+$navy-800: #334155;    // Bordas e divisores
+$navy-700: #475569;    // Texto secundário
+$navy-600: #64748B;    // Texto desabilitado
+
+// Accent Colors (Azul Elétrico)
+$blue-600: #2563EB;    // CTAs principais
+$blue-500: #3B82F6;    // Hover states
+$blue-400: #60A5FA;    // Links e destaques
+$cyan-400: #22D3EE;    // Badges e notificações
+
+// Cores Semânticas
+$green-500: #10B981;   // Sucesso/Correto
+$red-500: #EF4444;     // Erro/Incorreto
+$amber-500: #F59E0B;   // Aviso/Atenção
+$purple-500: #8B5CF6;  // Premium/Especial
+
+// Gradientes
+$gradient-primary: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
+$gradient-success: linear-gradient(135deg, #10B981 0%, #22D3EE 100%);
+$gradient-premium: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+
+// Glassmorphism
+$glass-bg: rgba(30, 41, 59, 0.8);
+$glass-border: rgba(255, 255, 255, 0.1);
+3. TIPOGRAFIA
+3.1 Fontes Escolhidas
+css/* Heading Font - Inter (Moderna e Limpa) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+/* Body Font - Plus Jakarta Sans (Legibilidade) */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+/* Código/Números - JetBrains Mono */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+3.2 Sistema Tipográfico
+scss// Escala Tipográfica
+$font-sizes: (
+  'xs': 0.75rem,    // 12px
+  'sm': 0.875rem,   // 14px
+  'base': 1rem,     // 16px
+  'lg': 1.125rem,   // 18px
+  'xl': 1.25rem,    // 20px
+  '2xl': 1.5rem,    // 24px
+  '3xl': 1.875rem,  // 30px
+  '4xl': 2.25rem,   // 36px
+  '5xl': 3rem,      // 48px
+  '6xl': 3.75rem    // 60px
+);
+
+// Aplicação
+.heading-1 {
+  font-family: 'Inter', sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  background: $gradient-primary;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.body-text {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: $navy-600;
+}
+
+.code-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+4. COMPONENTES UI
+4.1 Cards
+tsx// Card Glassmorphism
+const QuestionCard = () => (
+  <div className="
+    bg-navy-900/80 
+    backdrop-blur-xl 
+    border border-white/10 
+    rounded-2xl 
+    p-6 
+    shadow-2xl
+    hover:shadow-blue-500/20
+    transition-all duration-300
+  ">
+    {/* Conteúdo */}
+  </div>
+);
+
+// Card com Gradiente Border
+const PremiumCard = () => (
+  <div className="
+    relative 
+    p-[2px] 
+    bg-gradient-to-r from-blue-500 to-purple-500 
+    rounded-2xl
+  ">
+    <div className="bg-navy-900 rounded-2xl p-6">
+      {/* Conteúdo */}
+    </div>
+  </div>
+);
+4.2 Botões
+scss// Botão Primário
+.btn-primary {
+  background: linear-gradient(135deg, #2563EB 0%, #3B82F6 100%);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.3);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(37, 99, 235, 0.4);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Botão Ghost
+.btn-ghost {
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  color: $blue-400;
+  backdrop-filter: blur(10px);
+  
+  &:hover {
+    background: rgba(37, 99, 235, 0.1);
+    border-color: $blue-500;
+  }
+}
+
+// Botão Neon (para CTAs especiais)
+.btn-neon {
+  background: $blue-600;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  &:hover::before {
+    left: 100%;
+  }
+}
+4.3 Inputs e Forms
+tsx// Input com Floating Label
+const ModernInput = () => (
+  <div className="relative">
+    <input
+      className="
+        peer
+        w-full
+        bg-navy-800/50
+        border-2 border-navy-700
+        rounded-xl
+        px-4 pt-6 pb-2
+        text-white
+        placeholder-transparent
+        focus:border-blue-500
+        focus:outline-none
+        transition-colors
+      "
+      placeholder="Email"
+    />
+    <label className="
+      absolute
+      left-4
+      top-2
+      text-xs
+      text-navy-600
+      transition-all
+      peer-placeholder-shown:text-base
+      peer-placeholder-shown:top-4
+      peer-focus:top-2
+      peer-focus:text-xs
+      peer-focus:text-blue-400
+    ">
+      Email
+    </label>
+  </div>
+);
+5. MICRO-INTERAÇÕES E ANIMAÇÕES
+5.1 Animações Tailwind Config
+javascript// tailwind.config.js
+module.exports = {
+  theme: {
+    extend: {
+      animation: {
+        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'float': 'float 6s ease-in-out infinite',
+        'glow': 'glow 2s ease-in-out infinite alternate',
+        'slide-up': 'slideUp 0.3s ease-out',
+        'fade-in': 'fadeIn 0.5s ease-out',
+        'shimmer': 'shimmer 2s linear infinite',
+      },
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
+        glow: {
+          '0%': { boxShadow: '0 0 20px rgba(37, 99, 235, 0.5)' },
+          '100%': { boxShadow: '0 0 30px rgba(37, 99, 235, 0.8)' },
+        },
+        slideUp: {
+          '0%': { transform: 'translateY(10px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        shimmer: {
+          '100%': { transform: 'translateX(100%)' },
+        },
+      },
+    },
+  },
+}
+5.2 Componentes Animados
+tsx// Loading Skeleton com Shimmer
+const SkeletonLoader = () => (
+  <div className="relative overflow-hidden bg-navy-800 rounded-xl">
+    <div className="animate-shimmer absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+  </div>
+);
+
+// Success Animation
+const SuccessCheck = () => (
+  <div className="relative">
+    <div className="animate-scale-up">
+      <svg className="w-20 h-20 text-green-500">
+        <circle className="animate-draw-circle" />
+        <path className="animate-draw-check" d="..." />
+      </svg>
+    </div>
+    <div className="absolute inset-0 animate-ping bg-green-500 rounded-full opacity-20" />
+  </div>
+);
+6. COMPONENTES ESPECÍFICOS DO SIMULAI
+6.1 Question Card Design
+tsxconst QuestionCardDesign = () => (
+  <div className="bg-navy-900/90 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden">
+    {/* Header */}
+    <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 p-4 border-b border-white/10">
+      <div className="flex justify-between items-center">
+        <div className="flex gap-3">
+          <span className="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-lg text-sm font-medium">
+            Constitucional
+          </span>
+          <span className="px-3 py-1 bg-amber-500/20 text-amber-400 rounded-lg text-sm font-medium">
+            Média
+          </span>
+        </div>
+        <div className="flex items-center gap-2 text-cyan-400">
+          <Timer className="w-4 h-4" />
+          <span className="font-mono text-sm">02:45</span>
+        </div>
+      </div>
+    </div>
+    
+    {/* Question */}
+    <div className="p-6">
+      <p className="text-white/90 leading-relaxed mb-6">
+        {/* Enunciado */}
+      </p>
+      
+      {/* Alternatives */}
+      <div className="space-y-3">
+        {['A', 'B', 'C', 'D'].map(letter => (
+          <button className="
+            w-full 
+            group
+            relative
+            bg-navy-800/50
+            border-2 border-navy-700
+            hover:border-blue-500/50
+            hover:bg-blue-500/10
+            rounded-xl
+            p-4
+            text-left
+            transition-all
+            duration-300
+          ">
+            <div className="flex items-start gap-4">
+              <span className="
+                flex items-center justify-center
+                w-8 h-8
+                bg-navy-700
+                group-hover:bg-blue-500
+                text-white/70
+                group-hover:text-white
+                rounded-lg
+                font-bold
+                transition-all
+              ">
+                {letter}
+              </span>
+              <span className="text-white/80 flex-1">
+                {/* Texto da alternativa */}
+              </span>
+            </div>
+          </button>
+        ))}
+      </div>
+    </div>
+  </div>
+);
+6.2 Dashboard Stats Card
+tsxconst StatsCard = ({ icon, label, value, trend, color }) => (
+  <div className="group relative">
+    {/* Glow Effect */}
+    <div className={`absolute inset-0 bg-${color}-500 opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500`} />
+    
+    <div className="relative bg-navy-900/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all">
+      <div className="flex items-start justify-between mb-4">
+        <div className={`p-3 bg-${color}-500/20 rounded-xl`}>
+          {icon}
+        </div>
+        {trend && (
+          <div className="flex items-center gap-1 text-green-400 text-sm">
+            <TrendingUp className="w-4 h-4" />
+            <span>+{trend}%</span>
+          </div>
+        )}
+      </div>
+      
+      <div>
+        <p className="text-3xl font-bold text-white mb-1">
+          {value}
+        </p>
+        <p className="text-sm text-navy-600">
+          {label}
+        </p>
+      </div>
+    </div>
+  </div>
+);
+6.3 Progress Indicator
+tsxconst ModernProgress = ({ value, label }) => (
+  <div className="relative">
+    <div className="flex justify-between mb-2">
+      <span className="text-sm text-white/70">{label}</span>
+      <span className="text-sm font-bold text-blue-400">{value}%</span>
+    </div>
+    
+    <div className="relative h-2 bg-navy-800 rounded-full overflow-hidden">
+      <div 
+        className="absolute h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full transition-all duration-500"
+        style={{ width: `${value}%` }}
+      >
+        {/* Shimmer effect */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
+      </div>
+    </div>
+  </div>
+);
+7. ÍCONES E ILUSTRAÇÕES
+7.1 Sistema de Ícones
+
+Biblioteca Principal: Lucide React (moderna e consistente)
+Ícones Custom: Para features específicas (simulado, questões, etc)
+Estilo: Outline com 2px de stroke, cantos arredondados
+
+7.2 Ilustrações
+scss// Estilo de ilustrações
+- Minimalista e geométrico
+- Cores: Usar gradientes da paleta
+- Animações sutis (float, pulse)
+- SVGs otimizados
+8. MODO ESCURO (PADRÃO)
+scss// O app é dark-first
+:root {
+  --bg-primary: #0F172A;
+  --bg-secondary: #1E293B;
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  
+  // Modo claro opcional (para acessibilidade)
+  &.light-mode {
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #F8FAFC;
+    --text-primary: #0F172A;
+    --text-secondary: #64748B;
+  }
+}
+9. RESPONSIVIDADE
+9.1 Breakpoints
+scss$breakpoints: (
+  'xs': 375px,   // iPhone SE
+  'sm': 640px,   // Mobile landscape
+  'md': 768px,   // Tablet
+  'lg': 1024px,  // Desktop
+  'xl': 1280px,  // Wide desktop
+  '2xl': 1536px  // Ultra wide
+);
+9.2 Mobile First
+scss// Componentes adaptáveis
+.question-card {
+  padding: 1rem; // Mobile
+  
+  @media (min-width: 768px) {
+    padding: 1.5rem; // Tablet+
+  }
+  
+  @media (min-width: 1024px) {
+    padding: 2rem; // Desktop+
+  }
+}
+10. ACESSIBILIDADE
+scss// Focus States
+.interactive-element {
+  &:focus-visible {
+    outline: 2px solid $blue-500;
+    outline-offset: 2px;
+  }
+}
+
+// Contraste mínimo
+// - Texto normal: 4.5:1
+// - Texto grande: 3:1
+// - UI elements: 3:1
+
+// Reduced Motion
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+11. LOADING STATES
+tsx// Skeleton Loading
+const QuestionSkeleton = () => (
+  <div className="animate-pulse">
+    <div className="h-4 bg-navy-800 rounded w-1/4 mb-4" />
+    <div className="h-20 bg-navy-800 rounded mb-4" />
+    <div className="space-y-3">
+      {[1,2,3,4].map(i => (
+        <div key={i} className="h-16 bg-navy-800 rounded" />
+      ))}
+    </div>
+  </div>
+);
+
+// Spinner Moderno
+const Spinner = () => (
+  <div className="relative w-10 h-10">
+    <div className="absolute inset-0 border-4 border-navy-700 rounded-full" />
+    <div className="absolute inset-0 border-4 border-transparent border-t-blue-500 rounded-full animate-spin" />
+  </div>
+);
+12. TEMAS ESPECIAIS
+12.1 Modo Premium
+scss// Visual diferenciado para usuários PRO
+.premium-badge {
+  background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+}
+
+.premium-border {
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(45deg, #8B5CF6, #EC4899, #8B5CF6);
+    border-radius: inherit;
+    z-index: -1;
+    animation: gradient-rotate 3s linear infinite;
+  }
+}
+12.2 Conquistas e Gamificação
+scss// Visual para achievements
+.achievement-unlocked {
+  background: radial-gradient(circle, rgba(251,191,36,0.2) 0%, transparent 70%);
+  border: 2px solid $amber-500;
+  animation: glow-gold 2s ease-in-out infinite;
+}
+
+.streak-fire {
+  filter: drop-shadow(0 0 10px rgba(239,68,68,0.8));
+  animation: fire-flicker 1.5s ease-in-out infinite;
+}
+
+Este PRD define todos os aspectos técnicos e funcionais necessários para o desenvolvimento completo do Simulai OAB, com foco na criação de um gerador de simulados didático e funcional baseado em dados reais do exame.
