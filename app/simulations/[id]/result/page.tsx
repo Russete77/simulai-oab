@@ -37,7 +37,25 @@ export default async function SimulationResultPage({ params }: { params: Promise
   // Calculate statistics
   const totalQuestions = simulation.totalQuestions;
   const correctAnswers = simulation.answers.filter(a => a.isCorrect).length;
-  const wrongAnswers = simulation.answers.filter(a => !a.isCorrect);
+  const wrongAnswers = simulation.answers
+    .filter(a => !a.isCorrect)
+    .map((a: any) => ({
+      id: a.id,
+      questionId: a.questionId,
+      selectedAlternativeId: a.alternativeId,
+      isCorrect: a.isCorrect,
+      question: {
+        id: a.question.id,
+        statement: a.question.statement,
+        subject: a.question.subject,
+        alternatives: a.question.alternatives.map((alt: any) => ({
+          id: alt.id,
+          letter: alt.label,
+          text: alt.text,
+          isCorrect: alt.isCorrect,
+        })),
+      },
+    }));
   const score = simulation.score || 0;
   const timeSpent = simulation.timeSpent || 0;
 

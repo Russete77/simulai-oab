@@ -217,7 +217,7 @@ export function WrongQuestionsReview({ wrongAnswers }: WrongQuestionsReviewProps
                     {/* AI Chat */}
                     {isChatOpen && (
                       <div className="border-t border-navy-700 pt-4">
-                        <QuestionChat questionId={answer.questionId} />
+                        <QuestionChat questionId={answer.questionId} onClose={() => setChatOpen(null)} />
                       </div>
                     )}
                   </div>
