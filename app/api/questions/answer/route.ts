@@ -50,6 +50,7 @@ export async function POST(request: NextRequest) {
         userId: user.id,
         questionId: data.questionId,
         alternativeId: data.alternativeId,
+        simulationId: data.simulationId ?? undefined,
         isCorrect,
         timeSpent: data.timeSpent,
         confidence: data.confidence,
