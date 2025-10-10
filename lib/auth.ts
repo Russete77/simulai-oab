@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/db/prisma";
+import { reconcileUser } from "@/lib/auth/reconcile";
 
 export async function getCurrentUser() {
   const supabase = await createClient();
@@ -12,34 +13,48 @@ export async function getCurrentUser() {
     return null;
   }
 
-  // Buscar ou criar usuário no Prisma
-  const dbUser = await prisma.user.upsert({
-    where: { supabaseId: user.id },
-    update: {
-      email: user.email!,
-      updatedAt: new Date(),
-    },
-    create: {
-      supabaseId: user.id,
-      email: user.email!,
-      name: user.user_metadata?.name || null,
-      profile: {
-        create: {
-          totalPoints: 0,
-          level: 1,
-          streak: 0,
-          totalQuestions: 0,
-          correctAnswers: 0,
-          dailyGoal: 20,
-        },
-      },
-    },
-    include: {
-      profile: true,
-    },
-  });
+  try {
+    // Usar reconcileUser para evitar conflitos de constraint único
+    await reconcileUser(
+      prisma,
+      { id: user.id, email: user.email! },
+      user.user_metadata?.name || null
+    );
 
-  return dbUser;
+    // Buscar o usuário atualizado com profile
+    const dbUser = await prisma.user.findUnique({
+      where: { supabaseId: user.id },
+      include: {
+        profile: true,
+      },
+    });
+
+    if (!dbUser) {
+      console.error('[auth.getCurrentUser] User not found after reconciliation', {
+        supabaseId: user.id,
+        email: user.email,
+      });
+      return null;
+    }
+
+    return dbUser;
+  } catch (error: any) {
+    console.error('[auth.getCurrentUser] Failed to reconcile user', {
+      supabaseId: user.id,
+      email: user.email,
+      error: error?.message ?? String(error),
+    });
+
+    // Em caso de erro, tentar buscar o usuário existente
+    const existingUser = await prisma.user.findUnique({
+      where: { supabaseId: user.id },
+      include: {
+        profile: true,
+      },
+    });
+
+    return existingUser;
+  }
 }
 
 export async function requireAuth() {
