@@ -4,6 +4,7 @@ import { Card, Button, Progress } from "@/components/ui";
 import { ArrowLeft, Trophy, Target, Clock, TrendingUp, AlertCircle } from "lucide-react";
 import Link from "next/link";
 import { prisma } from "@/lib/db/prisma";
+import { WrongQuestionsReview } from "@/components/simulation/wrong-questions-review";
 
 export default async function SimulationResultPage({ params }: { params: Promise<{ id: string }> }) {
   const user = await getCurrentUser();
@@ -20,8 +21,8 @@ export default async function SimulationResultPage({ params }: { params: Promise
       answers: {
         include: {
           question: {
-            select: {
-              subject: true,
+            include: {
+              alternatives: true,
             },
           },
         },
@@ -36,6 +37,7 @@ export default async function SimulationResultPage({ params }: { params: Promise
   // Calculate statistics
   const totalQuestions = simulation.totalQuestions;
   const correctAnswers = simulation.answers.filter(a => a.isCorrect).length;
+  const wrongAnswers = simulation.answers.filter(a => !a.isCorrect);
   const score = simulation.score || 0;
   const timeSpent = simulation.timeSpent || 0;
 
@@ -206,6 +208,13 @@ export default async function SimulationResultPage({ params }: { params: Promise
               </div>
             </div>
           </Card>
+        )}
+
+        {/* Wrong Questions Review with AI Chat */}
+        {wrongAnswers.length > 0 && (
+          <div className="mb-8">
+            <WrongQuestionsReview wrongAnswers={wrongAnswers} />
+          </div>
         )}
 
         {/* Actions */}

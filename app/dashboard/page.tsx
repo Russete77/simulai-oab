@@ -2,7 +2,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { Header } from "@/components/layout/header";
 import { StatsCard, Card, Progress, Button } from "@/components/ui";
-import { BookOpen, Target, Flame, Trophy, TrendingUp, Play, BarChart3 } from "lucide-react";
+import { BookOpen, Target, Flame, Trophy, TrendingUp, Play, BarChart3, Crown } from "lucide-react";
 import Link from "next/link";
 
 export default async function DashboardPage() {
@@ -62,7 +62,7 @@ export default async function DashboardPage() {
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
           <Card variant="glass">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-xl font-bold text-white">Iniciar Prática</h3>
@@ -95,7 +95,7 @@ export default async function DashboardPage() {
 
           <Card variant="glass">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-bold text-white">Análise de Desempenho</h3>
+              <h3 className="text-xl font-bold text-white">Analytics</h3>
               <BarChart3 className="w-6 h-6 text-cyan-400" />
             </div>
             <p className="text-navy-600 mb-6">
@@ -104,6 +104,21 @@ export default async function DashboardPage() {
             <Link href="/analytics">
               <Button variant="outline" className="w-full">
                 Ver Análise
+              </Button>
+            </Link>
+          </Card>
+
+          <Card variant="glass">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xl font-bold text-white">Ranking</h3>
+              <Crown className="w-6 h-6 text-yellow-400" />
+            </div>
+            <p className="text-navy-600 mb-6">
+              Compare-se com outros estudantes
+            </p>
+            <Link href="/leaderboard">
+              <Button variant="outline" className="w-full">
+                Ver Ranking
               </Button>
             </Link>
           </Card>

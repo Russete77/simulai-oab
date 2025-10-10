@@ -26,6 +26,13 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Simulai OAB - Preparação Inteligente para o Exame da OAB",
   description: "Plataforma completa de preparação para o Exame da OAB com IA, simulados adaptativos e análise de desempenho.",
+  manifest: "/manifest.json",
+  themeColor: "#3b82f6",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Simulai OAB",
+  },
 };
 
 export default function RootLayout({
