@@ -79,8 +79,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Fallback para build time quando publishableKey não está disponível
+  const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || 'pk_test_placeholder';
+
   return (
-    <ClerkProvider localization={ptBR}>
+    <ClerkProvider publishableKey={publishableKey} localization={ptBR}>
       <html lang="pt-BR" className="dark">
         <body className={`${inter.variable} ${plusJakarta.variable} ${jetbrainsMono.variable} font-sans antialiased bg-navy-950 text-white`}>
           <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-blue-600 focus:text-white focus:rounded-md focus:top-4 focus:left-1/2 focus:-translate-x-1/2">
