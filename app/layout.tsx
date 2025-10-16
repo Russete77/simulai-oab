@@ -79,8 +79,36 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Obter a chave publicável do Clerk
+  const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+
+  // Durante o build, se a chave não estiver disponível, renderizar sem Clerk
+  // Isso permite que o build seja concluído, mas o Clerk funcionará em runtime
+  if (!publishableKey) {
+    console.warn('⚠️ NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY não encontrada durante o build. Configure no Vercel para produção.');
+    return (
+      <html lang="pt-BR" className="dark">
+        <body className={`${inter.variable} ${plusJakarta.variable} ${jetbrainsMono.variable} font-sans antialiased bg-navy-950 text-white`}>
+          <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-blue-600 focus:text-white focus:rounded-md focus:top-4 focus:left-1/2 focus:-translate-x-1/2">
+            Pular para o conteúdo principal
+          </a>
+          {children}
+          <Toaster
+            position="top-right"
+            theme="dark"
+            richColors
+            closeButton
+            toastOptions={{
+              className: "bg-navy-900 border-navy-800 text-white",
+            }}
+          />
+        </body>
+      </html>
+    );
+  }
+
   return (
-    <ClerkProvider localization={ptBR}>
+    <ClerkProvider publishableKey={publishableKey} localization={ptBR}>
       <html lang="pt-BR" className="dark">
         <body className={`${inter.variable} ${plusJakarta.variable} ${jetbrainsMono.variable} font-sans antialiased bg-navy-950 text-white`}>
           <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-blue-600 focus:text-white focus:rounded-md focus:top-4 focus:left-1/2 focus:-translate-x-1/2">
