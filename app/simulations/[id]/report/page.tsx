@@ -47,26 +47,26 @@ export default function SimulationReportPage({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    async function loadReport() {
+      try {
+        setLoading(true);
+        const response = await fetch(`/api/simulations/${id}/analytics`);
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch report');
+        }
+
+        const result = await response.json();
+        setData(result);
+      } catch (error) {
+        console.error('Error loading report:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
     loadReport();
   }, [id]);
-
-  const loadReport = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(`/api/simulations/${id}/analytics`);
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch report');
-      }
-
-      const result = await response.json();
-      setData(result);
-    } catch (error) {
-      console.error('Error loading report:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const formatDuration = (seconds: number) => {
     const hours = Math.floor(seconds / 3600);
@@ -102,7 +102,7 @@ export default function SimulationReportPage({
       <div className="min-h-screen bg-navy-950 flex items-center justify-center">
         <Card variant="glass" className="text-center p-8">
           <p className="text-white mb-4">Erro ao carregar relatório</p>
-          <Button variant="primary" onClick={loadReport}>
+          <Button variant="primary" onClick={() => router.refresh()}>
             Tentar Novamente
           </Button>
         </Card>

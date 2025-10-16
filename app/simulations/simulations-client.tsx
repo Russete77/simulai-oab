@@ -7,14 +7,20 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { SimulationType } from '@prisma/client';
+import {
+  SIMULATION_TYPE_LABELS,
+  SIMULATION_TYPE_DESCRIPTIONS,
+  SIMULATION_TYPE_TIME,
+  SIMULATION_TYPE_QUESTIONS,
+} from '@/lib/constants/simulation-types';
 
 export default function SimulationsClient() {
   const router = useRouter();
-  const [creating, setCreating] = useState(false);
+  const [creatingType, setCreatingType] = useState<SimulationType | null>(null);
 
   const createSimulation = async (type: SimulationType) => {
     try {
-      setCreating(true);
+      setCreatingType(type);
       const response = await fetch('/api/simulations/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -30,8 +36,7 @@ export default function SimulationsClient() {
     } catch (error) {
       console.error('Error creating simulation:', error);
       alert('Erro ao criar simulado. Tente novamente.');
-    } finally {
-      setCreating(false);
+      setCreatingType(null);
     }
   };
 
@@ -39,37 +44,21 @@ export default function SimulationsClient() {
     {
       type: 'FULL_EXAM' as SimulationType,
       icon: <FileText className="w-8 h-8" />,
-      title: 'Simulado Completo',
-      description: 'Formato oficial da OAB com 80 questões',
-      questions: '80 questões',
-      time: '5 horas',
       color: 'blue',
     },
     {
       type: 'ADAPTIVE' as SimulationType,
       icon: <Zap className="w-8 h-8" />,
-      title: 'Simulado Adaptativo',
-      description: 'Questões que se ajustam ao seu nível',
-      questions: '40 questões',
-      time: '2 horas',
       color: 'purple',
     },
     {
       type: 'QUICK_PRACTICE' as SimulationType,
       icon: <Target className="w-8 h-8" />,
-      title: 'Prática Rápida',
-      description: 'Teste rápido para revisão',
-      questions: '20 questões',
-      time: '1 hora',
       color: 'cyan',
     },
     {
       type: 'ERROR_REVIEW' as SimulationType,
       icon: <RotateCcw className="w-8 h-8" />,
-      title: 'Revisão de Erros',
-      description: 'Refaça questões que você errou',
-      questions: '30 questões',
-      time: 'Livre',
       color: 'amber',
     },
   ];
@@ -101,19 +90,27 @@ export default function SimulationsClient() {
                   {sim.icon}
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold text-white mb-1">{sim.title}</h3>
-                  <p className="text-navy-600 text-sm">{sim.description}</p>
+                  <h3 className="text-xl font-bold text-white mb-1">
+                    {SIMULATION_TYPE_LABELS[sim.type]}
+                  </h3>
+                  <p className="text-navy-600 text-sm">
+                    {SIMULATION_TYPE_DESCRIPTIONS[sim.type]}
+                  </p>
                 </div>
               </div>
 
               <div className="flex gap-4 mb-4">
                 <div className="flex-1 bg-navy-800/50 rounded-lg p-3">
                   <p className="text-navy-600 text-xs mb-1">Questões</p>
-                  <p className="text-white font-semibold">{sim.questions}</p>
+                  <p className="text-white font-semibold">
+                    {SIMULATION_TYPE_QUESTIONS[sim.type]}
+                  </p>
                 </div>
                 <div className="flex-1 bg-navy-800/50 rounded-lg p-3">
                   <p className="text-navy-600 text-xs mb-1">Tempo</p>
-                  <p className="text-white font-semibold">{sim.time}</p>
+                  <p className="text-white font-semibold">
+                    {SIMULATION_TYPE_TIME[sim.type]}
+                  </p>
                 </div>
               </div>
 
@@ -121,9 +118,9 @@ export default function SimulationsClient() {
                 variant="primary"
                 className="w-full"
                 onClick={() => createSimulation(sim.type)}
-                disabled={creating}
+                disabled={creatingType !== null}
               >
-                {creating ? 'Criando...' : 'Iniciar Simulado'}
+                {creatingType === sim.type ? 'Criando...' : 'Iniciar Simulado'}
               </Button>
             </Card>
           ))}

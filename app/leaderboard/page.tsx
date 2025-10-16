@@ -35,21 +35,21 @@ export default function LeaderboardPage() {
   const [limit, setLimit] = useState(50);
 
   useEffect(() => {
+    async function fetchLeaderboard() {
+      try {
+        setLoading(true);
+        const response = await fetch(`/api/leaderboard?limit=${limit}`);
+        const result = await response.json();
+        setData(result);
+      } catch (error) {
+        console.error('Erro ao buscar leaderboard:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
     fetchLeaderboard();
   }, [limit]);
-
-  const fetchLeaderboard = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(`/api/leaderboard?limit=${limit}`);
-      const result = await response.json();
-      setData(result);
-    } catch (error) {
-      console.error('Erro ao buscar leaderboard:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const getRankIcon = (rank: number) => {
     if (rank === 1) return <Crown className="w-6 h-6 text-yellow-400" />;

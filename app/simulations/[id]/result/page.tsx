@@ -15,14 +15,26 @@ export default async function SimulationResultPage({ params }: { params: Promise
 
   const { id } = await params;
 
+  // Otimização: buscar apenas os dados necessários
   const simulation = await prisma.simulation.findUnique({
     where: { id },
     include: {
       answers: {
+        where: { isCorrect: false }, // Apenas respostas erradas para review
         include: {
           question: {
-            include: {
-              alternatives: true,
+            select: {
+              id: true,
+              statement: true,
+              subject: true,
+              alternatives: {
+                select: {
+                  id: true,
+                  label: true,
+                  text: true,
+                  isCorrect: true,
+                },
+              },
             },
           },
         },
@@ -30,46 +42,81 @@ export default async function SimulationResultPage({ params }: { params: Promise
     },
   });
 
+  // Buscar estatísticas agregadas de forma otimizada
+  const [correctCount, answersBySubject] = await Promise.all([
+    prisma.userAnswer.count({
+      where: { simulationId: id, isCorrect: true },
+    }),
+    prisma.userAnswer.groupBy({
+      by: ['questionId', 'isCorrect'],
+      where: { simulationId: id },
+      _count: true,
+    }),
+  ]);
+
   if (!simulation || simulation.userId !== user.id || simulation.status !== 'COMPLETED') {
     redirect('/simulations');
   }
 
-  // Calculate statistics
+  // Calculate statistics (usando dados já calculados do banco)
   const totalQuestions = simulation.totalQuestions;
-  const correctAnswers = simulation.answers.filter(a => a.isCorrect).length;
-  const wrongAnswers = simulation.answers
-    .filter(a => !a.isCorrect)
-    .map((a: any) => ({
-      id: a.id,
-      questionId: a.questionId,
-      selectedAlternativeId: a.alternativeId,
-      isCorrect: a.isCorrect,
-      question: {
-        id: a.question.id,
-        statement: a.question.statement,
-        subject: a.question.subject,
-        alternatives: a.question.alternatives.map((alt: any) => ({
-          id: alt.id,
-          letter: alt.label,
-          text: alt.text,
-          isCorrect: alt.isCorrect,
-        })),
-      },
-    }));
+  const correctAnswers = correctCount;
+  const wrongAnswers = simulation.answers.map((a: any) => ({
+    id: a.id,
+    questionId: a.questionId,
+    selectedAlternativeId: a.alternativeId,
+    isCorrect: false,
+    question: {
+      id: a.question.id,
+      statement: a.question.statement,
+      subject: a.question.subject,
+      alternatives: a.question.alternatives.map((alt: any) => ({
+        id: alt.id,
+        letter: alt.label,
+        text: alt.text,
+        isCorrect: alt.isCorrect,
+      })),
+    },
+  }));
   const score = simulation.score || 0;
   const timeSpent = simulation.timeSpent || 0;
+
+  // By subject - buscar questões com subjects
+  const questionsWithSubjects = await prisma.simulationQuestion.findMany({
+    where: { simulationId: id },
+    include: {
+      question: {
+        select: {
+          id: true,
+          subject: true,
+        },
+      },
+    },
+  });
+
+  // Mapear answers por questionId
+  const answersMap = new Map<string, boolean>();
+  await prisma.userAnswer.findMany({
+    where: { simulationId: id },
+    select: {
+      questionId: true,
+      isCorrect: true,
+    },
+  }).then(answers => {
+    answers.forEach(a => answersMap.set(a.questionId, a.isCorrect));
+  });
 
   // By subject
   const bySubjectMap = new Map<string, { total: number; correct: number }>();
 
-  simulation.answers.forEach((answer) => {
-    const subject = answer.question.subject;
+  questionsWithSubjects.forEach((sq) => {
+    const subject = sq.question.subject;
     if (!bySubjectMap.has(subject)) {
       bySubjectMap.set(subject, { total: 0, correct: 0 });
     }
     const stats = bySubjectMap.get(subject)!;
     stats.total += 1;
-    if (answer.isCorrect) {
+    if (answersMap.get(sq.questionId)) {
       stats.correct += 1;
     }
   });

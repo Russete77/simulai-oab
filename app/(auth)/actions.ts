@@ -2,6 +2,7 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/db/prisma";
+import { reconcileUser } from '@/lib/auth/reconcile';
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
@@ -27,24 +28,16 @@ export async function signUp(formData: FormData) {
   }
 
   if (data.user) {
-    // Criar usuário no Prisma
-    await prisma.user.create({
-      data: {
-        supabaseId: data.user.id,
-        email: data.user.email!,
-        name,
-        profile: {
-          create: {
-            totalPoints: 0,
-            level: 1,
-            streak: 0,
-            totalQuestions: 0,
-            correctAnswers: 0,
-            dailyGoal: 20,
-          },
-        },
-      },
-    });
+    const supabaseId = data.user.id;
+    const userEmail = data.user.email!;
+
+    try {
+      const res = await reconcileUser(prisma, { id: supabaseId, email: userEmail }, name);
+      console.info('[auth.signUp] reconcile result', res);
+    } catch (e: any) {
+      console.error('[auth.signUp] reconcile failed', { error: e?.message ?? String(e) });
+      throw e;
+    }
   }
 
   revalidatePath('/');
@@ -57,12 +50,33 @@ export async function signIn(formData: FormData) {
 
   const supabase = await createClient();
 
-  const { error } = await supabase.auth.signInWithPassword({
+  // Capture the full response so we can inspect status/details in logs
+  const signInResponse = await supabase.auth.signInWithPassword({
     email,
     password,
   });
 
+  const { data, error } = signInResponse as any;
+
   if (error) {
+    try {
+      console.error('[auth.signIn] login failed', {
+        // Log only the Supabase URL (not keys) so we can verify the project
+        supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL ?? null,
+        email: email ?? null,
+        // include returned objects for debugging
+        response: {
+          message: error.message,
+          status: (error as any).status ?? null,
+          details: (error as any).details ?? null,
+          hint: (error as any).hint ?? null,
+        },
+        rawData: data ?? null,
+      });
+    } catch (e) {
+      // ignore logging errors
+    }
+
     return { error: error.message };
   }
 

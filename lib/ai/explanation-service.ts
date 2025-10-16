@@ -25,6 +25,7 @@ interface ExplanationContext {
 
 export async function generateExplanation(
   context: ExplanationContext
+  , style: 'professor' | 'concise' | 'chat' = 'professor'
 ): Promise<string> {
   try {
     // 1. Verificar se já existe no banco (se a tabela existir)
@@ -47,10 +48,11 @@ export async function generateExplanation(
       console.log("⚠️  Tabela de explicações não encontrada, gerando sem cache");
     }
 
-    // 2. Preparar prompt
-    const prompt = buildExplanationPrompt(context);
+    // 2. Preparar prompt e system message baseado no estilo
+    const prompt = buildExplanationPrompt(context, style);
+    const systemMessage = getSystemPromptForStyle(style, context.subject);
 
-    console.log("🤖 Gerando explicação com IA...");
+    console.log("🤖 Gerando explicação com IA (estilo:", style, ")...");
 
     // 3. Chamar OpenAI
     const response = await openai.chat.completions.create({
@@ -58,28 +60,15 @@ export async function generateExplanation(
       messages: [
         {
           role: "system",
-          content: `Você é um professor especialista em Direito brasileiro preparando candidatos para a OAB.
-
-Forneça explicações CONCISAS e DIRETAS:
-
-1. **Resposta Correta** - Por que está certa (1-2 frases + base legal)
-2. **Alternativas Incorretas** - Por que estão erradas (breve)
-3. **Base Legal** - Lei/artigo específico
-4. **Dica Prática** - Macete de memorização
-
-FORMATO:
-- Use markdown limpo
-- Negrito apenas em termos-chave
-- Máximo 400 palavras
-- Priorize clareza sobre detalhes`,
+          content: systemMessage,
         },
         {
           role: "user",
           content: prompt,
         },
       ],
-      temperature: 0.6,
-      max_tokens: 600,
+      temperature: style === 'concise' ? 0.5 : 0.7,
+      max_tokens: style === 'concise' ? 400 : 800,
     });
 
     const explanation = response.choices[0].message.content || "";
@@ -107,7 +96,7 @@ FORMATO:
   }
 }
 
-function buildExplanationPrompt(context: ExplanationContext): string {
+function buildExplanationPrompt(context: ExplanationContext, style: 'professor' | 'concise' | 'chat' = 'professor'): string {
   const userAnswerInfo = context.userAnswer
     ? `\n**Resposta do usuário:** ${context.userAnswer} ${
         context.userAnswer !== context.correctAnswer ? "❌ (INCORRETA)" : "✓ (CORRETA)"
@@ -140,12 +129,26 @@ ${userAnswerInfo}
 Use Markdown para formatar sua resposta.`;
 }
 
+function getSystemPromptForStyle(style: 'professor' | 'concise' | 'chat', subject?: string) {
+  const base = `Você é um professor especialista em ${subject || 'Direito brasileiro'} preparando candidatos para a OAB.`;
+  if (style === 'concise') {
+    return `${base}\nForneça explicações CONCISAS e DIRETAS:\n1) Por que a alternativa correta está certa (1-2 frases + base legal)\n2) Por que as outras estão erradas\n3) Base legal\n4) Dica prática.\nUse Markdown limpo. Máximo 400 palavras.`;
+  }
+  if (style === 'chat') {
+    return `${base}\nResponda como um assistente conversacional: seja claro, amigável e prático. Use exemplos quando útil. Formate em Markdown se apropriado.`;
+  }
+  // professor (default)
+  return `${base}\nExplique como um professor didático: comece com visão geral do tema, apresente a resposta correta com justificativa detalhada, discuta alternativas incorretas com exemplos práticos e finalize com um resumo e dica de memorização. Use linguagem acessível e motivadora. Formate em Markdown.`;
+}
+
+
 // Função para chat interativo
 export async function chatAboutQuestion(
   questionId: string,
   userId: string,
   message: string,
-  chatHistory: { role: string; content: string }[]
+  chatHistory: { role: string; content: string }[],
+  style: 'professor' | 'concise' | 'chat' = 'chat'
 ): Promise<ReadableStream> {
   try {
     // Buscar contexto da questão
@@ -159,22 +162,12 @@ export async function chatAboutQuestion(
     }
 
     // Construir mensagens
+    const system = getSystemPromptForStyle(style, String(question.subject));
+
     const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [
       {
         role: "system",
-        content: `Você é um tutor especializado em Direito e preparação para OAB.
-
-Você está ajudando um estudante com dúvidas sobre uma questão específica.
-
-Contexto da questão:
-**Matéria:** ${question.subject}
-**Ano:** ${question.examYear}
-**Enunciado:** ${question.statement}
-**Alternativas:**
-${question.alternatives.map((a) => `${a.label}) ${a.text}`).join("\n")}
-**Correta:** ${question.alternatives.find((a) => a.isCorrect)?.label}
-
-Responda de forma didática, clara e objetiva. Use exemplos práticos quando possível.`,
+        content: `${system}\n\nVocê está ajudando um estudante com dúvidas sobre uma questão específica.\n\nContexto da questão:\n**Matéria:** ${question.subject}\n**Ano:** ${question.examYear}\n**Enunciado:** ${question.statement}\n**Alternativas:**\n${question.alternatives.map((a) => `${a.label}) ${a.text}`).join("\n")}\n**Correta:** ${question.alternatives.find((a) => a.isCorrect)?.label}\n\nResponda de forma didática, clara e objetiva. Use exemplos práticos quando possível.`,
       },
       ...chatHistory.map((msg) => ({
         role: msg.role as "user" | "assistant",
@@ -202,8 +195,17 @@ Responda de forma didática, clara e objetiva. Use exemplos práticos quando pos
       async start(controller) {
         try {
           for await (const chunk of stream) {
-            const text = chunk.choices[0]?.delta?.content || "";
+            let text = chunk.choices[0]?.delta?.content || "";
             if (text) {
+              // Minimal cleaning requested: remove bold markers (**) and heading markers (##) at line starts
+              try {
+                // remove all occurrences of double asterisks
+                text = text.replace(/\*\*/g, "");
+                // remove leading hashes at the start of lines (e.g. '## ', '### ')
+                text = text.replace(/(^|\n)#{1,6}\s*/g, "$1");
+              } catch (e) {
+                // if regex fails for some reason, fallback to original chunk
+              }
               controller.enqueue(encoder.encode(text));
             }
           }
@@ -218,3 +220,4 @@ Responda de forma didática, clara e objetiva. Use exemplos práticos quando pos
     throw error;
   }
 }
+

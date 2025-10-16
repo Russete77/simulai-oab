@@ -1,0 +1,2402 @@
+[
+  {
+    "id": "2011-04_2",
+    "question_number": 2,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "Os advogados Pedro e João desejam estabelecer sociedade de advogados com o fito de regularizar o controle dos seus fluxos de honorários e otimizar despesas. Estabelecem contrato e requerem o seu registro no órgão competente. À luz da legislação aplicável aos advogados, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "é possível a participação de advogados em sociedades sediadas em áreas territoriais de seccionais diversas.",
+        "o Código de Ética não se aplica individualmente aos profissionais que compõem sociedade de advogados.",
+        "podem existir sociedades mistas de advogados e contadores.",
+        "a procuração é sempre coletiva quando atuante sociedade de advogados."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2011-04_3",
+    "question_number": 3,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "Hércules, advogado recém-formado, é procurado por familiares de uma pessoa que descobriu, por vias transversas, estar sendo investigada em processo sigiloso, mas não tem ciência do objeto da investigação. Sem portar instrumento de procuração, dirige-se ao órgão investigador competente para obter informações, identificando-se como advogado do investigado. A autoridade competente, em decisão escrita, indefere o postulado, por estar ausente o instrumento do mandato e, ainda, ser a investigação sigilosa. Diante dessas circunstâncias, à luz da legislação aplicável, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "o acesso a processo sigiloso é possível aos advogados somente quando requeiram a prática de ato.",
+        "o acesso dos advogados dos interessados a processos sigilosos romperia com a proteção que eles mereceriam.",
+        "o processo sigiloso é acessível a advogado portando instrumento de mandato.",
+        "mesmo sem urgência, a atuação do advogado poderia ocorrer, sem mandato, em processo sigiloso."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2011-04_4",
+    "question_number": 4,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "O advogado Walter recebe correspondência eletrônica relatando fatos que o seu cliente apresentou como importantes para constar em processo judicial a ser iniciado. Expressamente, em outra mensagem também eletrônica, autorizou a utilização das informações nas peças judiciais. Proposta a ação, os fatos foram publicizados, vindo o cliente a se arrepender da autorização dada. Com isso, busca reverter a situação por ele criada. Diante da informação de que, uma vez nos autos processuais, não poderia haver retirada das petições apresentadas, ameaça o profissional com futura representação disciplinar. O cliente não negou ter autorizado a utilização das informações.\nDiante de tal quadro, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "mesmo com autorização, fatos considerados confidenciais na relação cliente-advogado não podem ser divulgados judicialmente.",
+        "as confidências epistolares são protegidas pela imunidade absoluta quanto à sua publicidade.",
+        "essa divulgação depende de autorização judicial.",
+        "ao advogado é permitida a divulgação de confidências, com autorização do cliente."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2011-04_5",
+    "question_number": 5,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "Juvenal, estagiário regularmente inscrito nos Quadros da OAB, em processo no qual se encontra indicado como tal, retira do cartório os autos do processo, deixando de devolvê-los no prazo legal. Regularmente intimado, mantém a sua inércia. Em termos disciplinares, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "o estagiário não sofre sanções disciplinares.",
+        "o advogado responsável pelo estagiário é o destinatário das sanções nesse caso.",
+        "não há diferença na atuação do estagiário e do advogado para efeito de sanções disciplinares.",
+        "no caso em tela, não haverá qualquer sanção nem ao advogado nem ao estagiário."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2011-04_6",
+    "question_number": 6,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "Túlio, advogado, é surpreendido ao praticar crime inafiançável, sendo preso em flagrante pela autoridade policial. A OAB é comunicada, e, por meio de membro da Comissão de Prerrogativas, acorre advogado ao local onde estão sendo realizados os trâmites procedimentais. Nos termos das normas estatutárias, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "a prisão do advogado que demanda a intervenção da OAB é a originária do exercício profissional.",
+        "o fato de a prisão atingir advogado indica a presença do representante da OAB.",
+        "só a prisão determinada pelo juiz é que permite a participação dos representantes da OAB.",
+        "a prisão preventiva é aquela que está circunscrita na atuação da OAB."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2011-04_7",
+    "question_number": 7,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "Em termos de processo disciplinar perante a OAB, é correto dizer que, havendo representação contra presidente de seccional, o órgão competente será o",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "próprio Conselho Seccional, impedido o presidente.",
+        "Conselho Federal da OAB.",
+        "Conselho Federal da OAB, quando houver impedimento de dois terços do Conselho Seccional de origem para o julgamento.",
+        "Conselho Seccional que for escolhido pelo Conselho Federal da OAB, por maioria absoluta."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2011-04_8",
+    "question_number": 8,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "Semprônio reside no Estado W, onde mantém o seu escritório de advocacia, mas requer sua inscrição principal no Estado K, onde, em alguns anos, pretende estabelecer domicílio. No concernente ao tema, à luz das normas estatutárias, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "o advogado pode eleger qualquer seccional para inscrição principal ao seu arbítrio.",
+        "o Conselho Federal pode autorizar a inscrição principal fora da sede do escritório do advogado.",
+        "na dúvida entre domicílios, prevalece o da sede principal do exercício da advocacia.",
+        "a inscrição principal está subordinada ao domicílio profissional do advogado."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2011-04_9",
+    "question_number": 9,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "A prescrição para a cobrança de honorários advocatícios tem como termo inicial, consoante as normas estatutárias,",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "o início do contrato de prestação de serviços.",
+        "a sentença que julga procedente o pedido em favor do cliente do advogado.",
+        "a data da revogação do mandato.",
+        "o dia do primeiro ato extrajudicial."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2011-04_10",
+    "question_number": 10,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "Caio é eleito Senador da República e escolhido para compor a mesa do referido órgão legislativo. Como advogado regularmente inscrito nos quadros da OAB, pretende atuar em causa própria e realiza consulta nesse sentido à OAB. Quanto ao tema em foco, de acordo com as regras estatutárias, é correto afirmar que a atuação de Caio",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "é possível, pois a função exercida caracteriza mero impedimento.",
+        "não é possível, sendo o caso de incompatibilidade mesmo em causa própria.",
+        "em causa própria constitui uma exceção aplicável ao caso.",
+        "poderá ocorrer, nessa situação, mediante autorização especial."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2011-04_11",
+    "question_number": 11,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "Caio, professor vinculado à Universidade Federal, ministrando aulas no curso de Direito, resolve atuar, em causa própria, pleiteando benefícios tributários em face da União Federal. Nos termos do Estatuto, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "é situação peculiar que permite o exercício da advocacia mesmo contra entidade vinculada.",
+        "a situação caracteriza impedimento, uma vez que há vínculo da Universidade com a União Federal.",
+        "o docente em cursos de Direito não pode exercer a advocacia, sendo circunstância de incompatibilidade.",
+        "enquanto durar o exercício do magistério, a inscrição na OAB permanecerá suspensa."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2011-04_12",
+    "question_number": 12,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "Mévio aceita defender um cliente. Após ampla pesquisa, verifica que a legislação ordinária não acolhe a pretensão dele. Elabora, pois, a tese de que a legislação que não permite o acolhimento da pretensão do seu constituído padeceria do vício de inconstitucionalidade e recomenda que não haja o cumprimento da referida norma. À luz das normas estatutárias, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "a situação é permitida, diante do possível vício alegado pelo advogado.",
+        "se caracteriza a hipótese de postulação com má-fé contra literal disposição de lei.",
+        "mesmo sendo a lei eivada de vício, não seria possível presumir boa-fé.",
+        "ao pleitear contra expressa disposição de lei no caso referido, presume-se a má-fé."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2011-04_13",
+    "question_number": 13,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CONSTITUTIONAL",
+    "nullified": false,
+    "question": "Em 2010, o Congresso Nacional aprovou por Decreto Legislativo a Convenção Internacional sobre os Direitos das Pessoas com Deficiência. Essa convenção já foi aprovada na forma do artigo 5º, § 3º, da Constituição, sendo sua hierarquia normativa de",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "lei federal ordinária.",
+        "emenda constitucional.",
+        "lei complementar.",
+        "status supralegal."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2011-04_14",
+    "question_number": 14,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CONSTITUTIONAL",
+    "nullified": false,
+    "question": "Com relação aos chamados “direitos econômicos, sociais e culturais”, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "são direitos humanos de segunda geração, o que significa que não são juridicamente exigíveis, diferentemente do que ocorre com os direitos civis e políticos.",
+        "são previstos, no âmbito do sistema interamericano, no texto original da Convenção Americana sobre Direitos Humanos (Pacto de San José da Costa Rica).",
+        "formam, juntamente com os direitos civis e políticos, um conjunto indivisível de direitos fundamentais, entre os quais não há qualquer relação hierárquica.",
+        "incluem o direito à participação no processo eleitoral, à educação, à alimentação e à previdência social."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2011-04_15",
+    "question_number": 15,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CONSTITUTIONAL",
+    "nullified": false,
+    "question": "Determinado congressista é flagrado afirmando em entrevista pública que não se relaciona com pessoas de etnia diversa da sua e não permite que, no seu prédio residencial, onde atua como síndico, pessoas de etnia negra frequentem as áreas comuns, os elevadores sociais e a piscina do condomínio. Ciente desses atos, a ONG TudoAfro relaciona as pessoas prejudicadas e concita a representação para fins criminais com o intuito de coibir os atos descritos. À luz das normas constitucionais e dos direitos humanos, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "o crime de racismo é afiançável, sendo o valor fixado por decisão judicial.",
+        "o prazo de prescrição incidente sobre o crime de racismo é de vinte anos.",
+        "nos casos de crime de racismo, a pena cominada é de detenção.",
+        "o crime de racismo não está sujeito a prazo extintivo de prescrição."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2011-04_16",
+    "question_number": 16,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "INTERNATIONAL",
+    "nullified": false,
+    "question": "Roberta Caballero, de nacionalidade argentina, está no Brasil desde 2008, como correspondente estrangeira do jornal “El Diário”, sediado em Buenos Aires. Roberta possui visto temporário, válido por quatro anos. Em 2011, pouco antes do vencimento do visto, Roberta recebe um convite do editor de um jornal brasileiro, sediado em São Paulo, para ali trabalhar na condição de repórter, sob sua supervisão, mediante contrato de trabalho.\nPara continuar em situação regular, é correto afirmar que Roberta",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "deverá renovar, a cada quatro anos, o visto temporário VI (correspondente estrangeiro) e requerer autorização de trabalho a estrangeiro com vínculo empregatício.",
+        "não poderá aceitar o emprego, pois a Constituição Federal, em seu artigo 222, veda a atuação de repórteres estrangeiros em qualquer meio de comunicação social.",
+        "deverá apenas renovar, a cada quatro anos, o visto temporário VI (correspondente estrangeiro), pois pessoas de nacionalidade de países do Mercosul não precisam de autorização de trabalho.",
+        "deverá transformar seu visto temporário VI correspondente estrangeiro) em visto temporário V mão de obra estrangeira) e requerer autorização de trabalho a estrangeiro com vínculo empregatício."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2011-04_17",
+    "question_number": 17,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "INTERNATIONAL",
+    "nullified": false,
+    "question": "Com relação à chamada “norma imperativa de Direito Internacional geral”, ou jus cogens, é correto afirmar que é a norma",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "prevista no corpo de um tratado que tenha sido ratificado por todos os signatários, segundo o direito interno de cada um.",
+        "reconhecida pela comunidade internacional como aplicável a todos os Estados, da qual nenhuma derrogação é permitida.",
+        "aprovada pela Assembleia Geral das Nações Unidas e aplicável a todos os Estados membros, salvo os que apresentarem reserva expressa.",
+        "de direito humanitário, expressamente reconhecida pela Corte Internacional de Justiça, aplicável a todo e qualquer Estado em situação de conflito."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2011-04_18",
+    "question_number": 18,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CONSTITUTIONAL",
+    "nullified": false,
+    "question": "A respeito do regime de responsabilidade do Presidente da República, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O ato do Presidente da República que atenta contra o livre exercício do Poder Legislativo, do Poder Judiciário, do Ministério Público e dos Poderes constitucionais das unidades da Federação é considerado crime de responsabilidade.",
+        "O Presidente ficará suspenso de suas funções nos crimes de responsabilidade somente após a condenação pelo órgão competente.",
+        "Compete ao Congresso Nacional processar e julgar o Presidente da República nos crimes de responsabilidade.",
+        "Só se admite acusação contra o Presidente da República por três quintos da Câmara dos Deputados."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2011-04_19",
+    "question_number": 19,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CONSTITUTIONAL",
+    "nullified": false,
+    "question": "A respeito da garantia constitucional do acesso ao Poder Judiciário, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O Poder Judiciário admitirá ações relativas à disciplina e às competições desportivas paralelamente às ações movidas nas instâncias da justiça desportiva.",
+        "De acordo com posição consolidada do Supremo Tribunal Federal, não ofende a garantia de acesso ao Poder Judiciário a exigência de depósito prévio como requisito de admissibilidade de ação judicial na qual se pretenda discutir a exigibilidade de crédito tributário.",
+        "A todos, no âmbito judicial e administrativo, são assegurados a razoável duração do processo e os meios que garantam a celeridade de sua tramitação.",
+        "É assegurado a todos, mediante pagamento de taxas, o direito de petição aos Poderes Públicos em defesa de direitos ou contra ilegalidade ou abuso de poder."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2011-04_20",
+    "question_number": 20,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CONSTITUTIONAL",
+    "nullified": false,
+    "question": "Em relação ao controle de constitucionalidade em face da Constituição Estadual, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Compete aos Estados a instituição de representação de inconstitucionalidade de leis ou atos normativos estaduais ou municipais em face da Constituição Estadual, reconhecida a legitimação para agir aos mesmos órgãos e entidades legitimados a propositura de ação direta de inconstitucionalidade.",
+        "A decisão do Tribunal de Justiça que declara a inconstitucionalidade de lei local em face da Constituição Estadual é irrecorrível, ressalvada a oposição de embargos declaratórios.",
+        "Não ofende a Constituição da República norma de Constituição Estadual que atribui legitimidade para a propositura de representação de inconstitucionalidade aos Deputados Estaduais e ao Procurador-Geral do Estado.",
+        "Não é possível o controle de constitucionalidade no plano estadual, no modo concentrado, se a norma constitucional estadual tomada como parâmetro reproduzir idêntico conteúdo de norma constitucional federal."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2011-04_21",
+    "question_number": 21,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CONSTITUTIONAL",
+    "nullified": false,
+    "question": "As alternativas a seguir apontam diferenças entre a ADI e a ADC, À EXCEÇÃO DE UMA. Assinale-a.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Rol de legitimados para a propositura da ação.",
+        "Objeto da ação.",
+        "Exigência de controvérsia judicial relevante.",
+        "Manifestação do Advogado-Geral da União."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2011-04_22",
+    "question_number": 22,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CONSTITUTIONAL",
+    "nullified": false,
+    "question": "A respeito da distribuição de competências adotada pela Constituição brasileira, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A competência material da União pode ser delegada aos Estados, por lei complementar.",
+        "À União compete legislar sobre direito processual e normas gerais de procedimentos.",
+        "A competência para legislar sobre direito urbanístico é privativa dos Municípios, pois é matéria de interesse local.",
+        "A competência para legislar sobre defesa dos recursos naturais é privativa da União, pois é matéria de interesse nacional."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2011-04_23",
+    "question_number": 23,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CONSTITUTIONAL",
+    "nullified": false,
+    "question": "Os direitos políticos não podem ser cassados. Podem, no entanto, sofrer perda ou suspensão à luz das normas constitucionais pelo seguinte fundamento:",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "condenação cível sem trânsito em julgado.",
+        "incapacidade civil relativa, declarada judicialmente.",
+        "cancelamento de naturalização por decisão administrativa.",
+        "improbidade administrativa."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2011-04_24",
+    "question_number": 24,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CONSTITUTIONAL",
+    "nullified": false,
+    "question": "Considere a hipótese de Deputado Federal que cometeu crime (comum) após a diplomação. Nesse caso, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "a Câmara dos Deputados pode sustar o andamento da ação penal.",
+        "o STF só pode receber a denúncia após a licença da Câmara dos Deputados.",
+        "o STF só pode receber a denúncia após a licença do Congresso Nacional.",
+        "o Congresso Nacional pode sustar o andamento da ação penal."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2011-04_25",
+    "question_number": 25,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CHILDREN",
+    "nullified": false,
+    "question": "Washington, adolescente com 14 (quatorze) anos, movido pelo desejo de ajudar seus genitores no sustento do núcleo familiar pobre, pretende iniciar atividade laborativa como ensacador de compras na pequena mercearia Tudo Tem, que funciona 24h, localizada em sua comunidade. Recentemente, esta foi pacificada pelas Forças de Segurança Nacional. Tendo como substrato a tutela do Estatuto da Criança e do Adolescente no tocante ao Direito à Profissionalização e à Proteção no Trabalho, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Washington poderá ser contratado como ensacador de compras, mesmo não sendo tal atividade de aprendizagem, pois, como já possui 14 (quatorze) anos, tem discernimento suficiente para firmar o contrato de trabalho e, assim, prestar auxílio material aos seus pais, adotando a louvável atitude de preferir o trabalho às ruas.",
+        "Como a comunidade onde reside Washington foi pacificada pelas forças de paz, não há falar em local perigoso ou insalubre para o menor; assim, poderá o adolescente exercer a carga horária laborativa no período das 22h às 24h, sem qualquer restrição legal, desde que procure outra atividade laborativa que seja de formação técnico-profissional.",
+        "Washington não poderá trabalhar na mercearia como ensacador de compras, pois tal atividade não é enquadrada como de formação técnico-profissional; portanto, não se pode afirmar que o menor exercerá atividade laborativa na condição de aprendiz.",
+        "Na condição de aprendiz, não é necessário que o adolescente goze de horário especial compatível com a garantia de acesso e frequência obrigatória ao ensino regular."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2011-04_26",
+    "question_number": 26,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CHILDREN",
+    "nullified": false,
+    "question": "No tocante às normas contidas no Estatuto da Criança e do Adolescente, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "a medida socioeducativa de internação aplicada em razão do descumprimento reiterado e injustificável da medida anteriormente imposta ao adolescente infrator não poderá ser superior a três meses.",
+        "o adolescente apreendido em flagrante de ato infracional será imediatamente encaminhado ao Juiz de Direito em exercício na Vara da Infância e Juventude, que decidirá sobre a necessidade ou não de seu acautelamento provisório.",
+        "a concessão da remissão, que prescinde da homologação da Autoridade Judiciária, é medida que o membro do Ministério Público atribuído poderá adotar no processamento de ato infracional.",
+        "ao ato infracional praticado por crianças corresponderão as seguintes medidas socioeducativas: advertência, obrigação de reparar o dano, prestação de serviços à comunidade, liberdade assistida e inserção em regime de semiliberdade."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2011-04_27",
+    "question_number": 27,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "ADMINISTRATIVE",
+    "nullified": false,
+    "question": "Em âmbito federal, o direito de a Administração Pública anular atos administrativos eivados de vício de ilegalidade, dos quais decorram efeitos favoráveis para destinatários de boa-fé",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "não se submete a prazo prescricional.",
+        "não se submete a prazo decadencial.",
+        "prescreve em 10 (dez) anos, contados da data em que praticado o ato.",
+        "decai em 5 (cinco) anos, contados da data em que praticado o ato."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2011-04_28",
+    "question_number": 28,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "ADMINISTRATIVE",
+    "nullified": false,
+    "question": "A qualificação como Organizações da Sociedade Civil de Interesse Público (OSCIPs) de pessoas jurídicas de direito privado, sem fins lucrativos, cujos objetivos sociais e normas estatutárias atendam aos requisitos previstos na respectiva lei é ato",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "vinculado ao cumprimento dos requisitos estabelecidos em lei.",
+        "complexo, uma vez que somente se aperfeiçoa com a instituição do Termo de Parceria.",
+        "discricionário, uma vez que depende de avaliação administrativa quanto à sua conveniência e oportunidade.",
+        "composto, subordinando-se à homologação da Chefia do Poder Executivo."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2011-04_29",
+    "question_number": 29,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "ADMINISTRATIVE",
+    "nullified": false,
+    "question": "O contrato de prestação de serviços de que a Administração Pública seja a usuária direta ou indireta, ainda que envolva a execução de obra ou fornecimento e instalação de bens, denomina-se concessão",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "comum.",
+        "patrocinada.",
+        "administrativa.",
+        "de uso de bem público."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2011-04_30",
+    "question_number": 30,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "ADMINISTRATIVE",
+    "nullified": false,
+    "question": "Ao tomar conhecimento de que o serviço público de transporte aquaviário concedido estava sendo prestado de forma inadequada, causando gravíssimos transtornos aos usuários, o ente público, na qualidade de poder concedente, instaurou regular processo administrativo de verificação da inadimplência da concessionária, assegurando-lhe o contraditório e a ampla defesa. Ao final do processo administrativo, restou efetivamente comprovada a inadimplência, e o poder concedente deseja extinguir a concessão por inexecução contratual.\nQual é a modalidade de extinção da concessão a ser observada no caso narrado?",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Encampação.",
+        "Caducidade.",
+        "Rescisão.",
+        "Anulação."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2011-04_31",
+    "question_number": 31,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "ADMINISTRATIVE",
+    "nullified": false,
+    "question": "A Lei 11.107, de 6 de abril de 2005, dispõe sobre normas gerais para a União, os Estados, o Distrito Federal e os Municípios contratarem consórcios públicos para a realização de objetivos de interesse comum. A respeito do regime jurídico aplicável a tais consórcios públicos, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "É vedada a celebração de contrato de consórcio público cujo valor seja inferior a R$ 20.000.000,00 vinte milhões) de reais.",
+        "Os consórcios públicos na área de saúde, em razão do regime de gestão associada, são dispensados de obedecer aos princípios que regulam o Sistema Único de Saúde.",
+        "É vedada a celebração de contrato de consórcio público para a prestação de serviços cujo período seja inferior a 5 (cinco) anos.",
+        "A União somente participará de consórcios públicos em que também façam parte todos os Estados em cujos territórios estejam situados os Municípios consorciados."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2011-04_32",
+    "question_number": 32,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "ADMINISTRATIVE",
+    "nullified": false,
+    "question": "Antônio, vítima em acidente automobilístico, foi atendido em hospital da rede pública do Município de Mar Azul e, por imperícia do médico que o assistiu, teve amputado um terço de sua perna direita. Nessa situação hipotética, respondem pelo dano causado a Antônio",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "o Município de Mar Azul e o médico, solidária e objetivamente.",
+        "o Município de Mar Azul, objetivamente, e o médico, regressivamente, em caso de dolo ou culpa.",
+        "o Município de Mar Azul, objetivamente, e o médico, subsidiariamente.",
+        "o Município de Mar Azul, objetivamente, e o médico, solidária e subjetivamente."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2011-04_33",
+    "question_number": 33,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CIVIL",
+    "nullified": false,
+    "question": "Noêmia, proprietária de uma casa litorânea, regularmente constituiu usufruto sobre o aludido imóvel em favor de Luísa, mantendo, contudo, a sua propriedade. Inesperadamente, sobreveio uma severa ressaca marítima, que destruiu por completo o imóvel. Ciente do ocorrido, Noêmia decidiu reconstruir integralmente a casa às suas expensas, tendo em vista que o imóvel não se encontrava segurado.\nA respeito da situação narrada, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O usufruto será mantido em favor de Luísa, tendo em vista que o imóvel não fora destruído por culpa sua.",
+        "O usufruto será extinto, consolidando-se a propriedade em favor de Noêmia, independentemente do pagamento de indenização a Luísa, tendo em vista que Noêmia arcou com as despesas de reconstrução do imóvel.",
+        "O usufruto será extinto, consolidando-se a propriedade em favor de Noêmia, desde que esta indenize Luísa em valor equivalente a um ano de aluguel do imóvel.",
+        "O usufruto será mantido em favor de Luísa, independentemente do pagamento de qualquer quantia por ela, tendo em vista que Noêmia somente poderia ter reconstruído o imóvel mediante autorização expressa de Luísa, por escritura pública ou instrumento particular."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2011-04_34",
+    "question_number": 34,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CIVIL",
+    "nullified": false,
+    "question": "Jonas, maior e capaz, confiou em depósito a Silas, também maior e capaz, por instrumento particular, dois automóveis de sua propriedade para serem conservados por seis meses, estabelecendo, como remuneração, o pagamento de certa quantia em dinheiro a Silas. Findo o prazo, caberia a Silas restituir os automóveis na residência de Jonas. Na vigência do depósito, Silas decidiu, certo dia, utilizar um dos automóveis para ir ao trabalho e, quando já regressava, foi abalroado, sem culpa sua, por seu vizinho Francisco, em uma moto, amassando a porta lateral direita. Transcorrido o prazo ajustado, Silas providenciou a entrega dos dois automóveis no local estipulado.\nA respeito da situação narrada, é correto afirmar que Jonas",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "não deve pagar a Silas as despesas relativas à manutenção dos dois automóveis durante o período ajustado.",
+        "deve cobrar diretamente de Francisco as despesas referentes ao conserto da porta lateral direita.",
+        "deve arcar com as despesas referentes à restituição dos dois automóveis no local estipulado.",
+        "poderá reter integralmente o valor da contraprestação em dinheiro devido a Silas, tendo em vista a ocorrência do acidente com um dos automóveis."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2011-04_35",
+    "question_number": 35,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CIVIL",
+    "nullified": false,
+    "question": "Rodolfo, brasileiro, engenheiro, solteiro, sem ascendentes ou descendentes, desapareceu de seu domicílio há 11 (onze) meses e até então não houve qualquer notícia sobre seu paradeiro. Embora tenha desaparecido, deixou Lisa, uma amiga, como mandatária para a finalidade de administrar-lhe os bens. Todavia, por motivos de ordem pessoal, Lisa não quis exercer os poderes outorgados por Rodolfo em seu favor, renunciando expressamente ao mandato.\nDe acordo com os dispositivos que regem o instituto da ausência, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O juiz não poderá declarar a ausência e nomear curador para Rodolfo, pois Lisa não poderia ter renunciado o mandato outorgado em seu favor, já que só estaria autorizada a fazê-lo em caso de justificada impossibilidade ou de constatada insuficiência de poderes.",
+        "A renúncia ao mandato, por parte de Lisa, era possível e, neste caso, o juiz determinará ao Ministério Público que nomeie um curador encarregado de gerir os bens do ausente, observando, no que for aplicável, o disposto a respeito dos tutores e curadores.",
+        "Os credores de obrigações vencidas e não pagas de Rodolfo, decorrido 1 (um) ano da arrecadação dos bens do ausente, poderão requerer que se determine a abertura de sua sucessão provisória.",
+        "Poderá ser declarada a sucessão definitiva de Rodolfo 10 (dez) anos depois de passada em julgado a sentença que concedeu a sucessão provisória, mas, se nenhum interessado promover a sucessão definitiva, nesse prazo, os bens porventura arrecadados deverão ser doados a entidades filantrópicas localizadas no município do último domicílio de Rodolfo."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2011-04_36",
+    "question_number": 36,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CIVIL",
+    "nullified": false,
+    "question": "O negócio jurídico depende da regular manifestação de vontade do agente envolvido. Nesse sentido, o art. 138 do Código Civil dispõe que “são anuláveis os negócios jurídicos quando as declarações de vontade emanarem de erro substancial que poderia ser percebido por pessoa de diligência normal, em face das circunstâncias do negócio”.\nRelativamente aos defeitos dos negócios jurídicos, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O falso motivo, por sua gravidade, viciará a declaração de vontade em todas as situações e, por consequência, gerará a anulação do negócio jurídico.",
+        "O erro não prejudica a validade do negócio jurídico quando a pessoa, a quem a manifestação de vontade se dirige, se oferecer para executá-la na conformidade da vontade real do manifestante.",
+        "O erro é substancial quando concerne à identidade ou à qualidade essencial da pessoa a quem se refira a declaração de vontade, ainda que tenha influído nesta de modo superficial.",
+        "O erro de cálculo gera a anulação do negócio jurídico, uma vez que restou viciada a declaração de vontade nele baseada."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2011-04_37",
+    "question_number": 37,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CIVIL",
+    "nullified": false,
+    "question": "Gustavo tornou-se fiador do seu amigo Henrique, em razão de operação de empréstimo bancário que este tomou com o Banco Pechincha. No entanto, Gustavo, apreensivo, descobriu que Henrique está desempregado há algum tempo e que deixou de pagar várias parcelas do referido empréstimo. Sem o consentimento de Gustavo, Henrique e o Banco Pechincha aditaram o contrato original, tendo sido concedida moratória a Henrique.\nCom base no relato acima e no regime legal do contrato de fiança, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Por ter a fiança o objetivo de garantir o débito principal, sendo acessória a este, deve ela ser de valor igual ao da obrigação principal e ser contraída nas mesmas condições de onerosidade de tal obrigação.",
+        "Gustavo não poderá exonerar-se da fiança que tiver assinado sem limitação de tempo, ficando obrigado por todos os efeitos da fiança até o efetivo pagamento do débito principal.",
+        "A concessão da moratória pelo Banco Pechincha a Henrique, tal como narrado, não tem o condão de desobrigar o fiador.",
+        "Se o Banco Pechincha, sem justa causa, demorar a execução iniciada contra Henrique, poderá Gustavo promover-lhe o andamento."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2011-04_38",
+    "question_number": 38,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CIVIL",
+    "nullified": false,
+    "question": "Acerca da servidão de aqueduto, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Não se aplicam à servidão de aqueduto as regras pertinentes à passagem de cabos e tubulações.",
+        "O aqueduto deverá ser construído de maneira que cause o menor prejuízo aos proprietários dos imóveis vizinhos, e a expensas do seu dono, mas a quem não incumbem as despesas de conservação.",
+        "Se o uso das águas não se destinar à satisfação das exigências primárias, o proprietário do aqueduto não deverá ser indenizado pela retirada das águas supérfluas aos seus interesses de consumo.",
+        "O proprietário do prédio serviente, ainda que devidamente indenizado pela passagem da servidão do aqueduto, poderá exigir que seja subterrânea a canalização que atravessa áreas edificadas, pátios, jardins ou quintais."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2011-04_39",
+    "question_number": 39,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CIVIL",
+    "nullified": false,
+    "question": "Suponha que tenha sido publicada no Diário Oficial da União, do dia 26 de abril de 2011 (terça-feira), uma lei federal, com o seguinte teor:\n“Lei GTI, de 25 de abril de 2011.\nDefine o alcance dos direitos da personalidade previstos no Código Civil.\nO Presidente da República\nFaço saber que o Congresso Nacional decreta e eu sanciono a seguinte Lei:\nArt. 1º: Os direitos da personalidade previstos no Código Civil aplicáveis aos nascituros são estendidos aos embriões laboratoriais (in vitro), ainda não implantados no corpo humano.\nArt. 2º: Esta lei entra em vigor no prazo de 45 dias. Brasília, 25 de abril 2011, 190º da Independência da República e 123º da República.”\nAnte a situação hipotética descrita e considerando as regras sobre a forma de contagem do período de vacância e a data em que a lei entrará em vigor, é correto afirmar que a contagem do prazo para entrada em vigor de lei que contenha período de vacância se dá",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "pela exclusão da data de publicação da lei e a inclusão do último dia do prazo, entrando em vigor no dia subsequente à sua consumação integral, que na situação descrita será o dia 13/06/2011.",
+        "pela inclusão da data de publicação e do último dia do prazo, entrando em vigor no dia subsequente à sua consumação integral, passando a vigorar no dia 10/06/2011.",
+        "pela inclusão da data de publicação e exclusão do último dia do prazo, entrando em vigor no dia 09/06/2011.",
+        "pela exclusão da data de publicação e do último dia do prazo, entrando em vigor no dia 11/06/2011."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2011-04_40",
+    "question_number": 40,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CIVIL-PROCEDURE",
+    "nullified": false,
+    "question": "Quando a sentença que reconhece obrigação de pagar não determina o valor devido, procede-se à sua liquidação, para que, então, possa dar-se o seu cumprimento. Em relação à sistemática da liquidação no direito brasileiro, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A liquidação de sentença tem natureza jurídica de ação autônoma.",
+        "A liquidação pode ser requerida mesmo na pendência de recurso ainda não julgado pelo tribunal, hipótese em que deve ser processada em autos apartados no juízo de origem.",
+        "Requerida a liquidação, deve a parte contrária ser pessoalmente intimada.",
+        "Sempre que o pedido for genérico, o juiz pode proferir sentença ilíquida."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2011-04_41",
+    "question_number": 41,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CIVIL-PROCEDURE",
+    "nullified": false,
+    "question": "Júlia ingressou com ação de indenização por danos morais e materiais em face da Gráfica Bela Escrita, bem como do Ateliê Alta-Costura, sob a alegação de que o seu casamento não pôde ser realizado tendo em vista que a Gráfica escreveu o endereço errado do local da cerimônia em todos os convites confeccionados, e o Ateliê, por sua vez, não entregou o vestido de noiva no dia do casamento. Tendo sido ambos os réus regularmente citados, o Ateliê Alta-Costura apresentou contestação tempestiva, em que afirmou se isentar de responsabilidade, uma vez que o vestido de noiva já estava praticamente pronto, quando, na véspera da cerimônia, a noiva subitamente decidiu solicitar inúmeras alterações no modelo da roupa, o que inviabilizou a sua tempestiva entrega. A Gráfica Bela Escrita, por seu turno, não se manifestou nos autos.\nA respeito da situação descrita, é correto afirmar que a contestação apresentada pelo Ateliê Alta-Costura",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "automaticamente aproveita à Gráfica Bela Escrita, não se operando o efeito material da revelia contra este réu.",
+        "reabre automaticamente o prazo para a apresentação de contestação pela Gráfica Bela Escrita, operando-se o efeito material da revelia somente se este réu, mesmo assim, permanecer inerte.",
+        "não aproveita à Gráfica Bela Escrita, operando-se o efeito material da revelia contra este réu.",
+        "aproveita à Gráfica Bela Escrita, não se operando o efeito material da revelia contra este réu, desde que o Ateliê Alta-Costura, uma vez intimado, manifeste expressa concordância."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2011-04_42",
+    "question_number": 42,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CIVIL-PROCEDURE",
+    "nullified": false,
+    "question": "No âmbito do Direito Processual Civil, os legitimados ativos que proponham ação e interponham recursos poderão desistir deles, desde que respeitados os seguintes termos:",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "o credor poderá desistir de toda execução ou apenas de algumas medidas executivas, desde que suporte as custas e honorários advocatícios decorrentes da extinção dos embargos que versarem somente sobre questões processuais e, nos demais casos, quando houver anuência do embargante.",
+        "o recorrente poderá desistir do recurso interposto a qualquer tempo, desde que não se trate de litisconsórcio e que a parte contrária, uma vez intimada, manifeste expressamente sua anuência.",
+        "na intervenção de terceiros, a assistência obsta a que a parte principal desista da ação, que somente poderá ocorrer com a anuência expressa do assistente. Nesse caso, a desistência independe de homologação por sentença.",
+        "a desistência da ação, que produz efeitos somente depois de homologada por sentença, implica extinção do processo com resolução do mérito. Caso tenha transcorrido o prazo para resposta do réu, o pedido de desistência estará sujeito ao seu consentimento."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2011-04_43",
+    "question_number": 43,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CIVIL-PROCEDURE",
+    "nullified": false,
+    "question": "O rito comum sumário tem suas hipóteses de incidência expressamente disciplinadas no sistema processual civil pátrio. Tal rito apresenta trâmite mais célere que o observado pelo rito comum ordinário, e, exatamente por isso, as causas que o observam têm menor complexidade se comparadas às que tramitam pelo rito comum ordinário.\nAcerca do rito comum sumário, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "podem observar o rito comum sumário causas cujo valor corresponda a trezentos vezes o valor do salário mínimo e que versem acerca da cobrança ao condômino de quantias devidas ao condomínio.",
+        "ações que seguem o rito comum sumário são dúplices, razão pela qual pode o réu valer-se da reconvenção para formular pedidos contra o autor em seu favor.",
+        "no rito comum sumário, têm as partes que comparecer pessoalmente à audiência de conciliação, jamais podendo se fazer representar por preposto com poderes para transigir.",
+        "no rito comum sumário, não é admissível a ação declaratória incidental. Da mesma forma não se admitem nesse rito, em nenhuma hipótese, quaisquer das espécies de intervenção de terceiros."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2011-04_44",
+    "question_number": 44,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CIVIL-PROCEDURE",
+    "nullified": false,
+    "question": "Em uma ação fundada na responsabilidade civil por suposto erro médico praticado por Cláudio, este foi regularmente citado e, no prazo legal, ofereceu contestação. Em razão do seu falecimento, no curso da lide, foi determinada a suspensão do processo e a habilitação de seus herdeiros ou sucessores no polo passivo. Sendo certo que tal irregularidade não foi sanada no prazo fixado pelo juízo, é correto afirmar, em relação ao processo, que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "deve ser julgado extinto, sem resolução do mérito, por falta de pressupostos de constituição e de desenvolvimento válido e regular.",
+        "deve ter regular prosseguimento, com a declaração da revelia e a consequente presunção de veracidade dos fatos alegados na inicial.",
+        "deve prosseguir, com a declaração da revelia, cuja consequência ficará restrita à fluência de prazos independentemente de intimação.",
+        "deve ser julgado extinto, sem resolução do mérito, por falta de uma das condições da ação."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2011-04_45",
+    "question_number": 45,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CIVIL-PROCEDURE",
+    "nullified": false,
+    "question": "A respeito das ações possessórias, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A propositura da ação de reintegração de posse, quando cabível manutenção de posse, torna impossível o acolhimento do pedido, impondo a extinção sem resolução do mérito.",
+        "Quando for ordenada a justificação prévia, o prazo para contestar contar-se-á da intimação do despacho que deferir ou não a medida liminar.",
+        "É vedada a cumulação de pedidos com o pedido possessório.",
+        "O possuidor tem direito a ser mantido na posse em caso de esbulho e reintegrado no de turbação."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2011-04_46",
+    "question_number": 46,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CONSUMER",
+    "nullified": false,
+    "question": "No âmbito do Código de Defesa do Consumidor, em relação ao princípio da boa-fé objetiva, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "sua aplicação se restringe aos contratos de consumo.",
+        "para a caracterização de sua violação imprescindível se faz a análise do caráter volitivo das partes.",
+        "não se aplica à fase pré-contratual.",
+        "importa em reconhecimento de um direito a cumprir em favor do titular passivo da obrigação."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2011-04_47",
+    "question_number": 47,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CONSUMER",
+    "nullified": false,
+    "question": "Analisando o artigo 6º, V, do Código de Defesa do Consumidor, que prescreve: “São direitos básicos do consumidor: V – a modificação das cláusulas contratuais que estabeleçam prestações desproporcionais ou sua revisão em razão de fatos supervenientes que as tornem excessivamente onerosas”, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Não traduz a relativização do princípio contratual da autonomia da vontade das partes.",
+        "Almeja, em análise sistemática, precipuamente, a resolução do contrato firmado entre consumidor e fornecedor.",
+        "Admite a incidência da cláusula rebus sic stantibus.",
+        "Exige a imprevisibilidade do fato superveniente."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2011-04_48",
+    "question_number": 48,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "BUSINESS",
+    "nullified": false,
+    "question": "Contrato oneroso, em que alguém assume, em caráter profissional e sem vínculo de dependência, a obrigação de promover, em nome de outrem, mediante retribuição, a efetivação de certos negócios, em determinado território ou zona de mercado.\nA definição acima corresponde a que tipo de contrato empresarial?",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Agência.",
+        "Mandato.",
+        "Comissão mercantil.",
+        "Corretagem."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2011-04_49",
+    "question_number": 49,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "BUSINESS",
+    "nullified": false,
+    "question": "É uma cláusula acessória ao contrato de comissão, no qual o comissário assume o gravame de responder solidariamente pela insolvência das pessoas com quem contratar em nome do comitente.\nEssa cláusula é denominada",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "del credere.",
+        "pacto comissório.",
+        "venda com reserva de domínio.",
+        "hedge."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2011-04_50",
+    "question_number": 50,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "BUSINESS",
+    "nullified": false,
+    "question": "Em relação ao Direito Cambiário, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "o aceite no cheque é dado pelo banco ou instituição financeira a ele equivalente, devendo ser firmado no verso do título.",
+        "a duplicata, quando de prestação de serviços, pode ser emitida com vencimento a tempo certo da vista.",
+        "o protesto é necessário para garantir o direito de regresso contra o(s) endossante(s) e o(s) avalista(s) do aceitante de uma letra de câmbio.",
+        "o aval dado em uma nota promissória pode ser parcial, ainda que sucessivo."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2011-04_51",
+    "question_number": 51,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "BUSINESS",
+    "nullified": false,
+    "question": "Em relação à modificação do capital social das sociedades limitadas, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Há direito de preferência do sócio no caso de aumento do capital social, exercendo, primeiro, esse direito o sócio majoritário, que poderá adquirir todas as quotas ou quantas lhe interessarem. Após exercido esse direito, caso restem quotas a serem adquiridas, terá preferência sobre os demais quem tiver maior número de quotas, e assim sucessivamente.",
+        "Para que haja aumento do capital social, não há necessidade de os sócios terem integralizado totalmente suas quotas.",
+        "Uma das hipóteses para que haja diminuição do capital social é que a sociedade tenha tido prejuízos que não serão mais recuperados, devendo-se, nesse caso, haver diminuição proporcional do valor das quotas, tornando-se efetiva essa diminuição a partir do momento em que for feita a averbação no cartório competente da ata da assembleia que a aprovou.",
+        "A diminuição do valor do capital social é direito da sociedade, não podendo haver objeção por parte dos credores."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2011-04_52",
+    "question_number": 52,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "BUSINESS",
+    "nullified": false,
+    "question": "A sociedade empresária XYZ Computação Gráfica S.A. teve sua falência decretada. Na correspondente sentença, foi autorizada a continuação provisória das atividades da falida com o administrador judicial, fato esse que perdurou por um período de 10 (dez) meses.\nComo são juridicamente qualificados os titulares dos créditos trabalhistas relativos a serviços prestados durante esse interregno posterior à decretação da falência?",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Credores concursais.",
+        "Credores concorrentes prioritários.",
+        "Credores reivindicantes.",
+        "Credores extraconcursais."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2011-04_53",
+    "question_number": 53,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "BUSINESS",
+    "nullified": false,
+    "question": "A Empresa ABC Ltda. foi incorporada pela Empresa XYZ Ltda., em 15/06/2011, sendo que os sócios da empresa incorporada se aposentaram 7 (sete) dias após a data da realização do negócio jurídico. Em 30/06/2011, a Fiscalização da Secretaria da Receita Federal apurou crédito tributário, anterior à data da incorporação, resultante do não recolhimento de IRPJ, CSLL, entre outros tributos devidos da responsabilidade da Empresa ABC Ltda.\nPelo exposto, o crédito tributário deverá ser cobrado",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "da Empresa XYZ Ltda.",
+        "da Empresa ABC Ltda.",
+        "dos sócios da Empresa ABC Ltda.",
+        "solidariamente da Empresa ABC Ltda. e da Empresa XYZ Ltda."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2011-04_54",
+    "question_number": 54,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "TAXES",
+    "nullified": false,
+    "question": "O Imposto sobre Operações Relativas à Circulação de Mercadorias e sobre a Prestação de Serviços de Transporte Interestadual e Intermunicipal e de Comunicação tem seus princípios delineados na Constituição, que é complementada pela Lei Complementar 87/1996, com as alterações posteriores.\nA respeito desse imposto é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "é autorizada a sua cobrança sobre bens importados do exterior por pessoa física que tenha intuito de comercializá-los, mas é vedada a sua incidência quando esses bens, importados do exterior, são destinados ao consumo próprio da pessoa natural.",
+        "ele tem função precipuamente fiscal, podendo ser seletivo em função da essencialidade, incide sobre o valor agregado, em obediência ao princípio da não cumulatividade, mas não incide sobre o ouro, quando definido em lei como ativo financeiro.",
+        "ele incide sobre operações que destinem a outros Estados petróleo, inclusive lubrificantes, combustíveis líquidos e gasosos dele derivados, e energia elétrica, assim como nas prestações de serviço de radiodifusão sonora e de sons e imagens de recepção livre e gratuita.",
+        "suas alíquotas aplicáveis às operações e prestações interestaduais e de exportação são estabelecidas por meio de resolução do Senado Federal, por iniciativa do seu Presidente ou de um terço dos Senadores da casa, com aprovação dada pela maioria absoluta de seus membros."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2011-04_55",
+    "question_number": 55,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "TAXES",
+    "nullified": false,
+    "question": "José dos Anjos ajuíza ação anulatória de débito fiscal após realizar depósito do montante integral do crédito que busca a anulação. Nesse sentido, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "o depósito prévio do montante integral é requisito de admissibilidade da ação ajuizada por José dos Anjos.",
+        "o depósito do montante objeto de discussão judicial poderá ser levantado caso José dos Santos tenha seu pedido julgado procedente perante o juízo de primeiro grau.",
+        "o depósito prévio do montante integral produz os efeitos de impedir a propositura da execução fiscal, bem como evita a fluência dos juros e a imposição de multa.",
+        "caso o contribuinte saia vencido, caberá à Fazenda promover execução fiscal para fins de receber o crédito que lhe é devido."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2011-04_56",
+    "question_number": 56,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "TAXES",
+    "nullified": false,
+    "question": "A redação da Súmula Vinculante 28 (\"É inconstitucional a exigência de depósito prévio como requisito de admissibilidade de ação judicial na qual se pretenda discutir a exigibilidade do crédito tributário\") tem por escopo impedir a adoção de que princípio jurídico?",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Venire Contra Factum Proprium.",
+        "Exceção de contrato não cumprido.",
+        "Solve et Repete.",
+        "Contraditório e ampla defesa."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2011-04_57",
+    "question_number": 57,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "ENVIRONMENTAL",
+    "nullified": false,
+    "question": "O inciso VII do §1º do art. 225 da Constituição da República prevê a proteção da fauna e da flora, vedadas as práticas que coloquem em risco sua função ecológica, enquanto que o §1º do art. 231 do referido texto constitucional estabelece que são terras indígenas as habitadas por eles em caráter permanente e que podem ser utilizadas por esses povos, desde que necessárias ao seu bem-estar e à sua reprodução física e cultural.\nA esse respeito, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Os indígenas têm o usufruto exclusivo das riquezas do solo, dos rios e dos lagos nas terras ocupadas em caráter permanente por eles e, portanto, podem explorá-las, sem necessidade de licenciamento ambiental.",
+        "Os indígenas podem suprimir vegetação de mata atlântica sem autorização do órgão ambiental competente porque são usufrutuários das terras que habitam.",
+        "A exploração dos recursos florestais em terras indígenas somente poderá ser realizada pelas comunidades indígenas em regime de manejo florestal sustentável, para atender à sua subsistência, respeitado o Código Florestal.",
+        "Os indígenas são proprietários das terras que ocupam em caráter permanente, mas devem explorá-las segundo as normas ambientais estabelecidas na Lei da Política Nacional do Meio Ambiente e do Código Florestal."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2011-04_58",
+    "question_number": 58,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "ENVIRONMENTAL",
+    "nullified": false,
+    "question": "Assinale a alternativa correta quanto ao licenciamento ambiental e ao acesso aos dados e informações existentes nos órgãos e entidades integrantes do Sisnama.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Caso a área que sofrerá o impacto ambiental seja considerada estratégica para o zoneamento industrial nacional de petróleo e gás e em áreas do pré-sal, o órgão ambiental poderá elaborar estudo prévio de impacto ambiental sigiloso.",
+        "Um cidadão brasileiro pode solicitar informações sobre a qualidade do meio ambiente em um município aos órgãos integrantes do Sisnama, mediante a apresentação de título de eleitor e comprovação de domicílio eleitoral no local.",
+        "A exigência de Estudo Prévio de Impacto Ambiental para aterros sanitários depende de decisão discricionária do órgão ambiental, que avaliará no caso concreto o potencial ofensivo da obra.",
+        "Uma pessoa jurídica com sede na França poderá solicitar, aos órgãos integrantes do Sisnama, mediante requerimento escrito, mesmo sem comprovação de interesse específico, informações sobre resultados de monitoramento e auditoria nos sistemas de controle de poluição e de atividades potencialmente poluidoras das empresas brasileiras."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2011-04_59",
+    "question_number": 59,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CRIMINAL",
+    "nullified": false,
+    "question": "Com relação aos critérios para substituição da pena privativa de liberdade por restritiva de direitos, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A substituição nunca poderá ocorrer se o réu for reincidente em crime doloso.",
+        "Somente fará jus à substituição o réu que for condenado a pena não superior a 4 (quatro) anos.",
+        "Em caso de descumprimento injustificado da pena restritiva de direitos, esta será convertida em privativa de liberdade, reiniciando-se o cumprimento da integralidade da pena fixada em sentença.",
+        "Se superior a um ano, a pena privativa de liberdade pode ser substituída por uma pena restritiva de direitos e multa ou por duas restritivas de direitos."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2011-04_60",
+    "question_number": 60,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CRIMINAL",
+    "nullified": false,
+    "question": "À luz da lei que dispõe sobre os Juizados Especiais Criminais Lei 9.099/95), assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A competência do juizado será determinada pelo lugar em que se consumar a infração penal.",
+        "A citação será pessoal e se fará no próprio juizado, sempre que possível, ou por edital.",
+        "O instituto da transação penal pode ser concedido pelo juiz sem a anuência do Ministério Público.",
+        "Tratando-se de crime de ação penal pública incondicionada, não sendo caso de arquivamento, o Ministério Público poderá propor a aplicação imediata de pena restritiva de direitos ou multas, a ser especificada na proposta."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2011-04_61",
+    "question_number": 61,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CRIMINAL",
+    "nullified": false,
+    "question": "Tício praticou um crime de furto (art. 155 do Código Penal) no dia 10/01/2000, um crime de roubo (art. 157 do Código Penal) no dia 25/11/2001 e um crime de extorsão (art. 158 do Código Penal) no dia 30/5/2003. Tício foi condenado pelo crime de furto em 20/11/2001, e a sentença penal condenatória transitou definitivamente em julgado no dia 31/3/2002. Pelo crime de roubo, foi condenado em 30/01/2002, com sentença transitada em julgado definitivamente em 10/06/2003 e, pelo crime de extorsão, foi condenado em 20/8/2004, com sentença transitando definitivamente em julgado no dia 10/6/2006. Com base nos dados acima, bem como nos estudos acerca da reincidência e dos maus antecedentes, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "na sentença do crime de furto, Tício é considerado portador de maus antecedentes e, na sentença do crime de roubo, é considerado reincidente.",
+        "na sentença do crime de extorsão, Tício possui maus antecedentes em relação ao crime de roubo e é reincidente em relação ao crime de furto.",
+        "cinco anos após o trânsito em julgado definitivo da última condenação, Tício será considerado primário, mas os maus antecedentes persistem.",
+        "nosso ordenamento jurídico-penal prevê como tempo máximo para configuração dos maus antecedentes o prazo de cinco anos a contar do cumprimento ou extinção da pena e eventual infração posterior."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2011-04_62",
+    "question_number": 62,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CRIMINAL",
+    "nullified": false,
+    "question": "Osíris, jovem universitária de Medicina, soube estar gestante. Todavia, tratava-se de gravidez indesejada, e Osíris queria saber qual substância deveria ingerir para interromper a gestação. Objetivando tal informação, Osíris estimulou uma discussão em sala de aula sobre o aborto. O professor de Osíris, então, bastante animado com o interesse dos alunos sobre o assunto, passou também a emitir sua opinião, a qual era claramente favorável ao aborto. Referido professor mencionou, naquele momento, diversas substâncias capazes de provocar a interrupção prematura da gravidez, inclusive fornecendo os nomes de inúmeros remédios abortivos e indicando os que achava mais eficazes. Além disso, também afirmou que as mulheres deveriam ter o direito de praticar aborto sempre que achassem indesejável uma gestação. Nesse sentido, considerando-se apenas os dados mencionados, é correto afirmar que o professor de Osíris praticou",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "a contravenção penal prevista no art. 20 do Decreto-Lei 3.688/41, que dispõe: “anunciar processo, substância ou objeto destinado a provocar aborto”.",
+        "o crime previsto no art. 286 do Código Penal, que dispõe: “incitar, publicamente, a prática de crime”.",
+        "o crime previsto no art. 68 da Lei 8.078/90, que dispõe: “fazer ou promover publicidade que sabe ou deveria saber ser capaz de induzir o consumidor a se comportar de forma prejudicial ou perigosa à sua saúde ou segurança”.",
+        "fato atípico."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2011-04_63",
+    "question_number": 63,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CRIMINAL",
+    "nullified": false,
+    "question": "Em relação ao cálculo da pena, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "a análise da reincidência precede à verificação dos maus antecedentes, e eventual acréscimo de pena com base na reincidência deve ser posterior à redução pela participação de menor importância.",
+        "é defeso ao juiz fixar a pena intermediária em patamar acima do máximo previsto, ainda que haja circunstância agravante a ser considerada.",
+        "o acréscimo de pena pela embriaguez preordenada deve se feito posteriormente à redução pela confissão espontânea.",
+        "é possível que o juiz, analisando as circunstâncias judiciais do art. 59 do Código Penal, fixe pena-base em patamar acima do máximo previsto."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2011-04_64",
+    "question_number": 64,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CRIMINAL",
+    "nullified": false,
+    "question": "Configura modalidade de peculato prevista no Código Penal",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "o peculato por erro de outrem, consistente na apropriação de bem ou valores que o funcionário tenha recebido pela facilidade que seu cargo lhe proporciona.",
+        "o peculato eletrônico, modalidade anômala de peculato, consistente em inserir dados falsos, alterar ou modificar dados no sistema de informações da administração pública.",
+        "o peculato-culposo, consistente na apropriação de bens ou valores que o funcionário tenha recebido por erro de outrem em razão do cargo público que exerce.",
+        "o peculato-desvio, consistente no desvio de bens ou valores, pelo funcionário público, em benefício de terceiro."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2011-04_65",
+    "question_number": 65,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CRIMINAL-PROCEDURE",
+    "nullified": false,
+    "question": "Levando em consideração as modificações trazidas pela Lei 11.719/08, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O Código de Processo Penal admite a figura da citação com hora certa, tal como ocorre no Código de Processo Civil.",
+        "O rito comum ordinário é o reservado aos crimes apenados com reclusão, independentemente do montante da pena para eles prevista.",
+        "Na mutatio libelli (em que a denúncia descreve determinado fato, mas as provas apontam que o fato delituoso é diverso), o Ministério Público deverá, após encerrada a instrução probatória, aditar a denúncia no prazo de 5 (cinco) dias sob pena de se operar a preclusão temporal.",
+        "O rito sumário é o reservado para as infrações penais de menor potencial ofensivo."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2011-04_66",
+    "question_number": 66,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CRIMINAL-PROCEDURE",
+    "nullified": false,
+    "question": "A Lei 7.492/86 define os Crimes contra o Sistema Financeiro Nacional. Acerca do procedimento previsto para tais crimes, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "quando a denúncia não for intentada no prazo legal, o ofendido poderá representar ao Procurador-Geral da República, para que este a ofereça, designe outro órgão do Ministério Público para oferecê-la ou determine o arquivamento das peças de informações recebidas.",
+        "nos crimes previstos nessa lei, cometidos em quadrilha ou coautoria, o coautor ou partícipe que, por meio de confissão espontânea, revelar à autoridade policial ou judicial toda a trama delituosa terá sua pena reduzida de 1 (um) a 2/5 (dois quintos).",
+        "a ação penal será promovida perante a Justiça Federal quando a infração for praticada em detrimento de bens e serviços de entes federais. Nos demais casos, será proposta perante a Justiça Estadual.",
+        "os órgãos dos Ministérios Públicos Federal e Estadual, sempre que julgarem necessário, poderão requisitar, a qualquer autoridade, informação, documento ou diligência relativa à prova dos crimes previstos na Lei 7.492/86."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2011-04_67",
+    "question_number": 67,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CRIMINAL-PROCEDURE",
+    "nullified": false,
+    "question": "Em relação ao incidente de falsidade, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "se reconhecida a falsidade por decisão irrecorrível, mandará desentranhar o documento e remetê-lo, com os autos do processo incidente, ao Ministério Público.",
+        "arguida, por escrito, a falsidade de documento constante dos autos, o juiz observará o seguinte processo: mandará autuar em apartado a impugnação e em seguida ouvirá a parte contrária, que, num prazo de 24 (vinte a quatro) horas, oferecerá resposta.",
+        "a arguição de falsidade, feita por procurador, não exige poderes especiais.",
+        "o juiz não poderá, de ofício, proceder à verificação da falsidade."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2011-04_68",
+    "question_number": 68,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CRIMINAL-PROCEDURE",
+    "nullified": false,
+    "question": "Em relação às exceções previstas na legislação processual penal, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A arguição de suspeição sempre precederá a qualquer outra.",
+        "Se for arguida a suspeição do órgão do Ministério Público, o juiz, depois de ouvi-lo, decidirá, sem recurso, podendo antes admitir a produção de provas no prazo de 10 (dez) dias.",
+        "Poderá se opor suspeição às autoridades policiais nos atos do inquérito.",
+        "As exceções serão processadas em autos apartados e não suspenderão, em regra, o andamento da ação penal."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2011-04_69",
+    "question_number": 69,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "CRIMINAL-PROCEDURE",
+    "nullified": false,
+    "question": "Acerca das disposições contidas na Lei Processual sobre o Inquérito Policial, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Nos crimes de ação privada, a autoridade policial poderá proceder a inquérito a requerimento de qualquer pessoa do povo que tiver conhecimento da existência de infração penal.",
+        "Do despacho que indeferir o requerimento de abertura de inquérito caberá recurso para o tribunal competente.",
+        "Para verificar a possibilidade de haver a infração sido praticada de determinado modo, a autoridade policial poderá proceder à reprodução simulada dos fatos, desde que esta não contrarie a moralidade ou a ordem pública.",
+        "A autoridade policial poderá mandar arquivar autos de inquérito."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2011-04_70",
+    "question_number": 70,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "LABOUR",
+    "nullified": false,
+    "question": "João da Silva ajuizou reclamação trabalhista em face da empresa Alfa Empreendimentos Ltda., alegando ter sido dispensado sem justa causa. Postulou a condenação da reclamada no pagamento de aviso prévio, décimo terceiro salário, férias proporcionais acrescidas do terço constitucional e indenização compensatória de 40% (quarenta por cento) sobre os depósitos do FGTS, bem como na obrigação de fornecimento das guias para levantamento dos depósitos do FGTS e obtenção do benefício do seguro-desemprego. Na peça de defesa, a empresa afirma que o reclamante foi dispensado motivadamente, por desídia no desempenho de suas funções (artigo 482, alínea “e”, da CLT), e que, por essa razão, não efetuou o pagamento das verbas postuladas e não forneceu as guias para a movimentação dos depósitos do FGTS e percepção do seguro-desemprego. Considerando que, após a instrução processual, o juiz se convenceu da configuração de culpa recíproca, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A culpa recíproca é modalidade de resilição unilateral do contrato de trabalho.",
+        "O reclamante tem direito a 50% do valor do aviso prévio, do décimo terceiro salário e das férias proporcionais.",
+        "O reclamante não poderá movimentar a conta vinculada do FGTS.",
+        "O reclamante não tem direito ao pagamento de indenização compensatória sobre os depósitos do FGTS."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2011-04_71",
+    "question_number": 71,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "LABOUR",
+    "nullified": false,
+    "question": "Assinale a alternativa correta em relação ao Fundo de Garantia do Tempo de Serviço – FGTS.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Durante a prestação do serviço militar obrigatório pelo empregado, ainda que se trate de período de suspensão do contrato de trabalho, é devido o depósito em sua conta vinculada do FGTS.",
+        "Na hipótese de falecimento do empregado, o saldo de sua conta vinculada do FGTS deve ser pago ao representante legal do espólio, a fim de que proceda à partilha entre todos os sucessores do trabalhador falecido.",
+        "Não é devido o pagamento de indenização compensatória sobre os depósitos do FGTS quando o contrato de trabalho se extingue por força maior reconhecida pela Justiça do Trabalho.",
+        "A prescrição da pretensão relativa às parcelas remuneratórias não alcança o respectivo recolhimento da contribuição para o FGTS, posto ser trintenária a prescrição para a cobrança deste último."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2011-04_72",
+    "question_number": 72,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "LABOUR",
+    "nullified": false,
+    "question": "José Antônio de Souza, integrante da categoria profissional dos eletricitários, é empregado de uma empresa do setor elétrico, expondo-se, de forma intermitente, a condições de risco acentuado.\nDiante dessa situação hipotética, e considerando que não há norma coletiva disciplinando as condições de trabalho, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "José Antônio não tem direito ao pagamento de adicional de periculosidade, em razão da intermitência da exposição às condições de risco.",
+        "José Antônio tem direito ao pagamento de adicional de periculosidade de 30% (trinta por cento) sobre o seu salário básico.",
+        "José Antônio tem direito ao pagamento de adicional de periculosidade de 30% (trinta por cento) sobre a totalidade das parcelas salariais.",
+        "José Antônio tem direito ao pagamento de adicional de periculosidade de forma proporcional ao tempo de exposição ao risco."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2011-04_73",
+    "question_number": 73,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "LABOUR",
+    "nullified": false,
+    "question": "Paulo, empregado da empresa Alegria Ltda., trabalha para a empresa Boa Sorte Ltda., em decorrência de contrato de prestação de serviços celebrado entre as respectivas empresas. As atribuições por ele exercidas inserem-se na atividade-meio da tomadora, a qual efetua o controle de sua jornada de trabalho e dirige a prestação pessoal dos serviços, emitindo ordens diretas ao trabalhador no desempenho de suas tarefas.\nDiante dessa situação hipotética, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A terceirização é ilícita, acarretando a nulidade do vínculo de emprego com a empresa prestadora e o reconhecimento do vínculo de emprego diretamente com a empresa tomadora.",
+        "A terceirização é ilícita, acarretando a responsabilidade subsidiária da empresa tomadora pelas obrigações trabalhistas inadimplidas pela empresa prestadora.",
+        "A terceirização é lícita, acarretando a responsabilidade subsidiária da empresa tomadora pelas obrigações trabalhistas inadimplidas pela empresa prestadora.",
+        "A terceirização é lícita, não acarretando a responsabilidade subsidiária da empresa tomadora pelas obrigações trabalhistas inadimplidas pela empresa prestadora."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2011-04_74",
+    "question_number": 74,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "LABOUR",
+    "nullified": false,
+    "question": "Com relação ao contrato de aprendizagem, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "É um contrato especial de trabalho que pode ser ajustado de forma expressa ou tácita.",
+        "É um contrato por prazo determinado cuja duração jamais poderá ser superior a dois anos.",
+        "Salvo condição mais favorável, ao menor aprendiz deve ser assegurado o salário mínimo hora.",
+        "A duração do trabalho do aprendiz não pode exceder de quatro horas diárias, sendo vedada a prorrogação e a compensação de jornada."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2011-04_75",
+    "question_number": 75,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "LABOUR",
+    "nullified": false,
+    "question": "Foi celebrada convenção coletiva que fixa jornada em sete horas diárias. Posteriormente, na mesma vigência dessa convenção, foi celebrado acordo coletivo prevendo redução da referida jornada em 30 minutos. Assim, os empregados das empresas que subscrevem o acordo coletivo e a convenção coletiva deverão trabalhar, por dia,",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "8 horas, pois a CRFB prevê jornada de 8 horas por dia e 44 horas semanais, não podendo ser derrogada por norma hierarquicamente inferior.",
+        "7 horas e 30 minutos, porque o acordo coletivo, por ser mais específico, prevalece sobre a convenção coletiva, sendo aplicada a redução de 30 minutos sobre a jornada de 8 horas por dia prevista na CRFB.",
+        "7 horas, pois as condições estabelecidas na convenção coletiva, por serem mais abrangentes, prevalecem sobre as estipuladas no acordo coletivo.",
+        "6 horas e 30 minutos, pela aplicação do princípio da prevalência da norma mais favorável ao trabalhador."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2011-04_76",
+    "question_number": 76,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "LABOUR-PROCEDURE",
+    "nullified": false,
+    "question": "A respeito do recurso de revista, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "é cabível para corrigir injustiças de decisões em recurso ordinário, havendo apreciação das provas produzidas nos autos do processo.",
+        "é cabível nas causas sujeitas ao procedimento sumaríssimo, somente por contrariedade à súmula de jurisprudência uniforme do Tribunal Superior do Trabalho e violação direta à Constituição da República.",
+        "é cabível em sede de execução, de decisão em embargos à execução, nas mesmas hipóteses de cabimento das decisões decorrentes de recurso ordinário.",
+        "não é cabível para reforma de decisão visando à uniformização de jurisprudência e restabelecimento da lei federal violada."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2011-04_77",
+    "question_number": 77,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "LABOUR-PROCEDURE",
+    "nullified": false,
+    "question": "Quanto ao cabimento do mandado de segurança na Justiça do Trabalho, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O mandado de segurança impetrado contra decisão liminar que concedeu a tutela antecipada perde o objeto quando da superveniência de sentença nos autos originários.",
+        "É permitido o exercício do jus postulandi das partes quando da impetração do mandado de segurança na Justiça do Trabalho.",
+        "Tratando-se de execução provisória, não fere direito líquido e certo do impetrante a determinação de penhora em dinheiro, ainda que nomeados outros bens à penhora, uma vez que obedece à gradação da lei processual.",
+        "Cabe a impetração de mandado de segurança da decisão que indefere liminar ou homologação de acordo."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2011-04_78",
+    "question_number": 78,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "LABOUR-PROCEDURE",
+    "nullified": false,
+    "question": "Assinale a alternativa correta no que diz respeito à execução trabalhista.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "As partes devem ser previamente intimadas para a apresentação do cálculo de liquidação, exceto da contribuição previdenciária incidente, que ficará a cargo da União.",
+        "Tratando-se de prestações sucessivas, por tempo indeterminado, a execução compreenderá inicialmente as prestações devidas até a data do ingresso na execução.",
+        "Na execução por carta precatória, os embargos de terceiro serão oferecidos no juízo deprecante ou no juízo deprecado, mas a competência para julgá-los será sempre do juízo deprecante.",
+        "Em se tratando de execução provisória, não fere direito líquido e certo do impetrante a determinação de penhora em dinheiro, quando nomeados outros bens à penhora, uma vez que obedece à gradação prevista em lei."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2011-04_79",
+    "question_number": 79,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "LABOUR-PROCEDURE",
+    "nullified": false,
+    "question": "Em audiência de conciliação, instrução e julgamento, o reclamado não respondeu ao pregão, mas compareceu o seu advogado, munido de procuração e dos atos constitutivos da empresa. Dada a palavra ao reclamante, seu advogado requereu que a empresa fosse considerada revel e confessa, pelo que o juiz indeferiu a juntada da defesa escrita que o advogado da parte reclamada pretendia apresentar.\nAssinale a alternativa correta, indicando como deve o advogado da parte reclamada proceder.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Deve lançar em ata o protesto, alegando que, no processo do trabalho, a revelia decorre da falta de apresentação de defesa, pelo que a presença do advogado, munido de procuração, supre a ausência da parte.",
+        "Deve conformar-se, pois, no processo do trabalho, a revelia decorre da ausência da parte ré, importando em confissão quanto a qualquer matéria, pelo que a presença do advogado da parte ausente, munido de procuração e defesa, é irrelevante.",
+        "Deve lançar em ata o protesto, alegando que, no processo do trabalho, a revelia decorre da ausência da parte ré, importando em confissão quanto à matéria de fato, pelo que o juiz deve receber a defesa apresentada pelo advogado da parte ausente, desde que munido de procuração, para o exame das questões de direito.",
+        "Deve conformar-se, pois, no processo do trabalho, a revelia tanto pode decorrer da ausência da parte ré quanto da falta de apresentação da defesa, estando ou não presente o advogado da parte ausente (ainda que munido de procuração) e sempre importa em confissão quanto a qualquer matéria, de fato ou de direito."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2011-04_80",
+    "question_number": 80,
+    "exam_id": "2011-04",
+    "exam_year": "2011",
+    "question_type": "LABOUR-PROCEDURE",
+    "nullified": false,
+    "question": "Lavrado auto de infração contra uma empresa por alegada violação às normas da CLT, o valor da multa importa em R$ 5.000,00. Pretendendo recorrer administrativamente da multa, a empresa",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "deverá recolher o valor da multa, que ficará retida até o julgamento do recurso administrativo.",
+        "não precisará recolher qualquer multa para ter apreciado o seu recurso administrativo.",
+        "para ser isenta do depósito da multa, deverá valer-se de ação própria requerendo judicialmente a isenção até o julgamento do recurso administrativo.",
+        "não precisará depositar a multa, pois isso somente será obrigatório se desejar ajuizar ação anulatória perante a Justiça do Trabalho."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2011-05_1",
+    "question_number": 1,
+    "exam_id": "2011-05",
+    "exam_year": "2011",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "Alcides, advogado de longa data, resolve realizar concurso para o Ministério Público, vindo a ser aprovado em primeiro lugar. Após os trâmites legais, é designada data para a sua posse, circunstância que acarreta seu requerimento para suspender sua inscrição nos quadros da OAB, o que vem a ser indeferido. No caso em comento, em relação a Alcides, configura-se situação de",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "cancelamento da inscrição por assunção de cargo incompatível.",
+        "suspensão da inscrição até a aposentadoria do membro do Ministério Público.",
+        "suspeição enquanto permanecer no cargo.",
+        "incompatibilidade, podendo atuar, como advogado, em determinadas situações."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2011-05_2",
+    "question_number": 2,
+    "exam_id": "2011-05",
+    "exam_year": "2011",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "Na Secretaria Municipal de Fazenda, tramita procedimento administrativo relacionado à imposição do IPTU em determinada área urbana. O proprietário do imóvel contrata o advogado Juliano para solucionar a questão. Portando mandato extrajudicial, o advogado dirige-se ao local e, em face dos seus conhecimentos pessoais, obtém o ingresso no recinto da secretaria e recebe as informações pertinentes, apresentando, por petição, os esclarecimentos necessários.  Em um dos dias em que atuava profissionalmente, viu-se interpelado por um dos chefes de seção, que questionou sua permanência no local, proibida por atos regulamentares.\nDiante disso, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "as características especiais dos órgãos fazendários limitam os direitos dos advogados.",
+        "o ingresso em quaisquer recintos de repartições públicas, no exercício da profissão, é direito dos advogados.",
+        "a questão em tela está vinculada à proteção do sigilo profissional.",
+        "o advogado não pode ter acesso a procedimentos administrativos, salvo com autorização da autoridade competente."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2011-05_3",
+    "question_number": 3,
+    "exam_id": "2011-05",
+    "exam_year": "2011",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "A empresa Frios e Gelados S.A. promove ação de responsabilidade civil em face da empresa Calor e Chaud Ltda.  No curso do processo, surge decisão judicial, atacada por recurso apresentado pelo representante judicial da empresa autora, o advogado Lúcio. Tal recurso não tem previsão legal de sustentação oral. Apesar disso, o advogado comparece à sessão de julgamento e requer ao tribunal o tempo necessário para a sustentação referida.\nNos termos das normas estatutárias, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "é direito do advogado a sustentação oral em todos os recursos.",
+        "o direito à sustentação oral está vinculado à sua previsibilidade recursal.",
+        "a sustentação oral dependerá do relator do recurso.",
+        "o direito à sustentação oral será por trinta minutos."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2011-05_4",
+    "question_number": 4,
+    "exam_id": "2011-05",
+    "exam_year": "2011",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "Manoel, empresário, promove ação de separação judicial litigiosa em face de Maria, sua esposa, alegando graves violações aos deveres do casamento, entre as quais abandono material e moral das duas filhas do casal. Anexa documento comprovando que sua esposa deixara as menores em casa para comparecer a festas em locais distantes, o que lhes causou riscos à saúde física e mental. Apesar de as normas sobre o tema determinarem o sigilo, o processo tramita como se fosse público. O advogado do autor comunica o fato ao juiz que preside o processo e ao escrivão que chefia o cartório judicial. Baldados foram os seus esforços.\nEm relação ao caso acima, à luz das normas estatutárias, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "a publicidade do processo constitui mera irregularidade, infensa a medidas de qualquer naipe.",
+        "o advogado atuou corretamente ao reclamar do descumprimento de lei.",
+        "a reclamação deve ser escrita.",
+        "não pode reclamar para outra autoridade, já tendo apresentado a primeira ao juiz da causa."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2011-05_5",
+    "question_number": 5,
+    "exam_id": "2011-05",
+    "exam_year": "2011",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "A Administração Pública, por meio de determinado órgão, promove processo administrativo de natureza disciplinar em face do servidor público Francisco. O servidor contrata o advogado Sócrates para defendê-lo. Munido do instrumento de mandato, Sócrates requer vista dos autos do processo administrativo e posteriores intimações. O requerimento foi indeferido pela desnecessidade de advogado atuar no referido processo.\nCom base no relatado acima, à luz das normas estatutárias, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "o advogado não tem direito de atuar em processo administrativo.",
+        "a atuação do advogado é obrigatória nos processos administrativos.",
+        "o direito de vista é aplicável ao processo administrativo.",
+        "nos processos disciplinares, a regra é a da presença do advogado."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2011-05_6",
+    "question_number": 6,
+    "exam_id": "2011-05",
+    "exam_year": "2011",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "José foi condenado criminalmente, com sentença transitada em julgado, e, paralelamente, punido também em processo disciplinar perante a OAB em função dos mesmos atos que resultaram naquela condenação criminal.\nNos termos das normas estatutárias, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "a reabilitação administrativa independe da criminal.",
+        "ambas as reabilitações podem tramitar paralelamente.",
+        "a reabilitação administrativa é pressuposto da criminal.",
+        "é pressuposto da reabilitação à OAB o deferimento da criminal."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2011-05_7",
+    "question_number": 7,
+    "exam_id": "2011-05",
+    "exam_year": "2011",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "Conceição promove ação possessória em face de vários réus que ocuparam imóvel sem construção, de sua propriedade, em área urbana. Houve a designação de audiência de conciliação, com a presença dos réus e dos seus advogados. Na audiência, visando organizar o ato, o magistrado proibiu que os advogados se mantivessem de pé, bem como saíssem do local durante a sua realização.\nCom base no que dispõe o Estatuto da Advocacia e as leis regentes, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "o advogado deve permanecer sentado na sala de audiências até o final do ato.",
+        "caso o advogado necessite retirar-se do local, deve postular licença à autoridade.",
+        "o advogado pode permanecer sentado ou de pé nos recintos do Poder Judiciário.",
+        "pode permanecer de pé, caso autorizado pela autoridade competente."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2011-05_8",
+    "question_number": 8,
+    "exam_id": "2011-05",
+    "exam_year": "2011",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "No julgamento da ação envolvendo Manoel e Joaquim, o relator do processo assacou diversas acusações contra os representantes judiciais das partes, inclusive relacionadas à litigância de má-fé. Os advogados requereram a palavra, que foi indeferida, sendo retirados do recinto por servidores do Tribunal. Requereram, então, as medidas próprias à OAB.\nCom base nesse cenário, à luz das regras estatutárias, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "inexistem medidas administrativas a realizar no âmbito da OAB.",
+        "esses litígios devem ser resolvidos no âmbito do processo judicial.",
+        "a separação entre a atividade do juiz e a do advogado bloqueia a atividade da OAB.",
+        "é situação típica de desagravo pela atuação profissional dos advogados."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2011-05_9",
+    "question_number": 9,
+    "exam_id": "2011-05",
+    "exam_year": "2011",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "Ademir, formado em Jornalismo e Direito e exercendo ambas as profissões, publica, em seu espaço jornalístico, alegações forenses por ele apresentadas em juízo. Instado por outros profissionais do Direito a também apresentar os trabalhos dos colegas, Ademir alega que o espaço é exclusivamente dedicado à divulgação dos seus próprios trabalhos forenses.\nCom base no relatado, à luz das normas estatutárias, é correto afirmar que a divulgação promovida por Ademir é",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "perfeitamente justificável, por ser pertinente a outra profissão.",
+        "justificado pelo interesse jornalístico dos trabalhos forenses.",
+        "punível, por caracterizar infração disciplinar.",
+        "é equiparado a ato educacional permitido."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2011-05_10",
+    "question_number": 10,
+    "exam_id": "2011-05",
+    "exam_year": "2011",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "O advogado Antônio é convocado para prestar depoimento como testemunha em ação em que um dos seus clientes é parte. Inquirido pelo magistrado, passa a tecer considerações sobre fatos apresentados pelo seu cliente durante as consultas profissionais, mesmo sobre estratégias que havia sugerido para a defesa do seu cliente. Não omitiu quaisquer informações. Posteriormente à audiência, foi notificado da abertura de processo disciplinar pelo depoimento prestado. Em relação ao caso acima, com base nas normas estatutárias, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "no caso em tela, houve justa causa, capaz de permitir a revelação de dados sigilosos.",
+        "inquirido pelo magistrado, o advogado não pode se escusar de depor e prestar informações.",
+        "a quebra do sigilo profissional, ainda que judicialmente, como no caso, é infração disciplinar.",
+        "o sigilo profissional é uma faculdade do advogado."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2011-05_11",
+    "question_number": 11,
+    "exam_id": "2011-05",
+    "exam_year": "2011",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "Tício é advogado regularmente inscrito nos quadros da OAB e conhecido pela energia e vivacidade com que defende a pretensão dos seus clientes. Atuando em defesa de um dos seus clientes, exalta-se em audiência, mas mantém, apesar disso, a cortesia com o magistrado presidente do ato e com o advogado da parte contrária. Mesmo assim, sofreu representação perante o órgão disciplinar da OAB. Em relação a tais fatos, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "a atuação de Tício desborda os limites normais do exercício da advocacia.",
+        "inexistindo atividade injuriosa, os atos do advogado são imunes ao controle disciplinar.",
+        "a defesa do cliente deve ser pautada pelo dirigente da audiência, o magistrado.",
+        "no processo judicial, os atos do advogado constituem múnus privado."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2011-05_12",
+    "question_number": 12,
+    "exam_id": "2011-05",
+    "exam_year": "2011",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "Crésio é procurado por cliente que já possui advogado constituído nos autos. Prontamente recusa a atuação até que seu cliente apresente a quitação dos honorários acordados e proceda à revogação dos poderes que foram conferidos para o exercício do mandato. Após cumpridas essas formalidades, comprovadas documentalmente, Crésio apresenta sua procuração nos autos e requer o prosseguimento do processo. À luz das normas aplicáveis, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "a revogação do mandato exime o cliente do pagamento de honorários acordados.",
+        "permite-se o ingresso do advogado no processo mesmo que atuando outro, sem sua ciência.",
+        "o advogado deve, antes de assumir mandato, procurar a ciência e autorização do antecessor.",
+        "a verba de sucumbência deixa de ser devida após a revogação do mandato pelo cliente."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2011-05_13",
+    "question_number": 13,
+    "exam_id": "2011-05",
+    "exam_year": "2011",
+    "question_type": "HUMAN-RIGHTS",
+    "nullified": false,
+    "question": "A respeito da internacionalização dos direitos humanos, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Já antes do fim da II Guerra Mundial ocorreu a internacionalização dos direitos humanos, com a limitação dos poderes do Estado a fim de garantir o respeito integral aos direitos fundamentais da pessoa humana.",
+        "A limitação do poder, quando previsto na Constituição, garante por si só o respeito aos direitos humanos.",
+        "A criação de normas de proteção internacional no âmbito dos direitos humanos possibilita a responsabilização do Estado quando as normas nacionais forem omissas.",
+        "A internacionalização dos direitos humanos impõe que o Estado, e não o indivíduo, seja sujeito de direitos internacional."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2011-05_14",
+    "question_number": 14,
+    "exam_id": "2011-05",
+    "exam_year": "2011",
+    "question_type": "HUMAN-RIGHTS",
+    "nullified": false,
+    "question": "As Constituições brasileiras se mostraram com avanços e retrocessos em relação aos direitos humanos. A esse respeito assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A Constituição de 1946 apresentou diversos retrocessos em relação aos direitos humanos, principalmente no tocante aos direitos sociais.",
+        "A Constituição de 1967 consolidou arbitrariedades decretadas nos Atos Institucionais, caracterizando diversos retrocessos em relação aos direitos humanos.",
+        "A Constituição de 1934 se revelou retrógrada ao ignorar normas de proteção social ao trabalhador.",
+        "A Constituição de 1969, mesmo incorporando as medidas dos Atos Institucionais, se revelou mais atenta aos direitos humanos que a Constituição de 1967."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2011-05_15",
+    "question_number": 15,
+    "exam_id": "2011-05",
+    "exam_year": "2011",
+    "question_type": "HUMAN-RIGHTS",
+    "nullified": false,
+    "question": "No âmbito dos direitos humanos, a respeito do Incidente de Deslocamento de Competência, instituído pela Emenda Constitucional 45, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Para assegurar o cumprimento de obrigações decorrentes de tratados internacionais de direitos humanos de que o Brasil seja parte, o Procurador-Geral da República pode suscitar, perante o Superior Tribunal de Justiça, incidente de deslocamento de competência para a Justiça Federal, nas hipóteses de graves violações aos direitos humanos.",
+        "O incidente de deslocamento de competência, embora garanta o cumprimento de obrigações do Estado brasileiro em relação aos tratados internacionais de direitos humanos, não está relacionado com a razoável duração do processo para a consecução da finalidade de efetiva proteção dos direitos humanos.",
+        "Pelo incidente de deslocamento de competência, a Justiça Federal só julgaria os casos relativos aos direitos humanos após o Brasil ser responsabilizado internacionalmente.",
+        "O incidente de deslocamento de competência se efetiva contrariamente ao princípio do federalismo cooperativo por não obedecer à hierarquia de competência para julgamento dos crimes comuns, mesmo no âmbito de ferimento aos direitos humanos."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2011-05_16",
+    "question_number": 16,
+    "exam_id": "2011-05",
+    "exam_year": "2011",
+    "question_type": "INTERNATIONAL",
+    "nullified": false,
+    "question": "A embaixada de um estado estrangeiro localizada no Brasil contratou um empregado brasileiro para os serviços gerais. No final do ano, não pagou o 13º salário, por entender que, em seu país, este não era devido. O empregado, insatisfeito, recorreu à Justiça do Trabalho. A ação foi julgada procedente, mas a embaixada não cumpriu a sentença. Por isso, o reclamante solicitou a penhora de um carro da embaixada. Com base no relatado acima, o Juiz do Trabalho decidiu",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "deferir a penhora, pois a Constituição atribui competência à justiça brasileira para ações de execução contra Estados estrangeiros.",
+        "indeferir a penhora, pois o Estado estrangeiro, no que diz respeito à execução, possui imunidade, e seus bens são invioláveis.",
+        "extinguir o feito sem julgamento do mérito por entender que o Estado estrangeiro tem imunidade de jurisdição.",
+        "deferir a penhora, pois o Estado estrangeiro não goza de nenhuma imunidade quando se tratar de ações trabalhistas."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2011-05_17",
+    "question_number": 17,
+    "exam_id": "2011-05",
+    "exam_year": "2011",
+    "question_type": "INTERNATIONAL",
+    "nullified": false,
+    "question": "Em janeiro de 2003, Martin e Clarisse Green, cidadãos britânicos domiciliados no Rio de Janeiro, casam-se no Consulado-Geral britânico, localizado na Praia do Flamengo. Em meados de 2010, decidem se divorciar. Na ausência de um pacto antenupcial, Clarisse requer, em petição à Vara de Família do Rio de Janeiro, metade dos bens adquiridos pelo casal desde a celebração do matrimônio, alegando que o regime legal vigente no Brasil é o da comunhão parcial de bens. Martin, no entanto, contesta a pretensão de Clarisse, argumentando que o casamento foi realizado no consulado britânico e que, portanto, deve ser aplicado o regime legal de bens vigente no Reino Unido, que lhe é mais favorável. Com base no caso hipotético acima e nos termos da Lei de Introdução às Normas do Direito Brasileiro, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O juiz brasileiro não poderá conhecer e julgar a lide, pois o casamento não foi realizado perante a autoridade competente.",
+        "Clarisse tem razão em sua demanda, pois o regime de bens é regido pela lex domicilli dos nubentes e, ao tempo do casamento, ambos eram domiciliados no Brasil.",
+        "Martin tem razão em sua contestação, pois o regime de bens se rege pela lei do local da celebração (lex loci celebrationis), e o casamento foi celebrado no consulado britânico.",
+        "O regime de bens obedecerá à lex domicilli dos cônjuges quanto aos bens móveis e à lex rei sitae (ou seja, a lei do lugar onde estão) quanto aos bens imóveis, se houver."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2011-05_18",
+    "question_number": 18,
+    "exam_id": "2011-05",
+    "exam_year": "2011",
+    "question_type": "CONSTITUTIONAL",
+    "nullified": false,
+    "question": "Se Governador de Estado desejar se insurgir contra súmula vinculante que, a seu juízo, foi formulada com enunciado normativo que extrapolou os limites dos precedentes que a originaram, poderá, dentro dos instrumentos processuais constitucionais existentes,",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "ajuizar ADI contra a súmula vinculante.",
+        "ajuizar ADPF contra a súmula vinculante.",
+        "interpor reclamação contra a súmula vinculante.",
+        "requerer o cancelamento da súmula vinculante."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2011-05_19",
+    "question_number": 19,
+    "exam_id": "2011-05",
+    "exam_year": "2011",
+    "question_type": "CONSTITUTIONAL",
+    "nullified": false,
+    "question": "Os Estados são autônomos e compõem a Federação com a União, os Municípios e o Distrito Federal. À luz das normas constitucionais, quanto aos Estados, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "podem incorporar-se entre si mediante aprovação em referendo.",
+        "a subdivisão não pode gerar a formação de novos territórios.",
+        "o desmembramento deve ser precedido de autorização por lei ordinária.",
+        "se requer lei complementar federal aprovando a criação de novos entes estaduais."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2011-05_20",
+    "question_number": 20,
+    "exam_id": "2011-05",
+    "exam_year": "2011",
+    "question_type": "CONSTITUTIONAL",
+    "nullified": false,
+    "question": "No processo de impedimento do Presidente da República, ocorre a necessidade de preenchimento de alguns requisitos. Com base nas normas constitucionais, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "a Câmara autoriza a instauração do processo pelo voto da maioria absoluta dos seus membros.",
+        "o julgamento ocorre pelo Senado Federal, cuja decisão deverá ocorrer pela maioria simples.",
+        "condenado o Presidente, cumprirá sua pena privativa de liberdade em regime semiaberto.",
+        "no julgamento ocorrido no Senado, funcionará como Presidente o do Supremo Tribunal Federal."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2011-05_21",
+    "question_number": 21,
+    "exam_id": "2011-05",
+    "exam_year": "2011",
+    "question_type": "CONSTITUTIONAL",
+    "nullified": false,
+    "question": "Lei estadual que regulamenta o serviço de mototáxi é",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "constitucional porque se trata de competência legislativa reservada aos Estados.",
+        "constitucional porque se trata de competência legislativa remanescente dos Estados.",
+        "inconstitucional porque se trata de competência legislativa dos Municípios.",
+        "inconstitucional porque se trata de competência legislativa privativa da União."
+      ]
+    },
+    "answerKey": 3
+  }
+]

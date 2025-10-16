@@ -66,9 +66,11 @@ async function diagnose() {
   // 3. Verificar usuários com supabaseId duplicado (não deveria acontecer)
   const supabaseIdMap = new Map<string, typeof allUsers>();
   allUsers.forEach((user) => {
-    const existing = supabaseIdMap.get(user.supabaseId) || [];
-    existing.push(user);
-    supabaseIdMap.set(user.supabaseId, existing);
+    if (user.supabaseId) {
+      const existing = supabaseIdMap.get(user.supabaseId) || [];
+      existing.push(user);
+      supabaseIdMap.set(user.supabaseId, existing);
+    }
   });
 
   const duplicateSupabaseIds = Array.from(supabaseIdMap.entries()).filter(([_, users]) => users.length > 1);

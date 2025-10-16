@@ -82,7 +82,7 @@ async function checkSync() {
 
   // 4. Identificar usuários no Prisma sem correspondente no Supabase
   const authUserIds = new Set(authUsers.users.map((u) => u.id));
-  const orphanedInPrisma = prismaUsers.filter((u) => !authUserIds.has(u.supabaseId));
+  const orphanedInPrisma = prismaUsers.filter((u) => u.supabaseId && !authUserIds.has(u.supabaseId));
 
   // 5. Relatório
   console.log('📊 RELATÓRIO DE SINCRONIZAÇÃO\n');

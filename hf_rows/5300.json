@@ -1,0 +1,2402 @@
+[
+  {
+    "id": "2022-03-78",
+    "question_number": 78,
+    "exam_id": "2022-03",
+    "exam_year": "2022",
+    "question_type": "DIREITO DO TRABALHO",
+    "nullified": false,
+    "question": "Numa execução trabalhista, o juiz homologou os cálculos do exequente, declarando devido o valor de R$ 30.000,00. Instado a pagar voluntariamente a dívida, o executado quedou-se inerte e, após requerimento do exequente, o juiz acionou o convênio com o Banco Central para bloqueio do numerário nos ativos financeiros da empresa. A ferramenta de bloqueio concedeu, após várias tentativas, captar R$ 20.000,00 dos ativos do executado. Diante desta situação e das disposições da CLT, assinale a afirmativa correta.\nA) A empresa poderá, de plano, ajuizar embargos à execução, que serão apreciados, porque não é necessária a garantia do juízo.\nB) O executado ainda não poderá ajuizar embargos à execução, e o fazer, não serão apreciados, porque o juiz não se encontra interinamente garantido.\nC) Os embargos à execução poderão ser ajuizados, porque já conseguiu apreender mais da metade do valor executando, que é o requisito previsto na CLT.\nD) A empresa não poderá embargar a execução, porque não existe tal previsão na CLT.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A empresa poderá, de plano, ajuizar embargos à execução, que serão apreciados, porque não é necessária a garantia do juízo.",
+        "O executado ainda não poderá ajuizar embargos à execução, e o fazer, não serão apreciados, porque o juiz não se encontra interinamente garantido.",
+        "Os embargos à execução poderão ser ajuizados, porque já conseguiu apreender mais da metade do valor executando, que é o requisito previsto na CLT.",
+        "A empresa não poderá embargar a execução, porque não existe tal previsão na CLT."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2022-03-79",
+    "question_number": 79,
+    "exam_id": "2022-03",
+    "exam_year": "2022",
+    "question_type": "DIREITO PROCESSUAL CIVIL",
+    "nullified": false,
+    "question": "Na audiência de uma reclamação trabalhista, estando as partes presentes e assistidas por seus respectivos advogados, foi homologado pelo juiz um acordo no valor de R$ 50.000,00 (cinquenta mil reais), tendo sido atribuído ao valor a natureza indenizatória, com as parcelas devidamente identificadas. O reclamante e o INSS, cinco dias após, interpusseram recurso ordinário contra a decisão de homologação do acordo – o reclamante, dizendo-se arrependido quanto ao valor, afirmando que teria direito a uma quantia muito superior; já o INSS, insurgindo-se contra a indicação de todo o valor acordado como tendo natureza indenizatória, prejudicando a autarquia previdenciária no tocante ao recolhimento da cota previdenciária. Diante do caso apresentado e nos termos da CLT, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Tanto o reclamante quanto o INSS podem recorrer da decisão homologatória, e seus recursos terão o mérito apreciado.",
+        "No caso, somente o reclamante poderá recorrer, porque o INSS não tem legitimidade para recorrer de recursos, já que não foi parte.",
+        "Somente o INSS pode recorrer, porque, para o reclamante, o acordo valerá como decisão irrecorrível.",
+        "Nenhuma das partes nem o INSS podem recorrer contra o acordo, porque a homologação na Justiça do Trabalho é soberana."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2022-03-80",
+    "question_number": 80,
+    "exam_id": "2022-03",
+    "exam_year": "2022",
+    "question_type": "DIREITO PROCESSUAL CIVIL",
+    "nullified": false,
+    "question": "Após a admissão e o julgamento de um recurso de revista, um motorista por aplicativo, que requeriu vínculo empregatício com uma plataforma, teve o seu pedido julgado improcedente por uma das turmas do Tribunal competente. Na mesma semana, outro recurso de revista foi julgado de forma diametralmente oposta por outra turma do mesmo Tribunal, reconhecendo o vínculo de emprego. Diante desta contradição nos julgamentos, assinale a opção que indica o recurso cabível para uniformizar o entendimento desse Tribunal e em que órgão ele será apreciado.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Embargos, para a Seção de Dissídios Individuais do TST.",
+        "Recurso Ordinário, a ser julgado pelo órgão Pleno do TRT da Região.",
+        "Embargos de Declaração, a ser apreciado pelo STF.",
+        "Conflito Negativo de Competência, para o órgão especial do STJ."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2023-01-1",
+    "question_number": 1,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "ÉTICA PROFISSIONAL",
+    "nullified": false,
+    "question": "Foi instaurado processo disciplinar em face do advogado Nino, tendo em vista possível prática de infração disciplinar. No que se refere às notificações de Nino no mencionado feito, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A notificação inicial de Nino para apresentação de defesa prévia deverá ser feita pessoalmente, de forma preferencial, admitindo-se a notificação por correspondência com aviso de recebimento apenas em hipóteses excepcionais, previstas no Regulamento Geral do Estatuto da Advocacia e da OAB.",
+        "Na hipótese de a notificação inicial para apresentação de defesa prévia ser realizada por edital, deve constar do edital apenas o nome completo de Nino, ou seu número de inscrição e a menção de que a notificação destina-se à apresentação da defesa prévia no referido disciplinar no prazo legal.",
+        "As notificações realizadas no referido processo disciplinar que foram feitas através de edital, com exceção da notificação inicial, deverão indicar o nome completo de Nino e o do advogado constituído para sua defesa, salvo no hipótese de atuação em causa própria.",
+        "Há presunção de recebimento das notificações enviadas por correspondência com aviso de recebimento ao endereço residencial ou ao endereço profissional que constam no cadastro de Nino junto ao Conselho Secional."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2023-01-2",
+    "question_number": 2,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO PROCESSUAL CIVIL",
+    "nullified": false,
+    "question": "Teresa, advogada contratada por Carina para representar seus interesses em ação judicial, decide renunciar ao mandato. Em 16/02/2023, Teresa rege notificação de renúncia e a envia por meio de correspondência com aviso de recebimento a Carina, que a recebe em 28/02/2023. No dia seguinte, Carina ajusta com a advogada Fernanda que ela passará a representar seus interesses em ação judicial a partir de então, mas ainda não assina novo procuração. Considerando esse cenário, sobre o cumprimento do prazo processual com vencimento no dia 02/03/2023, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Teresa deve cumprir o prazo porque continuará obrigada, durante os dez dias seguintes à notificação de renúncia, a representar Carina, mesmo que tenha sido substituída antes do término desse prazo.",
+        "Teresa estará desobrigada do cumprimento do prazo, porque Carina foi notificada da renúncia ao mandato em data anterior ao seu vencimento.",
+        "Fernanda não poderá cumprir o prazo, já que somente poderá postular em juízo fazendo prova do mandato.",
+        "Fernanda poderá cumprir o prazo, já que, afirmando urgência, poderá atuar sem procuração, obrigando-se a apresentá-la no prazo de quinze dias, prorrogável por igual período."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2023-01-4",
+    "question_number": 4,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CIVIL",
+    "nullified": false,
+    "question": "A advogada Celina celebrou com a cliente Camila um contrato de prestação de serviços advocatícios. Na cláusula X, foi disposto que a extensão do patrocínio é limitada ao primeiro grau de jurisdição. Na cláusula W, foi disposto valor diverso de honorários contratuais para a hipótese de causa encerrar-se por acordo. Considerando o informado sobre o contrato realizado, de acordo com o Código de Ética e Disciplina da OAB, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A cláusula X é vedada, pois não se admite tal limitação de atuação em grau de jurisdição. A cláusula W também é vedada, pois não se admite a previsão de valores diversos de honorários em caso de acordo.",
+        "O conteúdo da cláusula W, com disposição de valor diverso de honorários contratuais para a hipótese de causa encerrar-se por acordo pode ser incluído no contrato sem que isso implique ilegalidade. A limitação de atuação em grau de jurisdição prevista na mencionada cláusula X encontra vedação legal.",
+        "A cláusula X é permitida. Por sua vez, a cláusula W é vedada, pois não se admite a previsão de valores diversos de honorários em caso de acordo.",
+        "As duas cláusulas narradas não violam a disciplina do citado Código de Ética e Disciplina da OAB."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2023-01-5",
+    "question_number": 5,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CONSTITUCIONAL",
+    "nullified": false,
+    "question": "Lucas e Leandro são os únicos sócios da sociedade de advogados Lucas & Leandro Advogados. Ocorre que Leandro, que já exerceu mandato de vereador, passará a integrar a mesa diretora da Câmara Municipal no próximo biênio. Durante tal período, a sociedade de advogados A) deverá transformar-se em sociedade unipessoal de advocacia, com a concentração em Lucas das cotas que pertencem a Leandro. B) deverá averbar, no registro da sociedade, o licenciamento de Leandro para exercer atividade incompatível com a advocacia em caráter temporário, não alterando sua constituição. C) não poderá funcionar, porque Leandro, um de seus integrantes, estará totalmente proibido de advogar. D) não poderá ter sede ou filial na mesma área territorial do Conselho Seccional em que Leandro exerce o mandato na mesa diretora da Câmara Municipal.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "deverá transformar-se em sociedade unipessoal de advocacia, com a concentração em Lucas das cotas que pertencem a Leandro.",
+        "deverá averbar, no registro da sociedade, o licenciamento de Leandro para exercer atividade incompatível com a advocacia em caráter temporário, não alterando sua constituição.",
+        "não poderá funcionar, porque Leandro, um de seus integrantes, estará totalmente proibido de advogar.",
+        "não poderá ter sede ou filial na mesma área territorial do Conselho Seccional em que Leandro exerce o mandato na mesa diretora da Câmara Municipal."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2023-01-6",
+    "question_number": 6,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO PENAL",
+    "nullified": false,
+    "question": "O advogado Jefferson pretende associar-se a uma sociedade de advogados, para a prestação de serviços advocatícios e participação nos resultados. Sobre tal possibilidade, assinale a afirmativa correta. A) É admitido que Jefferson se associe, em tais moldes, a apenas uma sociedade de advogados. B) A associação de Jefferson a uma sociedade unipessoal de advocacia, com participação nos resultados, não é permitida, pois configuraria a presença de requisitos legais de vínculos empregatícios. C) É admitido que Jefferson se associe, simultaneamente, a uma sociedade de advogados e a uma sociedade unipessoal de advocacia. D) A associação de Jefferson a uma sociedade de advogados deve ser em caráter geral, não sendo admitida a restrição à determinada causa.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "É admitido que Jefferson se associe, em tais moldes, a apenas uma sociedade de advogados.",
+        "A associação de Jefferson a uma sociedade unipessoal de advocacia, com participação nos resultados, não é permitida, pois configuraria a presença de requisitos legais de vínculos empregatícios.",
+        "É admitido que Jefferson se associe, simultaneamente, a uma sociedade de advogados e a uma sociedade unipessoal de advocacia.",
+        "A associação de Jefferson a uma sociedade de advogados deve ser em caráter geral, não sendo admitida a restrição à determinada causa."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2023-01-7",
+    "question_number": 7,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO PENAL",
+    "nullified": false,
+    "question": "Pedro, advogado, é investigado criminalmente, em conjunto com Antônio, ex-cliente, e Matheus, juiz da comarca, em razão de sua suposta participação em atos fraudulentos que importaram o pagamento de benefícios previdenciários indevidos. No âmbito das investigações, a autoridade judicial competente determinou medida cautelar de busca e apreensão que importa violação do local de trabalho de Pedro. Posteriormente, Pedro é consultado pelo órgão encarregado da investigação criminal acerca de sua interesse na celebração de acordo de colaboração premiada. Sobre essas medidas, assinale a afirmativa correta. A) É válida a medida de busca e apreensão executada no local de trabalho de Pedro se fundada exclusivamente em declarações de outro colaborador, sem confirmação por outros meios de prova. B) Em hipóteses excepcionais, podem ser usados na investigação documentos, mídias e objetos pertencentes a outros clientes de Pedro. C) Se Pedro efetuar colaboração premiada contra Antônio, tal ato importará em processo disciplinar, que poderá culminar com a aplicação da sanção de exclusão. D) Se Pedro efetuar colaboração premiada contra Matheus, não estará sujeito às penas relativas ao crime de violação do segredo profissional.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "É válida a medida de busca e apreensão executada no local de trabalho de Pedro se fundada exclusivamente em declarações de outro colaborador, sem confirmação por outros meios de prova.",
+        "Em hipóteses excepcionais, podem ser usados na investigação documentos, mídias e objetos pertencentes a outros clientes de Pedro.",
+        "Se Pedro efetuar colaboração premiada contra Antônio, tal ato importará em processo disciplinar, que poderá culminar com a aplicação da sanção de exclusão.",
+        "Se Pedro efetuar colaboração premiada contra Matheus, não estará sujeito às penas relativas ao crime de violação do segredo profissional."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2023-01-8",
+    "question_number": 8,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CIVIL",
+    "nullified": false,
+    "question": "A advogada Maria integra a Comissão de Defesa do Consumidor de certa Seccional da OAB, promovendo debates e a qualificação profissional de colegas sobre temas específicos de Direito do Consumidor. Sobre a atuação de Maria, assinale a afirmativa correta. A) Maria poderá firmar contrato gratuito de prestação de serviços com entidades da OAB. B) Maria é impedida de adquirir bens móveis fungíveis de entidades da OAB. C) Maria poderá alienar bens móveis infungíveis para entidades da OAB. D) Maria poderá adquirir bens imóveis de entidades da OAB.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Maria poderá firmar contrato gratuito de prestação de serviços com entidades da OAB.",
+        "Maria é impedida de adquirir bens móveis fungíveis de entidades da OAB.",
+        "Maria poderá alienar bens móveis infungíveis para entidades da OAB.",
+        "Maria poderá adquirir bens imóveis de entidades da OAB."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2023-01-9",
+    "question_number": 9,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "FILOSOFIA DO DIREITO",
+    "nullified": false,
+    "question": "“...a justiça tem um papel a desempenhar no determinando do que é o direito.” Ronald Dworkin Um dos mais importantes debates no âmbito da Filosofia do Direito é a relação entre direito e moral. Esse tema costuma dividir o posicionamento de positivistas e não positivistas. Ronald Dworkin, um dos mais influentes filósofos do direito contemporâneo, em seu livro A Justiça de Toga, se posiciona expressamente sobre essa questão. Assinale a opção que expressa o posicionamento desse autor no livro em referência.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A moral é parte do Direito porque, ao tomar decisões no âmbito de um processo judicial, um juiz ou uma juíza devem julgar de acordo com a sua consciência, seguindo aquilo que acham correto.",
+        "O Direito não se confunde com a moral, pois são formas distintas de conhecimento. Além disso, a normatividade é a norma moral possuem formas diferentes, sendo a primeira subjetiva e a segunda objetiva.",
+        "A moral e o Direito devem ser tratados como áreas específicas e distintas do conhecimento, a menos que o legislador inclua critérios morais no direito positivo, como em que eles seriam complementares, embora independentes.",
+        "O Direito deveria ser tratado como segmento da moral, não como algo separado dela. Dessa forma, a teoria jurídica deveria ser considerada uma parte especial da política."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2023-01-10",
+    "question_number": 10,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "FILOSOFIA DO DIREITO",
+    "nullified": false,
+    "question": "Operadores de Direito, com relativa frequência, precisam enfrentar situações dramáticas que envolvem a vida humana ou o corpo humano. Em casos como esses, nem sempre a lei oferece uma determinação clara e única. Certas vezes a filosofia oferece uma base mais consistente de reflexão e argumentação. Assinale a opção que apresenta o conhecimento imperativo categórico de Kant, muitas vezes citado nos debates relativos a essas situações dramáticas.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O homem é um animal político e como tal possui o sentimento do bem e do mal, do justo e do injusto, sobre os quais pode se manifestar graças ao dom da fala e de sua capacidade de comunicação.",
+        "A normatização que regula a relação entre o todo e as partes deve ser considerada justa, de forma a realizar a distribuição proporcional dos bens comuns.",
+        "Age de tal maneira que uses a humanidade, tanto na tua pessoa como na pessoa de qualquer outro, sempre e simultaneamente como um fim e nunca como um meio.",
+        "O mundo ético vivo é o espírito em sua verdade; assim que o espírito chega ao saber abstrato de sua essência, a eticidade decai na universalidade formal do Direito."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2023-01-11",
+    "question_number": 11,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CONSTITUCIONAL",
+    "nullified": false,
+    "question": "Determinado lei federal de 2020 gerou intensa controvérsia em vários órgãos do Poder Judiciário, bem como suscitou versões críticas de importantes juristas que questionam a constitucionalidade de diversos dos seus dispositivos. Afinal, cerca de metade dos juízes e tribunais do País incluiu-se por sua inconstitucionalidade. A existência de pronunciamentos judiciais análogos vem gerando grande insegurança jurídica no País, daí a preocupação de um legitimado à deflagração do controle concentrado de constitucionalidade em estabelecer uma orientação homogênea na matéria regulada pela lei federal em tela, sem, entretanto, retrair-la do mundo jurídico. Sem saber como proceder para afastar a incerteza jurídica a partir da mitigação de decisões judiciais em questão, esse legitimado solicitou que você, como advogado(a), se manifestasse. Assinale a opção que é cabível para atingir esse objetivo.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Ação Direta de Inconstitucionalidade (ADI).",
+        "Representação de Inconstitucionalidade (RI).",
+        "Arguição de Descumprimento de Preceito Fundamental (ADPF).",
+        "Ação Declaratória de Constitucionalidade (ADC)."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2023-01-12",
+    "question_number": 12,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CONSTITUCIONAL",
+    "nullified": false,
+    "question": "O poder constituinte derivado reformador promulgou emenda à Constituição, inserindo um novo direito fundamental na CRFB/88. No caso, trata-se-se de norma de eficácia limitada, necessitando, portanto, de lei regulamentadora a ser produzida pelo Congresso Nacional. Em razão da total inércia do Poder Legislativo, tendo decorrido quatro anos desde a referência emenda, uma associação de classe legitimamente constituída e em funcionamento há mais de 10 anos, cujo estatuto prevê a possibilidade de atuar judicial e extrajudicialmente no interesse de seus associados, que não estariam sendo contemplados em razão da referida inércia, procura você, como advogado(a). Com base no sistema jurídico-constitucional brasileiro, você, como advogado(a), informa, corretamente, que a fruição dos direitos pelos associados.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Somente poderá ser alcançada com a impetração de Mandado de Injunção por iniciativa individual de cada um dos associados, em seus próprios nomes, junto ao Supremo Tribunal Federal.",
+        "Poderá ser alcançada com a impetração de Mandado de Injunção Coletivo pela referida Associação, em seu próprio nome, junto ao Supremo Tribunal Federal.",
+        "Somente será alcançada após o Congresso Nacional produzir a lei regulamentadora referente à norma constitucional de eficácia limitada.",
+        "Será possível com o ajuizamento de uma Ação Civil Pública, que tenha como pedido a exigência de que o Congresso Nacional produza, imediatamente, a lei regulamentadora."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2023-01-13",
+    "question_number": 13,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CONSTITUCIONAL",
+    "nullified": false,
+    "question": "Em projeto de lei apresentado pelos próprios Vereadores, a Câmara de Vereadores de Município A/fo votou e aprovou a fixação dos subsídios dos referidos agentes, da seguinte forma: o padrão remuneratório assim fixado gerou muitas debates em relação à rigidez do processo legislativo e a necessidade de serem observados certos parâmetros em sua fixação, sendo sustentada uma necessária correção percentual em relação ao subsídio dos Deputados Estaduais. Sobre o caso narrado, com base no texto constitucional, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A fixação dos subsídios dos Vereadores é de competência da Câmara Municipal, não podendo ultrapassar determinado percentual do subsídio dos Deputados Estaduais, percentual este que varia conforme a população do Município.",
+        "A referida lei padece de vício de iniciativa, eis que compete privativamente ao Prefeito do Município A/fo dispor sobre os subsídios dos membros dos Poderes Executivo e Legislativo.",
+        "Diante do princípio da separação dos poderes, inexistindo vedação para que os subsídios dos integrantes do Poder Legislativo local superem aqueles recebidos pelo Deputados Estaduais, desde que respeitado o teto constitucional.",
+        "É de competência comum da Câmara Municipal e do Prefeito Municipal a fixação dos subsídios dos Vereadores, os quais não podem ultrapassar o subsídio mensal, em espécie, dos Ministros do Supremo Tribunal Federal, executadas vantagens pessoais, não tendo vinculação com os Deputados Estaduais."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2023-01-14",
+    "question_number": 14,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CONSTITUCIONAL",
+    "nullified": false,
+    "question": "Carlos, praticante de religião politeísta, internado em hospital de orientação cristã e solicitando assistência espiritual a ser conduzida por um líder religioso de sua crença. Os parentes de Carlos, mesmo cientes de que a assistência solicitada se resumiria a uma discreta conversa, estavam temerosos de que a presença do referido líder religioso em razão da permanência de Carlos no hospital, em virtude de representarem uma vertente religiosa não aderente à fé adotada pela instituição hospitalar. Os parentes de Carlos o procuram, como advogados(a), para conhecer os procedimentos adequados à situação narrada. Você os informou que, segundo o sistema jurídico-constitucional brasileiro, o hospital",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "pode negar a autorização para a assistência espiritual em religião diversa daquela preconizada pela instituição, embora não fosse o caso de Carlos perder a vaga.",
+        "não pode negar o apoio espiritual solicitado, mesmo que a assistência seja prestada em bases religiosas diversas que sejam oficialmente preconizadas pelo hospital.",
+        "somente está obrigado a autorizar a assistência religiosa caso já tiveres permitido que sacerdote de outra religião exercesse atividades religiosas em suas instalações.",
+        "tem, como instituição privada, total autonomia para estabelecer regras para situações como esta, podendo permitir ou negar o pedido, de acordo com seu regulamento interno."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2023-01-15",
+    "question_number": 15,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CONSTITUCIONAL",
+    "nullified": false,
+    "question": "Márcio, deputado estadual do Estado-membro A/fo e líder do governo na Assembleia, vem demonstrando grande preocupação com o excessivo número de projetos que lhe chegam à Casa Legislativa do Estado A/fo, que, se aprovados, trarão muitas inovações e, em consequência, elevado grau de insegurança jurídica aos cidadãos. Por isso, ele sugeriu que o governador propusesse uma emenda à Constituição do Estado (PEC estadual), no sentido de tornar mais difíceis o processo legislativo para aprovação de lei ordinária. Sua ideia é de que, ao invés de maioria relativa, a aprovação de lei ordinária apenas se configure como atingido o quórum de maioria absoluta dos membros da Assembleia legislativa de A/fo. Avaliada pelos Procuradores do Estado A/fo, estes informaram, acertadamente, que, segundo o sistema jurídico constitucional, a sugestão de Márcio, acerca da alteração no processo legislativo de A/fo,",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "pode ser levada adiante, já que, no caso, com base no princípio federativo, há total autonomia do Estado-membro para a elaboração de suas próprias regras quanto ao processo legislativo.",
+        "pode ser levada adiante, já que apenas não seria possível a proposta de emenda que vise a facilitar o processo legislativo para a alteração de leis ordinárias.",
+        "é inconstitucional, pois, com base no princípio da simetria, o tema objeto da suposta emenda tem de ser disciplinado com observância das regras estabelecidas na Constituição Federal de 1988.",
+        "é inválida, pois a Constituição Federal de 1988 vedou aos detentores do cargo de Chefe do Poder Executivo o poder de iniciativa para propor a alteração no texto constitucional estadual."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2023-01-16",
+    "question_number": 16,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CONSTITUCIONAL",
+    "nullified": false,
+    "question": "O Presidente da República, ao finalizar projeto de lei de sua iniciativa privativa, é aconselhado por um assessor que encaminhe o texto ao Senado Federal, de forma a al dar início à discussão e à votação do referido projeto. A justificativa para que o Senado Federal fosse definido como a casa iniciadora do projeto de lei era a de que a matéria teria recebido grande apoio no âmbito do Senado Federal. O Presidente da República, então, solicita que sua assessoria analise a possibilidade ventilada. Estes, após cuidadosa avaliação, informam ao Presidente da República que, segundo a ordem jurídico-constitucional brasileira, a discussão e a votação dos projetos de lei de iniciativa do Presidente da República são iniciados",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "na Câmara dos Deputados ou no Senado Federal, conforme a discricionariedade de sua parte.",
+        "na Câmara dos Deputados, necessariamente, tendo que o Senado Federal restar o papel de casa revisora.",
+        "por vezes na Câmara dos Deputados, podendo, no entanto, o Senado Federal, devendo apenas ser respeitada a regra de alternância entre elas.",
+        "por regra, no Senado Federal, salvo exceções estabelecidas na Constituição Federal de 1988."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2023-01-17",
+    "question_number": 17,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CONSTITUCIONAL",
+    "nullified": false,
+    "question": "Um terço dos membros do Senado Federal apresentou proposta de emenda à Constituição da República (PEC), propondo a acréscimo de um inciso ao art. 5º. Segundo a PEC, o novo inciso teria a seguinte redação: \"XXX – é garantida a inclusão digital e o acesso amplo e irrestrito à Internet, nos termos da lei.\" A proposta foi aprovada pelo plenário da Câmara dos Deputados e do Senado Federal por mais de três quintos dos membros em um único turno de votação. Ao continuar, a PEC foi promulgada pelas Mesas da Câmara dos Deputados e do Senado Federal. Sobre a PEC descrita na narrativa, segundo o sistema jurídico-constitucional brasileiro, assinale a alternativa correta. A) Apresenta uma inconstitucionalidade material, que vem a ser a violação de cláusula pétrea, haja vista a impossibilidade de qualquer alteração ao par. 5º da Constituição da República. B) É formalmente inconstitucional, pois o procedimento a ser seguido pelas casas do Congresso Nacional, que funcionam como poder constituinte derivado reformador, não foi corretamente observado. C) Ostenta um vício de iniciativa, visto que é de competência exclusiva do chefe do Poder Executivo a apresentação do projeto de emenda à Constituição. D) Apresenta vício formal, pois, em qualquer ato de produção normativa, especialmente no caso de emenda à constituição, a competência para o ato de promulgação é do Presidente da República.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Apresenta uma inconstitucionalidade material, que vem a ser a violação de cláusula pétrea, haja vista a impossibilidade de qualquer alteração ao par. 5º da Constituição da República.",
+        "É formalmente inconstitucional, pois o procedimento a ser seguido pelas casas do Congresso Nacional, que funcionam como poder constituinte derivado reformador, não foi corretamente observado.",
+        "Ostenta um vício de iniciativa, visto que é de competência exclusiva do chefe do Poder Executivo a apresentação do projeto de emenda à Constituição.",
+        "Apresenta vício formal, pois, em qualquer ato de produção normativa, especialmente no caso de emenda à constituição, a competência para o ato de promulgação é do Presidente da República."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2023-01-18",
+    "question_number": 18,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO PROCESSUAL CIVIL",
+    "nullified": false,
+    "question": "Você está diante de um caso de extrema gravidade de violação de direitos previstos na Convenção Americana sobre Direitos Humanos, quando é urgente a adoção de medidas para evitar prejuízos irreparáveis às vítimas. Trata-se de um caso que demora injustificada na decisão sobre os recursos de jurisdição interna. Como advogada ou advogado que conhece o Sistema Interamericano de Proteção dos Direitos Humanos você sabe que a Corte Interamericana de Direitos Humanos pode adotar medidas provisórias que considerar cabíveis. Considerando as normas pertinentes do Sistema Interamericano, assinale a afirmativa correta. A) Deve-se peticionar diretamente à Corte Interamericana de Direitos Humanos, ainda que o caso não esteja sob o conhecimento da Corte, para que ela adote as medidas provisórias cabíveis. B) O caso deve ser encaminhado à Comissão Jurídica Interamericana para que, nos termos do Art. 99 da Carta da OEA, ela tome as medidas provisórias adequadas. C) É preciso aguardar a decisão de um Tribunal Superior sobre o caso para que, após, se recorra ao Sistema Interamericano, segundo o princípio do duplo grau de jurisdição. D) Pode-se submeter o caso à Comissão Interamericana de Direitos Humanos para que avalie e decida se irá solicitar medidas provisórias à Corte.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Deve-se peticionar diretamente à Corte Interamericana de Direitos Humanos, ainda que o caso não esteja sob o conhecimento da Corte, para que ela adote as medidas provisórias cabíveis.",
+        "O caso deve ser encaminhado à Comissão Jurídica Interamericana para que, nos termos do Art. 99 da Carta da OEA, ela tome as medidas provisórias adequadas.",
+        "É preciso aguardar a decisão de um Tribunal Superior sobre o caso para que, após, se recorra ao Sistema Interamericano, segundo o princípio do duplo grau de jurisdição.",
+        "Pode-se submeter o caso à Comissão Interamericana de Direitos Humanos para que avalie e decida se irá solicitar medidas provisórias à Corte."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2023-01-19",
+    "question_number": 19,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CIVIL",
+    "nullified": false,
+    "question": "Você, como advogado(a), foi procurado(a) por uma família indígena que relatou ter interesse em manter sua cultura e suas tradições. Contudo, na escola pública mais próxima da comunidade indígena, escolheu em que estudam algumas crianças dessa comunidade, o ensino ocorre apenas em Língua Portuguesa. Em relação a isso, você deve esclarecer para a família que A) o paradigma adotado pelo ordenamento jurídico brasileiro é o de integração, por isso o ensino feito exclusivamente em Língua Portuguesa é, na verdade, uma forma de assegurar o direito dos índios de se integrarem à cultura mais abrangente. B) no ensino regular fundamental cabe apenas a Língua Portuguesa. C) no ensino fundamental de competências dos municípios, cada municipalidade, de acordo com sua legislação local, é que vai decidir sobre a utilização ou não de línguas maternas indígenas no sistema de ensino. D) não obstante o ensino fundamental ser ministrado em Língua Portuguesa, deve ser assegurada às comunidades indígenas também a utilização de suas línguas maternas e processos próprios de aprendizagem.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "o paradigma adotado pelo ordenamento jurídico brasileiro é o de integração, por isso o ensino feito exclusivamente em Língua Portuguesa é, na verdade, uma forma de assegurar o direito dos índios de se integrarem à cultura mais abrangente.",
+        "no ensino regular fundamental cabe apenas a Língua Portuguesa.",
+        "no ensino fundamental de competências dos municípios, cada municipalidade, de acordo com sua legislação local, é que vai decidir sobre a utilização ou não de línguas maternas indígenas no sistema de ensino.",
+        "não obstante o ensino fundamental ser ministrado em Língua Portuguesa, deve ser assegurada às comunidades indígenas também a utilização de suas línguas maternas e processos próprios de aprendizagem."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2023-01-20",
+    "question_number": 20,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "FILOSOFIA DO DIREITO",
+    "nullified": false,
+    "question": "O veículo de serviço do Consulado de um Estado estrangeiro transgrediu as leis de trânsito brasileiras e causou avarias em uma viatura da Polícia Militar de Estado da Federação brasileira. A competência para processar e julgar eventual ação indenizatória é, originariamente, A) do Supremo Tribunal Federal. B) do Superior Tribunal de Justiça. C) da Justiça Federal de 1ª Instância. D) da Justiça Estadual de 1ª Instância.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "do Supremo Tribunal Federal.",
+        "do Superior Tribunal de Justiça.",
+        "da Justiça Federal de 1ª Instância.",
+        "da Justiça Estadual de 1ª Instância."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2023-01-21",
+    "question_number": 21,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CIVIL",
+    "nullified": false,
+    "question": "Em Londres, uma sociedade empresária chinesa contratou, com uma sociedade empresária alemã, a entrega de 20.000 toneladas de minério de ferro no Porto de Santos, São Paulo. Por problemas relacionados ao desembarque da mercadoria, a sociedade empresária chinesa resolveu demandar em face da alemã. De acordo com as normas de Direito Internacional Privado brasileiro, assinale a afirmativa correta. A) A competência para processar e julgar a demanda é exclusivamente da autoridade judicial inglesa. B) A competência para processar e julgar a demanda é concorrente com as autoridades judiciais alemã e chinesa. C) A Justiça brasileira é concorrentemente competente para processar e julgar a demanda. D) A Justiça alemã é exclusivamente competente para processar e julgar a demanda.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A competência para processar e julgar a demanda é exclusivamente da autoridade judicial inglesa.",
+        "A competência para processar e julgar a demanda é concorrente com as autoridades judiciais alemã e chinesa.",
+        "A Justiça brasileira é concorrentemente competente para processar e julgar a demanda.",
+        "A Justiça alemã é exclusivamente competente para processar e julgar a demanda."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2023-01-22",
+    "question_number": 22,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CIVIL",
+    "nullified": false,
+    "question": "Lucas, menor de oito anos de idade, é proprietário de um imóvel recebido por herança de seu avô, o qual foi alugado por seus pais, João e Maria, representando-o. Contudo, o Imposto sobre a Propriedade Territorial Urbana (IPTU) referente a este imóvel não está sendo pago locatário, conforme havia sido pactuado no contrato de locação. Em razão do inadimplemento, foi enviada notificação de lançamento de crédito tributário em nome de Lucas como devedor do tributo, para seu domicílio tributário, a fim de que pagasse o débito. A notificação foi recebida via Correios por seus pais, que residem junto com seu filho. Os pais, por entenderem que esta obrigação é do locatário, recusam-se a pagar. O Fisco Municipal está agora a cobrar judicialmente o valor da dívida de Lucas. Diante desse cenário e à luz do Código Tributário Nacional, assinale a alternativa correta. ",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Lucas, embora absolutamente incapaz, pode figurar como contribuinte devedor do IPTU, inclusive podendo constar seu nome na notificação de lançamento de crédito tributário.",
+        "Em razão da menoridade de Lucas, apenas seus pais serão considerados contribuintes deste IPTU.",
+        "Lucas e seus pais são contribuintes do IPTU, mas os bens dos pais devem ser executados antes dos bens de Lucas.",
+        "Lucas é contribuinte do IPTU, sendo o locatário o responsável tributário pelo pagamento do mesmo."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2023-01-23",
+    "question_number": 23,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO EMPRESARIAL",
+    "nullified": false,
+    "question": "João e José constituíram uma sociedade empresária por quotas de responsabilidade limitada com capital social de R$ 500.000,00, sem optarem pelo regime tributário do Simples Nacional, para performarem exercerem a atividade de comércio varejista de fogos de artifício (considerada atividade de alto risco e periculosa), sendo ambos residentes e domiciliados no Distrito Federal, mesmo local onde será instalado seu estabelecimento. Surpreendidos com a exigência do pagamento de uma Taxa de Licenciamento e Alvará calculada em função do capital social da sociedade empresária, indagaram a você, como advogado(a), se a referida taxa é realmente devida. Diante deste cenário, a referida taxa, tal como prevista, ",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "não é devida, pois o Distrito Federal não possui competência tributária para a sua cobrança.",
+        "não é devida, pois não poderia ser calculada em função do capital social da empresa.",
+        "é devida, por ter como fato gerador o exercício regular do poder de polícia distrital sobre atividades econômicas exercidas em seu território, especialmente as de alto risco e periculosa.",
+        "é devida, por ter como fato gerador a utilização efetiva de serviço público, específico e divisível, prestado ao contribuinte."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2023-01-24",
+    "question_number": 24,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO TRIBUTÁRIO",
+    "nullified": false,
+    "question": "Depois de citado em Ação de Execução Fiscal movida pelo Estado Al/fo, João não pagou o crédito tributário constante da Certidão de Dívida Ativa no valor de R$ 100.000,00 e nem ofereceu voluntariamente qualquer bem para garantir a execução. Em seguida, foi decretada e cumprida a penhora on line em dinheiro sobre João, por seu advogado(a), pretende oferecer em sua defesa os Embargos do Devedor, dentro do prazo legal. Para tal, ele terá 30 (trinta) dias para oferecer os Embargos do Devedor, contados: ",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "da sua citação para oferecer os Embargos do Devedor.",
+        "do despacho do juiz que deferiu a inicial da ação de execução fiscal.",
+        "da efetiva intimação da penhora.",
+        "da juntada aos autos do mandado de intimação da penhora devidamente cumprido."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2023-01-25",
+    "question_number": 25,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO PROCESSUAL CIVIL",
+    "nullified": false,
+    "question": "A sociedade empresária ABCI Ltda., surpreendida com a notificação de um auto de infração da Secretaria da Fazenda do Município Al/fo cobrando o Imposto sobre Serviços (ISS) dos anos de 2020 a 2022, e diante da urgência em obter certidões para participar de uma concorrência para a contratação de serviços de limpeza no hospital municipal, ajudou uma ação anulatória e requerem uma tutela antecipada para suspender a exigibilidade do crédito tributário, que foi deferido pelo juiz. A obtenção da decisão judicial suspendendo a exigibilidade do crédito tributário em cobrança não tem efeito na esfera administrativa tributária e por isso a sociedade empresária não terá direito à certidão pretendida. ",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Com a decisão que suspendeu a exigibilidade do crédito tributário, a sociedade empresária terá direito a obter uma Certidão Negativa (CN).",
+        "Com a decisão que suspendeu a exigibilidade do crédito tributário, a sociedade empresária terá direito a uma Certidão Positiva com efeitos de Negativa (CEPEN).",
+        "Não possuindo qualquer outro débito perante a Fazenda Municipal e graças à decisão que suspendeu a exigibilidade do crédito tributário, a sociedade empresária terá direito a uma Certidão Positiva com efeitos de Negativa (CEPEN).",
+        "Para obter a certidão fiscal pretendida, a sociedade empresária terá que depositar judicialmente o montante em cobrança, independentemente da referida decisão obtida."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2023-01-26",
+    "question_number": 26,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CONSTITUCIONAL",
+    "nullified": false,
+    "question": "A instituição assistencial sem fins lucrativos Quero-Te-Bem, apesar de atender há muitos anos a todos os requisitos legais e constitucionais para ter direito ao seu enquadramento como detentora da imunidade tributária de impostos das entidades beneficentes de assistência social (Art. 150, inciso VI, alínea c, da CRFB/88), foi surpreendida, em dezembro de 2022, com uma notificação de lançamento tributário referente ao imposto sobre a Renda de Pessoa Jurídica (IRPJ) dos anos de 2018 a 2021. Ao consultar seu advogado, este solicita todos os livros contábeis, documentos societários e demais certidões, todos desde a sua constituição, a fim de desconstituir judicialmente a cobrança, como o auxílio do parecer de empresa de auditoria e de perito judicial a serem indicados e produzidos como meios de provas no processo. Diante desse cenário, assinale a opção que indica a medida judicial cabível.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Mandado de Segurança preventivo.",
+        "Ação Anulatória de Débito Fiscal.",
+        "Ação Declaratória de inexistência de relação jurídico-tributária.",
+        "Medida Cautelar Fiscal."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2023-01-27",
+    "question_number": 27,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO ADMINISTRATIVO",
+    "nullified": false,
+    "question": "A União pretende realizar uma obra de grande vulto, com serviços de engenharia, mediante licitação na modalidade concorrência e no regime de contratação semi-integrada, na forma da Lei nº 14.133/2021, em relação à qual será necessária a realização de desapropriação. Para tanto, fez publicar um edital que previu a responsabilidade do contratado pela realização da desapropriação, estabelecendo o responsável por cada fase do procedimento expropriatório e a estimativa do valor da respectiva indenização, a ser pago pelo contratado. Além disso, o instrumento convocatório previu a distribuição objetiva dos riscos entre as partes, incluindo o risco pela diferença entre o custo da desapropriação e a estimativa do valor a ser pago e pelos eventuais danos e prejuízos ocasionados por atraso na disponibilização dos bens expropriados. A sociedade XPTO está muito interessada em participar da licitação, mas tem dúvidas relativas acerca da validade das cláusulas editalícias relacionadas à desapropriação, razão pela qual consulta sua assessoria jurídica a respeito do tema. Acerca dessa situação hipotética, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O edital em questão não poderia prever que o contratado promovesse nenhuma das fases de procedimento de desapropriação autorizada pelo Poder Público.",
+        "Quanto às fases do procedimento expropriatório, poderia ser conferido ao contratado, até mesmo, a possibilidade de editar o Decreto expropriatório.",
+        "A cláusula que estabelece que o contratado será responsável pelo pagamento da indenização é nula, na medida em que tal montante deve ser necessariamente arcado pelo contratado.",
+        "A repartição dos riscos deve ser respeitada, ainda que ocorra o atraso na conclusão da desapropriação por fato imprevisível."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2023-01-28",
+    "question_number": 28,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO ADMINISTRATIVO",
+    "nullified": false,
+    "question": "Fernanda foi aprovada em primeiro lugar em concurso público para o cargo de Auditor Fiscal da Receita Federal do Brasil. Ao ser convocada para investir na própria função, o departamento de recursos humanos da secretaria solicitou a Fernanda, entre outros documentos, cópia da sua última declaração de imposto sobre a renda e provas de que qualquer mudança apresentada à Secretaria Especial da Receita Federal do Brasil. Como receio de ver violada sua privacidade e informações resguardadas pelo sigilo fiscal, Fernanda procurou, como advogada(o), indagando sobre a obrigatoriedade de entrega da mencionada declaração, com base na atual redação da Lei de Improbidade Administrativa, assinale a opção que apresenta seu esclarecimento.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A posse e o exercício do cargo ficam condicionados à apresentação da citada declaração de imposto sobre a renda, a fim de ser arquivada no serviço de pessoal competente.",
+        "A nomeação e a posse não ficam condicionadas à apresentação da citada declaração de imposto sobre a renda, mas seus vencimentos apenas serão pagos com a entrega do documento.",
+        "A nomeação, a posse e o exercício do cargo ficam condicionados à apresentação da citada declaração de imposto sobre a renda, mediante prévia quebra de sigilo fiscal por ordem judicial.",
+        "A nomeação, a posse e o exercício do cargo não ficam condicionados à apresentação da citada declaração de imposto sobre a renda, mas Fernanda responderá por ato de improbidade administrativa se não entregar o documento em 30 (trinta) dias após a posse."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2023-01-29",
+    "question_number": 29,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO ADMINISTRATIVO",
+    "nullified": false,
+    "question": "O Estado Delta, com o fim de combater grave crise no sistema carcerário, realizou estudos pertinentes para contratar uma concessão administrativa, do modo a delegar os serviços de determinado presidio, abarcando as atividades de limpeza e manutenção predial (incluindo reformas), bem como o fornecimento de alimentação e de vestuário para os detentos, sem que haja, portanto, a possibilidade de cobrança de tarifas dos usuários. Acerca da situação descrita, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O Estado Delta, para a finalidade almejada, deveria fazer uso da concessão patrocinada.",
+        "O contrato poderá ter, no máximo, prazo de validade de dois anos.",
+        "O objeto do contrato poderia abarcar, também, as principais atividades atinentes aos serviços de segurança pública.",
+        "O objeto do contrato é possível, pois não abarca apenas o fornecimento de mão de obra."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2023-01-30",
+    "question_number": 30,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO ADMINISTRATIVO",
+    "nullified": false,
+    "question": "Após inúmeras tentativas de obter transparência e sanar constantes problemas na prestação de determinado serviço público federal junto à concessão, Felipe decidiu apresentar manifestação perante a Ouvidoria da Administração Pública, para informar e buscar solução para recorrentes vicos que comprometem a realização adequada da atividade, o que considera violar os princípios da regularidade, continuidade e efetividade. Sobre a hipótese narrada, considerando os direitos dos usuários de serviços públicos, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A Administração não pode exigir a apresentação de motivos determinantes da manifestação de Felipe perante a Ouvidoria.",
+        "Felipe não pode provocar a via administrativa por meio de manifestação, considerando que o serviço público e atividade econômica submetida à livre iniciativa.",
+        "A manifestação de Felipe é íncua, na medida em que a Administração não pode exigir da concessionária o respeito aos princípios que ele considera violados.",
+        "A Administração deve reconhecer a manifestação de Felipe, caso sua identificação não atenda às exigências determinadas pelo órgão, mesmo que estas possam vir a inviabilizar a sua manifestação."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2023-01-31",
+    "question_number": 31,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO PROCESSUAL CIVIL",
+    "nullified": false,
+    "question": "Mateus e Geraldo foram presos em decorrência de sentença penal com trânsito em julgado, pelo crime de latrocínio. Ambos ficaram, inicialmente, na mesma cela prisional, em condições absolutamente precárias e insalubres, sendo certo que Geraldo evadiu-se da cadeia. Seis meses após a fuga, Geraldo praticou novo latrocínio, que levou Tânia à obito. Mateus, que ficou muito deprimido pelas condições degradantes do cárcere, cometeu suicídio, cortando seus pulsos com faca adquirida irregularmente de Rodrigo, enquanto penitenciário, fato que poderia ter sido evitado, portanto, se o Estado tivesse adotado precauções mínimas. Diante das circunstâncias narradas, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O Estado poderia ser civilmente responsabilizado pela morte de Tânia, pois tinha o dever de evitar a fuga de Geraldo, mas não pelo óbito de Mateus, em razão de fato exclusivo da vítima, tendo em conta a adoção da teoria do risco administrativo.",
+        "Ambas as mortes acima descritas seriam passíveis de configurar a responsabilidade civil do Estado, nos termos da Constituição, que adota expressamente a teoria do risco integral, nas situações relacionadas à segurança pública.",
+        "Nenhum dos óbitos narrados pode caracterizar a responsabilidade civil do Estado, na medida em que nas hipóteses de omissão do Estado deve ficar caracterizado o elemento culpa, imprescritível no âmbito da teoria do risco administrativo.",
+        "O Estado poderia ser civilmente responsabilizado pela morte de Mateus, pois tinha o dever de proteger a incolumidade física de pessoa sob sua custódia, mas não pelo óbito de Tânia, na medida em que não há nexo de causalidade entre a fuga de Geraldo e o evento danoso."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2023-01-32",
+    "question_number": 32,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO ADMINISTRATIVO",
+    "nullified": false,
+    "question": "Com o intuito de tomar providências em relação à determinada política pública, no âmbito da Administração Pública Federal, foi determinado que os Ministérios Alfa, Beta e Gama, promovem uma decisão coordenada, diante da justificada relevância da matéria. A Associação Dabilu, que atua na área de interesse coletivo, anseia habilitar-se como ouvinte no processo decisório, bem como ter direito de voz durante a reunião concernente aos respectivos trabalhos, designada para a próxima quarta-feira. Diante dessa situação hipotética e das normas relativas à decisão coordenada na Lei nº 9.784/99, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A Associação Dabilu não poderá habilitar-se a participar da decisão coordenada, ainda que na qualidade de ouvinte.",
+        "A participação dos Ministérios Alfa, Beta e Gama na decisão coordenada em questão independe de intimação.",
+        "O eventual dissenso do Ministério Alvo quanto à solução do objeto da decisão coordenada não precisa ser manifestado durante a reunião.",
+        "A decisão prolatada por autoridade competente, que defira a participação da Associação Dabilu na reunião, com direito a voz, é irreversível."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2023-01-33",
+    "question_number": 33,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "ÉTICA PROFISSIONAL",
+    "nullified": false,
+    "question": "Diante do crescimento desordenado de determinado bairro da zona sul da cidade Aifo, a associação de moradores vem realizando reuniões periódicas para traçar o diagnóstico urbanístico e avaliar se medidas podem ser adotadas. Durante as reuniões, a citada associação verificou que tal expansão urbana causou adensamento populacional, geração de tráfego e demanda por transporte público, desvalorização imobiliária e insuficiência dos equipamentos urbanos e comunitários, sem qualquer planejamento ao Município, sobretudo em matéria de meio ambiente artificial. Contratado como advogado da associação de moradores, você informa que, em tema de instrumentos da política urbana, o Estatuto da Cidade (Lei nº 10.257/2001) prevê que lei municipal definirá os empreendimentos e atividades. A seguir, analise as alternativas.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A atividade em área urbana, que dependerá de elaboração de estudo prévio de impacto ambiental (EIA) para obter quaisquer licenças ou autorizações de construção, ampliação ou funcionamento, a cargo do Poder Público municipal, excluída a exigência de EIA quando o empreendedor for ente público.",
+        "Licitamente instalados no âmbito municipal, desde que compatíveis com o plano diretor, que é parte integrante do processo de planejamento municipal, não podendo o plano plurianual, as diretrizes orçamentárias e o orçamento anual incorporar as diretrizes e as prioridades nele contidas.",
+        "Legalmente licenciados no âmbito municipal, desde que compatíveis com o plano diretor, cuja elaboração prescindirá de promoção de audiências públicas e debates com a participação da população e de associações representativas dos vários segmentos da comunidade.",
+        "Privados ou públicos em área urbana, que dependerão de elaboração de estudo prévio de impacto de vizinhança (EIV) para obter as licenças ou autorizações de construção, ampliação ou funcionamento, a cargo do Poder Público municipal."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2023-01-34",
+    "question_number": 34,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CIVIL",
+    "nullified": false,
+    "question": "A sociedade empresária Alfo é fabricante e comerciante de pilhas e baterias. Em matéria de responsabilidade compartilhada pelo ciclo de vida dos produtos, com base na Política Nacional de Resíduos Sólidos, a autoridade competente vem cobrando da sociedade empresária que promova o retorno dos produtos após o uso pelo consumidor, de forma independente do serviço público de limpeza urbana e de manejo dos resíduos sólidos. O sócio administrador da sociedade empresária Alfo entendeu que a responsabilidade pela destinação final das pilhas e baterias deve ser exclusivamente do consumidor final, razão pela qual contratou você, como advogado(a), para prestar consultoria jurídica. Levando em conta o que dispõe a Lei nº 12.305/2010, você informou a seu cliente que, no caso em tela, de fato, ele está obrigado a A) estruturar e implementar sistema de logística reversa. B) instituir o sistema de coleta seletiva no âmbito do Município onde está instalada a sede social da sociedade empresária. C) contratar cooperativas de catadores de materiais reutilizáveis e recicláveis para recolher os produtos. D) recomprar os produtos usados, não podendo disponibilizar postos de entrega de resíduos reutilizáveis e recicláveis.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "estruturar e implementar sistema de logística reversa.",
+        "instituir o sistema de coleta seletiva no âmbito do Município onde está instalada a sede social da sociedade empresária.",
+        "contratar cooperativas de catadores de materiais reutilizáveis e recicláveis para recolher os produtos.",
+        "recomprar os produtos usados, não podendo disponibilizar postos de entrega de resíduos reutilizáveis e recicláveis."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2023-01-35",
+    "question_number": 35,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CIVIL",
+    "nullified": false,
+    "question": "Waldo é titular de um vultoso patrimônio e amigo de infância de Tadeu, que passa por sérias dificuldades econômicas. Frente às adversidades vividas pelo amigo, Waldo entrega as chaves de um imóvel de sua propriedade para Tadeu e diz a ele: \"a partir de agora essa casa é de sua propriedade.\" Sobre a hipótese apresentada, assinale a afirmativa correta. A) A declaração verbal de Waldo, junto à tradição do imóvel, é suficiente para considerar-se celebrado e realizado um contrato de doação válido e eficaz. B) Para que a doação de imóvel de Waldo a Tadeu se aperfeiçoe será imprescindível celebrar o contrato por meio de escritura pública, seja qual for o valor do imóvel. C) Para que Waldo realize a pretendida doação de imóvel a Tadeu de modo válido, será imprescindível celebrar o contrato de forma escrita, seja por meio de escritura pública ou de instrumento particular, a depender do valor do imóvel. D) Caso Waldo optasse por doar dinheiro para Tadeu adquirir um imóvel, a doação seria válida sem que se fizesse por escritura pública ou instrumento particular, independentemente do valor transferido ao donatário.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A declaração verbal de Waldo, junto à tradição do imóvel, é suficiente para considerar-se celebrado e realizado um contrato de doação válido e eficaz.",
+        "Para que a doação de imóvel de Waldo a Tadeu se aperfeiçoe será imprescindível celebrar o contrato por meio de escritura pública, seja qual for o valor do imóvel.",
+        "Para que Waldo realize a pretendida doação de imóvel a Tadeu de modo válido, será imprescindível celebrar o contrato de forma escrita, seja por meio de escritura pública ou de instrumento particular, a depender do valor do imóvel.",
+        "Caso Waldo optasse por doar dinheiro para Tadeu adquirir um imóvel, a doação seria válida sem que se fizesse por escritura pública ou instrumento particular, independentemente do valor transferido ao donatário."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2023-01-36",
+    "question_number": 36,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO PROCESSUAL CIVIL",
+    "nullified": false,
+    "question": "Henrique, 50 anos, médico dermatologista, recebe em seu consultório Nicola, 70 anos, dentista, para a realização de um procedimento ambulatorial em sua mão. Durante o procedimento, Henrique ministra erroneamente ácido na mão de Nicola, que é alérgico, fato conhecido por Henrique antes do início do procedimento. Henrique imediatamente adota as medidas preventivas necessárias à mitigação do dano, mas Nicola fica com sequelas permanentes na mão, inabilitando-o parcialmente para o exercício da profissão, porque impede que ele realize procedimentos ortodônticos que necessita do uso de ambas as mãos. A respeito da indenização a que Nicola faz jus, assinale a afirmativa correta. A) Deve abranger os danos emergentes correspondentes às despesas do tratamento e não abranger indenização por lucros cessantes considerando que Nicola ainda pode auferir renda, excluindo o nexo de causalidade entre possíveis danos decorrentes de lucros cessantes a conduta ilícita de Henrique. B) Deve abranger as despesas do tratamento, os lucros cessantes até o fim da convalescença e a pensão correspondente à importância do trabalho para que se inabilitou, ou da depreciação que sofreu. C) Caso a hipótese exija a reparação por danos estéticos, não se poderá cumular a indenização por danos morais, à luz do princípio da reparação integral, considerando que o dano estético já indeniza a violação da integridade física, tutelada pela cláusula geral de tutela da dignidade da pessoa humana. D) Henrique não pode ser condenado ao pagamento da indenização de lucros cessantes e danos materiais diversos de uma só vez, devendo os pensionamentos ter sido fixados em pagamentos periódicos, tais quais seriam os lucros decorrentes do trabalho de Nicola, sob pena de enriquecimento ilícito.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Deve abranger os danos emergentes correspondentes às despesas do tratamento e não abranger indenização por lucros cessantes considerando que Nicola ainda pode auferir renda, excluindo o nexo de causalidade entre possíveis danos decorrentes de lucros cessantes a conduta ilícita de Henrique.",
+        "Deve abranger as despesas do tratamento, os lucros cessantes até o fim da convalescença e a pensão correspondente à importância do trabalho para que se inabilitou, ou da depreciação que sofreu.",
+        "Caso a hipótese exija a reparação por danos estéticos, não se poderá cumular a indenização por danos morais, à luz do princípio da reparação integral, considerando que o dano estético já indeniza a violação da integridade física, tutelada pela cláusula geral de tutela da dignidade da pessoa humana.",
+        "Henrique não pode ser condenado ao pagamento da indenização de lucros cessantes e danos materiais diversos de uma só vez, devendo os pensionamentos ter sido fixados em pagamentos periódicos, tais quais seriam os lucros decorrentes do trabalho de Nicola, sob pena de enriquecimento ilícito."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2023-01-37",
+    "question_number": 37,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CIVIL",
+    "nullified": false,
+    "question": "Pedro e Joana casaram-se pelo regime da comunhão parcial de bens. Na constância do casamento, Pedro herdou ações e comprou um carro, enquanto Joana recebeu de doação um apartamento e ganhou um prêmio de loteria. Com base nessas informações, assinale a opção que indica, em caso de divórcio, os bens que devem ser partilhados. A) As ações e o apartamento. B) O carro e o prêmio de loteria. C) O carro e o apartamento. D) As ações e o prêmio de loteria.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "As ações e o apartamento.",
+        "O carro e o prêmio de loteria.",
+        "O carro e o apartamento.",
+        "As ações e o prêmio de loteria."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2023-01-38",
+    "question_number": 38,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CIVIL",
+    "nullified": false,
+    "question": "Joana contratou Maria para fotografar a festa infantil de sua filha, Laura. No momento do contrato, Maria exigiu um sinal equivalente a 20% do preço pactuado para o serviço. O preço do serviço seria pago após a festa, quando entregues as fotografias do evento. Acontece que Maria não compareceu à festa de Laura, deixando de tirar as fotografias contratadas. Joana contratou, às pressas, outro fotógrafo e conseguiu registrar o evento a seu gosto. Entretanto, teve de pagar valores mais altos ao novo fotógrafo, o que lhe gerou prejuízos de ordem material. Diante desse cenário, considerando-se os danos de Joana se limitaram aos prejuízos materiais, assinale a afirmativa correta. A) Joana pode pedir a devolução dos 20% adiantados mais o equivalente, com atualização monetária, juros e honorários de advogado, mas não pode pedir indenização suplementar em nenhuma hipótese. B) Joana pode pedir apenas a devolução dos 20% adiantados e a indenização suplementar, independentemente da prova do prejuízo. C) Joana pode pedir a devolução dos 20% adiantados ou equivalente, com atualização monetária, juros e honorários de advogado, e, se provar maior prejuízo, pode pedir indenização suplementar. D) Joana pode pedir a devolução dos 20%, acrescidos de atualização monetária, juros e honorários de advogado, sendo esse o máximo de indenização possível.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Joana pode pedir a devolução dos 20% adiantados mais o equivalente, com atualização monetária, juros e honorários de advogado, mas não pode pedir indenização suplementar em nenhuma hipótese.",
+        "Joana pode pedir apenas a devolução dos 20% adiantados e a indenização suplementar, independentemente da prova do prejuízo.",
+        "Joana pode pedir a devolução dos 20% adiantados ou equivalente, com atualização monetária, juros e honorários de advogado, e, se provar maior prejuízo, pode pedir indenização suplementar.",
+        "Joana pode pedir a devolução dos 20%, acrescidos de atualização monetária, juros e honorários de advogado, sendo esse o máximo de indenização possível."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2023-01-39",
+    "question_number": 39,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "FILOSOFIA DO DIREITO",
+    "nullified": false,
+    "question": "Nicolas, servidor do Tribunal de Justiça do Estado de São Paulo, lotado na 3ª Vara Cível da Comarca da Capital, toma conhecimento de que hasta pública é ser realizada sobre valioso bem na vara em que labora. No intuito de colaborar com a rápida solução do processo, visando ao bom andamento da justiça e para saldar a dívida do devedor, decide comprar o bem objeto do litígio, pagando preço compatível com o mercado no âmbito da hasta pública realizada em sua vara. A referida compra e venda, se efetivada, será A) nula, considerando que Nicolas é servidor na mesma vara em que foi realizada a hasta pública. B) válida, considerando ter sido realizada por hasta pública, procedimento que, dada a publicidade, convalidava eventuais vícios provenientes existentes. C) anulável, podendo ser realizada mas sujeita à anulação posterior se os interessados se manifestarem. D) nula, considerando que a hasta pública não poderá recair sobre bem litigioso.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "nula, considerando que Nicolas é servidor na mesma vara em que foi realizada a hasta pública.",
+        "válida, considerando ter sido realizada por hasta pública, procedimento que, dada a publicidade, convalidava eventuais vícios provenientes existentes.",
+        "anulável, podendo ser realizada mas sujeita à anulação posterior se os interessados se manifestarem.",
+        "nula, considerando que a hasta pública não poderá recair sobre bem litigioso."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2023-01-40",
+    "question_number": 40,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "ÉTICA PROFISSIONAL",
+    "nullified": false,
+    "question": "A Associação Atlética de uma renomada instituição de ensino jurídico brasileira, que possui mais de seiscentos associados, publica edital em seu site e, também, nas redes sociais, de convocação para uma Assembleia Geral, a ser realizada por meio eletrônico, tirada das pautas a publicação, tendo como pauta a aprovação das contas dos diretores relativas ao exercício financeiro anterior e a alteração estatutária. Diante da situação narrada, assinale a afirmativa correta. A) A convocação da Assembleia Geral feita pela Associação Atlética apresenta um vício formal que conduz à nulidade absoluta, haja vista a impossibilidade da realização de Assembleia Geral por meio eletrônico. B) A realização da Assembleia Geral por meio eletrônico é possível juridicamente, desde que respeitada a participação e a manifestação dos associados, salvo para alteração estatutária, de modo que o edital da Associação Atlética é nulo, admitindo-se a conversão. C) A realização da Assembleia Geral por meio eletrônico é válida, desde que garantida a participação e a manifestação dos associados, além do respeito às normas estatutárias, inclusive, para a finalidade de alteração dos estatutos. D) A realização da Assembleia Geral por meio eletrônico é anulável, por falta de previsão legal, admitindo-se, por conseguinte, a convalidação.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A convocação da Assembleia Geral feita pela Associação Atlética apresenta um vício formal que conduz à nulidade absoluta, haja vista a impossibilidade da realização de Assembleia Geral por meio eletrônico.",
+        "A realização da Assembleia Geral por meio eletrônico é possível juridicamente, desde que respeitada a participação e a manifestação dos associados, salvo para alteração estatutária, de modo que o edital da Associação Atlética é nulo, admitindo-se a conversão.",
+        "A realização da Assembleia Geral por meio eletrônico é válida, desde que garantida a participação e a manifestação dos associados, além do respeito às normas estatutárias, inclusive, para a finalidade de alteração dos estatutos.",
+        "A realização da Assembleia Geral por meio eletrônico é anulável, por falta de previsão legal, admitindo-se, por conseguinte, a convalidação."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2023-01-41",
+    "question_number": 41,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CIVIL",
+    "nullified": false,
+    "question": "Rodrigo e Juliana celebraram contrato de compra e venda com Márcia, visando à aquisição de 20 (vinte) cavalos da raça mangalarga, de propriedade desta última. O contrato possuía cláusula prevendo a solidariedade ativa de Rodrigo e Juliana, e que a entrega seria feita de uma única vez. Dez dias antes da data pactuada para entrega dos animais, Márcia, culposamente, esqueceu abertamente a prova do curral os animais estavam, o que ocasionou a fuga dos equinos. No dia combinado, Márcia dispushe de apenas cinco cavalos, os quais foram oferecidos a Rodrigo e Juliana como parte do pagamento. Acerca do caso apresentado, assinale a afirmativa correta. A) Por se tratar de obrigação de entrega de coisa a dois credores, a previsão de solidariedade ativa contratual é desnecessária, eis que decorre de disposição expressa do Código Civil. B) Rodrigo e Juliana poderão optar por receber os cinco cavalos, com abatimento do preço, ou considerar resolvida a obrigação, e tanto num como noutro caso, exigir indenização das perdas e danos. C) Caso Rodrigo e Juliana optem pela conversão da obrigação em perdas e danos, a solidariedade não subsistirá. D) Márcia poderá compelir Rodrigo e Juliana a receberem cinco cavalos, posto se tratar de obrigação divisível.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Por se tratar de obrigação de entrega de coisa a dois credores, a previsão de solidariedade ativa contratual é desnecessária, eis que decorre de disposição expressa do Código Civil.",
+        "Rodrigo e Juliana poderão optar por receber os cinco cavalos, com abatimento do preço, ou considerar resolvida a obrigação, e tanto num como noutro caso, exigir indenização das perdas e danos.",
+        "Caso Rodrigo e Juliana optem pela conversão da obrigação em perdas e danos, a solidariedade não subsistirá.",
+        "Márcia poderá compelir Rodrigo e Juliana a receberem cinco cavalos, posto se tratar de obrigação divisível."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2023-01-42",
+    "question_number": 42,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITOS HUMANOS",
+    "nullified": false,
+    "question": "A entidade governamental Casa dos Anjos, destinada a programa de internamento de adolescentes em conflito com a lei, recebeu inspeção de fiscalização por parte do Ministério Público. Nesta visita, restou constatado que a instituição não dispuna de diversos elementos essenciais para a manutenção condigna dos adolescentes sujeitos à medida socioeducativa, investindo, por exemplo, cuidados médicos, psicológicos, odontológicos e farmacêuticos adequados. Com base nos fatos acima, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Poderá ser interrompido o repasse de verbas públicas para a entidade, enquanto ela não sanar as irregularidades.",
+        "Poderá ser determinado o afastamento temporário dos dirigentes da Casa dos Anjos.",
+        "Poderá haver a cassação do registro da instituição em questão.",
+        "Tratando-se de entidade governamental, não há medidas sancionatórias específicas cabíveis."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2023-01-43",
+    "question_number": 43,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO PENAL",
+    "nullified": false,
+    "question": "Wilson, 13 anos, foi apreendido por Manoel quando estava em fuga, após praticar ato de subtração de uma caixa de mil unidades de doces em sua vendinha. No curso da perseguição, os doces se perderam porque Wilson os jogou em um bueiro para, desamparado, correr melhor. Esgotados todos os procedimentos legais para apuração do ato infracional e constatada sua prática, a autoridade competente fixou, além das medidas socioeducativas pertinentes a Wilson, a obrigatoriedade de reparar o dano, ou seja, restituir o valor correspondente aos doces perdidos por Manoel. Acerca dos fatos acima, assinale a opção que apresenta a medida compensatória adequada para o caso concreto.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A compensação do dano não poderá ser exigida dos pais de Wilson.",
+        "Wilson deverá prestar duas horas diárias de serviços de emplacamento de compras na vendinha, até que se compense o dano, caso ele ou seus pais não possam custear financeiramente o valor.",
+        "Havendo manifesta impossibilidade de Wilson ou seus pais custearem a perda patrimonial de Manoel, não há como substituir a compensação por outra medida adequada.",
+        "A autoridade poderá determinar que Wilson compense o prejuízo de Manoel, desde que não configure trabalho forçado."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2023-01-44",
+    "question_number": 44,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO PENAL",
+    "nullified": false,
+    "question": "No instrumento de oferta de crédito pessoal em favor do microempreendedor individual Eugênio Barros, dentre outras informações, constou o montante dos juros de mora e a taxa efetiva anual dos juros. Ao indagar o intermediário sobre a omissão da taxa efetiva mensal de juros, do Custo Efetivo Total da operação (CET) e do prazo de validade da oferta, o microempreendedor recebeu as seguintes explicações: i) a taxa efetiva mensal de juros estava indicada em documento apartado, apresentado ao interessado no ato; ii) o CET deveria ser consultado no aplicativo da instituição financeira ofertante, através do seu formulário fornecido no próprio aplicativo; iii) a oferta era válida apenas no dia de hoje, sem qualquer documento comprobatório que amparasse a informação. Considerando as explicações do intermediário em contexto com as normas do Código de Defesa do Consumidor (CDC) quanto às informações prévias no fornecimento de serviços que envolvam outro tipo de crédito, assinale a alternativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Todas as explicações prestadas estão corretas e em conformidade com as prescrições do CDC, não havendo necessidade de comprovação do prazo de oferta caso o beneficiário seja pessoa jurídica, como o microempreendedor individual.",
+        "A única explicação equivocada prestada é em relação à taxa efetiva mensal de juros, que deve ser necessariamente indicada no instrumento da oferta, e não em documento apartado.",
+        "Todas as explicações prestadas são equivocadas e violam as prescrições do CDC, eis que a taxa efetiva mensal de juros e o CET devem ser indicados no instrumento da oferta e essa deve ser de, no mínimo, 7 (sete) dias.",
+        "São equivocadas os esclarecimentos prestados quanto ao CET, pois ele deve constar do instrumento da oferta ou em documento apartado e ser fácil acesso ao consumidor; quanto ao prazo de validade da oferta, ele deve ser de, no mínimo, 2 (dois) dias."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2023-01-45",
+    "question_number": 45,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CIVIL",
+    "nullified": false,
+    "question": "Mota solicitou contrato para a instalação de persianas na sua casa e, ao receber o documento, leu que a compra das persianas escolhidas somente poderia ser realizada com a compra dos tapetes da mesma coleção. Além disso, também constava no contrato, Mota recebeu proposta para aquisição de seguro residencial. O consumidor ficou em dúvida a respeito da conduta da loja de decoração e procurou você, como advogado(a), para receber orientação jurídica. A esse respeito, vejo informar, corretamente, ao cliente que se trata de",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "prática abusiva em relação às persianas e ao tapete, por condicionar o fornecimento de um produto à aquisição de outro; igualmente abusiva a prática de enviar oferta de serviço imediatamente proposta do seguro residencial ao consumidor, sem prévia solicitação.",
+        "prática lícita em relação às persianas e ao tapete, uma vez que se trata de produtos da mesma coleção; o seguro residencial foi remetido separadamente, não importando em venda casada.",
+        "prática abusiva em relação às persianas e ao tapete, por condicionar o fornecimento de um produto à aquisição de outro; o seguro residencial foi oferecido sem condicionamento, sendo lícita a prática.",
+        "prática lícita em relação às persianas e ao tapete, uma vez que são produtos da mesma coleção; a proposta do seguro residencial foi enviada ao consumidor sem solicitação prévia, o que torna a prática abusiva."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2023-01-46",
+    "question_number": 46,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CIVIL",
+    "nullified": false,
+    "question": "Lauro e Moyses constituem, por contrato escrito, uma sociedade para prestação de serviços de informática, mas não levam o contrato a arquivamento na Junta Comercial e iniciam a atividade econômica em comum. Lauro, em seu nome, mas agindo no interesse dele e de Moyses, celebra contrato com Agnes para instalação e manutenção de rede sem fio. Agnes desconhecia a existência da sociedade. Indisponibilido o contrato, Agnes tomou conhecimento da existência de sociedade por confissão de Lauro na ação de cobrança que ele intentou em face dele. Com base nessas informações, Agnes poderá ter seu crédito satisfeito com o produto da alienação judicial dos",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "bens sociais de titularidade comum dos sócios Lauro e Moyses e de seus bens particulares, devendo exaurir primeiro os bens sociais para, posteriormente e se necessário, atingir os bens dos sócios, sendo que Lauro está excluído do benefício de ordem por ter contratado no interesse da sociedade.",
+        "bens particulares de Lauro, por desconhecer a existência da sociedade, sem possibilidade de exclusão dos bens sociais ou os de Moyses, por esse não ter contratado no interesse da sociedade.",
+        "bens sociais de titularidade comum dos sócios Lauro e Moyses e de bens particulares de Lauro, mas não há possibilidade de atingir os bens particulares de Moyses, já que este não contratou no interesse da sociedade.",
+        "bens sociais de titularidade comum dos sócios Lauro e Moyses, considerando a existência de autonomia patrimonial da sociedade, sem possibilidade de exclusão dos bens particulares dos sócios Lauro e Moyses."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2023-01-47",
+    "question_number": 47,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CIVIL",
+    "nullified": false,
+    "question": "Aral adquiriu bens de consumo de uma sociedade empresária, ficando esta de lhe entregar as mercadorias em até dez dias úteis. Entretanto, a entrega não se realizou em razão da decretação de falência da vendedora e o consequente encerramento das atividades com o lacre dos estabelecimentos. O administrador judicial recebeu interpelacão de Aral sobre a posição da massa falida quanto a entrega das mercadorias que comprou ou a devolução das parcelas já pagas. O administrador judicial manifestou no sentido de não entregar a mercadoria ao comprador justificando a ausência de redução do passivo da massa falida e a extinção do contrato. Considerando os fatos narrados e as disposições da Lei nº 11.101/2005, assinale a afirmativa que indica a atitude a ser tomada por Aral.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Pedir ao juiz da falência a indisponibilidade de bens da massa até o valor de seu crédito para fins de futuro pagamento.",
+        "Pedir a restituição em dinheiro das parcelas pagas pela aquisição dos bens.",
+        "Habilitar o crédito relativo ao valor pago na classe dos credores quirografários.",
+        "Ajuizar ação de execução por quantia certa em face da massa falida para recebimento das parcelas pagas."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2023-01-48",
+    "question_number": 48,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO DO TRABALHO",
+    "nullified": false,
+    "question": "A empresária individual Marília da Rocha, inscrita há mais de dez anos na Junta Comercial do Estado de São Paulo, sempre exerceu a empresa sem designação de prepostos. Todavia, em razão do aumento de trabalho e necessidades de múltiplas viagens, tornou-se necessário nomear Jandir Franco como gerente na sede de sua empresa. Antes de efetuar a nomeação, Marília da Rocha consulta seu advogado para que este esclareça sobre as prerrogativas do gerente e sua situação como preposto. Assinale a opção que está de acordo com a disposição legal e pode dar como orientação à Marília da Rocha.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O gerente não estará autorizado a praticar os atos necessários ao exercício dos poderes que foram outorgados, pois tais atos sempre exigem poderes especiais.",
+        "O empresário nomear dois ou mais gerentes, na falta de estipulação diversa, os poderes conferidos a eles presumem-se para atuação individual, sem solidariedade.",
+        "O gerente nunca poderá ter em juízo em nome do proponente pelas obrigações resultantes do exercício da sua função porque tal prerrogativa é exclusiva do administrador.",
+        "A alteração ou revogação do mandato conferido pelo empresário ao gerente, para ser oposta a terceiros, deve ser arquivada e averbada no Registro Público de Empresas Mercantis."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2023-01-49",
+    "question_number": 49,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CIVIL",
+    "nullified": false,
+    "question": "A proteção dos direitos relativos à propriedade industrial, por meio da concessão do direito de exclusividade para exploração da criação pelo seu titular, considerando seu interesse social e o desenvolvimento tecnológico e econômico do país, efetua-se mediante concessão de registro",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "da marca.",
+        "para o nome empresarial.",
+        "para o título de estabelecimento.",
+        "de obras literárias, arquitetônicas, artísticas."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2023-01-50",
+    "question_number": 50,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CIVIL",
+    "nullified": false,
+    "question": "Três médicos decidiram constituir uma sociedade do tipo limitada cujo objeto é simples, consonante a classificação das sociedades no Código Civil. Acerca da designação a ser adotada pela sociedade e sua qualificação jurídica, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Por não ter a futura sociedade natureza empresarial, não poderá adotar nome empresarial, sendo livre a formação de sua designação, sem incidência das regras de formação do nome da sociedade limitada.",
+        "A futura sociedade terá nome empresarial, pois tanto as regras de formação quanto de proteção ao nome empresarial se aplicam indistintamente às sociedades simples e empresariais.",
+        "Embora a futura sociedade não tenha nome empresarial, por não exercer empresa, a formação de sua designação obedecerá às regras para a formação do nome empresarial do tipo limitada.",
+        "Independentemente da natureza da futura sociedade, ela terá nome empresarial, pois exercerá atividade econômica, devendo adotar denominação, mas é facultativo a palavra “limitada” ou sua abreviatura ao final."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2023-01-51",
+    "question_number": 51,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO EMPRESARIAL",
+    "nullified": false,
+    "question": "A sociedade empresária Olímpia Limitada (“Olímpia”) fabrica equipamentos de musculação para redes de academias, como a Vida Fitness Limitada(“Vida Fitness”). Em 2021, a Vida Fitness passou por problemas financeiros, motivo pelo qual não realizou o pagamento de R$ 500.000,00 (quinhentos mil reais) por 50 (cinquenta) esteiras adquiridas em 2020. Em virtude desse inadimplemento, a Olímpia ajuizou execução de título extrajudicial perante o MM. Juízo da Vara Cível de São Paulo. No curso dessa demanda, a exequente obteve a penhora online de R$ 500.000,00 existentes nas contas bancárias da Vida Fitness. Assim que tomou conhecimento da penhora, a Vida Fitness procurou você, como advogado(a), para informar que não pretendia questionar a decisão que determinou a penhora online, mas que gostaria de buscar a substituição do bem penhorado, de forma que os R$ 500.000,00 pudessem melhorar a situação do fluxo de caixa da sociedade empresária. Diante dessa situação, assinale a afirmativa que apresenta a orientação correta prestada à Vida Fitness.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Não será possível requerer a substituição da penhora, uma vez que a penhora em dinheiro é prioritária.",
+        "Será possível requerer a substituição da penhora por meio de fiança bancária ou seguro garantia judicial, desde que o valor dessas garantias não seja inferior ao valor do débito constante na petição inicial da execução de título extrajudicial movida pela Olímpia.",
+        "Será possível requerer a substituição da penhora por meio de fiança bancária ou seguro garantia judicial, desde que o valor dessas garantias não seja inferior ao valor do débito constante na petição inicial da execução de título extrajudicial movida pela Olímpia, acrescido de 30% (trinta por cento).",
+        "Será possível requerer a substituição da penhora somente por imóvel de valor superior ao montante exigido."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2023-01-52",
+    "question_number": 52,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CIVIL",
+    "nullified": false,
+    "question": "Devidamente intimado do acórdão proferido pela Câmara Civil do Tribunal de Justiça do Estado de Minas Gerais que desproveu seu recurso de apelação, Diego optou embargos de declaração alegando que o acórdão teria deixado de se manifestar sobre tese firmada em julgamento em incidente de assunção de competência aplicável ao caso. Nos embargos de declaração, Diego também alegou, para fins de prequestionamento, que o acórdão teria sido omisso a respeito de determinado dispositivo de lei federal. Em paralelo, antes do julgamento dos embargos de declaração, José, então apelado, interpôs recurso especial alegando violação do Art. 85, 611, do Código de Processo Civil, visto que a Câmara Civil do Tribunal de Justiça do Estado de Minas Gerais não fixou honorários de sucumbência recursais no acórdão que julgou a apelação de Diego. Diante da situação hipotética descrita, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Diego não poderia ter fundamentado seus embargos de declaração na ausência de manifestação, pelo acórdão que julgou a apelação, acerca da tese firmada em sede de incidente de assunção de competência aplicável ao caso, pois os embargos de declaração constituem recursos de fundamentação vinculada, cabível apenas nas hipóteses de omissão, contradição, obscuridade ou erro material.",
+        "Ainda que os embargos de declaração opostos por Diego venham a ser rejeitados ou não alteram a conclusão do julgamento anterior da Câmara Cível do Tribunal de Justiça do Estado de Minas Gerais, o recurso especial interposto por José somente será processado se for por ele ratificado após a apreciação dos embargos de declaração.",
+        "Os embargos de declaração não possuem efeito suspensivo, mas interrompem o prazo para a interposição de outros recursos, de modo que Diego ainda poderá interpor recurso especial contra o acórdão após o julgamento dos embargos de declaração, se for o caso.",
+        "Caso sejam desprovistos os embargos de declaração opostos por Diego, não será considerado como incluído no acórdão o dispositivo legal por ele invocado nos embargos de declaração, para fins de pré-questionamento, ainda que tribunal superior posteriormente considere existente a omissão."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2023-01-53",
+    "question_number": 53,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO PROCESSUAL CIVIL",
+    "nullified": false,
+    "question": "Marcela ajuizou ação de cobrança em face de Gabriel, seu vizinho, a fim de obter o pagamento de aluguéis vencidos no período de fevereiro a junho de um determinado ano, relativos à locação da sua vaga de garagem. Uma vez que, Gabriel apresentou contestação tempestivamente, invocando uma questão preliminar de falta de interesse processual. Instada a se manifestar em réplica, Marcela alegou que lhe competia um erro material na digitação da sua petição inicial, uma vez que não deveria ter constado, como termo final da dívida, o mês de \"junho\" e não de \"junho\". Sem a oitiva de Gabriel, constatando não haver mais provas a serem produzidas, o juiz proferiu sentença, condenando o réu ao pagamento dos aluguéis relativos aos meses de fevereiro a julho. Surpreso com a sentença, Gabriel questionou o seu advogado sobre os termos da condenação. Considerando o caso narrado, assinale a afirmativa correta. ",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Por não se tratar de modificação, mas de simples retificação de erro material, Marcela poderia ter requerido a alteração do pedido a qualquer tempo, sendo dispensável a manifestação de Gabriel.",
+        "Em se tratando de alteração do pedido posterior à citação, Marcela não poderia tê-lo feito sem o consentimento de Gabriel em se uele fosse ouvido.",
+        "Marcela poderia ter alterado o pedido, independentemente do consentimento de Gabriel, desde que fosse ouvido.",
+        "Por se tratar de alteração do pedido antes do saneamento do processo, o consentimento de Gabriel era desnecessário."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2023-01-54",
+    "question_number": 54,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "ÉTICA PROFISSIONAL",
+    "nullified": false,
+    "question": "Vitor, residente em Salvador/BA, precisou se mudar para Fortaleza/CE, por motivos profissionais. Para realizar sua mudança, propôs pagar uma quantia de R$ 10.000,00 (dez mil reais) para Danilo e Juarez, além de arcar com todos os custos da viagem. Por não ter acompanhado o serviço, Vitor não sabe quem efetivamente o fez. Após o término da mudança, Vitor tentou quitar a dívida, mas não sabia a quem pagar, pois ambos afirmarem ser titulares do crédito. Sendo assim, procurou você, como advogado(a), pois queria fazer o pagamento de forma consignada para extinguir a obrigação. Na qualidade de advogado de Vitor, assinale a opção que indica a posição acertada no tocante ao procedimento especial de ação de consignação em pagamento.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Vitor requererá o depósito e a citação de Danilo, e, caso posteriormente se entenda não ser ele o titular, fará a citação de Juarez.",
+        "Vitor não deve requerer o depósito, devendo no primeiro momento requerer a citação de todos os possíveis titulares do crédito, para que, após essa decisão, discuta-se o crédito devido.",
+        "Vitor requererá o depósito e a citação dos possíveis titulares do crédito para provarem o seu direito.",
+        "Vitor requererá o depósito e a citação de Juarez, e, caso posteriormente se entenda não ser ele o titular, fará o chamamento ao processo de Danilo."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2023-01-55",
+    "question_number": 55,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "ÉTICA PROFISSIONAL",
+    "nullified": false,
+    "question": "Aliberti, com base em prova escrita e sem eficácia de título executivo, afirma ter direito de exigir de Juliana o pagamento de R$ 10.000,00 (dez mil reais). Nesse sentido, Aliberti procura você, como advogado(a), para ajuizar Ação Monitória em face de Juliana, exigindo o pagamento de R$ 10.000,00 (dez mil reais). O juiz da causa observou que o direito do autor era evidente e deferiu a expedição de mandado de pagamento, concedendo ao réu prazo de 15 (quinze) dias para o cumprimento. Juliana alegou que Aliberti pleiteia quantia superior e devida, razão pela qual pretende, por meio de seu advogado, opor embargos à ação monitória. Na qualidade de patrono de Juliana, assinale a opção que apresenta a medida adequada a ser providenciada.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Juliana poderá opor, nos próprios autos, embargos à ação monitória, caso Aliberti pleiteia quantia superior e devida, não precisando indicar o valor correto da dívida. Além disso, independentemente de prévia segurança do juízo, Juliana pode opor embargos à ação monitória.",
+        "Juliana poderá opor embargos à ação monitória, caso Aliberti pleiteita quantia superior e devida, não precisando declarar de imediato o valor que entende ser, como, necessidade de apresentar o demonstrativo discriminado e atualizado da dívida.",
+        "Juliana poderá opor embargos à ação monitória, independentemente de prévia segurança do juízo, Juliana pode opor embargos à ação monitória.",
+        "Juliana poderá opor embargos à ação monitória, independentemente de prévia segurança do juízo, como, quando alegar que Aliberti pleiteita quantia superior e devida, apresentando demonstrativo discriminado e atualizado da dívida."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2023-01-56",
+    "question_number": 56,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO PROCESSUAL CIVIL",
+    "nullified": false,
+    "question": "Marco Aurélio atuou como advogado em uma ação indenizatória movida em face de uma operadora de plano de saúde que foi condenada a pagar indenização por danos morais de R$ 100.000,00 (cem mil reais) ao seu cliente. Apesar de o processo ter corrido perante juiz cível, a sentença condenatória deixou de fixar honorários de sucumbência em favor de Marco Aurélio, tendo transitado em julgado sem que ele percebesse a omissão. Considerando o caso narrado, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Após o trânsito em julgado da sentença, Marco Aurélio não poderá pleitear mais a condenação em honorários de sucumbência.",
+        "Marco Aurélio poderá ajuizar ação autônoma para definir o valor dos honorários de sucumbência.",
+        "Após o trânsito em julgado da sentença, apesar de omissão quanto à condenação em honorários de sucumbência, Marco Aurélio poderá executar somente o valor de cento por cento sobre o valor da condenação.",
+        "Marco Aurélio poderá opor embargos de declaração em face da sentença omissa, pois a matéria de honorários de sucumbência não transitam em julgado."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2023-01-57",
+    "question_number": 57,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CIVIL",
+    "nullified": false,
+    "question": "A sociedade empresária Vesta Construções e Serviços Ltda. propôs tutela cautelar, requerida em caráter antecedente, contra a sociedade empresária Minerva Incorporações Ltda., fundada em contrato de construção civil e fornecimento de serviços, que contém cláusula arbitral para a resolução de qualquer controvérsias advindas deste contrato. Vesta Construções e Serviços Ltda. figura como parte contratante a Minerva Incorporações Ltda. como parte contrária. Vesta Construções e Serviços Ltda. alegou que, embora tenha executado os serviços previstos no contrato, Minerva Incorporações Ltda. aplicou multas contratuais em razão de atraso no cronograma das obras, as quais alega que não seriam devidas. Por essa razão, Vesta Construções e Serviços Ltda. ingressou com a tutela cautelar em caráter antecedente e requer que fosse concedida tutela de urgência para impedir que Minerva Incorporações Ltda. realize qualquer ação de cobranças das multas aplicadas à Vesta Construções e Serviços Ltda. A tutela de urgência foi totalmente deferida pelo magistrado em favor de Vesta Construções e Serviços Ltda. Na qualidade de advogada(a) de Vesta Construções e Serviços Ltda., assinale a opção que apresenta a medida processual a ser adotada, em razão do deferimento da tutela cautelar. 1) A) Formular o pedido principal nos mesmos autos da tutela cautelar requerida em caráter antecedente, dentro do prazo de 30 (trinta) dias a contar da data da efetivação da tutela cautelar. B) Requerer a instauração da arbitragem dentro do prazo de 30 (trinta) dias a contar da data da efetivação da tutela cautelar. C) Formular o pedido principal nos mesmos autos da tutela cautelar requerida em caráter antecedente, dentro do prazo de 15 (quinze) dias, ou em outro prazo maior que o juiz fixar, a contar da data da efetivação da tutela cautelar. D) Requerer a instauração da arbitragem dentro do prazo de 15 (quinze) dias, ou em outro prazo maior que o juiz fixar, a contar da data da efetivação da tutela cautelar.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Formular o pedido principal nos mesmos autos da tutela cautelar requerida em caráter antecedente, dentro do prazo de 30 (trinta) dias a contar da data da efetivação da tutela cautelar.",
+        "Requerer a instauração da arbitragem dentro do prazo de 30 (trinta) dias a contar da data da efetivação da tutela cautelar.",
+        "Formular o pedido principal nos mesmos autos da tutela cautelar requerida em caráter antecedente, dentro do prazo de 15 (quinze) dias, ou em outro prazo maior que o juiz fixar, a contar da data da efetivação da tutela cautelar.",
+        "Requerer a instauração da arbitragem dentro do prazo de 15 (quinze) dias, ou em outro prazo maior que o juiz fixar, a contar da data da efetivação da tutela cautelar."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2023-01-58",
+    "question_number": 58,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO PENAL",
+    "nullified": false,
+    "question": "Antônio, de 49 anos, manteve numerosas relações sexuais consensuais com Miriam, à época com 13 anos, que tinha experiência sexual anterior, durante o namoro entre eles. Antônio tinha conhecimento da idade de Miriam. Sobre o caso, assinale a afirmativa correta. A) Antônio cometeu conduta típica, ilícita e culpável. B) Antônio cometeu conduta ilícita e culpável, mas não típica. C) Antônio cometeu conduta típica e culpável, mas não ilícita. D) Antônio cometeu conduta típica e ilícita, mas não culpável.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Antônio cometeu conduta típica, ilícita e culpável.",
+        "Antônio cometeu conduta ilícita e culpável, mas não típica.",
+        "Antônio cometeu conduta típica e culpável, mas não ilícita.",
+        "Antônio cometeu conduta típica e ilícita, mas não culpável."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2023-01-59",
+    "question_number": 59,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO PROCESSUAL PENAL",
+    "nullified": false,
+    "question": "Quinho foi preso em flagrante delito portando 1 quilo de cocaína, ao tentar embarcar em um ônibus na rodoviária Novo Rio (no bairro do Rio de Janeiro/RJ) que seguiria em direção à São Paulo/SP, onde Quinho pretendia vender tal substância para um comprador local. Ao ser denunciado por tráfico de drogas interestadual (Art. 3º c/c. Art. 40, inciso V, ambos da Lei nº 11.343/2006), a defesa técnica de Quinho alegou que a hipótese seria de tráfico de drogas simples, em razão da prisão em flagrante delito, o acusado jamais conseguiu efetivamente transportar a fronteira entre os Estados do Rio de Janeiro/RJ e São Paulo/SP. Sobre a incidência da majorante prevista no Art. 40, inciso V, da Lei nº 11.343/2006, assinale a afirmativa correta. A) São imprescindíveis a inequívoca intenção de realizar o tráfico interestadual e a efetiva transposição de fronteiras. B) São desnecessárias a inequívoca intenção de realizar o tráfico interestadual e a efetiva transposição de fronteiras. C) Basta a inequívoca intenção de realizar o tráfico interestadual, sendo desnecessárias a efetiva transposição de fronteiras. D) Basta a efetiva transposição de fronteiras, sendo desnecessária a inequívoca intenção de realizar o tráfico interestadual.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "São imprescindíveis a inequívoca intenção de realizar o tráfico interestadual e a efetiva transposição de fronteiras.",
+        "São desnecessárias a inequívoca intenção de realizar o tráfico interestadual e a efetiva transposição de fronteiras.",
+        "Basta a inequívoca intenção de realizar o tráfico interestadual, sendo desnecessárias a efetiva transposição de fronteiras.",
+        "Basta a efetiva transposição de fronteiras, sendo desnecessária a inequívoca intenção de realizar o tráfico interestadual."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2023-01-60",
+    "question_number": 60,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO PENAL",
+    "nullified": false,
+    "question": "Silvio, mediante emprego de ameaça de \"esquartejá-la com sua espada\", arrancou o cordão de ouro de pescoço de Ana. Após tal subtração, Silvio foi perseguido por policiais militares, que lograram prendê-lo em flagrante delito e recuperar o bem subtraído da vítima. É correto afirmar que Silvio cometeu crime de A) extorsão tentada. B) roubo tentado. C) roubo impróprio. D) roubo consumado.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "extorsão tentada.",
+        "roubo tentado.",
+        "roubo impróprio.",
+        "roubo consumado."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2023-01-61",
+    "question_number": 61,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO PENAL",
+    "nullified": false,
+    "question": "Eduardo trabalha como porteiro do condomínio, e possui um primo, de nome Ygor, envolvido em vários crimes. A semelhança entre ambos sempre foi notória. Certa noite, após Eduardo se ausentar da portaria para colocar as lixeiras do prédio na rua, Ygor, aproveitando-se dos traços físicos muito parecidos com os do seu primo, também vestido com um uniforme idêntico, ingressa no edifício e subtrai vários pacotes endereçados aos moradores. Alguns moradores viram a movimentação, mas pensaram que se tratava de Eduardo arrumando e conferindo os pacotes. Baseando-se no caso hipotético, Ygor cometeu A) furto qualificado mediante fraude. B) estelionato. C) falsa identidade. D) furto qualificado por abuso de confiança.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "furto qualificado mediante fraude.",
+        "estelionato.",
+        "falsa identidade.",
+        "furto qualificado por abuso de confiança."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2023-01-62",
+    "question_number": 62,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO PENAL",
+    "nullified": false,
+    "question": "Fernanda trabalhava como cuidador de idosos e foi contratada para assistir ao idoso Luís Fernando, de 89 anos, que, não obstante a idade, seguia ativo, caminhando com apoio e realizando suas atividades de forma habitual, com relativa independência. Certo dia, Luís Fernando descia as escadas volantes de um shopping center, quando a barra de sua calça se prendeu nos degraus, o que levou Luís Fernando a se desequilibrar, e o suporte dado por Fernanda não foi suficiente para impedir a sua queda. O idoso fraturou o fêmur. Preocupada com eventual responsabilização criminal, Fernanda procura aconselhamento. Como advogada(o) de Fernanda, assinale o que apresenta sua orientação sobre os fatos e as possíveis consequências. A) Fernanda ocupa a posição de garantidora, devendo ser responsabilizada por delito comissivo por omissão por ter se operado o resultado danoso. B) A responsabilidade de Fernanda dependeria de comprovação de efetiva negligência, imprudência ou imperícia, sem o que, não será responsabilizada pelo resultado danoso. C) Fernanda pode ser responsabilizada por crime omissivo próprio, diante do resultado danoso. D) Fernanda incidiu em conduta tipificada no Estatuto do Idoso.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Fernanda ocupa a posição de garantidora, devendo ser responsabilizada por delito comissivo por omissão por ter se operado o resultado danoso.",
+        "A responsabilidade de Fernanda dependeria de comprovação de efetiva negligência, imprudência ou imperícia, sem o que, não será responsabilizada pelo resultado danoso.",
+        "Fernanda pode ser responsabilizada por crime omissivo próprio, diante do resultado danoso.",
+        "Fernanda incidiu em conduta tipificada no Estatuto do Idoso."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2023-01-63",
+    "question_number": 63,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO ADMINISTRATIVO",
+    "nullified": false,
+    "question": "Bernardo é servidor público e foi condenado porque, durante procedimento administrativo, prestou informações falsas ao interessado, com o intuito de prejudicá-lo. Recebeu condenação de um ano e dois meses pela prática de tal conduta, tipificada no Art. 29 da Lei de Abuso de Autoridade (Lei nº 13.869/2019). Sobre o caso narrado, assinale a afirmativa correta. A) Em razão da quantidade de pena aplicada, é efeito automático da condenação a perda do cargo público ocupado por Bernardo. B) A pena de Bernardo pode ser substituída por restritivas de direitos, consistente na inaptidão para o exercício de cargo ou emprego público pelo prazo de 1 a 5 anos. C) A imposição do dever de indenizar a vítima depende de reincidência específica em crimes de abuso de autoridade. D) Bernardo pode sofrer suspensão do exercício do cargo, por 1 a 6 meses, com a perda de vencimentos e vantagens, como medida alternativa à pena de prisão.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Em razão da quantidade de pena aplicada, é efeito automático da condenação a perda do cargo público ocupado por Bernardo.",
+        "A pena de Bernardo pode ser substituída por restritivas de direitos, consistente na inaptidão para o exercício de cargo ou emprego público pelo prazo de 1 a 5 anos.",
+        "A imposição do dever de indenizar a vítima depende de reincidência específica em crimes de abuso de autoridade.",
+        "Bernardo pode sofrer suspensão do exercício do cargo, por 1 a 6 meses, com a perda de vencimentos e vantagens, como medida alternativa à pena de prisão."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2023-01-64",
+    "question_number": 64,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO PENAL",
+    "nullified": false,
+    "question": "No dia 10 de julho de 2020, Pedro, primário, é preso em flagrante delito comercializado esses comprimidos e não brando de mora. Com ele, são apreendidos 50 comprimidos de anfetamina em espécie. Assim, é imediatamente conduzido à delegacia, onde, ao mesmo, é lavrado auto de prisão em flagrante pela prática do crime descrito no Art. 33, caput, da Lei nº 11.343/06, punido com pena de reclusão de 5 a 15 anos de multa. O laudo toxicológico provisório atesta que a substância consta da lista de substâncias proscritas. Referidas comunicações devidas, ao auto de prisão é remetido ao juízo competente e, deste modo, no dia 11 de julho, passadas 23 horas da prisão, Pedro é apresentado à autoridade judicial. A audiência é realizada em presença de órgão do Ministério Público e após entrevistar o preso e ouvir os requisitos de defesa técnica, o Magistrado homologa a prisão em flagrante, que é convertida em liberdade do agente, nos termos do Art. 312 do Código de Processo Penal. Assinale a opção que indica a tese de Direito Processual Penal adequada para se questionar a prisão preventiva de Pedro. A) A prisão deve ser relaxada em razão da inobservância do prazo para a realização da audiência de custódia. B) A prisão deve ser substituída por medidas cautelares diversas da prisão, já que suficientes para garantir da ordem pública e conveniência da instrução criminal. C) A prisão deve ser relaxada, ante a ausência de pedido do Ministério Público, e concedida prisão domiciliar ao acusado para garantia da ordem pública. D) A prisão deve ser relaxada, pois o magistrado não poderia, diante da ausência de pedido do Parquet, ter convertido a prisão em flagrante em preventiva de ofício.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A prisão deve ser relaxada em razão da inobservância do prazo para a realização da audiência de custódia.",
+        "A prisão deve ser substituída por medidas cautelares diversas da prisão, já que suficientes para garantir da ordem pública e conveniência da instrução criminal.",
+        "A prisão deve ser relaxada, ante a ausência de pedido do Ministério Público, e concedida prisão domiciliar ao acusado para garantia da ordem pública.",
+        "A prisão deve ser relaxada, pois o magistrado não poderia, diante da ausência de pedido do Parquet, ter convertido a prisão em flagrante em preventiva de ofício."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2023-01-66",
+    "question_number": 66,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO PENAL",
+    "nullified": false,
+    "question": "Sérgio propôs ação penal privada contra Ana e Letícia por crime de dano (impossibilidade de qualquer medida penal consensual), isto porque as quereladas, dolosamente, quebraram o para-brisa traseiro do seu carro. Finda a instrução criminal restaram comprovados autoria e materialidade, até mesmo porque, além da prova testemunhal confirmar a imputação contida na queixa-crime, as acusadas confessaram o delito. Em alegações finais orais, Dr. Lúcio, advogado constituído por Sérgio, se referir a inicial acusatória, finalizou a sua sustentação apenas pedindo que o juiz reconheça o pedido de “fosse feita a melhor justiça”. Você, como advogado(a) das quereladas, alegaria como prejudicial de mérito a extinção da punibilidade A) pelo perdão de Sérgio, pois não se manifestou em alegações finais juntando seu pedido para perdão e condenação. B) pela renúncia do querelante, haja vista que o seu advogado não ratificou em alegações finais os termos da acusação articulada na queixa-crime. C) pela perempção, porque o advogado constituído por Sérgio, somente pediu em alegações finais que “fosse feita a melhor justiça”, deixando de ratificar a pretensão de que as quereladas fossem condenadas, sequer tendo renovado o pedido de condenação apresentado na queixa-crime. D) pela retratação do querelante, pois não se manifestou em alegações finais juntamente com o seu patrono para pedir a condenação das quereladas, um mesmo ratificar o pedido de condenação apresentado na queixa-crime.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "pelo perdão de Sérgio, pois não se manifestou em alegações finais juntando seu pedido para perdão e condenação.",
+        "pela renúncia do querelante, haja vista que o seu advogado não ratificou em alegações finais os termos da acusação articulada na queixa-crime.",
+        "pela perempção, porque o advogado constituído por Sérgio, somente pediu em alegações finais que “fosse feita a melhor justiça”, deixando de ratificar a pretensão de que as quereladas fossem condenadas, sequer tendo renovado o pedido de condenação apresentado na queixa-crime.",
+        "pela retratação do querelante, pois não se manifestou em alegações finais juntamente com o seu patrono para pedir a condenação das quereladas, um mesmo ratificar o pedido de condenação apresentado na queixa-crime."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2023-01-67",
+    "question_number": 67,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CONSTITUCIONAL",
+    "nullified": false,
+    "question": "Gregório é defensor público no Estado do Rio de Janeiro, cuja Constituição lhe assegura foro por prerrogativa de função no Tribunal de Justiça local. Durante o carnaval, na cidade de Salvador/BA, Gregório por acaso se encontra com seu irmão e inimigo capital Sandro em uma rua erma, durante a dispersão de bloco carnavalesco. Gregório então se aproveita da oportunidade para matar Sandro com golpes de espada. Assinale a opção que indica o foro competente para conhecer e julgar esse crime. A) O Tribunal do Júri da Comarca de Salvador/BA. B) O Tribunal de Justiça do Estado da Bahia. C) O Tribunal do Júri da Comarca do Rio de Janeiro/RJ. D) O Tribunal de Justiça do Estado do Rio de Janeiro.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O Tribunal do Júri da Comarca de Salvador/BA.",
+        "O Tribunal de Justiça do Estado da Bahia.",
+        "O Tribunal do Júri da Comarca do Rio de Janeiro/RJ.",
+        "O Tribunal de Justiça do Estado do Rio de Janeiro."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2023-01-68",
+    "question_number": 68,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO PROCESSUAL CIVIL",
+    "nullified": false,
+    "question": "Antônio Silva foi denunciado pelo Ministério Público do Estado do Rio de Janeiro pelo crime de tráfico de drogas. Essa denúncia foi rejeitada pelo juízo da 50ª Vara Criminal da Comarca do Rio de Janeiro, por falta de prova mínima de autoria e materialidade (justa causa). O órgão ministerial então interpôs recurso em sentido estrito dessa decisão, já agravado. Para evitar a caracterização de uma nulidade processual, é correto afirmar que o juiz deve, em seguida, A) nomear defensor público para apresentar contrarrazões recursais em favor de Antônio. B) nomear defensor ativo para apresentar contrarrazões recursais em favor de Antônio. C) notificar Antônio para apresentar contrarrazões recursais. D) remeter os autos ao Tribunal competente.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "nomear defensor público para apresentar contrarrazões recursais em favor de Antônio.",
+        "nomear defensor ativo para apresentar contrarrazões recursais em favor de Antônio.",
+        "notificar Antônio para apresentar contrarrazões recursais.",
+        "remeter os autos ao Tribunal competente."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2023-01-69",
+    "question_number": 69,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO PROCESSUAL CIVIL",
+    "nullified": false,
+    "question": "Nise é acusada em um processo penal pela prática de delito de estelionato (pena: 1 a 5 anos de reclusão) e possui condenação definitiva pelo mesmo delito. Nise é paciente psiquiátrica e laudo pericial constatou a sua completa incapacidade de se autodeterminar durante o acordo e o entendimento acerca da ilicitude do fato que é imputado. Sobre a influência deste diagnóstico sobre processos atuais ou já julgados, assinale a afirmativa correta. A) Se a insanidade for contemporânea ao fato delituoso, ainda que eventualmente curada no curso do processo, poderá haver aplicação da medida de segurança. B) Se a insanidade mental ocorreu no curso da execução penal, e houver a conversão em medida de segurança, o posterior restabelecimento importa na cessação da periculosidade, e consequentemente extinção da punibilidade. C) Se a insanidade mental for subsequente aos fatos, constatada durante o curso do processo, ser-lhe-á nomeado curador, sob pena de nulidade, podendo a sentença, ao final, aplicar a medida de segurança ou aplicar pena, deixando-a suspensa. D) Se a sentença houver aplicado medida de segurança, o Juiz da Execução Penal poderá reconverter as penas em privativa de liberdade, se constatada a cura da doença mental que atingia a segurada.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Se a insanidade for contemporânea ao fato delituoso, ainda que eventualmente curada no curso do processo, poderá haver aplicação da medida de segurança.",
+        "Se a insanidade mental ocorreu no curso da execução penal, e houver a conversão em medida de segurança, o posterior restabelecimento importa na cessação da periculosidade, e consequentemente extinção da punibilidade.",
+        "Se a insanidade mental for subsequente aos fatos, constatada durante o curso do processo, ser-lhe-á nomeado curador, sob pena de nulidade, podendo a sentença, ao final, aplicar a medida de segurança ou aplicar pena, deixando-a suspensa.",
+        "Se a sentença houver aplicado medida de segurança, o Juiz da Execução Penal poderá reconverter as penas em privativa de liberdade, se constatada a cura da doença mental que atingia a segurada."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2023-01-70",
+    "question_number": 70,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CONSTITUCIONAL",
+    "nullified": false,
+    "question": "Um sindicato de categoria profissional, após ser procurado por uma sociedade empresária a seguir os trâmites legais, pretende assinar com ela um acordo coletivo que, entre outras cláusulas, fixa redução em 20% da jornada e 20% do salário durante 1 ano para todos os empregados. Em relação a esse acordo coletivo, considerando a previsão da CLT, assinale a afirmativa correta. A) O acordo coletivo deverá prever a proteção dos empregados contra dispensa imotivada durante o prazo de vigência do instrumento coletivo. B) O acordo coletivo será nulo porque deveria ser pactuado por, no mínimo, 2 anos. C) O acordo coletivo será inconstitucional, porque não pode haver redução do salário, haja visto o prejuízo direto que isso causa ao trabalhador. D) A redução da jornada e do salário somente será válida se fosse prevista em convenção coletiva, pois essa previsão é vedada pela CLT no acordo coletivo.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O acordo coletivo deverá prever a proteção dos empregados contra dispensa imotivada durante o prazo de vigência do instrumento coletivo.",
+        "O acordo coletivo será nulo porque deveria ser pactuado por, no mínimo, 2 anos.",
+        "O acordo coletivo será inconstitucional, porque não pode haver redução do salário, haja visto o prejuízo direto que isso causa ao trabalhador.",
+        "A redução da jornada e do salário somente será válida se fosse prevista em convenção coletiva, pois essa previsão é vedada pela CLT no acordo coletivo."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2023-01-71",
+    "question_number": 71,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO CIVIL",
+    "nullified": false,
+    "question": "João Luiz trabalhava desde os 18 anos no Banco Dinheiro Futuro S/A. Começou como caixa em 1990. Devido ao seu desempenho brilhante, agora, no dia 30/05/2022, foi eleito diretor. Em razão dessa nova condição, consultou o advogado(a), acerca dos desdobramentos jurídicos relacionados ao seu contrato de trabalho. Sobre a hipótese, considerando o que as normas trabalhistas em vigor e o entendimento jurisprudencial consolidado do TST, assinale a afirmativa correta. A) O empregado eleita para ocupar cargo de diretor tem o respectivo contrato de trabalho suspenso, não se computando o tempo de serviço deste período, salvo se permanecer a subordinação jurídica inerente à relação de emprego. B) Com a eleição do empregado para o cargo de diretor, o respectivo contrato de trabalho será extinto com o pagamento dos direitos rescisórios pertinentes. C) A eleição de empregado para o cargo de diretor não induz suspensão ou interrupção do contrato de trabalho, uma vez que se considera promoção, podendo haver a reversão ao cargo efetivo após o término do mandato. D) O contrato de trabalho ficará interrompido, já que permanecem as obrigações de pagamento de remuneração, contam do tempo de serviço e de recolhimento do FGTS.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O empregado eleita para ocupar cargo de diretor tem o respectivo contrato de trabalho suspenso, não se computando o tempo de serviço deste período, salvo se permanecer a subordinação jurídica inerente à relação de emprego.",
+        "Com a eleição do empregado para o cargo de diretor, o respectivo contrato de trabalho será extinto com o pagamento dos direitos rescisórios pertinentes.",
+        "A eleição de empregado para o cargo de diretor não induz suspensão ou interrupção do contrato de trabalho, uma vez que se considera promoção, podendo haver a reversão ao cargo efetivo após o término do mandato.",
+        "O contrato de trabalho ficará interrompido, já que permanecem as obrigações de pagamento de remuneração, contam do tempo de serviço e de recolhimento do FGTS."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2023-01-72",
+    "question_number": 72,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO DO TRABALHO",
+    "nullified": false,
+    "question": "Pedro é empregado em uma indústria farmacêutica, atuando como representante. Desejo de lutar por melhores condições para os brasileiros, Pedro se filiou a um partido político e lançou sua candidatura a deputado federal. Em razão disso, Pedro requerer ao empregador uma licença remunerada por 30 dias para poder se dedicar à campanha eleitoral e aumentar suas chances de ser eleito, já informando que, no caso de indeferimento, irá judicializar a questão. Sobre o caso apresentado, sabendo-se que a norma coletiva da categoria de Pedro nada diz a respeito dessa situação, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Pedro não poderá exigir a interrupção do seu contrato porque não há tal previsão na CLT.",
+        "A pretensão de Pedro somente teria cabimento se a campanha fosse para cargo político estadual ou municipal, não prevalecendo ser federal.",
+        "O contrato de trabalho de Pedro ficará automaticamente suspenso a partir do lançamento da candidatura.",
+        "Pedro poderá ser dispensado por justa causa, pelo fato de ocorrer as eleições sem comunicar previamente o empregador."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2023-01-73",
+    "question_number": 73,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO DO TRABALHO",
+    "nullified": false,
+    "question": "Sabrina era empregada de um grande escritório de contabilidade desde 2021, e sempre chegava ao local de trabalho com 5 minutos de antecedência em relação ao horário contratual para trocar a roupa e colocar o uniforme da sociedade empresária. O empregador permitia que o empregado chegasse uniformizado, mas Sabrina achava melhor trocar a roupa na empresa por questão de segurança. Da mesma forma, após terminar o horário contratual, Sabrina permanecia mais 5 minutos em seu emprego para tirar o uniforme e colocar a sua roupa pessoal. Sabrina foi dispensada em fevereiro de 2023 e ajuizou reclamação trabalhista postulando 10 minutos diários de horas extras relativas às trocas de roupa. Sobre a hipótese apresentada, diante do que dispõe a CLT, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Sabrina está correta na postulação e, caso comprovada, ensejará o pagamento de horas extras.",
+        "A sociedade empresária deverá pagar metade do período como hora extra, uma vez que o excesso era de 10 minutos diários e o objetivo era a troca de uniforme.",
+        "Sabrina terá direito ao pagamento dos 10 minutos diários, mas não ao adicional de 50%.",
+        "Sabrina está errada, pois esse período não será descontado nem computado como jornada extraordinária."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2023-01-74",
+    "question_number": 74,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO DO TRABALHO",
+    "nullified": false,
+    "question": "Rachel foi contratada como empregada em 2019 por uma sociedade empresária fabricante de automóveis. Ocorre que a fábrica fez em um lugar longínquo, não servido por transporte público regular, e por isso a sociedade empresária disponibiliza um ônibus para buscar os empregados pela manhã e deixá-los em casa, ao final da jornada. Rachel gasta diariamente, em média, 50 minutos para chegar ao emprego e outros 50 minutos para retorno. Considerando esses fatos e o que dispõe a CLT, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Os 50 minutos gastos na ida e os 50 minutos gastos na volta devem ser pagos como horas extras, na condição do horário itine.",
+        "",
+        "",
+        ""
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2023-01-75",
+    "question_number": 75,
+    "exam_id": "2023-01",
+    "exam_year": "2023",
+    "question_type": "DIREITO DO TRABALHO",
+    "nullified": false,
+    "question": "A sociedade empresária Soluções Perfeitas Ltda. pretende implantar banco de horas com compensação das eventuais horas extras cumpridas em até 2 meses e, caso não compensadas, com pagamento ao empregado com adicional legal. Considerando esses fatos e o que dispõe a CLT, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A instituição do banco de horas depende de norma coletiva para sua validade, porque a compensação será superior a 30 dias.",
+        "O banco de horas poderá ser pactuado por acordo individual e escrito, porque a compensação será feita em menos de 6 meses.",
+        "O banco de horas é proibido por Lei, independentemente do tempo previsto para compensação das horas.",
+        "O banco de horas pode ser feito por acordo individual ou coletivo independentemente do tempo para compensação, desde que seja pago o adicional legal para as horas não compensadas."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2024-01-1",
+    "question_number": 1,
+    "exam_id": "2024-01",
+    "exam_year": "2024",
+    "question_type": "DIREITO EMPRESARIAL",
+    "nullified": false,
+    "question": "Determinado sociedade de advogados deseja se associar a advogados que não integram para prestação de serviços e participação nos resultados. Segundo a legislação aplicável à formalização desse vínculo jurídico, assinale a opção que indica, corretamente, a conclusão dos administradores da sociedade de advogados.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O contrato de associação não pode ser pactuado em caráter geral, devendo registrá-lo a causas ou trabalhos específicos, sob pena de se configurarem os requisitos legais de vínculo empregatício.",
+        "O contrato de associação deverá ser registrado no Conselho Seccional da OAB em cuja base territorial tiver sede a sociedade de advogados.",
+        "O contrato de associação poderá atribuir a totalidade dos riscos à sociedade de advogados, mas não exclusivamente a um advogado sócio ou associado.",
+        "O advogado não pode, simultaneamente, celebrar contrato de associação com mais de uma sociedade de advogados com sede ou filial na mesma área territorial do respectivo Conselho Seccional."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2024-01-2",
+    "question_number": 2,
+    "exam_id": "2024-01",
+    "exam_year": "2024",
+    "question_type": "DIREITO CIVIL",
+    "nullified": false,
+    "question": "Sebastião, advogado, celebrou contrato de mandato com o cliente Amir, para representá-lo extrajudicialmente, tendo realizado diligências em prol da resolução do imbróglio. Desde a celebração do mandato, passaram-se mais de 20 (vinte) anos, mas as atividades para as quais Amir contratou Sebastião, por sua própria natureza, se protraíram no tempo, sendo ainda necessárias a Amir. Sobre a hipótese apresentada, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O mandato extinguiu-se pelo decurso do tempo, salvo se previsto prazo diverso no respectivo instrumento.",
+        "O mandato extinguiu-se pelo decurso do tempo, sendo vedada a previsão de prazo diverso no respectivo instrumento.",
+        "O mandato não se extinguiu pelo decurso do tempo, salvo se foi consignado prazo no respectivo instrumento.",
+        "O mandato não se extinguiu pelo decurso do tempo, sendo vedada a estipulação de prazo no respectivo instrumento."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2024-01-3",
+    "question_number": 3,
+    "exam_id": "2024-01",
+    "exam_year": "2024",
+    "question_type": "DIREITO PENAL",
+    "nullified": false,
+    "question": "Monique, advogada regularmente inscrita nos quadros da OAB, é investigada em inquérito policial por supostos crimes praticados por motivo ligado ao exercício da advocacia, tendo sido presa em flagrante, por crime de mesma espécie, em seu escritório, enquanto atendia a uma de suas clientes. Considerando as disposições do Estatuto da Advocacia, é correto afirmar que:",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Monique tem direito à presença de representante da OAB para lavratura do auto de prisão em flagrante, visto que se trata de suposto crime por motivo ligado ao exercício da advocacia, sob pena de nulidade.",
+        "Não há qualquer direito ou prerrogativa conferida pela legislação no caso em tela, devendo Monique receber tratamento idêntico ao dado a outros indivíduos não advogados, em razão do princípio da igualdade.",
+        "A presença de representante da OAB no momento da lavratura do auto de prisão em flagrante será devida ainda que não se trate de motivo ligado ao exercício da advocacia, visto que se cuida de direito conferido ao advogado em todo e qualquer crime por ele cometido.",
+        "O representante da OAB para acompanhar a lavratura do auto de prisão em flagrante, pode ser substituído por representante de Defesa Pública, visto que ambos podem figurar como defensores."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2024-01-4",
+    "question_number": 4,
+    "exam_id": "2024-01",
+    "exam_year": "2024",
+    "question_type": "ÉTICA PROFISSIONAL",
+    "nullified": false,
+    "question": "Pedro, contador com vasta experiência e sólida carreira, decide fazer uma segunda graduação, tornando-se bacharel em Direito. Depois da aprovação no Exame de Ordem Unificado e da inscrição nos quadros da Ordem dos Advogados do Brasil, Pedro pretende continuar prestando serviços contábeis, sem prejuízo do exercício concomitante da nova atividade. Acerca da intenção de Pedro, bem como dos limites ético-normativos para a publicidade profissional da sua nova atividade, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Pedro não poderá exercer de modo concomitante as atividades de contador e advogado, pois, de acordo com o Estatuto da Advocacia e da OAB, a prestação de serviços contábeis é incompatível com o exercício simultâneo da advocacia.",
+        "Não há óbice ético para o duplo exercício das atividades de contador e advogado, podendo Pedro se valer da divulgação conjunta dos serviços oferecidos, desde que não seja por meio de inscrições em muros, paredes, veículos, elevadores ou em qualquer espaço público.",
+        "Embora não haja incompatibilidade para o exercício concomitante das duas atividades, não será permitido a Pedro divulgar sua nova profissão de modo conjunto com a de contador.",
+        "Pedro poderá fazer uso de mala direta, distribuição de panfletos ou formas assembleias de publicidade, visando a captação de clientela para a sua nova atividade, mas não poderá mencionar, nessa publicidade, os serviços de contabilidade."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2024-01-5",
+    "question_number": 5,
+    "exam_id": "2024-01",
+    "exam_year": "2024",
+    "question_type": "DIREITO CONSTITUCIONAL",
+    "nullified": false,
+    "question": "Formalizou-se, no Tribunal Regional Eleitoral do Estado Alfa, a vacância de um dos cargos de juiz eleitoral, reservado constitucionalmente à classe de advogados. De todo modo, no Tribunal Regional Federal da Ensínio Rejão, localizado na capital do mesmo Estado Alfa, com jurisdição nos Estados Alfa, Beta e Gama, foi também formalizada a vacância de um cargo de juiz federal do Tribunal Regional Federal, destinado à advocacia nos termos da Constituição Federal (quinto constitucional). Nesse hipotético cenário, que demandará a produção de duas listas de membros da advocacia para o futuro preenchimento dos cargos, assinale a afirmativa que descreve corretamente as competências dos órgãos da OAB. A) A lista para o preenchimento do cargo no TRE do Estado Alfa ficará sob a incumbência do Conselho Seccional da OAB do respectivo Estado, competindo aos Conselhos Seccionais da OAB dos Estados Alfa, Beta e Gama a elaboração conjunta da lista para o preenchimento do cargo no TRF da Ensínio Rejão. B) A lista para o preenchimento do cargo no TRE do Estado Alfa ficará sob a incumbência do Conselho Seccional da OAB do respectivo Estado, competindo aos Conselhos Seccionais da OAB dos Estados Alfa, Beta e Gama a elaboração conjunta da lista para o preenchimento do cargo no TRF da Ensínio Rejão. C) Uma vez que tanto a Justiça Eleitoral quanto a Justiça Federal pertencem ao Poder Judiciário da União, competirá ao Conselho Federal da OAB a elaboração das duas listas. D) Uma vez que tanto a TRE do Estado Alfa quanto a sede do TRF da Ensínio Rejão estão situados no Estado Alfa, competirá ao Conselho Seccional da OAB deste Estado a elaboração das listas.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A lista para o preenchimento do cargo no TRE do Estado Alfa ficará sob a incumbência do Conselho Seccional da OAB do respectivo Estado, competindo aos Conselhos Seccionais da OAB dos Estados Alfa, Beta e Gama a elaboração conjunta da lista para o preenchimento do cargo no TRF da Ensínio Rejão.",
+        "A lista para o preenchimento do cargo no TRE do Estado Alfa ficará sob a incumbência do Conselho Seccional da OAB do respectivo Estado, competindo aos Conselhos Seccionais da OAB dos Estados Alfa, Beta e Gama a elaboração conjunta da lista para o preenchimento do cargo no TRF da Ensínio Rejão.",
+        "Uma vez que tanto a Justiça Eleitoral quanto a Justiça Federal pertencem ao Poder Judiciário da União, competirá ao Conselho Federal da OAB a elaboração das duas listas.",
+        "Uma vez que tanto a TRE do Estado Alfa quanto a sede do TRF da Ensínio Rejão estão situados no Estado Alfa, competirá ao Conselho Seccional da OAB deste Estado a elaboração das listas."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2024-01-6",
+    "question_number": 6,
+    "exam_id": "2024-01",
+    "exam_year": "2024",
+    "question_type": "DIREITO ADMINISTRATIVO",
+    "nullified": false,
+    "question": "Valmir, bacharel em Direito, aprovado no Exame da Ordem dos Advogados do Brasil, ocupa o cargo público de agente de Polícia Civil do Estado Alfa. Movido por sentimento altruísta, Valmir requer sua inscrição na OAB, pois pretende, nos momentos de folga da atividade policial, exercer a advocacia de forma gratuita, eventual e voluntária, em favor de instituições sociais sem fins econômicos que não disponham de recursos para a contratação de profissional. À luz dessas informações, é considerada a legislação vigente, assinale a afirmativa correta. A) Valmir poderá exercer regularmente a advocacia, inclusive pro bono. B) Valmir não poderá exercer a advocacia remunerada, pois ocupa cargo incompatível, mas poderá exercer a advocacia pro bono. C) Valmir não poderá exercer a advocacia, mesmo pro bono, uma vez que o cargo público que ocupa atrai o regime da incompatibilidade. D) A condição de servidor público atrai o regime de impedimento, razão pela qual Valmir não poderá exercer a advocacia contra a Fazenda Pública que o remunera. Observado esse impedimento, não haverá óbice para o exercício da advocacia pro bono.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Valmir poderá exercer regularmente a advocacia, inclusive pro bono.",
+        "Valmir não poderá exercer a advocacia remunerada, pois ocupa cargo incompatível, mas poderá exercer a advocacia pro bono.",
+        "Valmir não poderá exercer a advocacia, mesmo pro bono, uma vez que o cargo público que ocupa atrai o regime da incompatibilidade.",
+        "A condição de servidor público atrai o regime de impedimento, razão pela qual Valmir não poderá exercer a advocacia contra a Fazenda Pública que o remunera. Observado esse impedimento, não haverá óbice para o exercício da advocacia pro bono."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2024-01-7",
+    "question_number": 7,
+    "exam_id": "2024-01",
+    "exam_year": "2024",
+    "question_type": "DIREITO PENAL",
+    "nullified": false,
+    "question": "Mariângela, advogada trabalhista, foi intimada pelo juízo da Vara do Trabalho de sua cidade para prestar audiência única, designada para 16h15 de determinado dia. Por estar amamentando sua filha Manuela, recém-nascida, Mariângela protocolou petição aos autos do respectivo processo, requerendo preferência na ordem das audiências, mediante comprovação da sua condição. O juiz, contudo, indeferiu o pedido, com o argumento de que a casa é capotada para uma segunda advogada, conforme procuração dos autos, a qual poderia participar do ato. A respeito da hipótese narrada, assinale a afirmativa correta. A) Diante da constatação de que há duas advogadas constituídas pela parte, e à míngua de previsão legal, a condição de lactante de Mariângela não é suficiente para o deferimento do pedido de preferência. B) Conquanto inexistia previsão legal para o pedido formulado por Mariângela, o juiz deveria ter deferido o pedido com base na prévia judicialização e no princípio da razoabilidade. C) Apenas se Mariângela comprovasse ser a única parte da causa, haveria previsão legal para o pedido de preferência fosse atendido. D) Mariângela tem o direito de preferência assegurado em lei, independentemente de haver outra advogada constituída nos autos.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Diante da constatação de que há duas advogadas constituídas pela parte, e à míngua de previsão legal, a condição de lactante de Mariângela não é suficiente para o deferimento do pedido de preferência.",
+        "Conquanto inexistia previsão legal para o pedido formulado por Mariângela, o juiz deveria ter deferido o pedido com base na prévia judicialização e no princípio da razoabilidade.",
+        "Apenas se Mariângela comprovasse ser a única parte da causa, haveria previsão legal para o pedido de preferência fosse atendido.",
+        "Mariângela tem o direito de preferência assegurado em lei, independentemente de haver outra advogada constituída nos autos."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2024-01-8",
+    "question_number": 8,
+    "exam_id": "2024-01",
+    "exam_year": "2024",
+    "question_type": "DIREITO CIVIL",
+    "nullified": false,
+    "question": "Antônio Oliveira, advogado, cometeu infração disciplinar no exercício de suas funções, submetendo-se a processo disciplinar perante o Tribunal de Ética e Disciplina do Conselho Seccional competente. Antônio contratou o advogado Pedro para defendê-lo no âmbito do processo disciplinar. No que diz respeito à instauração, instrução e tramitação do processo disciplinar instaurado em face de Antônio, assinale a afirmativa correta que deverá ser observada por Pedro, no exercício da defesa técnica. A) O processo disciplinar poderá ser instruído por subscrição ou por relatórios do próprio Conselho Seccional. B) Antônio não poderá ser suspenso preventivamente sem oitiva prévia, mesmo que não atenda às notificações de comparecimento. C) O processo disciplinar não poderá ser instaurado de ofício, sob pena de violação do princípio acusatório. D) Oferecida a defesa prévia, o relator do processo disciplinar poderá decidir pelo arquivamento liminar da representação.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O processo disciplinar poderá ser instruído por subscrição ou por relatórios do próprio Conselho Seccional.",
+        "Antônio não poderá ser suspenso preventivamente sem oitiva prévia, mesmo que não atenda às notificações de comparecimento.",
+        "O processo disciplinar não poderá ser instaurado de ofício, sob pena de violação do princípio acusatório.",
+        "Oferecida a defesa prévia, o relator do processo disciplinar poderá decidir pelo arquivamento liminar da representação."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2024-01-9",
+    "question_number": 9,
+    "exam_id": "2024-01",
+    "exam_year": "2024",
+    "question_type": "DIREITO CONSTITUCIONAL",
+    "nullified": false,
+    "question": "Portanto, a moralidade, e a humanidade enquanto causa de moralidade, são as únicas coisas que têm dignidade.” Immanuel Kant O artigo primeiro da Constituição Federal de 1988 determina que a dignidade da pessoa humana é fundamento da República. Filósofos e juristas há muito debatem o tema da dignidade. Sobre o tema, assinale a opção que apresenta a posição de Immanuel Kant, em seu livro Fundamentação da Metafísica dos Costumes.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Aquele que pode participar dos destinos políticos da cidade é quem possui e exerce sua dignidade.",
+        "Quando algo está acima de todo preço, portanto, não permite equivalência, então ele tem dignidade.",
+        "O amor à lei e à pátria conformam as bases da dignidade na vida social e política.",
+        "A dignidade decorre quando alguém possui elevada estima por si mesmo, mantendo seu amor próprio."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2024-01-10",
+    "question_number": 10,
+    "exam_id": "2024-01",
+    "exam_year": "2024",
+    "question_type": "FILOSOFIA DO DIREITO",
+    "nullified": false,
+    "question": "Uma norma jurídica não vale porque tem um determinado conteúdo… (Hans Kelsen) O que faz uma norma jurídica ser válida é tema central para a teoria e a Filosofia do Direito. Segundo o Normativismo Jurídico de Hans Kelsen, conforme apresentado em seu livro Teoria Pura do Direito, a validade da norma jurídica recai logicamente sobre uma categoria que é ponto de partida do processo de criação do direito positivo. Assinale a opção que apresenta esta categoria.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O legislador democrático.",
+        "A soberania popular.",
+        "A norma fundamental pressuposta.",
+        "O direito das gentes."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2024-01-11",
+    "question_number": 11,
+    "exam_id": "2024-01",
+    "exam_year": "2024",
+    "question_type": "DIREITO CONSTITUCIONAL",
+    "nullified": false,
+    "question": "O Supremo Tribunal Federal (STF), por dois terços de seus membros, aprovou de ofício, no último mês, a Súmula Vinculante XXX, que versa sobre matéria tributária. O deputado federal João da Silva mostrou-se preocupado com a referida Súmula, pois tramita no Congresso Nacional projeto de lei complementar cujo texto conflita fortemente com o da Súmula Vinculante XXX. Por desconhecer as consequências que a referida Súmula acarretará ao processo legislativo em andamento, João busca auxílio de sua assessoria jurídica. Sobre as consequências da Súmula Vinculante aprovada pelo STF, assinale a opção que apresenta, corretamente, a orientação recebida.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Ela vincula unicamente os órgãos do Poder Judiciário, não atingindo os demais poderes, em respeito à separação de poderes.",
+        "Ela não alcança o poder legislativo do Congresso Nacional, que segue mantendo intacta sua função originária de criação do Direito.",
+        "Ela tem função diretiva e de orientação aos demais poderes, sem, no entanto, ter caráter impositivo para qualquer deles, incluindo o Poder Legislativo.",
+        "Ela terá efeito vinculante em relação a todos os poderes, em todas as esferas, inclusive no que se refere ao poder de legislar dos entes federativos."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2024-01-12",
+    "question_number": 12,
+    "exam_id": "2024-01",
+    "exam_year": "2024",
+    "question_type": "DIREITO CONSTITUCIONAL",
+    "nullified": false,
+    "question": "Em uma cidade situada no município Gama, José Silva sofre grave acidente ao ser atropelado por um caminhão. Com lesões pelo corpo, ele foi conduzido ao hospital municipal situado na cidade e, ao passar pelo setor de identificação, alegou não possuir consigo qualquer documento. Na dúvida sobre se José poderia ter acesso aos serviços de saúde do SUS (Sistema Único de Saúde), a direção do hospital consultou a Procuradoria do Município. Sobre o caso apresentado, em consonância com o sistema jurídico-constitucional brasileiro, assinale a afirmativa que apresenta a resposta correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Para fazer jus aos serviços de saúde ofertados pelo SUS, José deve comprovar a condição de contribuinte do sistema previdenciário brasileiro.",
+        "Para fazer jus aos serviços de saúde ofertados pelo SUS, José deve comprovar, formalmente, a condição de trabalhador.",
+        "Os serviços de saúde ofertados pelo SUS somente são disponibilizados aos brasileiros natos ou naturalizados.",
+        "O atendimento pelo SUS deve ser realizado, independentemente de José possuir nacionalidade brasileira, ser trabalhador ou contribuir com a Previdência Social."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2024-01-13",
+    "question_number": 13,
+    "exam_id": "2024-01",
+    "exam_year": "2024",
+    "question_type": "DIREITO CONSTITUCIONAL",
+    "nullified": false,
+    "question": "Depois da ocorrência de calamidade de grandes proporções, em razão de enchentes causadas por chuvas cuja incidência foi classificada como “sem precedentes”, o Presidente da República vislumbrou a possível necessidade de decretação de estado de defesa para estados que se encontravam afetados em uma determinada região do país. Depois de visitar o local, ele tem dúvidas acerca do prazo de duração da medida e, por isso, submete a proposta à apreciação de sua assessoria jurídica. Assinale a afirmativa que, em consonância com o sistema jurídico-constitucional brasileiro, deve ser adotada.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O Presidente da República tem poder discricionário para definir o prazo de duração, desde que haja aprovação prévia do Congresso Nacional.",
+        "O tempo de duração não será superior a 30 (trinta) dias, podendo ser prorrogado uma vez, por igual período, se persistirem as razões que justificaram a sua decretação.",
+        "O tempo para a superação da crise que deu origem à decretação pelo Presidente da República não pode ultrapassar uma sessão legislativa.",
+        "O tempo de duração será definido discricionariamente, em respeito ao princípio da separação de poderes, pelo Congresso Nacional."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2024-01-14",
+    "question_number": 14,
+    "exam_id": "2024-01",
+    "exam_year": "2024",
+    "question_type": "DIREITO CONSTITUCIONAL",
+    "nullified": false,
+    "question": "O Presidente da República almeja apresentar ao Poder Legislativo um projeto de lei sobre cidadania, além de obter rapidamente a sua aprovação. Com isso, deve cumprir uma promessa realizada durante sua campanha eleitoral. Para essa razão, consulta o Advogado-Geral da União para saber qual é a correta orientação constitucional a ser observada para a concretização do seu objetivo. Com base na situação hipotética narrada e no sistema jurídico-constitucional brasileiro, assinale a opção que indica, corretamente, a resposta apresentada pelo Advogado-Geral da União. A) Edição de medida provisória, para que a iniciativa pudesse produzir efeitos rapidamente, devedose-lembra ainda que, por essa via, imediatamente ficaria trancada a pauta do Congresso Nacional para deliberar sobre outra matéria. B) Apresentação de projeto de lei na Câmara dos Deputados com pedido de urgência, sendo que, por essa via, cada Casa do Congresso Nacional, sucessivamente, tem até 45 (quarenta e cinco) dias para deliberar sobre a proposta, sob o risco de sobreamento das demais deliberações. C) Solicitação à base de apoio do Executivo no âmbito do Congresso Nacional para que inicie o processo legislativo de uma Emenda Constitucional, pois, assim, ele poderia solicitar urgência para a deliberação do projeto nas Casas Legislativas. D) Requerimento ao Congresso Nacional, de delegação para elaboração de lei delegada, pois, assim, ele não teria emendas ao seu projeto e, imediatamente, a lei produziria seus efeitos.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Edição de medida provisória, para que a iniciativa pudesse produzir efeitos rapidamente, devedose-lembra ainda que, por essa via, imediatamente ficaria trancada a pauta do Congresso Nacional para deliberar sobre outra matéria.",
+        "Apresentação de projeto de lei na Câmara dos Deputados com pedido de urgência, sendo que, por essa via, cada Casa do Congresso Nacional, sucessivamente, tem até 45 (quarenta e cinco) dias para deliberar sobre a proposta, sob o risco de sobreamento das demais deliberações.",
+        "Solicitação à base de apoio do Executivo no âmbito do Congresso Nacional para que inicie o processo legislativo de uma Emenda Constitucional, pois, assim, ele poderia solicitar urgência para a deliberação do projeto nas Casas Legislativas.",
+        "Requerimento ao Congresso Nacional, de delegação para elaboração de lei delegada, pois, assim, ele não teria emendas ao seu projeto e, imediatamente, a lei produziria seus efeitos."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2024-01-15",
+    "question_number": 15,
+    "exam_id": "2024-01",
+    "exam_year": "2024",
+    "question_type": "DIREITO CONSTITUCIONAL",
+    "nullified": false,
+    "question": "Determinada associação nacional, que congrega oficiais do registro e notários, foi surpreendida com a publicação da Lei Federal X, que mudou a destinação dos emolumentos cartorários, de modo que uma parte dos valores arrecadados passaria a ser destinada a políticas públicas do governo federal na área de educação. Considerando a iminente perda de arrecadação, a associação procurou você, na qualidade de advogado(a), para saber da constitucionalidade da Lei Federal X. Com base na hipótese narrada e no sistema jurídico-constitucional brasileiro, assinale a opção que apresenta, corretamente, o seu parecer. A) Não há inconstitucionalidade na Lei Federal X, pois os emolumentos cartorários, por serem recursos públicos, devem ter a destinação que lhe é atribuída em lei. B) A Lei Federal X é inconstitucional, pois muda a destinação dos emolumentos cartorários à finalidade diversa daquela prevista na ordem constitucional. C) A Lei Federal X é coerente com o sistema constitucional, pois mudou a destinação dos emolumentos cartorários apenas no âmbito da União. D) Os emolumentos cartorários devem ser direcionados ao custeio da seguridade social, logo, a Lei Federal X afronta a ordem constitucional.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Não há inconstitucionalidade na Lei Federal X, pois os emolumentos cartorários, por serem recursos públicos, devem ter a destinação que lhe é atribuída em lei.",
+        "A Lei Federal X é inconstitucional, pois muda a destinação dos emolumentos cartorários à finalidade diversa daquela prevista na ordem constitucional.",
+        "A Lei Federal X é coerente com o sistema constitucional, pois mudou a destinação dos emolumentos cartorários apenas no âmbito da União.",
+        "Os emolumentos cartorários devem ser direcionados ao custeio da seguridade social, logo, a Lei Federal X afronta a ordem constitucional."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2024-01-16",
+    "question_number": 16,
+    "exam_id": "2024-01",
+    "exam_year": "2024",
+    "question_type": "DIREITO CONSTITUCIONAL",
+    "nullified": false,
+    "question": "Uma Proposta de Emenda à Constituição (PEC) é apresentada por um grupo de deputados federais, conforme autoriza a ordem constitucional, cujo objeto é a alteração do Art. 60, § 2º, inciso II, da CRFB/88, que passaria a ter a seguinte redação: o voto direto, aberto, universal e periódico. Depois de aprovada a proposta nas comissões competentes, os autores da proposta solicitaram ao Presidente da Câmara dos Deputados que colocasse a referida PEC na pauta do plenário da Casa Legislativa, o que foi atendido. Paralelamente, outro grupo de parlamentares, ao perceber que, pela movimentação política, a PEC possivelmente seria aprovada, procurou uma ação jurídica para impedir o voto pelo plenário da Casa. A respeito da ação jurídica capaz de impedir o voto pela plenário da Casa, segundo o sistema brasileiro de controle de constitucionalidade, assinale a alternativa correta. A) Em razão da alteração à cláusula pétrea do voto secreto, qualquer legitimado a deflagrar o controle concentrado de constitucionalidade pode ajuizar uma Ação Direta de Inconstitucionalidade (ADI) perante o Supremo Tribunal Federal. B) Com se está perante matéria integrante do Congresso Nacional, que só pode ser apreciada no âmbito do Poder Legislativo, a referida PEC, portanto não foi promulgada e se transformaram em normativo existente e eficaz, não pode ser objeto de nenhum tipo de controle pelo Poder Judiciário. C) Por ato de respeito à precedência fundamental, um legitimado pode ajuizar Arguição de Descumprimento de Preceito Fundamental (ADPF) perante o Supremo Tribunal Federal, nos termos da Constituição da República. D) Em razão da inobservância das limitações constitucionais materiais ao poder de emendar a Constituição, qualquer deputado federal tem legitimidade para impetrar mandado de segurança perante o Supremo Tribunal Federal.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Em razão da alteração à cláusula pétrea do voto secreto, qualquer legitimado a deflagrar o controle concentrado de constitucionalidade pode ajuizar uma Ação Direta de Inconstitucionalidade (ADI) perante o Supremo Tribunal Federal.",
+        "Com se está perante matéria integrante do Congresso Nacional, que só pode ser apreciada no âmbito do Poder Legislativo, a referida PEC, portanto não foi promulgada e se transformaram em normativo existente e eficaz, não pode ser objeto de nenhum tipo de controle pelo Poder Judiciário.",
+        "Por ato de respeito à precedência fundamental, um legitimado pode ajuizar Arguição de Descumprimento de Preceito Fundamental (ADPF) perante o Supremo Tribunal Federal, nos termos da Constituição da República.",
+        "Em razão da inobservância das limitações constitucionais materiais ao poder de emendar a Constituição, qualquer deputado federal tem legitimidade para impetrar mandado de segurança perante o Supremo Tribunal Federal."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2024-01-17",
+    "question_number": 17,
+    "exam_id": "2024-01",
+    "exam_year": "2024",
+    "question_type": "DIREITO PENAL",
+    "nullified": false,
+    "question": "Os conflitos armados, infelizmente, são uma realidade que afeta diferentes países. As quatro Convenções de Genebra de 1949 conformam a base do Direito Internacional Humanitário. Em comum às quatro Convenções está o Art. 3º que, entre outros dispositivos, determina o tratamento humano para todos os indivíduos em poder do inimigo, sem nenhuma distinção alguma. Proibe, especialmente, os assassinatos, as mutilações, os tratamentos cruéis, humilhantes e degradantes, a tomada de reféns e os julgamentos parciais. Sobre esse artigo, assinale a afirmativa correta. A) Abrange também as situações de conflito armado sem caráter internacional e que surjam no território de um Estado-parte da Convenção. B) Determina a obrigatoriedade de cessar-fogo, no caso de início de uma rodada de negociações para a busca de solução não armada do conflito. C) Atribui ao Conselho de Segurança da ONU a competência para julgar a legitimidade da guerra e as eventuais sanções a serem impostas às partes do conflito. D) Prevê a instituição de um tribunal específico para o julgamento de acusados de terem cometido crimes de guerra pela Assembleia-Geral das Nações Unidas.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Abrange também as situações de conflito armado sem caráter internacional e que surjam no território de um Estado-parte da Convenção.",
+        "Determina a obrigatoriedade de cessar-fogo, no caso de início de uma rodada de negociações para a busca de solução não armada do conflito.",
+        "Atribui ao Conselho de Segurança da ONU a competência para julgar a legitimidade da guerra e as eventuais sanções a serem impostas às partes do conflito.",
+        "Prevê a instituição de um tribunal específico para o julgamento de acusados de terem cometido crimes de guerra pela Assembleia-Geral das Nações Unidas."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2024-01-18",
+    "question_number": 18,
+    "exam_id": "2024-01",
+    "exam_year": "2024",
+    "question_type": "DIREITO CONSTITUCIONAL",
+    "nullified": false,
+    "question": "STJ transfere à Justiça Federal apuração da morte de líderes de trabalhadores rurais em Rondônia. A pedido da Procuradoria-Geral da República (PGR), a Terceira Seção do Superior Tribunal de Justiça (STJ) determinou a transferência, para a Justiça Federal, de seis inquéritos relativos a crimes de homicídio praticados contra líderes de trabalhadores rurais e outras pessoas que denunciaram grilagem de terras e exploração ilegal de madeira em Rondônia. A notícia acima, informada no site do STJ, diz respeito a um instituto exclusivo para a proteção dos Direitos Humanos previsto na Constituição Federal/88. Assinale a opção que indica. A) Arguição de Descumprimento de Preceito Fundamental. B) Incidente de Deslocamento de Competência. C) Tese com Repercussão Geral. D) Ação Popular.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Arguição de Descumprimento de Preceito Fundamental.",
+        "Incidente de Deslocamento de Competência.",
+        "Tese com Repercussão Geral.",
+        "Ação Popular."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2024-01-19",
+    "question_number": 19,
+    "exam_id": "2024-01",
+    "exam_year": "2024",
+    "question_type": "DIREITO ELEITORAL",
+    "nullified": false,
+    "question": "Entre os correligionários do partido político Alfa estavam dois dos pré-candidatos considerados favoritos na eleição para governador do Estado Beta. Como somente um deles poderia ser escolhido por Alfa para concorrer ao referido cargo eletivo, houve grande interesse dos meios de comunicação social na cobertura das prévias partidárias. Em relação às emissoras de rádio e televisão, à luz dos balizamentos legais existentes, assinale a afirmativa correta. A) A lei obsta a cobertura das prévias partidárias. B) Elas podem realizar, ao vivo ou não, a plena cobertura das prévias partidárias, não sendo permitida qualquer censura. C) Somente é permitida a transmissão de imagens ao vivo, de modo a evitar o risco de trucagem. D) As transmissões por emissoras de rádio e televisão das prévias partidárias, ao vivo, são vedadas.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A lei obsta a cobertura das prévias partidárias.",
+        "Elas podem realizar, ao vivo ou não, a plena cobertura das prévias partidárias, não sendo permitida qualquer censura.",
+        "Somente é permitida a transmissão de imagens ao vivo, de modo a evitar o risco de trucagem.",
+        "As transmissões por emissoras de rádio e televisão das prévias partidárias, ao vivo, são vedadas."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2024-01-20",
+    "question_number": 20,
+    "exam_id": "2024-01",
+    "exam_year": "2024",
+    "question_type": "FILOSOFIA DO DIREITO",
+    "nullified": false,
+    "question": "João, candidato ao cargo eletivo de prefeito municipal, logrou ser eleito. No entanto, por ser muito desorganizado, não conseguiu localizar os documentos necessários para a prestação de contas à Justiça Eleitoral, o que resultou na não apresentação dessas contas. Sobre as consequências da omissão de João, assinale a afirmativa correta. A) A impossibilidade de ser diplomado. B) A sua diplomação com reservas. C) O pagamento de multa, não havendo óbice à diplomação, ato independente. D) A necessidade de firmar compromisso, previamente à diplomação, comprometendo-se a apresentar as contas.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A impossibilidade de ser diplomado.",
+        "A sua diplomação com reservas.",
+        "O pagamento de multa, não havendo óbice à diplomação, ato independente.",
+        "A necessidade de firmar compromisso, previamente à diplomação, comprometendo-se a apresentar as contas."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2024-01-21",
+    "question_number": 21,
+    "exam_id": "2024-01",
+    "exam_year": "2024",
+    "question_type": "DIREITO CIVIL",
+    "nullified": false,
+    "question": "Uma sociedade empresária colombiana celebrou, na Inglaterra, com uma sociedade alemã, um contrato para a entrega de 500 (quinhentas) sacas de café tipo árabe no Porto de Santos, Brasil, sem cláusula de eleição de foro exclusivo. Durante o transporte, houve um acidente com a embarcação, que acarretou o perecimento de mercadoria. Você, como advogado(a), é procurado(a) para ajuizar a presente ação. De acordo com o direito internacional privado brasileiro, assinale a opção que indica a autoridade judiciária competente para processar e julgar eventual demanda entre os contratantes. A) A autoridade judiciária inglesa, única e exclusivamente. B) A autoridade judiciária colombiana, concorrente. C) A autoridade judiciária alemã, única e exclusivamente. D) A autoridade judiciária brasileira, concorrente.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A autoridade judiciária inglesa, única e exclusivamente.",
+        "A autoridade judiciária colombiana, concorrente.",
+        "A autoridade judiciária alemã, única e exclusivamente.",
+        "A autoridade judiciária brasileira, concorrente."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2024-01-22",
+    "question_number": 22,
+    "exam_id": "2024-01",
+    "exam_year": "2024",
+    "question_type": "ÉTICA PROFISSIONAL",
+    "nullified": false,
+    "question": "A Fundação de Juristas Moçambique–Brasil, associação privada de fim de interesse coletivo, constituiu-se na década de 1990, na cidade de Maputo, capital de Moçambique, e pretende abrir filial no Brasil. Você, advogado(a) especializado em Direito Internacional, é procurado pela Fundação para avaliar a pretensão do caso em tela. Sobre a hipótese apresentada, assinale a afirmativa correta. A) A Fundação não poderá ter filial no Brasil, salvo se houver prévia decisão da justiça brasileira autorizativa. B) A Fundação não poderá ter filial no Brasil, antes da aprovação dos atos constitutivos pelo governo brasileiro, ficando a filial sujeita à lei brasileira. C) A Fundação não poderá ter filial no Brasil, salvo se houver prévia autorização legislativa do Congresso Nacional. D) A Fundação não poderá ter filial no Brasil, antes da aprovação dos atos constitutivos pelo governo moçambicano, ficando a filial sujeita à lei moçambicana.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A Fundação não poderá ter filial no Brasil, salvo se houver prévia decisão da justiça brasileira autorizativa.",
+        "A Fundação não poderá ter filial no Brasil, antes da aprovação dos atos constitutivos pelo governo brasileiro, ficando a filial sujeita à lei brasileira.",
+        "A Fundação não poderá ter filial no Brasil, salvo se houver prévia autorização legislativa do Congresso Nacional.",
+        "A Fundação não poderá ter filial no Brasil, antes da aprovação dos atos constitutivos pelo governo moçambicano, ficando a filial sujeita à lei moçambicana."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2024-01-23",
+    "question_number": 23,
+    "exam_id": "2024-01",
+    "exam_year": "2024",
+    "question_type": "DIREITO CONSTITUCIONAL",
+    "nullified": false,
+    "question": "O Presidente da República se ficou inerte quanto à elaboração e ao envio do projeto de Lei Orçamentária Anual (LOA) da União para aprovação do Congresso Nacional no prazo estabelecido pela CRFB/88. O Presidente do Congresso Nacional, então, assumiu a responsabilidade de elaborar o referido projeto de Lei e de enviá-lo para tramitação e aprovação de ambas as Casas do Congresso Nacional. Nesse caso, é correto afirmar que: A) caso aprovado, a referida LOA será inconstitucional por vício de iniciativa, já que é competência privativa do Presidente da República sua elaboração e seu envio ao Congresso Nacional, não podendo o Presidente do Congresso Nacional realizar tal elaboração nem mesmo em caráter excepcional. B) comprovada a inércia do Presidente da República, admite-se, de forma subsidiária, que a iniciativa de referido projeto de LOA seja exercida por pessoa diversa, a exemplo do Presidente do Congresso Nacional. C) quando o Presidente da República deixa de apresentar o projeto de LOA da União no prazo legal, a CRFB/88 prevê a possibilidade de o Poder Judiciário, o Ministério Público, a Defensoria Pública e Poder Legislativo apresentarem, autonomamente, seus respectivos projetos de orçamentos para tramitação no Congresso Nacional. D) a referida LOA somente não será inconstitucional, por vício de iniciativa, caso sua aprovação se dê pelo processo legislativo de aprovação de lei complementar, uma vez que, por se tratar de hipótese excepcional, a Constituição Federal de 1988 prevê um maior rigor para sua aprovação.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "caso aprovado, a referida LOA será inconstitucional por vício de iniciativa, já que é competência privativa do Presidente da República sua elaboração e seu envio ao Congresso Nacional, não podendo o Presidente do Congresso Nacional realizar tal elaboração nem mesmo em caráter excepcional.",
+        "comprovada a inércia do Presidente da República, admite-se, de forma subsidiária, que a iniciativa de referido projeto de LOA seja exercida por pessoa diversa, a exemplo do Presidente do Congresso Nacional.",
+        "quando o Presidente da República deixa de apresentar o projeto de LOA da União no prazo legal, a CRFB/88 prevê a possibilidade de o Poder Judiciário, o Ministério Público, a Defensoria Pública e Poder Legislativo apresentarem, autonomamente, seus respectivos projetos de orçamentos para tramitação no Congresso Nacional.",
+        "a referida LOA somente não será inconstitucional, por vício de iniciativa, caso sua aprovação se dê pelo processo legislativo de aprovação de lei complementar, uma vez que, por se tratar de hipótese excepcional, a Constituição Federal de 1988 prevê um maior rigor para sua aprovação."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2024-01-24",
+    "question_number": 24,
+    "exam_id": "2024-01",
+    "exam_year": "2024",
+    "question_type": "DIREITO PROCESSUAL CIVIL",
+    "nullified": false,
+    "question": "A Escolinha do Gol, entidade privada sem fins lucrativos, que realiza sua função social de fomento ao esporte no Município A/B, Estado Beta, entre os anos de 2020 a 2022, recebeu diretamente da União a quantia de R$ 100.000,00 (cem mil reais) para financiar seu programa beneficente de ensino e treinamento de futebol para crianças carentes da localidade. Pedro, administrador da instituição e técnico de futebol da escolinha, recebeu, em janeiro de 2023, uma notificação do Tribunal de Contas da União (TCU) intimando a instituição a prestar contas dos recursos recebidos no prazo de 30 (trinta) dias, sob pena de imediata devolução, acrescida de juros, correção monetária e multa. Tendo Pedro aplicado 100% dos recursos recebidos nas atividades da escolinha, contrata você, como advogado, para orientá-lo sobre a notificação. Diante desse cenário, assinale a opção que apresenta sua orientação. A) Por não se tratar de uma entidade pública, e sim de uma instituição privada, não se submete à fiscalização e ao controle de qualquer Tribunal de Contas. B) Não pode o TCU fiscalizar e controlar tais repasses, cabendo apenas ao Tribunal de Contas do Estado Beta, por ser o Município A/B destinatário e efetivo usuário de tais recursos repassados. C) É devida a prestação de contas de qualquer pessoa física ou jurídica, pública ou privada que receba e utilize dinheiro público. D) Apenas deverá prestar contas dos recursos públicos recebidos aqueles que os aplicarem em atividades diversas da originalmente estabelecida ou que não os tenham aplicado integralmente.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Por não se tratar de uma entidade pública, e sim de uma instituição privada, não se submete à fiscalização e ao controle de qualquer Tribunal de Contas.",
+        "Não pode o TCU fiscalizar e controlar tais repasses, cabendo apenas ao Tribunal de Contas do Estado Beta, por ser o Município A/B destinatário e efetivo usuário de tais recursos repassados.",
+        "É devida a prestação de contas de qualquer pessoa física ou jurídica, pública ou privada que receba e utilize dinheiro público.",
+        "Apenas deverá prestar contas dos recursos públicos recebidos aqueles que os aplicarem em atividades diversas da originalmente estabelecida ou que não os tenham aplicado integralmente."
+      ]
+    },
+    "answerKey": 2
+  }
+]

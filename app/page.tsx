@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui';
 
 export default function Home() {
@@ -13,9 +14,12 @@ export default function Home() {
       <div className="relative z-10 text-center max-w-4xl mx-auto space-y-8">
         <div className="space-y-4">
           <div className="flex justify-center mb-6 animate-slide-up">
-            <img
+            <Image
               src="/logo.png"
-              alt="Simulai OAB"
+              alt="Simulai OAB - Preparação Inteligente para o Exame da OAB"
+              width={256}
+              height={160}
+              priority
               className="h-32 md:h-40 w-auto"
             />
           </div>

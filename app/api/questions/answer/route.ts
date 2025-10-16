@@ -5,47 +5,74 @@ import { AnswerQuestionSchema } from "@/lib/validations/question";
 import { calculatePoints, updateStreak, calculateLevel } from "@/lib/gamification/points";
 import { checkAchievements, getUserStats } from "@/lib/gamification/achievements";
 import type { AnswerQuestionResponse } from "@/types/api";
+import { checkRateLimit, answerRateLimit } from "@/lib/rate-limit";
+import { createError } from "@/lib/errors";
+import { logger } from "@/lib/logger";
 
 export async function POST(request: NextRequest) {
   try {
     const user = await requireAuth();
     const body = await request.json();
 
+    // Rate limiting para respostas
+    const { success } = await checkRateLimit(user.id, answerRateLimit);
+    if (!success) {
+      logger.warn("Answer rate limit exceeded", { userId: user.id });
+      return NextResponse.json(
+        createError("ANSWER_RATE_LIMIT_EXCEEDED").toJSON(),
+        { status: 429 }
+      );
+    }
+
     // Validar dados
     const data = AnswerQuestionSchema.parse(body);
 
-    // Buscar questão com alternativa correta
-    const question = await prisma.question.findUnique({
-      where: { id: data.questionId },
-      include: {
-        alternatives: true,
-      },
-    });
+    // OTIMIZAÇÃO: Buscar apenas o necessário
+    const [question, alternative] = await Promise.all([
+      prisma.question.findUnique({
+        where: { id: data.questionId },
+        select: {
+          id: true,
+          difficulty: true,
+          explanation: true,
+        },
+      }),
+      prisma.alternative.findUnique({
+        where: { id: data.alternativeId },
+        select: {
+          id: true,
+          isCorrect: true,
+          questionId: true,
+        },
+      }),
+    ]);
 
-    if (!question) {
+    if (!question || !alternative) {
+      logger.warn("Question or alternative not found", {
+        questionId: data.questionId,
+        alternativeId: data.alternativeId,
+        userId: user.id
+      });
       return NextResponse.json(
-        { error: "Questão não encontrada" },
+        createError("QUESTION_NOT_FOUND").toJSON(),
         { status: 404 }
       );
     }
 
-    // Verificar alternativa selecionada
-    const selectedAlternative = question.alternatives.find(
-      (a) => a.id === data.alternativeId
-    );
+    const isCorrect = alternative.isCorrect;
 
-    if (!selectedAlternative) {
-      return NextResponse.json(
-        { error: "Alternativa não encontrada" },
-        { status: 404 }
-      );
+    // Buscar alternativa correta apenas se necessário (para modo prática)
+    let correctAlternativeId = data.alternativeId;
+    if (!data.simulationId) {
+      const correctAlt = await prisma.alternative.findFirst({
+        where: { questionId: data.questionId, isCorrect: true },
+        select: { id: true },
+      });
+      correctAlternativeId = correctAlt?.id || data.alternativeId;
     }
 
-    const correctAlternative = question.alternatives.find((a) => a.isCorrect)!;
-    const isCorrect = selectedAlternative.isCorrect;
-
-    // Registrar resposta
-    await prisma.userAnswer.create({
+    // OTIMIZAÇÃO: Registrar resposta SEM awaitar (fire-and-forget para simulados)
+    const answerPromise = prisma.userAnswer.create({
       data: {
         userId: user.id,
         questionId: data.questionId,
@@ -57,7 +84,27 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // Atualizar perfil do usuário com gamificação
+    // Se for simulado, apenas registrar e retornar rápido
+    if (data.simulationId) {
+      // Aguardar apenas o registro da resposta
+      await answerPromise;
+
+      logger.debug("Simulation answer recorded", {
+        simulationId: data.simulationId,
+        questionId: data.questionId,
+        isCorrect,
+        userId: user.id
+      });
+
+      return NextResponse.json({
+        isCorrect,
+        correctAlternativeId,
+      });
+    }
+
+    // Modo prática: fazer gamificação completa
+    await answerPromise;
+
     if (user.profile) {
       const currentProfile = user.profile;
 
@@ -74,13 +121,10 @@ export async function POST(request: NextRequest) {
       let newStreak = currentProfile.streak;
 
       if (streakUpdate === -1) {
-        // Incrementar streak
         newStreak = currentProfile.streak + 1;
       } else if (streakUpdate > 0) {
-        // Resetar streak
         newStreak = streakUpdate;
       }
-      // Se streakUpdate === 0, manter streak atual (mesmo dia)
 
       // Calcular novo total de pontos e nível
       const newTotalPoints = currentProfile.totalPoints + pointsCalc.totalPoints;
@@ -99,65 +143,67 @@ export async function POST(request: NextRequest) {
         },
       });
 
-      // Verificar conquistas (apenas se acertou)
+      // OTIMIZAÇÃO: Achievements em background (não bloquear resposta)
       if (isCorrect) {
-        const userStats = await getUserStats(user.id, prisma);
-        const unlockedAchievements = await prisma.userAchievement.findMany({
-          where: { userId: user.id },
-          select: { achievement: { select: { key: true } } },
-        });
-        const unlockedKeys = unlockedAchievements.map((ua) => ua.achievement.key);
-
-        const newAchievements = checkAchievements(userStats, unlockedKeys);
-
-        // Criar conquistas no banco se não existirem e desbloquear
-        for (const achievement of newAchievements) {
-          // Criar achievement se não existir
-          let dbAchievement = await prisma.achievement.findUnique({
-            where: { key: achievement.key },
+        // Fire-and-forget - não awaitar
+        getUserStats(user.id, prisma).then(async (userStats) => {
+          const unlockedAchievements = await prisma.userAchievement.findMany({
+            where: { userId: user.id },
+            select: { achievement: { select: { key: true } } },
           });
+          const unlockedKeys = unlockedAchievements.map((ua) => ua.achievement.key);
 
-          if (!dbAchievement) {
-            dbAchievement = await prisma.achievement.create({
+          const newAchievements = checkAchievements(userStats, unlockedKeys);
+
+          for (const achievement of newAchievements) {
+            let dbAchievement = await prisma.achievement.findUnique({
+              where: { key: achievement.key },
+            });
+
+            if (!dbAchievement) {
+              dbAchievement = await prisma.achievement.create({
+                data: {
+                  key: achievement.key,
+                  name: achievement.name,
+                  description: achievement.description,
+                  icon: achievement.icon,
+                  points: achievement.points,
+                },
+              });
+            }
+
+            await prisma.userAchievement.create({
               data: {
-                key: achievement.key,
-                name: achievement.name,
-                description: achievement.description,
-                icon: achievement.icon,
-                points: achievement.points,
+                userId: user.id,
+                achievementId: dbAchievement.id,
+              },
+            });
+
+            await prisma.userProfile.update({
+              where: { userId: user.id },
+              data: {
+                totalPoints: { increment: achievement.points },
               },
             });
           }
-
-          // Desbloquear para o usuário
-          await prisma.userAchievement.create({
-            data: {
-              userId: user.id,
-              achievementId: dbAchievement.id,
-            },
-          });
-
-          // Adicionar pontos da conquista
-          await prisma.userProfile.update({
-            where: { userId: user.id },
-            data: {
-              totalPoints: { increment: achievement.points },
-            },
-          });
-        }
+        }).catch(err => logger.error('Achievement processing error', {
+          error: err instanceof Error ? err.message : 'Unknown error',
+          userId: user.id
+        }));
       }
     }
 
-    // Calcular estatísticas
-    const stats = await prisma.userAnswer.aggregate({
-      where: { questionId: data.questionId },
-      _avg: { timeSpent: true },
-      _count: { _all: true },
-    });
-
-    const correctCount = await prisma.userAnswer.count({
-      where: { questionId: data.questionId, isCorrect: true },
-    });
+    // Calcular estatísticas em paralelo
+    const [stats, correctCount] = await Promise.all([
+      prisma.userAnswer.aggregate({
+        where: { questionId: data.questionId },
+        _avg: { timeSpent: true },
+        _count: { _all: true },
+      }),
+      prisma.userAnswer.count({
+        where: { questionId: data.questionId, isCorrect: true },
+      }),
+    ]);
 
     const successRate = stats._count._all > 0
       ? (correctCount / stats._count._all) * 100
@@ -165,7 +211,7 @@ export async function POST(request: NextRequest) {
 
     const response: AnswerQuestionResponse = {
       isCorrect,
-      correctAlternativeId: correctAlternative.id,
+      correctAlternativeId,
       explanation: question.explanation || undefined,
       statistics: {
         successRate: Math.round(successRate * 10) / 10,
@@ -174,16 +220,29 @@ export async function POST(request: NextRequest) {
       },
     };
 
+    logger.info("Practice answer recorded successfully", {
+      questionId: data.questionId,
+      isCorrect,
+      userId: user.id,
+      timeSpent: data.timeSpent
+    });
+
     return NextResponse.json(response);
   } catch (error) {
-    console.error("Error answering question:", error);
+    logger.error("Error answering question", {
+      error: error instanceof Error ? error.message : "Unknown error",
+      userId: (error as any).userId
+    });
 
     if (error instanceof Error && error.message === "Unauthorized") {
-      return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+      return NextResponse.json(
+        createError("UNAUTHORIZED").toJSON(),
+        { status: 401 }
+      );
     }
 
     return NextResponse.json(
-      { error: "Erro ao registrar resposta" },
+      createError("DATABASE_ERROR").toJSON(),
       { status: 500 }
     );
   }

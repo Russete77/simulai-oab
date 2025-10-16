@@ -5,7 +5,9 @@
       "Bash(tree:*)",
       "Bash(npm install)",
       "Bash(node:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "WebFetch(domain:clerk.com)",
+      "Bash(mv:*)"
     ],
     "deny": [],
     "ask": []

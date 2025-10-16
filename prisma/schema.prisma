@@ -68,7 +68,8 @@ model User {
   id            String   @id @default(cuid())
   email         String   @unique
   name          String?
-  supabaseId    String   @unique
+  clerkId       String?  @unique
+  supabaseId    String?  @unique  // Temporário para migração
   planType      PlanType @default(FREE)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
@@ -82,6 +83,7 @@ model User {
   chatSessions  UserQuestionChat[]
 
   @@index([email])
+  @@index([clerkId])
   @@index([supabaseId])
 }
 

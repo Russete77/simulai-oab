@@ -5,6 +5,7 @@ import { Button, Card, Progress } from '@/components/ui';
 import { QuestionCard } from '@/components/question-card';
 import { ArrowLeft, ArrowRight, Flag, CheckCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { SIMULATION_TYPE_LABELS } from '@/lib/constants/simulation-types';
 
 interface SimulationClientProps {
   simulation: any;
@@ -14,6 +15,8 @@ export default function SimulationClient({ simulation }: SimulationClientProps) 
   const router = useRouter();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [questionTimes, setQuestionTimes] = useState<Record<string, number>>({});
+  const [questionStartTime, setQuestionStartTime] = useState(Date.now());
   const [timer, setTimer] = useState(0);
   const [isFinishing, setIsFinishing] = useState(false);
 
@@ -21,6 +24,7 @@ export default function SimulationClient({ simulation }: SimulationClientProps) 
   const progress = ((currentQuestionIndex + 1) / simulation.totalQuestions) * 100;
   const answeredCount = Object.keys(answers).length;
 
+  // Timer global
   useEffect(() => {
     const interval = setInterval(() => {
       setTimer((t) => t + 1);
@@ -29,12 +33,25 @@ export default function SimulationClient({ simulation }: SimulationClientProps) 
     return () => clearInterval(interval);
   }, []);
 
+  // Registrar tempo ao mudar de questão
+  useEffect(() => {
+    setQuestionStartTime(Date.now());
+  }, [currentQuestionIndex]);
+
   const handleSelectAlternative = (alternativeId: string) => {
     if (!currentQuestion) return;
+
+    // Calcular tempo gasto nesta questão
+    const timeSpent = Math.floor((Date.now() - questionStartTime) / 1000);
 
     setAnswers((prev) => ({
       ...prev,
       [currentQuestion.id]: alternativeId,
+    }));
+
+    setQuestionTimes((prev) => ({
+      ...prev,
+      [currentQuestion.id]: timeSpent,
     }));
   };
 
@@ -61,19 +78,22 @@ export default function SimulationClient({ simulation }: SimulationClientProps) 
     try {
       setIsFinishing(true);
 
-      // Submit all answers
-      for (const [questionId, alternativeId] of Object.entries(answers)) {
-        await fetch('/api/questions/answer', {
+      // OTIMIZAÇÃO: Enviar todas as respostas em PARALELO com Promise.all
+      const answerPromises = Object.entries(answers).map(([questionId, alternativeId]) =>
+        fetch('/api/questions/answer', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             questionId,
             alternativeId,
-            timeSpent: Math.max(1, Math.floor(timer / simulation.totalQuestions)),
+            timeSpent: questionTimes[questionId] || 1,  // Tempo real por questão
             simulationId: simulation.id,
           }),
-        });
-      }
+        })
+      );
+
+      // Aguardar todas as respostas em paralelo
+      await Promise.all(answerPromises);
 
       // Finish simulation
       const response = await fetch('/api/simulations/finish', {
@@ -88,7 +108,6 @@ export default function SimulationClient({ simulation }: SimulationClientProps) 
         throw new Error('Failed to finish simulation');
       }
 
-      const result = await response.json();
       router.push(`/simulations/${simulation.id}/result`);
     } catch (error) {
       console.error('Error finishing simulation:', error);
@@ -124,7 +143,7 @@ export default function SimulationClient({ simulation }: SimulationClientProps) 
               </button>
               <div>
                 <h1 className="text-xl font-bold text-white">
-                  Simulado {simulation.type}
+                  {SIMULATION_TYPE_LABELS[simulation.type as keyof typeof SIMULATION_TYPE_LABELS] || simulation.type}
                 </h1>
                 <p className="text-sm text-navy-600">
                   Questão {currentQuestionIndex + 1} de {simulation.totalQuestions}

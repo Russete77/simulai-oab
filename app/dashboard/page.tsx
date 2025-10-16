@@ -21,7 +21,7 @@ export default async function DashboardPage() {
       <Header />
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main id="main-content" role="main" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Section */}
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-white mb-2">
@@ -146,7 +146,7 @@ export default async function DashboardPage() {
             />
           </div>
         </Card>
-      </div>
+      </main>
     </div>
   );
 }

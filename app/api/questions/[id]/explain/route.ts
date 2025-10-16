@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "@/lib/auth";
 import { generateExplanation } from "@/lib/ai/explanation-service";
 import { prisma } from "@/lib/db/prisma";
+import { checkRateLimit, aiRateLimit } from "@/lib/rate-limit";
+import { createError } from "@/lib/errors";
+import { logger } from "@/lib/logger";
 
 export async function POST(
   request: NextRequest,
@@ -11,7 +14,17 @@ export async function POST(
     const user = await requireAuth();
     const { id } = await params;
 
-    console.log(`🔍 Gerando explicação para questão ${id}...`);
+    // Rate limiting para IA
+    const { success } = await checkRateLimit(user.id, aiRateLimit);
+    if (!success) {
+      logger.warn("AI rate limit exceeded", { userId: user.id, questionId: id });
+      return NextResponse.json(
+        createError("AI_RATE_LIMIT_EXCEEDED").toJSON(),
+        { status: 429 }
+      );
+    }
+
+    logger.info("Generating explanation", { questionId: id, userId: user.id });
 
     // Buscar questão completa
     const question = await prisma.question.findUnique({
@@ -27,8 +40,9 @@ export async function POST(
     });
 
     if (!question) {
+      logger.warn("Question not found for explanation", { questionId: id });
       return NextResponse.json(
-        { error: "Questão não encontrada" },
+        createError("QUESTION_NOT_FOUND").toJSON(),
         { status: 404 }
       );
     }
@@ -36,8 +50,9 @@ export async function POST(
     // Encontrar alternativa correta
     const correctAlternative = question.alternatives.find((a) => a.isCorrect);
     if (!correctAlternative) {
+      logger.error("Question missing correct alternative", { questionId: id });
       return NextResponse.json(
-        { error: "Questão sem alternativa correta definida" },
+        createError("INVALID_QUESTION_DATA").toJSON(),
         { status: 400 }
       );
     }
@@ -48,6 +63,10 @@ export async function POST(
       ? question.alternatives.find((a) => a.id === userAnswer.alternativeId)
       : null;
 
+    // Read optional style from request body
+    const body = await request.json().catch(() => ({}));
+    const style = body.style as 'professor' | 'concise' | 'chat' | undefined;
+
     // Gerar explicação
     const explanation = await generateExplanation({
       questionId: question.id,
@@ -57,6 +76,12 @@ export async function POST(
       correctAnswer: correctAlternative.label,
       subject: question.subject,
       examYear: question.examYear,
+    }, style);
+
+    logger.info("Explanation generated successfully", {
+      questionId: id,
+      userId: user.id,
+      wasCorrect: userAnswer?.isCorrect
     });
 
     return NextResponse.json({
@@ -68,19 +93,20 @@ export async function POST(
       },
     });
   } catch (error) {
-    console.error("❌ Erro ao gerar explicação:", error);
+    logger.error("Error generating explanation", {
+      error: error instanceof Error ? error.message : "Unknown error",
+      questionId: await params.then(p => p.id),
+    });
 
     if (error instanceof Error && error.message === "Unauthorized") {
-      return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+      return NextResponse.json(
+        createError("UNAUTHORIZED").toJSON(),
+        { status: 401 }
+      );
     }
 
     return NextResponse.json(
-      {
-        error:
-          error instanceof Error
-            ? error.message
-            : "Erro ao gerar explicação",
-      },
+      createError("AI_SERVICE_ERROR").toJSON(),
       { status: 500 }
     );
   }

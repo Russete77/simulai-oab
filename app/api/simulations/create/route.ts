@@ -3,6 +3,62 @@ import { prisma } from "@/lib/db/prisma";
 import { requireAuth } from "@/lib/auth";
 import { CreateSimulationSchema } from "@/lib/validations/simulation";
 import { SimulationType, Prisma } from "@prisma/client";
+import { checkRateLimit, simulationRateLimit } from "@/lib/rate-limit";
+import { createError } from "@/lib/errors";
+import { logger } from "@/lib/logger";
+
+/**
+ * Embaralha questões com diversificação de anos
+ * Garante que não haja muitas questões seguidas do mesmo ano
+ */
+function shuffleWithDiversity(
+  questions: Array<{ id: string; examYear: number; examPhase: number }>,
+  count: number
+): Array<{ id: string; examYear: number; examPhase: number }> {
+  // Agrupar por ano
+  const byYear = new Map<number, typeof questions>();
+  questions.forEach((q) => {
+    const year = q.examYear;
+    if (!byYear.has(year)) {
+      byYear.set(year, []);
+    }
+    byYear.get(year)!.push(q);
+  });
+
+  // Embaralhar cada grupo de ano
+  byYear.forEach((yearQuestions) => {
+    yearQuestions.sort(() => Math.random() - 0.5);
+  });
+
+  // Distribuir questões de forma intercalada (round-robin por ano)
+  const result: typeof questions = [];
+  const years = Array.from(byYear.keys()).sort(() => Math.random() - 0.5);
+  let yearIndex = 0;
+
+  while (result.length < count && result.length < questions.length) {
+    const year = years[yearIndex];
+    const yearQuestions = byYear.get(year);
+
+    if (yearQuestions && yearQuestions.length > 0) {
+      result.push(yearQuestions.shift()!);
+    }
+
+    yearIndex = (yearIndex + 1) % years.length;
+
+    // Remover anos vazios
+    if (byYear.get(year)?.length === 0) {
+      const emptyYearIndex = years.indexOf(year);
+      if (emptyYearIndex !== -1) {
+        years.splice(emptyYearIndex, 1);
+      }
+    }
+
+    // Se não há mais questões, parar
+    if (years.length === 0) break;
+  }
+
+  return result.slice(0, count);
+}
 
 const SIMULATION_CONFIGS = {
   FULL_EXAM: {
@@ -37,8 +93,24 @@ export async function POST(request: NextRequest) {
     const user = await requireAuth();
     const body = await request.json();
 
+    // Rate limiting para criação de simulados
+    const { success } = await checkRateLimit(user.id, simulationRateLimit);
+    if (!success) {
+      logger.warn("Simulation creation rate limit exceeded", { userId: user.id });
+      return NextResponse.json(
+        createError("SIMULATION_RATE_LIMIT_EXCEEDED").toJSON(),
+        { status: 429 }
+      );
+    }
+
     // Validar dados
     const data = CreateSimulationSchema.parse(body);
+
+    logger.info("Creating simulation", {
+      userId: user.id,
+      type: data.type,
+      questionCount: data.questionCount
+    });
 
     const config = SIMULATION_CONFIGS[data.type];
     const questionCount = data.questionCount || config.questionCount;
@@ -48,56 +120,102 @@ export async function POST(request: NextRequest) {
 
     if (data.type === "FULL_EXAM") {
       // Simulado completo usa distribuição específica
-      const questions: string[] = [];
+      const subjectEntries = Object.entries(SIMULATION_CONFIGS.FULL_EXAM.distribution);
 
-      for (const [subject, count] of Object.entries(
-        SIMULATION_CONFIGS.FULL_EXAM.distribution
-      )) {
-        const subjectQuestions = await prisma.question.findMany({
+      // Buscar questões já respondidas pelo usuário (últimos 90 dias)
+      const threeMonthsAgo = new Date();
+      threeMonthsAgo.setDate(threeMonthsAgo.getDate() - 90);
+
+      const answeredQuestions = await prisma.userAnswer.findMany({
+        where: {
+          userId: user.id,
+          createdAt: { gte: threeMonthsAgo },
+        },
+        select: { questionId: true },
+        distinct: ['questionId'],
+      });
+
+      const answeredQuestionIds = new Set(answeredQuestions.map(a => a.questionId));
+
+      // Buscar questões em paralelo por matéria com aleatorização inteligente
+      const questionPromises = subjectEntries.map(async ([subject, count]) => {
+        if (count === 0) return [];
+
+        // ESTRATÉGIA: Buscar MAIS questões para poder filtrar e aleatorizar
+        const questions = await prisma.question.findMany({
           where: {
             subject: subject as any,
             nullified: false,
           },
-          select: { id: true },
-          take: count,
+          select: {
+            id: true,
+            examYear: true,
+            examPhase: true,
+          },
+          take: count * 5, // Buscar 5x mais para ter opções
         });
 
-        questions.push(...subjectQuestions.map((q) => q.id));
-      }
+        // Filtrar questões já respondidas (priorizar não respondidas)
+        const notAnswered = questions.filter(q => !answeredQuestionIds.has(q.id));
+        const answered = questions.filter(q => answeredQuestionIds.has(q.id));
 
-      // Criar simulado
+        // Combinar: priorizar não respondidas, mas incluir algumas respondidas se necessário
+        const availableQuestions = notAnswered.length >= count
+          ? notAnswered
+          : [...notAnswered, ...answered];
+
+        // Aleatorizar com diversificação de anos
+        const shuffled = shuffleWithDiversity(availableQuestions, count);
+
+        return shuffled.map(q => q.id);
+      });
+
+      const questionsArrays = await Promise.all(questionPromises);
+      const questions = questionsArrays.flat();
+
+      // Shuffle final para misturar matérias
+      const finalShuffled = questions.sort(() => Math.random() - 0.5);
+
+      logger.debug("Full exam simulation questions selected", {
+        userId: user.id,
+        totalQuestions: finalShuffled.length,
+        expectedQuestions: 80
+      });
+
+      // Criar simulado com menos includes (otimização)
       const simulation = await prisma.simulation.create({
         data: {
           userId: user.id,
           type: data.type,
-          totalQuestions: questions.length,
+          totalQuestions: finalShuffled.length,
           subjects: data.subjects || [],
           targetDifficulty: data.targetDifficulty,
           questions: {
-            create: questions.map((questionId, index) => ({
+            create: finalShuffled.map((questionId, index) => ({
               questionId,
               order: index + 1,
             })),
           },
         },
-        include: {
-          questions: {
-            include: {
-              question: {
-                include: {
-                  alternatives: true,
-                },
-              },
-            },
-            orderBy: { order: "asc" },
-          },
+        select: {
+          id: true,
+          type: true,
+          totalQuestions: true,
+          status: true,
+          createdAt: true,
         },
+      });
+
+      logger.info("Full exam simulation created successfully", {
+        userId: user.id,
+        simulationId: simulation.id,
+        totalQuestions: simulation.totalQuestions
       });
 
       return NextResponse.json(simulation);
     }
 
-    // Para outros tipos, usar seleção aleatória
+    // Para outros tipos, usar seleção aleatória com diversificação
     if (data.subjects && data.subjects.length > 0) {
       where.subject = { in: data.subjects };
     }
@@ -106,17 +224,45 @@ export async function POST(request: NextRequest) {
       where.difficulty = data.targetDifficulty;
     }
 
-    // Buscar questões aleatórias de diferentes anos
-    const allQuestions = await prisma.question.findMany({
-      where,
-      select: { id: true },
+    // Buscar questões já respondidas pelo usuário (últimos 90 dias)
+    const threeMonthsAgo = new Date();
+    threeMonthsAgo.setDate(threeMonthsAgo.getDate() - 90);
+
+    const answeredQuestions = await prisma.userAnswer.findMany({
+      where: {
+        userId: user.id,
+        createdAt: { gte: threeMonthsAgo },
+      },
+      select: { questionId: true },
+      distinct: ['questionId'],
     });
 
-    // Embaralhar e pegar quantidade necessária
-    const shuffled = allQuestions.sort(() => Math.random() - 0.5);
-    const questions = shuffled.slice(0, Math.min(questionCount, shuffled.length));
+    const answeredQuestionIds = new Set(answeredQuestions.map(a => a.questionId));
 
-    // Criar simulado
+    // Buscar mais questões para ter opções de aleatorização
+    const allQuestions = await prisma.question.findMany({
+      where,
+      select: {
+        id: true,
+        examYear: true,
+        examPhase: true,
+      },
+      take: questionCount * 3, // Buscar 3x mais para ter opções
+    });
+
+    // Filtrar e priorizar questões não respondidas
+    const notAnswered = allQuestions.filter(q => !answeredQuestionIds.has(q.id));
+    const answered = allQuestions.filter(q => answeredQuestionIds.has(q.id));
+
+    const availableQuestions = notAnswered.length >= questionCount
+      ? notAnswered
+      : [...notAnswered, ...answered];
+
+    // Embaralhar com diversificação de anos
+    const shuffled = shuffleWithDiversity(availableQuestions, questionCount);
+    const questions = shuffled;
+
+    // Criar simulado (otimizado - sem includes desnecessários)
     const simulation = await prisma.simulation.create({
       data: {
         userId: user.id,
@@ -131,37 +277,38 @@ export async function POST(request: NextRequest) {
           })),
         },
       },
-      include: {
-        questions: {
-          include: {
-            question: {
-              include: {
-                alternatives: {
-                  select: {
-                    id: true,
-                    label: true,
-                    text: true,
-                    questionId: true,
-                  },
-                },
-              },
-            },
-          },
-          orderBy: { order: "asc" },
-        },
+      select: {
+        id: true,
+        type: true,
+        totalQuestions: true,
+        status: true,
+        createdAt: true,
       },
+    });
+
+    logger.info("Simulation created successfully", {
+      userId: user.id,
+      simulationId: simulation.id,
+      type: simulation.type,
+      totalQuestions: simulation.totalQuestions
     });
 
     return NextResponse.json(simulation);
   } catch (error) {
-    console.error("Error creating simulation:", error);
+    logger.error("Error creating simulation", {
+      error: error instanceof Error ? error.message : "Unknown error",
+      stack: error instanceof Error ? error.stack : undefined
+    });
 
     if (error instanceof Error && error.message === "Unauthorized") {
-      return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+      return NextResponse.json(
+        createError("UNAUTHORIZED").toJSON(),
+        { status: 401 }
+      );
     }
 
     return NextResponse.json(
-      { error: "Erro ao criar simulado" },
+      createError("DATABASE_ERROR").toJSON(),
       { status: 500 }
     );
   }

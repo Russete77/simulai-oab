@@ -1,0 +1,2402 @@
+[
+  {
+    "id": "2012-09_23",
+    "question_number": 23,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "INTERNATIONAL",
+    "nullified": false,
+    "question": "Com base da Carta das Nações Unidas, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A Assembleia Geral pode expulsar um Estado membro que tenha persistentemente violado os princípios da Carta das Nações Unidas, ouvido o Conselho de Segurança.",
+        "Os principais órgãos das Nações Unidas são a Assembleia Geral, o Conselho de Segurança, a Organização Mundial do Comércio e a Corte Internacional de Justiça.",
+        "As principais atribuições do Conselho de Segurança são a manutenção da paz internacional e a liberalização dos fluxos internacionais de comércio.",
+        "Um Estado não pode se tornar membro da Corte Internacional de Justiça sem antes se tornar membro nas Nações Unidas."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2012-09_24",
+    "question_number": 24,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "INTERNATIONAL",
+    "nullified": false,
+    "question": "José, de nacionalidade brasileira, era casado com Maria, de nacionalidade sueca, encontrando-se o casal domiciliado no Brasil. Durante a viagem de “lua de mel”, na França, Maria, após o jantar, veio a falecer, em razão de uma intoxicação alimentar. Maria, quando ainda era noiva de José, havia realizado testamento em Londres, dispondo sobre os seus bens, entre eles dois imóveis situados no Rio de Janeiro.\nÀ luz das regras de Direito Internacional Privado, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Se houver discussão acerca da validade do testamento, no que diz respeito à observância das formalidades, deverá ser aplicada a legislação brasileira, pois Maria encontrava-se domiciliada no Brasil.",
+        "Se houver discussão acerca da validade do testamento, no que diz respeito à observância das formalidades, deverá ser aplicada a legislação inglesa, local em que foi realizado o ato de disposição de última vontade de Maria.",
+        "A autoridade judiciária brasileira não é competente para proceder ao inventário e à partilha de bens, porquanto Maria faleceu na França, e não no Brasil.",
+        "Se houver discussão acerca do regime sucessório, deverá ser aplicada a legislação sueca, em razão da nacionalidade do de cujus."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2012-09_25",
+    "question_number": 25,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "TAXES",
+    "nullified": false,
+    "question": "Acerca do Imposto sobre Produtos Industrializados, de competência da União, assinale a afirmativa que contempla duas de suas características.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "É imposto ordinário e caracterizado pela seletividade.",
+        "É imposto real e caracterizado por ser direto.",
+        "É imposto monofásico e qualificado como indireto.",
+        "É imposto interno e lançado por declaração."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2012-09_28",
+    "question_number": 28,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "TAXES",
+    "nullified": false,
+    "question": "O procurador do município Gama decide contestar judicialmente a cobrança do ICMS discriminada na fatura da conta de luz do imóvel onde funciona a sede da prefeitura, alegando a condição de ente político para livrar-se da exação.\nA demanda da municipalidade deverá ser",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "acolhida, em razão da imunidade recíproca, que impede que os entes da federação instituam impostos sobre bens e serviços uns dos outros.",
+        "rejeitada, pois na situação apresentada o município se apresenta na condição de contribuinte de direito do ICMS.",
+        "acolhida, pois a empresa concessionária prestadora do serviço de fornecimento de energia não tem competência para cobrar ICMS.",
+        "rejeitada, pois o município não goza de imunidade com relação a imposto que incide apenas indiretamente sobre seus bens e serviços."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2012-09_29",
+    "question_number": 29,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "ADMINISTRATIVE",
+    "nullified": false,
+    "question": "Acerca dos serviços considerados como serviços públicos uti singuli, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Serviços em que não é possível identificar os usuários e, da mesma forma, não é possível a identificação da parcela do serviço utilizada por cada beneficiário.",
+        "Serviços singulares e essenciais prestados pela Administração Pública direta e indireta.",
+        "Serviços em que é possível a identificação do usuário e da parcela do serviço utilizada por cada beneficiário.",
+        "Serviços que somente são prestados pela Administração Pública direta do Estado."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2012-09_30",
+    "question_number": 30,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "ADMINISTRATIVE",
+    "nullified": false,
+    "question": "A desapropriação é um procedimento administrativo que possui duas fases: a primeira, denominada declaratória e a segunda, denominada executória.\nQuanto à fase declaratória, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Acarreta a aquisição da propriedade pela Administração, gerando o dever de justa indenização ao expropriado.",
+        "Importa no início do prazo para a ocorrência da caducidade do ato declaratório e gera, para a Administração, o direito de penetrar no bem objeto da desapropriação.",
+        "Implica a geração de efeitos, com o titular mantendo o direito de propriedade plena, não tendo a Administração direitos ou deveres.",
+        "Gera o direito à imissão provisória na posse e o impedimento à desistência da desapropriação."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2012-09_31",
+    "question_number": 31,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "ADMINISTRATIVE",
+    "nullified": false,
+    "question": "De acordo com o Art. 2º, inciso XIII, da Lei n. 9.784/98, a Administração deve buscar a interpretação da norma que melhor garanta o atendimento do fim público a que se dirige, vedada a aplicação retroativa da nova interpretação.\nAssinale a alternativa que indica o princípio consagrado por esse dispositivo, em sua parte final.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Legalidade.",
+        "Eficiência.",
+        "Moralidade.",
+        "Segurança das relações jurídicas."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2012-09_32",
+    "question_number": 32,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "ADMINISTRATIVE",
+    "nullified": false,
+    "question": "Atento à crescente especulação imobiliária, e ciente do sucesso econômico obtido pelas construtoras do País com a construção de imóveis destinados ao público de alta renda, o Estado “X” decide ingressar nesse lucrativo mercado. Assim, edita uma lei autorizando a criação de uma empresa pública e, no mesmo ano, promove a inscrição dos seus atos constitutivos no registro das pessoas jurídicas.\nAssinale a alternativa que apresenta a alegação que as construtoras privadas, incomodadas pela concorrência de uma empresa pública, poderiam apresentar.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A nulidade da constituição daquela pessoa jurídica, uma vez que as pessoas jurídicas estatais só podem ser criadas por lei específica.",
+        "O objeto social daquela empresa só poderia ser atribuído a uma sociedade de economia mista e não a uma empresa pública.",
+        "Os pressupostos de segurança nacional ou de relevante interesse coletivo na exploração daquela atividade econômica não estão presentes.",
+        "A criação da empresa pública não poderia ter ocorrido no mesmo ano em que foi editada a lei autorizativa."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2012-09_33",
+    "question_number": 33,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "ADMINISTRATIVE",
+    "nullified": false,
+    "question": "Um estado da Federação, em processo de recuperação econômica, pretende restaurar o seu antigo Parque de Esportes, uma enorme área que concentra estádio de futebol, ginásio de esportes coletivos e parque aquático. Não dispondo de recursos para custear a totalidade da obra e nem tendo expertise para promover uma boa gestão do espaço, o Estado pretende firmar um contrato de parceria público-privada, nos moldes da Lei n. 11.079/2004.\nSobre o instituto da Parceria Público-Privada, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "As parcerias público-privadas têm natureza de convênio, e não de contrato, uma vez que o ente público e o ente particular conjugam esforços na realização de uma atividade de interesse público.",
+        "As parcerias público-privadas preveem que o ente público executará uma parcela do serviço ou obra, nunca inferior a 50%, e o particular o restante do serviço ou obra.",
+        "As parcerias público-privadas não podem ter por objeto, exclusivamente, a execução de obra pública de restauração do Parque de Esportes.",
+        "As parcerias público-privadas remuneram o ente particular integralmente com o valor das tarifas cobradas dos usuários do serviço, sendo vedado ao ente público o custeio direto das atividades desenvolvidas pelo particular."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2012-09_34",
+    "question_number": 34,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "ADMINISTRATIVE",
+    "nullified": false,
+    "question": "As contas do Prefeito do Município X não foram aprovadas pelo Tribunal de Contas do Estado. Dentre outras irregularidades, apurou-se o superfaturamento em obras públicas.\nSobre o controle exercido pelas Cortes de Contas, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O parecer desfavorável emitido pelo Tribunal de Contas do Estado pode ser superado por decisão de dois terços dos membros da Câmara Municipal.",
+        "A atuação do Tribunal de Contas configura exemplo de controle interno dos atos da Administração Pública.",
+        "A atuação do Tribunal de Contas do estado somente será possível até que haja a criação de um Tribunal de Contas do Município, por lei complementar de iniciativa do Prefeito.",
+        "As contas do Prefeito estarão sujeitas à atuação do Tribunal de Contas somente se houver previsão na Lei Orgânica do Município."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2012-09_35",
+    "question_number": 35,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "ENVIRONMENTAL",
+    "nullified": false,
+    "question": "A Lei Complementar n. 140 de 2011 fixou normas para a cooperação entre os entes da federação nas ações administrativas decorrentes do exercício da competência comum relativas ao meio ambiente. Sobre esse tema, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Compete à União aprovar o manejo e a supressão de vegetação, de florestas e formações sucessoras em Áreas de Preservação Ambientais - APAs.",
+        "Compete aos Estados e ao Distrito Federal controlar a introdução no País de espécies exóticas potencialmente invasoras que possam ameaçar os ecossistemas, habitats e espécies nativas.",
+        "Compete aos municípios gerir o patrimônio genético e o acesso ao conhecimento tradicional associado, respeitadas as atribuições setoriais.",
+        "Compete à União aprovar a liberação de exemplares de espécie exótica da fauna e da flora em ecossistemas naturais frágeis ou protegidos."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2012-09_36",
+    "question_number": 36,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "ENVIRONMENTAL",
+    "nullified": false,
+    "question": "A respeito da responsabilidade administrativa federal por danos ambientais, regulamentada pelo Decreto n. 6.514/08 e alterado pelo Decreto 6.686/08, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A demolição de obra só poderá ser aplicada em edificações não residenciais e sua execução deverá ocorrer às custas do infrator.",
+        "A demolição de obra é medida excepcional e só poderá ser aplicada em situações de flagrante ilegalidade e em edificações com menos de dez anos.",
+        "A demolição de obra, em respeito ao direito fundamental à moradia, só poderá ser aplicada em construções residenciais erguidas em unidades de conservação e outros espaços ambientalmente protegidos e as custas para a sua realização correrão por conta do infrator.",
+        "A demolição de obra ou construção com fins residenciais ou comerciais, em razão do princípio da defesa do meio ambiente, dar-se-á nos casos em que a ausência da demolição importa em iminente risco de agravamento do dano ambiental e as custas para sua realização correrão por conta do infrator."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2012-09_37",
+    "question_number": 37,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CIVIL",
+    "nullified": false,
+    "question": "José, viúvo, é pai de Mauro e Mário, possuindo um patrimônio de R$ 300.000,00. Casou-se com Roberta, que tinha um patrimônio de R$ 200.000,00, pelo regime da comunhão universal de bens. José e Roberta tiveram dois filhos, Bruno e Breno.\nFalecendo Roberta, a divisão do monte seria a seguinte:",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "José recebe R$ 250.000,00 e Mauro, Mário, Bruno e Breno recebem cada um R$ 62.500,00.",
+        "O monte, no valor total de R$ 500.000,00, deve ser dividido em cinco partes, ou seja, José, Mauro, Mário, Breno e Bruno recebem, cada um, R$ 100.000,00.",
+        "José recebe R$ 250.000,00 e Bruno e Breno recebem, cada um, a importância de R$ 125.000,00.",
+        "A herança deve ser dividida em três partes, cabendo a José, Bruno e Breno 1/3 do monte, ou seja, R$ 166.666,66 para cada um."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2012-09_38",
+    "question_number": 38,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CIVIL",
+    "nullified": false,
+    "question": "Marcelo firmou com Augusto contrato de compra e venda de imóvel, tendo sido instituindo no contrato o pacto de preempção. Acerca do instituto da preempção, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Trata-se de pacto adjeto ao contrato de compra e venda em que Marcelo se reserva ao direito de recobrar o imóvel vendido a Augusto no prazo máximo de 3 anos, restituindo o preço recebido e reembolsando as despesas do comprador.",
+        "Trata-se de pacto adjeto ao contrato de compra e venda em que Marcelo impõe a Augusto a obrigação de oferecer a coisa quando vender, ou dar em pagamento, para que use de seu direito de prelação na compra, tanto por tanto.",
+        "Trata-se de pacto adjeto ao contrato de compra e venda em que Marcelo reserva para si a propriedade do imóvel até o momento em que Augusto realize o pagamento integral do preço.",
+        "Trata-se de pacto adjeto ao contrato de compra e venda em que Marcelo, enquanto constituir faculdade de exercício, poderá ceder ou transferir por ato inter vivos."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2012-09_39",
+    "question_number": 39,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CIVIL",
+    "nullified": false,
+    "question": "De acordo com as regras atinentes à hipoteca, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O Código Civil não admite a divisibilidade da hipoteca em casos de loteamento do imóvel hipotecado.",
+        "O ordenamento jurídico admite a instituição de nova hipoteca sobre imóvel hipotecado, desde que seja dada em favor do mesmo credor.",
+        "Segundo o Código Civil, o adquirente de bem hipotecado não pode remir a hipoteca para que seja extinto o gravame pendente sobre o bem sem autorização expressa de todos credores hipotecários.",
+        "A hipoteca pode ser constituída para garantia de dívida futura ou condicionada, desde que determinado o valor máximo do crédito a ser garantido."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2012-09_40",
+    "question_number": 40,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CIVIL",
+    "nullified": false,
+    "question": "Henrique e Natália, casados sob o regime de comunhão parcial de bens, decidiram se divorciar após 10 anos de união conjugal. Do relacionamento nasceram Gabriela e Bruno, hoje, com 8 e 6 anos, respectivamente. Enquanto esteve casada, Natália, apesar de ter curso superior completo, ser pessoa jovem e capaz para o trabalho, não exerceu atividade profissional para se dedicar integralmente aos cuidados da casa e dos filhos.\nConsiderando a hipótese acima e as regras atinentes à prestação de alimentos, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Uma vez homologado judicialmente o valor da prestação alimentícia devida por Henrique em favor de seus filhos Gabriela e Bruno, no percentual de um salário mínimo para cada um, ocorrendo a constituição de nova família por parte de Henrique, automaticamente será minorado o valor dos alimentos devido aos filhos do primeiro casamento.",
+        "Henrique poderá opor a impenhorabillidade de sua única casa, por ser bem de família, na hipótese de ser acionado judicialmente para pagar débito alimentar atual aos seus filhos Gabriela e Bruno.",
+        "Natália poderá pleitear alimentos transitórios e por prazo razoável, se demonstrar sua dificuldade em ingressar no mercado de trabalho em razão do longo período que permaneceu afastada do desempenho de suas atividades profissionais para se dedicar integralmente aos cuidados do lar.",
+        "Caso Natália descubra, após dois meses de separação de fato, que espera um filho de Henrique, serão devidos alimentos gravídicos até o nascimento da criança, pois após este fato a obrigação alimentar somente será exigida em ação judicial própria."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2012-09_41",
+    "question_number": 41,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CIVIL",
+    "nullified": false,
+    "question": "Em 12.09.12, Sílvio adquiriu de Maurício, por contrato particular de compra e venda, um automóvel, ano 2011, por R$ 34.000,00 (trinta e quatro mil reais). Vinte dias após a celebração do negócio, Sílvio tomou conhecimento que o veículo apresentava avarias na suspensão dianteira, tornando seu uso impróprio pela ausência de segurança.\nConsiderando que o vício apontado existia ao tempo da contratação, de acordo com a hipótese acima e as regras de direito civil, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Sílvio terá o prazo de doze meses, após o conhecimento do defeito, para reclamar a Maurício o abatimento do preço pago ou desfazimento do negócio jurídico em virtude do vício oculto.",
+        "Mauricio deverá restituir o valor recebido e as despesas decorrentes do contrato se, no momento da venda, desconhecesse o defeito na suspensão dianteira do veículo.",
+        "Caso Silvio e Maurício estabeleçam no contrato cláusula de garantia pelo prazo de 90 dias, o prazo decadencial legal para reclamação do vício oculto correrá independentemente do prazo da garantia estipulada.",
+        "Caso Silvio e Mauricio tenham inserido no contrato de compra e venda cláusula que exclui a responsabilidade de Mauricio pelo vício oculto, persistirá a irresponsabilidade de Maurício mesmo que este tenha agido com dolo positivo."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2012-09_42",
+    "question_number": 42,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CIVIL",
+    "nullified": false,
+    "question": "Tiago celebrou com Ronaldo contrato de compra e venda de dez máquinas de costura importadas da China. Restou acordado que o pagamento se daria em trinta e seis prestações mensais e consecutivas com reajuste a cada doze meses conforme taxa Selic, a ser efetuado no domicílio do credor. O contrato estabeleceu, ainda, a incidência de juros moratórios, no importe de 2% (dois por cento) do valor da parcela em atraso, e cláusula penal, fixada em 10% (dez por cento) do valor do contrato, em caso de inadimplência. Após o pagamento de nove parcelas, Tiago foi surpreendido com a notificação extrajudicial enviada por Ronaldo, em que se comunicava um reajuste de 30% (trinta por cento) sobre o valor da última parcela paga sob o argumento de que ocorreu elevada desvalorização no câmbio. Tiago não concordou com o reajuste e ao tentar efetuar o pagamento da décima parcela com base no valor inicialmente ajustado teve o pagamento recusado por Ronaldo.\nConsiderando o caso acima e as regras previstas no Código Civil, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Caso Tiago consigne o valor da décima parcela por meio de depósito judicial, poderá levantá-lo enquanto Ronaldo não informar o aceite ou não o impugnar, desde que pague todas as despesas.",
+        "Na hipótese de Tiago consignar judicialmente duas máquinas de costura com a finalidade de afastar a incidência dos encargos moratórios e da cláusula penal, este depósito será apto a liberá-lo da obrigação assumida.",
+        "O depósito consignatório realizado por Tiago em seu domicílio terá o poder liberatório do vínculo obrigacional, isentando-o do pagamento dos juros moratórios e da cláusula penal.",
+        "Tiago poderá depositar o valor referente à décima parcela sob o fundamento de injusta recusa, porém não poderá discutir, no âmbito da ação consignatória, a abusividade ou ilegalidade das cláusulas contratuais."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2012-09_43",
+    "question_number": 43,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CIVIL",
+    "nullified": false,
+    "question": "No dia 23 de junho de 2012, Alfredo, produtor rural, contratou a sociedade Simões Aviação Agrícola Ltda., com a finalidade de pulverizar, por via aérea, sua plantação de soja. Ocorre que a pulverização se deu de forma incorreta, ocasionando a perda integral da safra de abóbora pertencente a Nilson, vizinho lindeiro de Alfredo.\nConsiderando a situação hipotética e as regras de responsabilidade civil, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Com base no direito brasileiro, Alfredo responderá subjetivamente pelos danos causados a Nilson e a sociedade Simões Aviação Agrícola Ltda. será responsabilizada de forma subsidiária.",
+        "Alfredo e a sociedade Simões Aviação Agrícola Ltda. responderão objetiva e solidariamente pelos danos causados a Nilson.",
+        "Não há lugar para a responsabilidade civil solidária entre Alfredo e a sociedade Simões Aviação Agrícola Ltda. pelos danos causados a Nilson, dada a inexistência da relação de preposição.",
+        "Trata-se de responsabilidade civil objetiva, em que a sociedade Simões Aviação Agrícola Ltda. é o responsável principal pela reparação dos danos, enquanto Alfredo é responsável subsidiário."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2012-09_44",
+    "question_number": 44,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CHILDREN",
+    "nullified": false,
+    "question": "Juliana, estudante de 17 anos, em comemoração a sua recente aprovação no vestibular de uma renomada universidade, saiu em viagem com Gustavo, seu namorado de 25 anos, funcionário público federal.\nAcerca de possíveis intercorrências ao longo da viagem, é correto afirmar que",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Juliana, por ser adolescente, independentemente de estar em companhia de Gustavo, maior de idade, não poderá se hospedar no local livremente por eles escolhido, sem portar expressa autorização de seus pais ou responsável.",
+        "Juliana, em companhia de Gustavo, poderá ingressar em um badalado bar do local, onde é realizado um show de música ao vivo no primeiro piso e há um salão de jogos de bilhar no segundo piso.",
+        "Juliana, por ser adolescente e estar em companhia de Gustavo, maior de idade, poderá se hospedar no local livremente por eles escolhido, independentemente de portar ou não autorização de seus pais.",
+        "Juliana poderá se hospedar em hotel, motel, pensão ou estabelecimento congênere, assim como poderá ingressar em local que explore jogos de bilhar, se portar expressa autorização dos seus pais ou responsável."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2012-09_45",
+    "question_number": 45,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CHILDREN",
+    "nullified": false,
+    "question": "Acerca do estágio de convivência precedente a adoção, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O período do estágio de convivência será fixado pela autoridade judiciária, sendo dispensado na hipótese de o adotando encontrar-se sob a tutela, a guarda legal ou de fato do adotante durante tempo suficiente para a avaliação da conveniência da constituição do vínculo.",
+        "A finalidade do estágio de convivência é permitir a avaliação da conveniência da constituição do vínculo familiar entre adotante e adotado, razão pela qual pode ser dispensado se, cumulativamente, o adotando já encontrar-se sob a tutela, guarda legal ou de fato do adotante e, em audiência, consentir com a adoção.",
+        "O período do estágio de convivência será fixado pela autoridade judiciária, em observância as peculiaridades do caso, não podendo este ser inferior a 60 dias para os casos de adoção internacional e de 30 dias para adoção nacional, salvo a hipótese de convivência prévia em decorrência de tutela, guarda legal ou de fato.",
+        "O período do estágio de convivência prévio a adoção internacional deverá ser cumprido no Brasil e terá prazo mínimo 30 dias, ao passo que para a adoção nacional inexiste prazo mínimo, podendo, inclusive, ser dispensado na hipótese de prévia convivência familiar em decorrência da guarda legal ou da tutela."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2012-09_46",
+    "question_number": 46,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CONSUMER",
+    "nullified": false,
+    "question": "Academia de ginástica veicula anúncio assinalando que os seus alunos, quando viajam ao exterior, podem se utilizar de rede mundial credenciada, presente em 60 países e 230 cidades, sem custo adicional. Um ano após continuamente fazer tal divulgação, vários alunos reclamam que, em quase todos os países, é exigida tarifa de uso da unidade conveniada. A academia responde que a referência ao “sem custo adicional” refere-se à inexistência de acréscimo cobrado por ela, e não de eventual cobrança, no exterior, de terceiro.\nAcerca dessa situação, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A loja veicula publicidade enganosa, que se caracteriza como a que induz o consumidor a se comportar de forma prejudicial ou perigosa a sua saúde ou segurança.",
+        "A loja promove publicidade abusiva, pois anuncia informação parcialmente falsa, a respeito do preço e qualidade do serviço.",
+        "Não há irregularidade, e as informações complementares podem ser facilmente buscadas na recepção ou com as atendentes, sendo inviável que o ordenamento exija que detalhes sejam prestados, todos, no anúncio.",
+        "A loja faz publicidade enganosa, que se configura, basicamente, pela falsidade, total ou parcial, da informação veiculada."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2012-09_47",
+    "question_number": 47,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CONSUMER",
+    "nullified": false,
+    "question": "A sociedade empresária XYZ Ltda. oferta e celebra, com vários estudantes universitários, contratos individuais de fornecimento de material didático, nos quais garante a entrega, com 25% de desconto sobre o valor indicado pela editora, dos livros didáticos escolhidos pelos contratantes (de lista de editoras de antemão definidas). Os contratos têm duração de 24 meses, e cada estudante compromete-se a pagar valor mensal, que fica como crédito, a ser abatido do valor dos livros escolhidos. Posteriormente, a capacidade de entrega da sociedade diminuiu, devido a dívidas e problemas judiciais. Em razão disso, ela pretende rever judicialmente os contratos, para obter aumento do valor mensal, ou então liberar-se do vínculo.\nAcerca dessa situação, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A empresa não pode se valer do Código de Defesa do Consumidor e não há base, à luz do indicado, para rever os contratos.",
+        "Aplica-se o CDC, já que os estudantes são destinatários finais do serviço, mas o aumento só será concedido se provada a dificuldade financeira e que, ademais, ainda assim o contrato seja proveitoso para os compradores.",
+        "Aplica-se o CDC, mas a pretendida revisão da cláusula contratual só poderá ser efetuada se provado que os problemas citados têm natureza imprevisível, característica indispensável, no sistema do consumidor, para autorizar a revisão.",
+        "A revisão é cabível, assentada na teoria da imprevisão, pois existe o contrato de execução diferida, a superveniência de onerosidade excessiva da prestação, a extrema vantagem para a outra parte, e a ocorrência de acontecimento extraordinário e imprevisível."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2012-09_48",
+    "question_number": 48,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "BUSINESS",
+    "nullified": false,
+    "question": "Leia o trecho a seguir.\nCompanhia cuja totalidade das ações em que se divide o capital pertence a uma sociedade brasileira.\nEssa definição refere-se à",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "subsidiária integral.",
+        "sociedade em conta de participação.",
+        "sociedade limitada.",
+        "sociedade de propósito específico."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2012-09_49",
+    "question_number": 49,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "BUSINESS",
+    "nullified": false,
+    "question": "A sociedade limitada encontra-se regulada nos artigos 1052 a 1087 do Código Civil. Para que ela possa atingir sua finalidade, necessita de patrimônio, já que sua personalidade é diversa da personalidade dos sócios. Em relação ao capital e ao patrimônio social desse tipo societário, assinale a afirmativa incorreta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "No momento em que a sociedade limitada é constituída e inicia a atividade que constitui o objeto social, o patrimônio é igual ao capital social.",
+        "Na constituição da sociedade há possibilidade do ingresso de sócio cuja contribuição consista exclusivamente em prestação de serviços.",
+        "A distribuição dolosa de lucros ilícitos acarreta a responsabilidade solidária dos administradores que a realizarem e dos sócios que os receberem.",
+        "O sócio remisso é aquele que não integraliza sua quota na forma e prazo previstos, podendo, por esse fato, ser excluído da sociedade."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2012-09_50",
+    "question_number": 50,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "BUSINESS",
+    "nullified": false,
+    "question": "Com relação aos títulos de crédito, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "No endosso de letra de câmbio após o protesto por falta de pagamento, o portador tem ação cambiária contra o seu endossante.",
+        "A cláusula não à ordem inserida no cheque impede sua circulação tanto por endosso quanto por cessão de crédito.",
+        "O endosso de cheque poderá ser realizado pelo sacado ou por mandatário deste com poderes especiais.",
+        "A duplicata pode ser apresentada para aceite do sacado pelo próprio sacador ou por instituição financeira."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2012-09_51",
+    "question_number": 51,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "BUSINESS",
+    "nullified": false,
+    "question": "A respeito do processo de falência, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "As restituições em dinheiro determinadas por sentença judicial poderão ser realizadas antes do pagamento de qualquer crédito.",
+        "Os créditos ao serem classificados, os créditos com garantia real terão preferência sobre os créditos tributários, independentemente do valor do bem dado em garantia.",
+        "Os créditos decorrentes das remunerações devidas ao administrador judicial e seus auxiliares serão pagos com preferência em relação aos credores concursais.",
+        "Os credores remanescentes da recuperação deverão habilitar seus créditos na falência, em qualquer hipótese, quando da convolação da recuperação judicial em falência."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2012-09_52",
+    "question_number": 52,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CIVIL-PROCEDURE",
+    "nullified": false,
+    "question": "Primavera do Leste Arrendamento Mercantil S.A. ajuizou ação de reintegração de posse de bem arrendado à sociedade empresária Vila Bela Distribuidora de Jornais e Revistas Ltda., em face do não pagamento das prestações nos vencimentos. O contrato de arrendamento mercantil prevê resolução de pleno direito em caso de qualquer inadimplemento da arrendatária.\nO juiz extinguiu o processo sem resolução de mérito porque",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "no contrato de arrendamento mercantil, ainda que haja cláusula resolutiva expressa, é necessária a notificação prévia do arrendatário para constituí-lo em mora.",
+        "nos contratos de arrendamento mercantil celebrados entre a arrendadora e as sociedades empresárias é vedada a aposição de cláusula resolutiva expressa.",
+        "a ação cabível para a retomada do bem em poder do arrendatário pela arrendadora é a ação de depósito, com pedido de liminar de reintegração de posse.",
+        "como no contrato de arrendamento mercantil há opção de compra pela arrendatária, a propriedade da arrendadora é resolúvel, sendo incabível ação possessória."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2012-09_53",
+    "question_number": 53,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CIVIL-PROCEDURE",
+    "nullified": false,
+    "question": "Os Juizados Especiais da Fazenda Pública, órgãos da Justiça comum e integrantes do Sistema dos Juizados Especiais, foram instituídos pela Lei n. 12.153/2009.\nCom base nessas disposições, asinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A competência dos Juizados Especiais da Fazenda Pública é absoluta para as causas cujo valor seja de até 40 salários mínimos, sendo dispensável a presença de advogado, se o valor da causa for de até 20 salários mínimos.",
+        "A citação do Estado como réu sendo realizada, ele terá o prazo em quádruplo para apresentar defesa.",
+        "A sentença que julgar procedente o pedido do autor em face da Fazenda Pública, deverá, independente do recurso das partes, ser remetida ao Tribunal de Justiça, para julgamento da remessa de ofício.",
+        "O cumprimento da sentença transitada em julgado que imponha obrigação de fazer, não fazer ou entregar coisa será efetuado mediante ofício do juiz à autoridade citada para a causa, com cópia da sentença."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2012-09_54",
+    "question_number": 54,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CIVIL-PROCEDURE",
+    "nullified": false,
+    "question": "Impetrado um mandado de segurança, já sob a égide da Lei n. 12.016/2009, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A sentença não fixará honorários advocatícios, por serem eles incabíveis no Mandado de Segurança.",
+        "A decisão do juiz que conceder ou denegar a Medida Liminar é irrecorrível, cabendo apenas o pedido de reconsideração.",
+        "O juiz converterá o Mandado de Segurança no procedimento que entender cabível, quando não for o caso de Mandado de Segurança, ou lhe faltar um dos requisitos legais ou quando decorrido o prazo para impetração, em homenagem ao princípio da celeridade processual.",
+        "A suspensão das medidas liminares concedidas em face do Poder Público sendo determinada, o pedido original não poderá ser aditado para abranger as medidas liminares supervenientes, cabendo, apenas, novo pedido de suspensão das liminares."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2012-09_55",
+    "question_number": 55,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CIVIL-PROCEDURE",
+    "nullified": false,
+    "question": "Considerando a assistência e as demais formas de intervenção de terceiros previstas no Código de Processo Civil, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "É admissível o chamamento ao processo daquele que detiver a coisa em nome alheio.",
+        "A oposição consiste na intervenção daquele que estiver obrigado, pela lei ou pelo contrato, a indenizar o prejuízo do réu da demanda.",
+        "O terceiro deve demonstrar que possui interesse jurídico que a sentença seja favorável a uma das partes, para ser admitido como assistente.",
+        "Feita a denunciação da lide, se o denunciante aceitar, ele será assistente simples do denunciado."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2012-09_56",
+    "question_number": 56,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CIVIL-PROCEDURE",
+    "nullified": false,
+    "question": "A respeito da Ação Rescisória, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Uma vez ajuizada, impede o cumprimento da sentença ou acórdão rescindendo, ressalvada a concessão, em casos imprescindíveis e sob os pressupostos previstos em lei, de medidas de natureza cautelar ou antecipatória de tutela.",
+        "Em caso de procedência, rescindindo-se a sentença e proferindo, se for o caso, novo julgamento, o tribunal determinará a restituição ao demandante do depósito de 5% sobre o valor da causa a que se refere o Art. 488, II, do CPC.",
+        "O Ministério Público não tem legitimidade ativa, exceto e unicamente para propor a ação ao fundamento de não ter sido ouvido no processo, em que lhe era obrigatória a intervenção.",
+        "É a medida aplicável a fim de rescindir a sentença homologatória e outros atos judiciais que não dependam de sentença, desde que respeitado o prazo de 2 (dois) anos para a sua propositura, contados do trânsito em julgado da decisão."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2012-09_57",
+    "question_number": 57,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CIVIL-PROCEDURE",
+    "nullified": false,
+    "question": "Como forma de prestigiar o princípio da razoável duração do processo e propiciar uma prestação jurisdicional mais célere e eficiente, um legislador promoveu uma série de alterações na sistemática recursal do Processo Civil brasileiro. Nesse sentido, destaca-se a Emenda Constitucional n. 45/2004 que introduziu em nosso ordenamento jurídico a figura da repercussão geral.\nAcerca deste instituto, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "É um pressuposto processual de admissibilidade específico do Recurso Especial que permite que apenas sejam analisados os recursos que tratem de questões relevantes do ponto de vista econômico, político, social ou jurídico, e as que ultrapassem os interesses subjetivos da causa.",
+        "Sempre que o recurso impugnar decisão contrária à súmula ou jurisprudência dominante do Supremo Tribunal Federal, haverá repercussão geral.",
+        "Não se admite, quando da análise da existência de repercussão geral pelo Ministro Relator do recurso, a manifestação de terceiros interessados.",
+        "A decisão que nega a existência da repercussão geral não tem o condão de atingir outros recursos que tratem de matéria idêntica, apenas gerando efeitos endoprocessuais."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2012-09_58",
+    "question_number": 58,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CIVIL-PROCEDURE",
+    "nullified": false,
+    "question": "A execução tem por finalidade precípua a adoção de medidas necessárias à satisfação da obrigação prevista em um título executivo judicial ou extrajudicial. Em um primeiro momento, vigia no ordenamento pátrio o princípio da autonomia, segundo o qual as atividades executivas e de conhecimento deveriam ser desenvolvidas necessariamente por meio de ações distintas. Contudo, tal sistemática foi alvo de uma série de reformas que buscaram prestigiar um desenvolvimento sincrético do processo, bem como a própria efetivação do título executivo.\nCom base na legislação vigente, assinale a afirmativa correta:",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A sentença arbitral, de acordo com o CPC, possui natureza de título executivo extrajudicial e poderá ser liquidada ou executada, conforme o caso, perante o juízo cível competente, hipótese na qual o mandado inicial incluirá a ordem de citação do devedor.",
+        "O executado, nas obrigações de pagar quantia certa ou já fixada em liquidação, poderá oferecer impugnação para rediscutir qualquer causa impeditiva, modificativa ou extintiva da obrigação, desde que superveniente à sentença.",
+        "O CPC prevê que o juiz pode atribuir efeito suspensivo aos embargos quando ficar demonstrado que o prosseguimento da execução manifestamente pode causar ao executado grave dano de difícil ou incerta reparação o que não ocorre na impugnação, tendo em vista que nesta modalidade de defesa está prevista, expressamente, a impossibilidade de concessão de efeitos suspensivos em quaisquer hipóteses.",
+        "A concessão de efeito suspensivo nos embargos do executado obsta o prosseguimento da execução principal, impedindo, inclusive, a efetivação dos atos de penhora e avaliação dos bens."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2012-09_59",
+    "question_number": 59,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CRIMINAL-PROCEDURE",
+    "nullified": false,
+    "question": "O sistema punitivo brasileiro é progressivo. Por meio dele o condenado passa do regime inicial de cumprimento de pena mais severo para regime mais brando, até alcançar o livramento condicional ou a liberdade definitiva.\nA respeito da progressão de regime, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O sistema progressivo brasileiro é compatível com a progressão “por saltos”, consistente na possibilidade da passagem direta do regime fechado para o aberto.",
+        "O cumprimento da pena privativa de liberdade nos crimes hediondos é uma exceção ao sistema progressivo. O condenado nesta modalidade criminosa deve iniciar e encerrar o cumprimento da pena no regime fechado, sem possibilidade de passagem para regime mais brando.",
+        "A progressão está condicionada, nos crimes contra a Administração Pública , à reparação do dano causado ou à devolução do produto do ilícito praticado com os acréscimos legais, além do cumprimento de 1/6 da pena no regime anterior e do mérito do condenado.",
+        "O pedido de progressão deve ser endereçado ao juízo sentenciante, que decidirá independente de manifestação do Ministério Público."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2012-09_60",
+    "question_number": 60,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CRIMINAL-PROCEDURE",
+    "nullified": false,
+    "question": "Tendo como base o instituto da ação penal, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Na ação penal privada vigora o princípio da oportunidade ou conveniência.",
+        "A ação penal privada subsidiária da pública fere dispositivo constitucional que atribui ao Ministério Público o direito exclusivo de iniciar a ação pública.",
+        "Como o Código Penal é silente no tocante à natureza da ação penal no crime de lesão corporal culposa, verifica-se que a referida infração será de ação penal pública incondicionada.",
+        "A legitimidade para ajuizamento da queixa-crime na ação penal exclusivamente privada (ou propriamente dita) é unicamente do ofendido."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2012-09_61",
+    "question_number": 61,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CRIMINAL",
+    "nullified": false,
+    "question": "Acerca das causas excludentes de ilicitude e extintivas de punibilidade, assinale a afirmativa incorreta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A coação moral irresistível exclui a culpabilidade, enquanto que a coação física irresistível exclui a própria conduta, de modo que, nesta segunda hipótese, sequer chegamos a analisar a tipicidade, pois não há conduta penalmente relevante.",
+        "Em um bar, Caio, por notar que Tício olhava maliciosamente para sua namorada, desfere contra este um soco no rosto. Aturdido, Tício vai ao chão, levantando-se em seguida, e vai atrás de Caio e o interpela quando este já estava saindo do bar. Ao voltar-se para trás, atendendo ao chamado, Caio é surpreendido com um soco no ventre. Tício praticou conduta típica, mas amparada por uma causa excludente de ilicitude.",
+        "Mévio, atendendo a ordem dada por seu líder religioso e, com o intuito de converter Rufus, permanece na residência deste à sua revelia, ou seja, sem o seu consentimento. Neste caso, Mévio, mesmo cumprindo ordem de seu superior e mesmo sendo tal ordem não manifestamente ilegal, pratica crime de violação de domicílio (Art. 150 do Código Penal), não estando amparado pela obediência hierárquica.",
+        "O consentimento do ofendido não foi previsto pelo nosso ordenamento jurídico-penal como uma causa de exclusão da ilicitude. Todavia, sua natureza justificante é pacificamente aceita, desde que, entre outros requisitos, o ofendido seja capaz de consentir e que tal consentimento recaia sobre bem disponível."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2012-09_62",
+    "question_number": 62,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CRIMINAL",
+    "nullified": false,
+    "question": "José subtrai o carro de um jovem que lhe era totalmente desconhecido, chamado João. Tal subtração deu-se mediante o emprego de grave ameaça exercida pela utilização de arma de fogo. João, entretanto, rapaz jovem e de boa saúde, sem qualquer histórico de doença cardiovascular, assusta-se de tal forma com a arma, que vem a óbito em virtude de ataque cardíaco.\nCom base no cenário acima, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "José responde por latrocínio.",
+        "José não responde pela morte de João.",
+        "José responde em concurso material pelos crimes de roubo e de homicídio culposo.",
+        "José praticou crime preterdoloso."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2012-09_63",
+    "question_number": 63,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CRIMINAL",
+    "nullified": false,
+    "question": "Guilherme praticou, em 18/02/2009, contravenção penal de vias de fato (Art. 21 do Decreto Lei n. 3.688/41), tendo sido condenado à pena de multa. A sentença transitou definitivamente em julgado no dia 15/03/2010, mas Guilherme não pagou a multa. No dia 10/07/2010, Guilherme praticou crime de ato obsceno (Art. 233 do CP).\nCom base na situação descrita e na legislação, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Guilherme não pode ser considerado reincidente por conta de uma omissão legislativa.",
+        "Guilherme deve ter a pena de multa não paga da primeira condenação convertida em pena privativa de liberdade.",
+        "Guilherme é reincidente, pois praticou novo crime após condenação transitada em julgado.",
+        "A pena de multa não gera reincidência."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2012-09_64",
+    "question_number": 64,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CRIMINAL",
+    "nullified": false,
+    "question": "Jaime, brasileiro, passou a morar em um país estrangeiro no ano de 1999. Assim como seu falecido pai, Jaime tinha por hábito sempre levar consigo acessórios de arma de fogo, o que não era proibido, levando-se em conta a legislação vigente à época, a saber, a Lei n. 9.437/97. Tal hábito foi mantido no país estrangeiro que, em sua legislação, não vedava a conduta. Todavia, em 2012, Jaime resolve vir de férias ao Brasil. Além de matar as saudades dos familiares, Jaime também queria apresentar o país aos seus dois filhos, ambos nascidos no estrangeiro. Ocorre que, dois dias após sua chegada, Jaime foi preso em flagrante por portar ilegalmente acessório de arma de fogo, conduta descrita no Art. 14 da Lei n. 10.826/2003, verbis: “Portar, deter, adquirir, fornecer, receber, ter em depósito, transportar, ceder, ainda que gratuitamente, emprestar, remeter, empregar, manter sob guarda ou ocultar arma de fogo, acessório ou munição, de uso permitido, sem autorização e em desacordo com determinação legal ou regulamentar”.\nNesse sentido, podemos afirmar que Jaime agiu em hipótese de",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "erro de proibição direto.",
+        "erro de tipo essencial.",
+        "erro de tipo acidental.",
+        "erro sobre as descriminantes putativas."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2012-09_65",
+    "question_number": 65,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CRIMINAL-PROCEDURE",
+    "nullified": false,
+    "question": "Com relação à Lei n. 9.099/95, assinale a afirmativa incorreta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A transação penal consiste na aplicação imediata de pena restritiva de direitos ou multas àquele a quem se imputa uma infração de menor potencial ofensivo.",
+        "Não poderá ser oferecida a suspensão condicional do processo ao acusado que tiver sido condenado anteriormente por contravenção penal.",
+        "Em caso de delito persequível por ação penal pública condicionada à representação, havendo a representação do ofendido, o Ministério Público está legitimado para oferecer transação penal, mesmo que o ofendido se oponha e deseje a continuação do processo.",
+        "Se, no curso da suspensão condicional do processo, o acusado vier a ser processado por contravenção penal, o benefício poderá ser revogado pelo juiz."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2012-09_66",
+    "question_number": 66,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CRIMINAL-PROCEDURE",
+    "nullified": false,
+    "question": "O Código de Processo Penal pátrio menciona que também se considera em flagrante delito quem é perseguido, logo após o delito, pela autoridade, pelo ofendido ou por qualquer pessoa, em situação que faça presumir ser o perseguido autor da infração.\nA essa modalidade dá-se o nome de flagrante",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "impróprio.",
+        "ficto.",
+        "diferido ou retardado.",
+        "esperado."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2012-09_67",
+    "question_number": 67,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CRIMINAL-PROCEDURE",
+    "nullified": false,
+    "question": "Em relação aos procedimentos previstos na Lei n. 8.666/93, que instituiu as normas de licitações e contratos da Administração Pública, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Todos os crimes definidos na lei de licitação e contratos são de ação penal pública incondicionada.",
+        "Somente a vítima poderá provocar a iniciativa do Ministério Público, fornecendo-lhe, por escrito, informações sobre o fato e sua autoria, bem como as circunstâncias em que se deu a ocorrência.",
+        "Não será admitida ação penal privada subsidiária da pública.",
+        "Da sentença caberá apelação, interponível no prazo de 10 (dez) dias."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2012-09_68",
+    "question_number": 68,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CRIMINAL-PROCEDURE",
+    "nullified": false,
+    "question": "Joel foi condenado pela prática do crime de extorsão mediante sequestro. A defesa interpôs recurso de Apelação, que foi recebido e processado, sendo certo que o tribunal, de forma não unânime, manteve a condenação imposta pelo juízo a quo. O advogado do réu verifica que o acórdão viola, de forma direta, dispositivos constitucionais, razão pela qual decide continuar recorrendo da decisão exarada pela Segunda Instância.\nDe acordo com as informações acima, assinale a alternativa que indica o recurso a ser interposto.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Recurso em Sentido Estrito.",
+        "Recurso Ordinário Constitucional.",
+        "Recurso Extraordinário.",
+        "Embargos Infringentes."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2012-09_69",
+    "question_number": 69,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "CRIMINAL-PROCEDURE",
+    "nullified": false,
+    "question": "Em relação à Lei Maria da Penha, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Constatada a prática de violência doméstica e familiar contra a mulher, a autoridade policial poderá aplicar, de imediato, ao agressor, em conjunto ou separadamente, medidas protetivas de urgência, dentre as quais o afastamento do lar, domicílio ou local de convivência com a ofendida.",
+        "Em todos os casos de violência doméstica e familiar contra a mulher, feito o registro da ocorrência, deverá a autoridade policial adotar, de imediato, procedimentos especiais em relação ao agressor, dentre os quais podemos citar a suspensão da posse ou restrição do porte de armas, com comunicação ao órgão competente, nos termos da Lei n. 10.826, de 22 de dezembro de 2003, sem prejuízo daqueles previstos no Código de Processo Penal.",
+        "Somente o advogado da ofendida deverá ser notificado, através do Diário Oficial, dos atos processuais relativos ao agressor, especialmente dos pertinentes ao ingresso e à saída da prisão.",
+        "Em qualquer fase do inquérito policial ou da instrução criminal, caberá a prisão preventiva do agressor, decretada pelo juiz, de ofício, a requerimento do Ministério Público ou mediante representação da autoridade policial."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2012-09_70",
+    "question_number": 70,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "LABOUR",
+    "nullified": false,
+    "question": "Após sofrer um acidente automobilístico de gravíssimas proporções enquanto viajava a lazer, o empregado Pedro foi aposentado por invalidez pelo INSS. Assinale a alternativa que indica o efeito desse fato no seu contrato de trabalho.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O contrato de Pedro será interrompido.",
+        "O contrato de Pedro será suspenso.",
+        "O contrato de Pedro será extinto.",
+        "O contrato de Pedro continuará em vigor e ele terá todos os direitos trabalhistas assegurados."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2012-09_71",
+    "question_number": 71,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "LABOUR",
+    "nullified": false,
+    "question": "Maria foi contratada pela empresa Bolos S.A. para exercer a função de copeira, cumprindo jornada de trabalho de segunda à sexta-feira das 13:00 h às 17:00 h, sem intervalo alimentar. Decorridos dois anos do início do pacto contratual, foi a empregada dispensada, recebendo as parcelas da ruptura.\nContudo, inconformada porque jamais lhe foi permitido usufruir de intervalo para descanso e alimentação, Maria ajuíza reclamação trabalhista postulando o pagamento do período correspondente ao intervalo alimentar não concedido.\nDiante da hipótese relatada, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A ex-empregada faz jus ao pagamento de uma hora extraordinária diária, haja vista a supressão do intervalo intrajornada, na forma do Art. 71, § 4º, da CLT.",
+        "A ex-empregada faz jus ao pagamento de apenas 15 minutos diários a título de horas extraordinárias, haja vista a supressão do intervalo intrajornada, na forma do Art. 71,§ 4º, da CLT.",
+        "A ex-empregada não faz jus ao pagamento de horas extraordinárias, porquanto diante da carga horária cumprida, não lhe era assegurada a fruição de intervalo intrajornada.",
+        "A ex-empregada faz jus ao pagamento de indenização correspondente ao valor de uma hora extraordinária diária, haja vista a supressão do intervalo intrajornada."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2012-09_72",
+    "question_number": 72,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "LABOUR",
+    "nullified": false,
+    "question": "Partindo-se da premissa legal de que o pedido de demissão ou recibo de quitação de rescisão do contrato de trabalho, firmado por empregado com mais de um ano de serviço, somente será válido quando realizado perante a autoridade competente, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A assistência na rescisão contratual firmada por empregado com mais de (1) um ano de serviço somente poderá ser realizada pelo sindicato representativo da categoria do empregado.",
+        "Não havendo na localidade sindicato representativo da categoria, a assistência será prestada pela Justiça do Trabalho.",
+        "Não havendo na localidade sindicato representativo da categoria ou autoridade do Ministério do Trabalho, a assistência será prestada por representante do Ministério Público ou, onde houver, defensor público e, na falta ou impedimento destes, pelo Juiz de Paz.",
+        "A assistência na rescisão contratual firmada por empregado com mais de (1) um ano de serviço somente poderá ser realizada pelo sindicato representativo da categoria do empregado ou, na ausência deste, pela Justiça do Trabalho."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2012-09_73",
+    "question_number": 73,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "LABOUR",
+    "nullified": false,
+    "question": "Buscando profissionais experientes para manusear equipamentos de alta tecnologia e custo extremamente elevado, uma empresa anuncia a existência de vagas para candidatos que possuam dois anos de experiência prévia em determinada atividade.\nA partir da hipótese apresentada, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A manifestação é inválida porque o máximo de experiência que pode ser exigida é de seis meses.",
+        "A manifestação é inválida, pois o empregador não tem o direito de exigir experiência pretérita do candidato a emprego.",
+        "A manifestação é inválida porque o máximo de experiência que pode ser exigida é de um ano.",
+        "A manifestação é valida, em razão do valor do equipamento, visando à proteção do patrimônio do empregador."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2012-09_74",
+    "question_number": 74,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "LABOUR",
+    "nullified": false,
+    "question": "De acordo com o entendimento consolidado da jurisprudência, a mudança de regime jurídico do empregado celetista para estatutário",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "não gera alteração no contrato de trabalho, que permanece intacto.",
+        "gera a suspensão do contrato de trabalho pelo período de três anos, prazo necessário para que o servidor público adquira estabilidade.",
+        "gera extinção do contrato de trabalho, iniciando-se o prazo prescricional da alteração.",
+        "não gera alteração no contrato de trabalho, mesmo porque o empregado não é obrigado a aceitar a alteração de regime jurídico."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2012-09_75",
+    "question_number": 75,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "LABOUR",
+    "nullified": false,
+    "question": "Assinale a alternativa em que há, incontroversamente, responsabilidade solidária no âmbito trabalhista.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "No contrato de empreitada, em relação ao dono da obra, quanto aos créditos dos empregados do empreiteiro.",
+        "No contrato de terceirização lícita, em relação ao tomador dos serviços, quanto aos créditos dos empregados da prestadora dos serviços.",
+        "Das partes vencidas nos dissídios coletivos, pelo valor das custas.",
+        "No contrato temporário, em relação ao tomador ou cliente, caso a empresa de trabalho temporário tenha a recuperação judicial deferida."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2012-09_76",
+    "question_number": 76,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "LABOUR-PROCEDURE",
+    "nullified": false,
+    "question": "De acordo com a Consolidação das Leis do Trabalho, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "não há citação para a execução, uma vez que a fase executiva pode ser iniciada de ofício.",
+        "a citação na execução será realizada por via postal.",
+        "a citação na execução será realizada por mandado.",
+        "a citação na execução será realizada por mandado, mas, se o executado não for encontrado após três tentativas, caberá a citação por edital."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2012-09_77",
+    "question_number": 77,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "LABOUR-PROCEDURE",
+    "nullified": false,
+    "question": "Um dos princípios norteadores do Processo do Trabalho é o da celeridade, dada a natureza salarial do crédito trabalhista. Entretanto, por força de Lei, algumas causas especiais possuem preferência na tramitação. Das situações listadas a seguir, assinale aquela que terá preferência em todas as fases processuais.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "a que será executada contra a União, Estados ou Municípios.",
+        "a que será executada perante o juízo da falência.",
+        "a que será executada em face de empregador doméstico",
+        "a que será executada em face de empresa pública."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2012-09_78",
+    "question_number": 78,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "LABOUR-PROCEDURE",
+    "nullified": false,
+    "question": "Uma das espécies de resposta é a reconvenção, que vem a ser a ação do réu contra o autor no mesmo feito e juízo em que é demandado. Malgrado não estar formalmente previsto na CLT, é pacífico o cabimento da reconvenção nas lides trabalhistas. Das hipóteses abaixo listadas, assinale aquela em que, pela natureza da pretensão deduzida, seria inviável a apresentação de reconvenção na Justiça do Trabalho.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Quando a empresa pretender a condenação do empregado no valor do aviso prévio por ele não concedido, ao pedir demissão.",
+        "Quando a empresa pretender o ressarcimento por dano causado pelo empregado no decorrer do contrato de trabalho.",
+        "Quando a empresa pretender a devolução do valor de um curso pago em benefício do empregado e pelo qual o obreiro comprometeu-se a não pedir demissão durante determinado período, o que depois foi descumprido pelo trabalhador.",
+        "Quando a empresa pretender a devolução de valor pago pela compra de um bem do seu empregado que, após, verificou possuir vício redibitório."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2012-09_79",
+    "question_number": 79,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "LABOUR-PROCEDURE",
+    "nullified": false,
+    "question": "A liquidação tem por objetivo a apuração do quantum debeatur nas sentenças proferidas de forma ilíquida e que tenham deferido, ao menos em parte, a pretensão deduzida. De acordo com a CLT, assinale a alternativa que indica as formas possíveis de liquidação da sentença nas obrigações de dar (pagar) e, caso o juiz conceda prazo às partes para manifestação, o número de dias para a impugnação.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Artigos, cálculo ou arbitramento. Prazo de 8 dias.",
+        "Cálculo, arbitramento ou artigos. Prazo de 10 dias.",
+        "Artigos ou arbitramento. Prazo de 15 dias.",
+        "Cálculo ou arbitramento. Prazo de 5 dias."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2012-09_80",
+    "question_number": 80,
+    "exam_id": "2012-09",
+    "exam_year": "2012",
+    "question_type": "LABOUR-PROCEDURE",
+    "nullified": false,
+    "question": "Na Justiça do Trabalho, segundo o entendimento sumulado pelo TST, é correto afirmar-se que o jus postulandi",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "não se aplica à ação rescisória, à ação cautelar, ao mandado de segurança e aos recursos de competência do TST.",
+        "não tem mais aplicação na Justiça do Trabalho desde o advento da emenda constitucional 45.",
+        "aplica-se em todas as causas cujo valor seja inferior a 20 salários mínimos, porque, a partir deste patamar, o advogado é indispensável.",
+        "aplica-se irrestritamente na seara trabalhista, em todas as esferas, instâncias e ações, sendo uma de suas características marcantes."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2013-10_1",
+    "question_number": 1,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "O advogado João, que também é formado em Comunicação Social, atua nas duas profissões, possuindo uma coluna onde apresenta noticias jurídicas, com informações sobre atividades policiais, forenses ou vinculadas ao Ministério Público. Semanalmente inclui, nos seus comentários, alguns em forma de poesia, suas alegações forenses e os resultados dos processos sob sua responsabilidade, divulgando, com isso, seu trabalho como advogado.\nÀ luz das normas estatutárias, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A divulgação de notícias, como aventado no enunciado, constitui um direito do advogado em dar publicidade aos seus processos",
+        "Nos termos das regras que caracterizam as infrações disciplinares está delineada a de publicação desnecessária e habitual de alegações forenses ou causas pendentes.",
+        "Diante das novas mídias que também atingem a advocacia, o advogado pode utilizar-se dos meios ofertados para a divulgação de seu trabalho.",
+        "A situação caracteriza o chamado desvio da função de advogado, com o prejuízo à imagem dos clientes pela divulgação."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2013-10_2",
+    "question_number": 2,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "O advogado Mário pertence aos quadros da sociedade de economia mista controlada pelo Estado W, na qual chefia o Departamento Jurídico. Não existe óbice para a prestação de serviços de advocacia privada, o que ocorre no escritório que possui no centro da capital do Estado, em horário diverso do expediente na empresa. Um dos seus clientes realiza contrato para que Mário aponha o seu visto em ato constitutivo de pessoa jurídica, em Junta Comercial cuja sede está localizada na capital do Estado W.\nObservado tal relato, consoante as normas do Regulamento Geral do Estatuto da Advocacia e da OAB, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "As circunstâncias indicam que não existe óbice para a aposição do visto nos referidos atos.",
+        "O fato de chefiar Departamento Jurídico de empresa, seja de que natureza for, constitui elemento impeditivo da aposição do visto.",
+        "O exercício da advocacia no local da sede da Junta Comercial é impeditivo para a aposição do visto.",
+        "A atuação em sociedade de economia mista estadual impede a aposição do visto contratado."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2013-10_3",
+    "question_number": 3,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "João, advogado regularmente inscrito nos quadros da Ordem dos Advogados do Brasil, veio a ser indiciado por força de investigação proposta em face de um dos seus inúmeros clientes, não tendo o causídico participado de qualquer ato ilícito, mas apenas como advogado. Veio a saber que seu nome fora incluído por força de exercício considerado exacerbado de sua atividade advocatícia. Contratou advogado para a sua defesa no inquérito criminal e postulou assistência à Ordem dos Advogados do Brasil por entender feridas suas prerrogativas profissionais.\nObservado tal relato, consoante as normas do Regulamento Geral do Estatuto da Advocacia e da OAB, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Ao contratar advogado para a defesa da sua pretensão, não mais cabe à Ordem dos Advogados interferir no processo para salvaguardar eventuais prerrogativas feridas.",
+        "A atuação da Ordem dos Advogados na defesa das prerrogativas profissionais implicará a assistência de representante da instituição, mesmo com defensor constituído.",
+        "A assistência da Ordem dos Advogados está restrita a processos judiciais ou administrativos, mas não a inquéritos.",
+        "A postulação de assistência deve ser examinada pelo Conselho Federal da Ordem dos Advogados que pode autorizar ou não essa atividade."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2013-10_4",
+    "question_number": 4,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "Nos termos do Estatuto da Advocacia existe a previsão de pagamento de honorários advocatícios. Assinale a afirmativa que indica como deve ocorrer o pagamento, quando não houver estipulação em contrário.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Metade no início e o restante parcelado em duas vezes.",
+        "Um terço no inicio, um terço até a decisão de primeira instância e um terço ao final.",
+        "Dez por cento no início, vinte por cento na sentença e o restante após o trânsito em julgado.",
+        "Cinquenta por cento no início, trinta por cento até decisão de primeiro grau e o restante após o recurso, se existir."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2013-10_5",
+    "question_number": 5,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "A advogada Maria solicitou, no cartório de determinada vara cível, ter vista e extrair cópias dos autos de processo não sujeito a sigilo. O serventuário a quem foi feita a solicitação afirmou que Maria não havia juntado procuração aos autos do processo em questão e, em razão disso, apenas poderia ter vista dos autos e que lhe seria vedada a extração de cópias.\nA partir do caso apresentado, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O serventuário não agiu corretamente. Mesmo não estando constituída nos autos do processo, Maria pode ter vista e obter cópias dos autos do processo, já que o mesmo não está sujeito a sigilo.",
+        "O serventuário agiu corretamente. O advogado não constituído nos autos de determinado processo apenas pode ter vista dos mesmos em balcão, mas não pode retirá-los de cartório para extração de cópias.",
+        "O serventuário não agiu corretamente. Tendo em vista que Maria não estava constituída nos autos e que não poderia retirá-los de cartório para a extração de cópias, o serventuário deveria ter providenciado pessoalmente as cópias de que Maria necessitava.",
+        "O serventuário não agiu corretamente. Tendo em vista que Maria não estava constituída nos autos do processo, não poderia sequer ter vista dos mesmos."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2013-10_6",
+    "question_number": 6,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "O advogado Mário, para ilustrar a tese que desenvolvia, fez inserir, em petição por ele apresentada, citação de julgado inexistente. Inseriu, ainda, citação doutrinária, cujo teor foi completamente deturpado.\nA respeito da hipótese, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Mário não cometeu infração disciplinar, pois o advogado, amparado no princípio da ampla defesa, deve ter liberdade para defender os interesses de seus clientes da forma que achar conveniente.",
+        "Mário cometeu infração disciplinar punível com pena de censura, nos termos do EAOAB, e violou dispositivo do Código de Ética e Disciplina da OAB.",
+        "Mário cometeu infração disciplinar punível com pena de exclusão, nos termos do EAOAB, e violou dispositivo do Código de Ética e Disciplina da OAB.",
+        "Mário não cometeu infração disciplinar prevista no EAOAB, tendo apenas violado dispositivo do Código de Ética e Disciplina da OAB."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2013-10_7",
+    "question_number": 7,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "João, além de advogado, é próspero fazendeiro no Estado W. Após fiscalização regular, é comunicado que seus trabalhadores estão em situação irregular, análoga à de escravidão.\nNos termos do Código de Ética, o advogado deve",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "ignorar a comunicação porque são separadas as atividades de advogado e fazendeiro.",
+        "deixar de prestar concurso a atos que atentem contra a dignidade da pessoa humana.",
+        "atuar como advogado na defesa da situação considerada irregular, ignorando as acusações.",
+        "defender sua atuação como fazendeiro que obedece a regras peculiares e costumeiras."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2013-10_8",
+    "question_number": 8,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "Lara, advogada, é chefe do departamento jurídico da empresa Nós e Nós, que é especializada na produção de cordas. O departamento que ela coordena possui cerca de cem advogados. Dez deles resolvem propor ação judicial para reclamar direitos que são comuns a todos, inclusive à advogada chefe do departamento.\nNos termos do Código de Ética, a advogada chefe do departamento deve",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "assumir a defesa da empresa, por força da relação de trabalho.",
+        "comunicar o fato à empresa e escusar-se de realizar a defesa.",
+        "indicar advogado da sua equipe para realizar a defesa.",
+        "renunciar ao cargo por impossibilidade de exercício do mesmo."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2013-10_9",
+    "question_number": 9,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "Um jovem advogado inicia sua carreira em seu estado natal, angariando clientes em decorrência das suas raras habilidades de negociador. Com o curso do tempo, sua fama de bom profissional se espraia e, em razão disso, surgem convites para atuar em outros estados da federação. Ao contatar um cliente no Estado Y, distante mais de mil quilômetros do seu estado natal, é surpreendido pelas autoridades de Y, com determinação restritiva ao seu exercício profissional, por não ser advogado do local.\nA partir do exposto, nos termos do Estatuto da Advocacia, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O advogado deve restringir o exercício profissional ao local em que obteve sua inscrição.",
+        "O advogado deve solicitar autorização a cada processo em que atuar fora do local de inscrição.",
+        "O advogado deve realizar Exame de Ordem em cada estado em que for atuar.",
+        "O advogado pode exercer sua profissão em todo o território nacional."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2013-10_10",
+    "question_number": 10,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "ETHICS",
+    "nullified": false,
+    "question": "O advogado Francisco é conhecido por sua rara habilidade no setor de contratos empresariais, experto nas chamadas cláusulas venenosas que dificultam a quebra imotivada de avenças. No exercício regular da sua profissão de advogado, apresenta-se, munido dos devidos poderes, em assembleia de sociedade anônima, cujo controlador é seu cliente. O presidente da assembleia não acolhe a sua presença, aduzindo falta de autorização legal.\nNos termos do Estatuto da Advocacia, é direito do advogado",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "ingressar em assembleia, representando seu cliente, mesmo não munido de mandato.",
+        "representar seu cliente com procuração outorgada com poderes gerais.",
+        "atuar em assembleia a que seu cliente possa comparecer, munido de poderes especiais.",
+        "atuar excepcionalmente com autorização do presidente da assembleia, que supre o mandato."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2013-10_11",
+    "question_number": 11,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "PHILOSOPHY",
+    "nullified": false,
+    "question": "A hermenêutica aplicada ao direito formula diversos modos de interpretação das leis. A interpretação que leva em consideração principalmente os objetivos para os quais um diploma legal foi criado é chamada de",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "interpretação restritiva, por levar em conta apenas os objetivos da lei, ignorando sua estrutura gramatical.",
+        "interpretação extensiva, por aumentar o conteúdo de significado das sentenças com seus objetivos historicamente determinados.",
+        "interpretação autêntica, pois apenas as finalidades da lei podem dar autenticidade à interpretação.",
+        "interpretação teleológica, pois o sentido da lei deve ser considerado à luz de seus objetivos."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2013-10_12",
+    "question_number": 12,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "PHILOSOPHY",
+    "nullified": false,
+    "question": "“Manter os próprios compromissos não constitui dever de virtude, mas dever de direito, a cujo cumprimento pode-se ser forçado. Mas prossegue sendo uma ação virtuosa (uma demonstração de virtude) fazê-lo mesmo quando nenhuma coerção possa ser aplicada. A doutrina do direito e a doutrina da virtude não são, consequentemente, distinguidas tanto por seus diferentes deveres, como pela diferença em sua legislação, a qual relaciona um motivo ou outro com a lei”.\nPelo trecho acima podemos inferir que Kant estabelece uma relação entre o direito e a moral. A esse respeito, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O direito e a moral são idênticos, tanto na forma como no conteúdo prescritivo. Assim, toda ação contrária à moralidade das normas jurídicas é também uma violação da ordem jurídica.",
+        "A conduta moral refere-se à vontade interna do sujeito, enquanto o direito é imposto por uma ação exterior e se concretiza no seu cumprimento, ainda que as razões da obediência do sujeito não sejam morais.",
+        "A coerção, tanto no direito quanto na moral, é um elemento determinante. É na possibilidade de impor-se pela força, independentemente da vontade, que o direito e a moral regulam a liberdade.",
+        "Direito e moral são absolutamente distintos. Consequentemente, cumprir a lei, ainda que espontaneamente, não é demonstração de virtude moral."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2013-10_13",
+    "question_number": 13,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "CONSTITUTIONAL",
+    "nullified": false,
+    "question": "A Constituição brasileira não pode ser emendada",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "na implantação do estado de emergência e durante a intervenção da União nos Estados.",
+        "na vigência do estado de sítio e na implantação do estado de emergência.",
+        "quando em estado de sítio e durante a intervenção da União nos Municípios.",
+        "na vigência de estado de defesa, de estado de sítio e de intervenção federal."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2013-10_14",
+    "question_number": 14,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "CONSTITUTIONAL",
+    "nullified": false,
+    "question": "Apesar da existência de vários partidos políticos por força de questões regionais, conjunturais e do vínculo da fidelidade partidária, é comum a cada ano o surgimento de novas agremiações no cenário nacional.\nQuanto ao funcionamento dos partidos políticos, à luz das normas constitucionais, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Podem receber recursos financeiros de governo estrangeiro.",
+        "Devem prestar as contas partidárias perante Conselho Especial.",
+        "Podem ter caráter regional, representando pelo menos duas regiões.",
+        "Têm acesso gratuito ao rádio e à televisão nos limites legais."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2013-10_15",
+    "question_number": 15,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "CONSTITUTIONAL",
+    "nullified": false,
+    "question": "Em relação aos remédios constitucionais, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O habeas data pode ser impetrado ainda que não haja negativa administrativa em relação ao acesso a informações pessoais.",
+        "A ação popular pode ser impetrada por pessoa jurídica.",
+        "O particular pode figurar no polo passivo da ação de habeas corpus.",
+        "O mandado de segurança somente pode ser impetrado quando as questões jurídicas forem incontroversas."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2013-10_16",
+    "question_number": 16,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "CONSTITUTIONAL",
+    "nullified": false,
+    "question": "Compete ao STF processar e julgar originariamente os litígios listados a seguir, à exceção de  um. Assinale-o.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Entre Estado estrangeiro e Estado membro da federação.",
+        "Entre Estado estrangeiro e município.",
+        "Entre organismo internacional e a União.",
+        "Entre organismo internacional e Estado membro da federação."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2013-10_17",
+    "question_number": 17,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "CONSTITUTIONAL",
+    "nullified": false,
+    "question": "Preocupado com a concorrência de eletrodomésticos produzidos na China e com o saldo da balança comercial, o Presidente da República, no dia 1º de abril, editou medida provisória determinando o aumento da alíquota do imposto sobre produtos industrializados (IPI) para os produtos provenientes daquele país. Entretanto, passados 30 (trinta) dias, o Congresso Nacional rejeitou a medida provisória, não a convertendo em lei.\nCom base no caso acima, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A medida provisória terá eficácia por mais 30 (trinta) dias, perfazendo o total de 60 (sessenta) dias.",
+        "A medida provisória terá eficácia por mais 30 (trinta) dias, período no qual poderá haver nova tentativa de conversão em lei.",
+        "A medida provisória perderá sua eficácia, cabendo ao Presidente da República, caso haja interesse, reeditá-la imediatamente.",
+        "A medida provisória perderá sua eficácia, devendo o Congresso Nacional disciplinar, por decreto legislativo, as relações jurídicas dela decorrentes."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2013-10_18",
+    "question_number": 18,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "CONSTITUTIONAL",
+    "nullified": false,
+    "question": "Na ausência de lei federal estabelecendo normas gerais sobre proteção de ecossistemas ameaçados, determinado estado da Federação editou, no passado, a sua própria lei sobre o assunto, estabelecendo desde princípios e valores a serem observados até regras específicas sobre a exploração econômica de tais áreas. Criou, ainda, fiscalização efetiva em seu território e multou empresas e produtores que desrespeitaram a lei.\nAnos depois, a União edita lei contendo normas gerais sobre o tema e muitas de suas disposições conflitavam com a anterior lei estadual.\nCom relação a este caso, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A União não poderia legislar, uma vez que o assunto é matéria de interesse local, não havendo justificativa para lei nacional sobre o tema. Houve invasão de competência privativa dos estados.",
+        "No campo das competências legislativas concorrentes, a União deve legislar sobre normas gerais e o estado pode editar normas suplementares, mas enquanto inexistir lei federal, a competência do estado é plena. A superveniência de lei geral nacional suspende a eficácia das disposições contrárias da lei dos estados.",
+        "A lei aplicável, no caso concreto, será aquela que estabelecer padrões mais restritivos, em atenção à proteção do meio ambiente, não importando se tal norma é a federal ou se a editada pelos estados-membros.",
+        "O estado não poderia ter estabelecido normas próprias na ausência de lei nacional com disposições gerais que definissem marcos a serem seguidos pelos estados. Em consequência, são nulas todas as multas aplicadas anteriormente à publicação da lei editada pela União."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2013-10_19",
+    "question_number": 19,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "CONSTITUTIONAL",
+    "nullified": false,
+    "question": "Ajuizada uma Ação Direta de Inconstitucionalidade (ADI) requerendo expressamente que se declare inconstitucional o Art. 2º da Lei X, o Supremo Tribunal Federal (STF), ao apreciar o pedido, apenas declarou inconstitucional uma interpretação possível da norma impugnada, sem declarar sua invalidade, e determinou que sua decisão só acarretasse efeitos a partir do seu trânsito em julgado.\nCom base na situação acima, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O STF como órgão do Poder Judiciário, por força do princípio da correlação, não poderia julgar de forma distinta daquela requerida pela parte autora.",
+        "O STF, no controle abstrato de constitucionalidade, não está adstrito ao pedido formulado na inicial, podendo, inclusive, fazer uma interpretação conforme a Constituição, a despeito de expresso requerimento pela declaração de invalidade da norma.",
+        "A modulação dos efeitos das decisões do STF em Ação Direta de Inconstitucionalidade (ADI) é possível, desde que com a aprovação da maioria absoluta dos seus membros.",
+        "O STF não pode fixar os efeitos da decisão a partir do seu trânsito em julgado, pois, em conformidade com o princípio da supremacia da Constituição, a pecha da inconstitucionalidade contamina a lei desde a sua gênese."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2013-10_20",
+    "question_number": 20,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "HUMAN-RIGHTS",
+    "nullified": false,
+    "question": "Sobre as denúncias e o sistema de responsabilização por violação de Direitos Humanos, perante a Comissão Interamericana de Direitos Humanos, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A Comissão poderá responsabilizar tanto o Estado como as pessoas naturais e jurídicas, de direito público ou privado, que cometeram a violação, solidariamente.",
+        "A Comissão não possui competência para responsabilizar a pessoas naturais, podendo apenas determinar a responsabilidade das pessoas jurídicas, de direito público ou privado, que cometeram a violação.",
+        "A Comissão poderá responsabilizar tanto o Estado como as pessoas naturais e jurídicas, de direito público ou privado, que cometeram a violação. Neste caso a responsabilidade do Estado será subsidiária.",
+        "A Comissão não possui competência para atribuir responsabilidades individuais, podendo apenas determinar a responsabilidade internacional de um Estado membro da OEA."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2013-10_21",
+    "question_number": 21,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "HUMAN-RIGHTS",
+    "nullified": false,
+    "question": "Sobre o sistema global de proteção dos Direitos Humanos, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "O Direito Humanitário, a Organização Internacional do Trabalho e a Liga das Nações são considerados os principais precedentes do processo de internacionalização dos direitos humanos, uma vez que rompem com o conceito de soberania, já que admitem intervenções nos países em prol da proteção dos direitos humanos.",
+        "A Declaração Universal dos Direitos Humanos juntamente com a adoção do Pacto Internacional dos Direitos Civis e Políticos formam a Carta Internacional dos Direitos Humanos, podendo um Estado adotar ou não os seus postulados.",
+        "O sistema global restringe-se à Carta Internacional dos Direitos Humanos. Outros tratados multilaterais sobre Direitos Humanos, que se referem a violações específicas de direitos, tais como Convenção Internacional contra a Tortura, são facultativos e, consequentemente, não são considerados como parte do sistema global.",
+        "O sistema global é composto por mecanismos não-convencionais de proteção dos direitos humanos. Tais mecanismos são aqueles criados por convenções específicas de Direitos Humanos, de adoção facultativa para os Estados."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2013-10_22",
+    "question_number": 22,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "HUMAN-RIGHTS",
+    "nullified": false,
+    "question": "A Assembleia Constituinte de 1988 reservou texto expresso para elevar os Direitos Humanos ao patamar de princípio fundamental não só no território nacional, como também nas relações internacionais. Além de valorizar a independência do país no cenário internacional, consagrou a proteção dos interesses do ser humano.\nConsiderando o texto constitucional do Estado-parte e a Convenção Americana de Direitos Humanos, as afirmativas a seguir estão corretas, à exceção de uma. Assinale-a.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Proibição de propaganda a favor da guerra e repúdio ao terrorismo e ao racismo.",
+        "Proteção judicial mesmo quando a violação de direitos fundamentais for cometida por pessoa atuando em função oficial.",
+        "Direito de retificação ou de resposta, que eximirão das outras responsabilidades legais.",
+        "Concessão de asilo político em delitos políticos ou comuns, conexos com delitos políticos."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2013-10_23",
+    "question_number": 23,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "INTERNATIONAL",
+    "nullified": false,
+    "question": "A respeito dos elementos de conexão no Brasil, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A lei da nacionalidade da pessoa determina as regras sobre o começo e o fim da personalidade.",
+        "A Lex loci executionis é aplicável aos contratos de trabalho, os quais, ainda que tenham sido celebrados no exterior, são regidos pela norma do local da execução das atividades laborais.",
+        "A norma do país em que é domiciliada a vítima aplica-se aos casos de responsabilidade por ato ilícito extracontratual.",
+        "O elemento de conexão Lex loci executionis ou Lex loci solutionis é o critério aplicável, como regra geral, para qualificar e reger as obrigações."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2013-10_24",
+    "question_number": 24,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "INTERNATIONAL",
+    "nullified": false,
+    "question": "Rafael é brasileiro naturalizado e casado com Letícia, de nacionalidade italiana. Rafael foi transferido pela empresa onde trabalha para a filial na Argentina, estabelecendo-se com sua esposa em Córdoba. Em 02/03/2009, lá nasceu Valentina, filha do casal, que foi registrada na repartição consular do Brasil.\nDe acordo com as normas constitucionais vigentes, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Valentina não pode ser considerada brasileira nata, em virtude de a nacionalidade brasileira de seu pai ter sido adquirida de modo derivado e pelo fato de sua mãe ser estrangeira.",
+        "Valentina é brasileira nata, pelo simples fato de seu pai, brasileiro, se ter deslocado por motivo de trabalho, em nada influenciando o modo como Rafael adquiriu a nacionalidade.",
+        "Valentina somente será brasileira nata se vier a residir no Brasil e fizer a opção pela nacionalidade brasileira após atingir a maioridade.",
+        "Valentina é brasileira nata, não constituindo óbice o fato de seu pai ser brasileiro naturalizado e sua mãe, estrangeira."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2013-10_25",
+    "question_number": 25,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "TAXES",
+    "nullified": false,
+    "question": "Três irmãos são donos de um imóvel, em proporções iguais. Em relação ao IPTU, cada irmão",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "só pode ser cobrado pelo fisco na razão de 33,33% do imposto.",
+        "é devedor solidário em relação ao todo do imposto.",
+        "é devedor na razão de 33,3% do imposto e responsável subsidiário pelo restante.",
+        "não pode ser cobrado judicialmente pela parte de outro irmão que tenha recursos para pagá-la."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2013-10_26",
+    "question_number": 26,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "TAXES",
+    "nullified": false,
+    "question": "Uma autarquia federal, proprietária de veículos automotores adquiridos recentemente, foi surpreendida com a cobrança de IPVA pelo Estado responsável pelos respectivos licenciamentos, não obstante vincular a utilização desses veículos às suas finalidades essenciais.\nCom base na hipótese sugerida, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A cobrança é constitucional, por se tratar de fato gerador do IPVA.",
+        "A cobrança é constitucional, por se aplicar o princípio da capacidade contributiva.",
+        "A cobrança é inconstitucional, por se tratar de isenção fiscal.",
+        "A cobrança é inconstitucional, por tratar de hipótese de imunidade tributária."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2013-10_27",
+    "question_number": 27,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "TAXES",
+    "nullified": false,
+    "question": "Suponha que determinada Medida Provisória editada pela Presidenta da República, em 29/09/2012, estabeleça, entre outras providências, o aumento para as diversas faixas de alíquotas previstas na legislação aplicável ao imposto de renda das pessoas físicas.\nNesse caso, com base no sistema tributário nacional, tal Medida Provisória",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "não violaria o princípio da legalidade e produzirá efeitos a partir da data de sua publicação.",
+        "violaria o princípio da legalidade, por ser incompatível com o processo legislativo previsto na Constituição Federal/88.",
+        "não violaria o princípio da legalidade e produzirá efeitos a partir de 90 (noventa) dias contados a partir da data de sua publicação.",
+        "não violaria o princípio da legalidade e só produzirá efeitos a partir do primeiro dia do exercício financeiro subsequente à data de sua conversão em lei."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2013-10_28",
+    "question_number": 28,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "TAXES",
+    "nullified": false,
+    "question": "A União criou um novo imposto não previsto na CRFB mediante lei complementar sobre a propriedade de veículos de duas rodas não motorizados, que adota fato gerador e base de cálculo diferente dos demais discriminados na Constituição.\nNessa situação, a União terá feito uso de competência",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "comum.",
+        "residual.",
+        "cumulativa.",
+        "extraordinária."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2013-10_29",
+    "question_number": 29,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "ADMINISTRATIVE",
+    "nullified": false,
+    "question": "Nenhuma proposta foi apresentada na licitação promovida por uma autarquia federal para a aquisição de softwares de processamento de dados. Com relação a esse caso, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Um novo procedimento licitatório deve ser realizado no prazo de até 180 dias do término do procedimento anterior.",
+        "A hipótese é de licitação dispensada, ainda que ela possa ser repetida sem prejuízo para a Administração.",
+        "A hipótese é de inexigibilidade de licitação, desde que a contratação se faça no prazo de até 180 dias do término do procedimento anterior.",
+        "A contratação direta é admitida, se a licitação não puder ser repetida sem prejuízo para a Administração."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2013-10_30",
+    "question_number": 30,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "ADMINISTRATIVE",
+    "nullified": false,
+    "question": "Um servidor público foi acusado de corrupção passiva e peculato. Respondeu a processo criminal e foi absolvido por ausência de provas. Diante dessa situação, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A Administração Pública, no caso, permanece livre para punir o funcionário, desde que verifique haver desvios na conduta funcional do servidor.",
+        "A decisão de absolvição do servidor sempre vincula a Administração Pública, que não poderá punir o seu funcionário.",
+        "A autotutela administrativa permite desconsiderar decisões judiciais contrárias à lei ou às provas dos autos, sendo possível a aplicação de sanções administrativas com cópias extraídas do processo criminal.",
+        "As decisões da justiça, que punem o servidor por qualquer crime, vinculam o Poder Público, embora as decisões de absolvição nunca impeçam o poder punitivo da Administração."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2013-10_31",
+    "question_number": 31,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "ADMINISTRATIVE",
+    "nullified": false,
+    "question": "A fim de permitir o escoamento da produção até uma refinaria, uma empresa pública federal, que explora a prospecção de petróleo em um campo terrestre, inicia a construção de um oleoduto. O único caminho possível para essa construção atravessa a propriedade rural de Josenildo que, em razão do oleoduto, teve que diminuir o espaço de plantio de mamão e, com isso, viu sua renda mensal cair pela metade.\nAssinale a afirmativa que indica a instrução correta que um advogado deve passar a Josenildo.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Não há óbice à constituição da servidão administrativa no caso, mas cabe indenização pelos danos decorrentes dessa forma de intervenção na propriedade.",
+        "A servidão administrativa é ilegal e Josenildo pode desconstituí-la, pois o instituto só tem aplicação em relação aos bens públicos.",
+        "A servidão administrativa é ilegal, pois o nosso ordenamento veda a intervenção do Estado sobre propriedades produtivas.",
+        "Não há óbice à constituição da servidão administrativa e não há de se falar em qualquer indenização."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2013-10_32",
+    "question_number": 32,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "ADMINISTRATIVE",
+    "nullified": false,
+    "question": "Oscar é titular da propriedade de um terreno adjacente a uma creche particular. Aproveitando a expansão econômica da localidade, decidiu construir em seu terreno um grande galpão. Oscar iniciou as obras, sem solicitar à prefeitura do município “X” a necessária licença para construir, usando material de baixa qualidade. Ainda durante a construção, a diretora da creche notou que a estrutura não apresentava solidez e corria o risco de desabar sobre as crianças. Ao tomar conhecimento do fato, a prefeitura do município “X” inspecionou o imóvel e constatou a gravidade da situação. Após a devida notificação de Oscar, a estrutura foi demolida.\nAssinale a afirmativa que indica o instituto do direito administrativo que autoriza a atitude do município “X”.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Tombamento.",
+        "Poder de polícia.",
+        "Ocupação temporária.",
+        "Desapropriação."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2013-10_33",
+    "question_number": 33,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "ADMINISTRATIVE",
+    "nullified": false,
+    "question": "As alternativas a seguir apresentam condições que geram vacância de cargo público, à exceção de uma. Assinale-a.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Falecimento.",
+        "Promoção.",
+        "Aposentadoria.",
+        "Licença para trato de interesse particular."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2013-10_34",
+    "question_number": 34,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "ADMINISTRATIVE",
+    "nullified": false,
+    "question": "Cristina, cidadã brasileira comprometida com a boa administração, descobre que determinada obra pública em sua cidade foi realizada em desacordo com as normas que regem as licitações públicas, com vistas a beneficiar um particular amigo do prefeito. De posse de cópias do processo administrativo que comprovam a situação, pretende ingressar com medida judicial para a proteção do patrimônio público.\nPara combater tal situação, Cristina deverá",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "ingressar com ação civil pública, que é o meio apto a sanar a lesividade ao patrimônio público.",
+        "propor ação penal privada subsidiária da pública para condenar o prefeito e o particular beneficiado e reparar os prejuízos causados aos cofres públicos.",
+        "impetrar mandado de segurança coletivo para amparar direito liquido e certo seu e de todos os cidadãos aos princípios da legalidade e moralidade.",
+        "ingressar com ação popular apta a proteger o patrimônio público indevidamente lesado."
+      ]
+    },
+    "answerKey": 3
+  },
+  {
+    "id": "2013-10_35",
+    "question_number": 35,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "ENVIRONMENTAL",
+    "nullified": false,
+    "question": "Na perspectiva da tutela do direito difuso ao meio ambiente, o ordenamento constitucional exigiu o estudo de impacto ambiental para instalação e desenvolvimento de certas atividades. Nessa perspectiva, o estudo prévio de impacto ambiental está concretizado no princípio",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "da precaução.",
+        "da prevenção.",
+        "da vedação ao retrocesso.",
+        "do poluidor-pagador."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2013-10_36",
+    "question_number": 36,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "ENVIRONMENTAL",
+    "nullified": false,
+    "question": "João, militante ambientalista, adquire chácara em área rural já degradada, com o objetivo de cultivar alimentos orgânicos para consumo próprio. Alguns meses depois, ele é notificado pela autoridade ambiental local de que a área é de preservação permanente.\nSobre o caso, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "João é responsável pela regeneração da área, mesmo não tendo sido responsável por sua degradação, uma vez que se trata de obrigação propter rem.",
+        "João somente teria a obrigação de regenerar a área caso soubesse do dano ambiental cometido pelo antigo proprietário, em homenagem ao princípio da boa-fé.",
+        "O único responsável pelo dano é o antigo proprietário, causador do dano, uma vez que João não pode ser responsabilizado por ato ilícito que não cometeu.",
+        "Não há responsabilidade do antigo proprietário ou de João, mas da Administração Pública, em razão da omissão na fiscalização ambiental quando da transmissão da propriedade."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2013-10_37",
+    "question_number": 37,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "CIVIL",
+    "nullified": false,
+    "question": "Rogério, solteiro, maior e capaz, estando acometido por grave enfermidade, descobre que é pai biológico de Mateus, de dez anos de idade, embora não conste a filiação paterna no registro de nascimento. Diante disso, Rogério decide lavrar testamento público, em que reconhece ser pai de Mateus e deixa para este a totalidade de seus bens. Sobrevindo a morte de Rogério, Renato, maior e capaz, até então o único filho reconhecido por Rogério, é surpreendido com as disposições testamentárias e resolve consultar um advogado a respeito da questão.\nA partir do fato narrado, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Todas as disposições testamentárias são inválidas, tendo em vista que, em seu testamento, Rogério deixou de observar a parte legítima legalmente reconhecida a Renato, o que inquina todo o testamento público, por ser este um ato único.",
+        "A disposição testamentária que reconhece a paternidade de Mateus é válida, devendo ser incluída a filiação paterna no registro de nascimento; a disposição testamentária relativa aos bens deverá ser reduzida ao limite da parte disponível, razão pela qual Mateus receberá o quinhão equivalente a 75% da herança e Renato o quinhão equivalente a 25% da herança.",
+        "Todas as disposições testamentárias são inválidas, uma vez que Rogério não poderia reconhecer a paternidade de Mateus em testamento e, ainda, foi desconsiderada a parte legítima de seu filho Renato.",
+        "A disposição testamentária que reconhece a paternidade de Mateus é válida, devendo ser incluída a filiação paterna no registro de nascimento; é, contudo, inválida a disposição testamentária relativa aos bens, razão pela qual caberá a cada filho herdar metade da herança de Rogério."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2013-10_38",
+    "question_number": 38,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "CIVIL",
+    "nullified": false,
+    "question": "De acordo com o Código Civil, opera-se o mandato quando alguém recebe de outrem poderes para, em nome deste, praticar atos ou administrar interesses. Daniel outorgou a Heron, por instrumento público, poderes especiais e expressos, por prazo indeterminado, para vender sua casa na Rua da Abolição, em Salvador, Bahia. Ocorre que, três dias depois de lavrada e assinada a procuração, em viagem para um congresso realizado no exterior, Daniel sofre um acidente automobilístico e vem a falecer, quando ainda fora do país. Heron, no mesmo dia da morte de Daniel, ignorando o óbito, vende a casa para Fábio, que a compra, estando ambos de boa-fé.\nDe acordo com a situação narrada, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A compra e venda é nula, em razão de ter cessado o mandato automaticamente, com a morte do mandante.",
+        "A compra e venda é válida, em relação aos contratantes.",
+        "A compra e venda é inválida, em razão de ter o mandato sido celebrado por prazo indeterminado, quando deveria, no caso, ter termo certo.",
+        "A compra e venda é anulável pelos herdeiros de Daniel, que podem escolher entre corroborar o negócio realizado em nome do mandante falecido, revogá-lo, ou cobrar indenização do mandatário."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2013-10_39",
+    "question_number": 39,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "CIVIL",
+    "nullified": false,
+    "question": "Gustavo completou 17 anos de idade em janeiro de 2010. Em março de 2010 colou grau em curso de ensino médio. Em julho de 2010 contraiu matrimônio com Beatriz. Em setembro de 2010, foi aprovado em concurso público e iniciou o exercício de emprego público efetivo. Por fim, em novembro de 2010, estabeleceu-se no comércio, abrindo um restaurante.\nAssinale a alternativa que indica o momento em que se deu a cessação da incapacidade civil de Gustavo.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "No momento em que iniciou o exercício de emprego público efetivo.",
+        "No momento em que colou grau em curso de ensino médio.",
+        "No momento em que contraiu matrimônio.",
+        "No momento em que se estabeleceu no comércio, abrindo um restaurante."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2013-10_40",
+    "question_number": 40,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "CIVIL",
+    "nullified": false,
+    "question": "Amélia e Alberto são casados pelo regime de comunhão parcial de bens. Alfredo, amigo de Alberto, pede que ele seja seu fiador na compra de um imóvel.\nDiante da situação apresentada, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A garantia acessória poderá ser prestada exclusivamente por Alberto.",
+        "A outorga de Amélia se fará indispensável, independente do regime de bens.",
+        "A fiança, se prestada por Alberto sem o consentimento de Amélia, será anulável.",
+        "A anulação do aval somente poderá ser pleiteada por Amélia durante o período em que estiver casada."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2013-10_41",
+    "question_number": 41,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "CIVIL",
+    "nullified": false,
+    "question": "Os vitrais do Mercado Municipal de São de Paulo, durante a reforma feita em 2004, foram retirados para limpeza e restauração da pintura. Considerando a hipótese e as regras sobre bens jurídicos, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Os vitrais, enquanto separados do prédio do Mercado Municipal durante as obras, são classificados como bens móveis.",
+        "Os vitrais retirados na qualidade de material de demolição, considerando que o Mercado Municipal resolva descartar-se deles, serão considerados bens móveis.",
+        "Os vitrais do Mercado Municipal, considerando que foram feitos por grandes artistas europeus, são classificados como bens fungíveis.",
+        "Os vitrais retirados para restauração, por sua natureza, são classificados como bens móveis."
+      ]
+    },
+    "answerKey": 1
+  },
+  {
+    "id": "2013-10_42",
+    "question_number": 42,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "CIVIL",
+    "nullified": false,
+    "question": "João, credor quirografário de Marcos em R$ 150.000,00, ingressou com Ação Pauliana, com a finalidade de anular ato praticado por Marcos, que o reduziu à insolvência. João alega que Marcos transmitiu gratuitamente para seu filho, por contrato de doação, propriedade rural avaliada em R$ 200.000,00.\nConsiderando a hipótese acima, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Caso o pedido da Ação Pauliana seja julgado procedente e seja anulado o contrato de doação, o benefício da anulação aproveitará somente a João, cabendo aos demais credores, caso existam, ingressarem com ação individual própria.",
+        "O caso narrado traz hipótese de fraude de execução, que constitui defeito no negócio jurídico por vício de consentimento.",
+        "Na hipótese de João receber de Marcos, já insolvente, o pagamento da dívida ainda não vencida, ficará João obrigado a repor, em proveito do acervo sobre que se tenha de efetuar o concurso de credores, aquilo que recebeu.",
+        "João tem o prazo prescricional de dois anos para pleitear a anulação do negócio jurídico fraudulento, contado do dia em que tomar conhecimento da doação feita por Marcos."
+      ]
+    },
+    "answerKey": 2
+  },
+  {
+    "id": "2013-10_43",
+    "question_number": 43,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "CIVIL",
+    "nullified": false,
+    "question": "Luis, produtor de soja, firmou contrato de empréstimo de um trator com seu vizinho João. No contrato, Luis se comprometeu a devolver o trator 10 dias após o término da colheita. Restou ainda acordado um valor para a hipótese de atraso na entrega.\nConsiderando o caso acima, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "Caracterizada a mora na devolução do trator, Luiz responderá pelos prejuízos decorrentes de caso fortuito ou de força maior, salvo se comprovar que o dano ocorreria mesmo se houvesse cumprido sua obrigação na forma ajustada.",
+        "Por se tratar de hipótese de mora pendente, é indispensável a interpelação judicial ou extrajudicial para que João constitua Luis em mora.",
+        "Luis, ainda que agindo dolosamente, não terá responsabilidade pela conservação do trator na hipótese de João recusar-se a receber o bem na data ajustada.",
+        "Não caracteriza mora a hipótese de João se recusar a receber o trator na data avençada para não comprometer o espaço físico de seu galpão, vez que é necessária a comprovação de sua culpa e a ausência de justo motivo."
+      ]
+    },
+    "answerKey": 0
+  },
+  {
+    "id": "2013-10_44",
+    "question_number": 44,
+    "exam_id": "2013-10",
+    "exam_year": "2013",
+    "question_type": "CHILDREN",
+    "nullified": false,
+    "question": "Acerca da colocação da criança ou do adolescente em família substituta na modalidade adoção, assinale a afirmativa correta.",
+    "choices": {
+      "label": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "text": [
+        "A adoção extingue os vínculos pretéritos entre o adotado e a família anterior, porém, excepcionalmente, no caso de falecimento dos adotantes, o poder familiar dos pais naturais poderá ser restabelecido, se atender ao melhor interesse do menor.",
+        "A adoção produz os seus efeitos a partir do trânsito em julgado da sentença declaratória do estado de filiação, porém, se o adotante vier a falecer no curso do procedimento os efeitos retroagirão à data do óbito.",
+        "A adoção depende do consentimento do adotando, se maior de 12 anos de idade, e dos pais do adotando ou do representante legal deste ou do guardião legal ou de fato, na falta dos primeiros.",
+        "A adoção produz os seus efeitos a partir do trânsito em julgado da sentença constitutiva, porém, se o adotante vier a falecer após inequívoca manifestação de vontade no curso do procedimento, os efeitos retroagirão à data do óbito."
+      ]
+    },
+    "answerKey": 3
+  }
+]

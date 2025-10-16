@@ -99,9 +99,6 @@ export default function ReviewPage() {
     }
   };
 
-  // Get unique subjects from wrong questions
-  const subjects = Array.from(new Set(questions.map(q => q.subject)));
-
   if (loading) {
     return (
       <div className="min-h-screen bg-navy-950 flex items-center justify-center">
@@ -148,6 +145,9 @@ export default function ReviewPage() {
       </div>
     );
   }
+
+  // Get unique subjects from wrong questions (after loading check)
+  const subjects = Array.from(new Set(questions.map(q => q.subject)));
 
   const currentQuestion = filteredQuestions[currentIndex];
 
