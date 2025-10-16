@@ -114,7 +114,7 @@ export default function RootLayout({
       publishableKey={publishableKey}
       localization={ptBR}
       telemetry={false}
-      clerkJSVariant="headless"
+      clerkJSUrl="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"
       appearance={{
         baseTheme: undefined,
       }}
