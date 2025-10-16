@@ -1,6 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+
+// Força renderização dinâmica para garantir que ClerkProvider esteja disponível
+export const dynamic = 'force-dynamic';
 import { Card, Button } from '@/components/ui';
 import { Header } from '@/components/layout/header';
 import { PerformanceChart } from '@/components/analytics/performance-chart';

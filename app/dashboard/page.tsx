@@ -5,6 +5,9 @@ import { StatsCard, Card, Progress, Button } from "@/components/ui";
 import { BookOpen, Target, Flame, Trophy, TrendingUp, Play, BarChart3, Crown } from "lucide-react";
 import Link from "next/link";
 
+// Força renderização dinâmica para garantir que ClerkProvider esteja disponível
+export const dynamic = 'force-dynamic';
+
 export default async function DashboardPage() {
   const user = await getCurrentUser();
 
