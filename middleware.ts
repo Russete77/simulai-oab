@@ -11,16 +11,22 @@ const isPublicRoute = createRouteMatcher([
   '/api/webhooks(.*)',
 ])
 
-export default clerkMiddleware(async (auth, req) => {
-  // Proteger rotas privadas
-  if (!isPublicRoute(req)) {
-    const { userId } = await auth()
-    if (!userId) {
-      const url = new URL('/login', req.url)
-      return NextResponse.redirect(url)
+export default clerkMiddleware(
+  async (auth, req) => {
+    // Proteger rotas privadas
+    if (!isPublicRoute(req)) {
+      const { userId } = await auth()
+      if (!userId) {
+        const url = new URL('/login', req.url)
+        return NextResponse.redirect(url)
+      }
     }
+  },
+  {
+    // Necessário para permitir CORS quando usando domínio customizado (clerk.simulaioab.com)
+    authorizedParties: ['https://www.simulaioab.com'],
   }
-})
+)
 
 export const config = {
   matcher: [
