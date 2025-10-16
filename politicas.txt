@@ -1,0 +1,120 @@
+📜 POLÍTICA DE PRIVACIDADE — SIMULAI OAB
+
+Última atualização: [insira a data]
+
+Bem-vindo ao SIMULAI OAB (“nós”, “nosso”, “aplicativo”). Esta Política de Privacidade descreve como coletamos, utilizamos, armazenamos e protegemos as informações dos usuários (“você”, “usuário”) que utilizam nosso app ou site acessível via www.simulaioab.com
+.
+
+Ao utilizar o SIMULAI OAB, você concorda com esta Política de Privacidade. Caso não concorde, não utilize o aplicativo.
+
+1. Informações que Coletamos
+1.1. Informações pessoais fornecidas pelo usuário
+
+Nome completo
+
+E-mail
+
+Senha (armazenada de forma segura)
+
+Dados opcionais de perfil (foto, curso, número da OAB etc.)
+
+1.2. Informações de uso
+
+Estatísticas de simulados (acertos, erros, tempo, histórico)
+
+Dados técnicos do dispositivo (versão do app, SO usado, modelo)
+
+Informações de navegação e IP
+
+1.3. Cookies / tecnologias semelhantes (para versão web)
+
+Cookies para manter sessão, lembrar preferências, análise de tráfego etc.
+
+2. Finalidade do Uso dos Dados
+
+Os dados coletados servem para:
+
+Criar e gerenciar sua conta
+
+Permitir acesso às funcionalidades (simulados, estatísticas etc.)
+
+Exibir relatórios e performance
+
+Personalizar experiência de estudo
+
+Enviar notificações e comunicações úteis
+
+Melhorar o app e corrigir falhas
+
+Cumprir obrigações legais
+
+3. Armazenamento e Segurança dos Dados
+
+Dados guardados em servidores do Supabase
+
+Senhas criptografadas
+
+Transmissão via TLS/SSL
+
+Uso de Row Level Security no banco para isolar dados de usuários
+
+Backups e auditorias periódicas
+
+Em caso de violação, notificaremos os usuários conforme exigido por lei
+
+4. Compartilhamento de Dados
+
+Não vendemos nem comercializamos seus dados pessoais.
+Compartilhamos apenas quando:
+
+Necessário para operação do serviço (Supabase, ferramentas analíticas, processamento de pagamentos)
+
+Quando exigido por lei ou por ordem judicial
+
+Para estatísticas agregadas anonimadas
+
+5. Retenção e Exclusão de Dados
+
+Dados mantidos enquanto a conta estiver ativa
+
+Você pode pedir exclusão de conta e dados via e-mail
+
+Após exclusão, dados podem manter-se anonimizados para fins estatísticos
+
+6. Direitos do Usuário (LGPD)
+
+Você tem direito de:
+
+Confirmar existência de tratamento
+
+Acessar, corrigir ou excluir seus dados
+
+Revogar consentimento
+
+Solicitar portabilidade ou anonimização
+
+Exercer esses direitos enviando e-mail para privacidade@simulaioab.com
+
+7. Uso por Menores de Idade
+
+O aplicativo não se destina a menores de 16 anos.
+Contas identificadas como pertencentes a menores podem ser removidas sem prévia comunicação.
+
+8. Transferência Internacional de Dados
+
+Seus dados podem ser armazenados em servidores no exterior (via Supabase), com segurança compatível com a LGPD.
+
+9. Alterações na Política
+
+Podemos atualizar esta Política a qualquer momento.
+A versão mais recente ficará disponível em www.simulaioab.com
+ e dentro do app.
+Mudanças significativas serão comunicadas aos usuários.
+
+10. Contato
+
+Para dúvidas ou solicitações relativas à privacidade:
+
+📧 privacidade@simulaioab.com
+
+🌐 www.simulaioab.com
