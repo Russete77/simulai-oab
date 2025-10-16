@@ -24,7 +24,7 @@ export default function TermsPage() {
             {/* Introdução */}
             <section>
               <p className="text-white/90 leading-relaxed">
-                Bem-vindo ao <strong>SIMULAI OAB</strong>! Estes Termos de Uso ("Termos") regulam o acesso e uso da plataforma SIMULAI OAB, disponível em{' '}
+                Bem-vindo ao <strong>SIMULAI OAB</strong>! Estes Termos de Uso (&quot;Termos&quot;) regulam o acesso e uso da plataforma SIMULAI OAB, disponível em{' '}
                 <a href="https://www.simulaioab.com" className="text-blue-400 hover:text-blue-300">
                   www.simulaioab.com
                 </a>

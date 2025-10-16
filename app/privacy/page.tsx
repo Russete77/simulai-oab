@@ -24,7 +24,7 @@ export default function PrivacyPage() {
             {/* Introdução */}
             <section>
               <p className="text-white/90 leading-relaxed">
-                Bem-vindo ao <strong>SIMULAI OAB</strong> ("nós", "nosso", "aplicativo"). Esta Política de Privacidade descreve como coletamos, utilizamos, armazenamos e protegemos as informações dos usuários ("você", "usuário") que utilizam nosso app ou site acessível via{' '}
+                Bem-vindo ao <strong>SIMULAI OAB</strong> (&quot;nós&quot;, &quot;nosso&quot;, &quot;aplicativo&quot;). Esta Política de Privacidade descreve como coletamos, utilizamos, armazenamos e protegemos as informações dos usuários (&quot;você&quot;, &quot;usuário&quot;) que utilizam nosso app ou site acessível via{' '}
                 <a href="https://www.simulaioab.com" className="text-blue-400 hover:text-blue-300">
                   www.simulaioab.com
                 </a>
