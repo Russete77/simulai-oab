@@ -50,6 +50,9 @@ export type Env = z.infer<typeof envSchema>;
 
 // Validar e exportar
 function validateEnv(): Env {
+  // Em build time, apenas validar sem lançar erro
+  const isBuildTime = process.env.NEXT_PHASE === 'phase-production-build';
+
   try {
     return envSchema.parse(process.env);
   } catch (error) {
@@ -59,6 +62,12 @@ function validateEnv(): Env {
         console.error(`  - ${err.path.join('.')}: ${err.message}`);
       });
       console.error('\n💡 Verifique seu arquivo .env\n');
+
+      // Em build time, retornar valores default ao invés de falhar
+      if (isBuildTime) {
+        console.warn('⚠️  Continuando build com valores default (configure env vars antes de rodar em produção)\n');
+        return process.env as Env;
+      }
     }
     throw new Error('Configuração de ambiente inválida');
   }

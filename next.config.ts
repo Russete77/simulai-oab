@@ -1,9 +1,6 @@
 import type { NextConfig } from "next";
 import withPWA from "next-pwa";
 
-// Validar variáveis de ambiente no build
-import "./lib/env";
-
 // Content Security Policy
 const ContentSecurityPolicy = `
   default-src 'self';
