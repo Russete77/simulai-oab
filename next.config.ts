@@ -17,8 +17,8 @@ const ContentSecurityPolicy = `
   frame-ancestors 'none';
 `;
 
-// Security headers (apenas em produção)
-const securityHeaders = process.env.NODE_ENV === 'production' ? [
+// Security headers (TEMPORARIAMENTE DESABILITADO para debug do Clerk)
+const securityHeaders = false ? [
   {
     key: 'Content-Security-Policy',
     value: ContentSecurityPolicy.replace(/\s{2,}/g, ' ').trim(),
