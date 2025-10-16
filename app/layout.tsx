@@ -110,7 +110,15 @@ export default function RootLayout({
   }
 
   return (
-    <ClerkProvider publishableKey={publishableKey} localization={ptBR}>
+    <ClerkProvider
+      publishableKey={publishableKey}
+      localization={ptBR}
+      telemetry={false}
+      clerkJSVariant="headless"
+      appearance={{
+        baseTheme: undefined,
+      }}
+    >
       <html lang="pt-BR" className="dark">
         <body className={`${inter.variable} ${plusJakarta.variable} ${jetbrainsMono.variable} font-sans antialiased bg-navy-950 text-white`}>
           <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-blue-600 focus:text-white focus:rounded-md focus:top-4 focus:left-1/2 focus:-translate-x-1/2">
