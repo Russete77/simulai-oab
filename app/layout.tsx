@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     default: "Simulai OAB - Preparação Inteligente para o Exame da OAB",
     template: "%s | Simulai OAB",
   },
-  description: "Plataforma completa de preparação para o Exame da OAB com IA, simulados adaptativos e análise de desempenho. Mais de 2.469 questões reais de 2010 a 2025.",
+  description: "Plataforma completa de preparação para o Exame da OAB com 5.605 questões reais de 2010 a 2025, revisão comentada e chatbot com IA integrado, simulados adaptativos e análise de desempenho.",
   applicationName: "Simulai OAB",
   keywords: [
     "OAB",

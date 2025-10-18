@@ -26,7 +26,7 @@ export default function LoginPage() {
               className="h-24 w-auto"
             />
           </div>
-          <p className="text-navy-600">
+          <p className="text-navy-400">
             Preparação inteligente para o Exame da OAB
           </p>
         </div>
@@ -75,7 +75,7 @@ export default function LoginPage() {
         </div>
 
         {/* Rodapé */}
-        <p className="text-center text-sm text-navy-700 mt-8">
+        <p className="text-center text-sm text-navy-400 mt-8">
           Ao entrar, você concorda com nossos{' '}
           <Link href="/terms" className="text-blue-400 hover:text-blue-300">
             Termos de Uso

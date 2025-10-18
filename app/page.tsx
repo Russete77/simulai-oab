@@ -44,7 +44,7 @@ export default function Home() {
         <div className="grid md:grid-cols-3 gap-6 mt-12 animate-slide-up" style={{ animationDelay: '0.3s' }}>
           <div className="bg-navy-900/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:border-blue-500/50 transition-all">
             <div className="text-4xl mb-4">📚</div>
-            <h3 className="text-lg font-semibold text-white mb-2">2.469 Questões Reais</h3>
+            <h3 className="text-lg font-semibold text-white mb-2">5.605 Questões Reais</h3>
             <p className="text-sm text-navy-600">
               Questões autênticas da OAB de 2010 a 2025
             </p>
@@ -54,7 +54,7 @@ export default function Home() {
             <div className="text-4xl mb-4">🎯</div>
             <h3 className="text-lg font-semibold text-white mb-2">Simulados Adaptativos</h3>
             <p className="text-sm text-navy-600">
-              IA que se adapta ao seu nível de conhecimento
+              IA que adapta ao seu nível de conhecimento e revisa seus erros
             </p>
           </div>
 
@@ -69,7 +69,7 @@ export default function Home() {
 
         <div className="text-sm text-navy-700 mt-8">
           <p>
-            Plataforma completa com backend pronto e 16 matérias cobertas
+            Plataforma completa com questões oficiais da OAB, revisão comentada Gpt4o e chatbot com IA para tirar suas dúvidas jurídicas.
           </p>
         </div>
       </div>

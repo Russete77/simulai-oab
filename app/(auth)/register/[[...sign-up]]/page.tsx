@@ -26,7 +26,7 @@ export default function RegisterPage() {
               className="h-24 w-auto"
             />
           </div>
-          <p className="text-navy-600">
+          <p className="text-navy-400">
             Comece sua preparação agora
           </p>
         </div>
@@ -75,7 +75,7 @@ export default function RegisterPage() {
         </div>
 
         {/* Rodapé */}
-        <p className="text-center text-sm text-navy-700 mt-8">
+        <p className="text-center text-sm text-navy-400 mt-8">
           Ao criar uma conta, você concorda com nossos{' '}
           <Link href="/terms" className="text-blue-400 hover:text-blue-300">
             Termos de Uso
