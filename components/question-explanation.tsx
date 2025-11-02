@@ -138,7 +138,7 @@ export function QuestionExplanation({
 
         {/* Cards estruturados de explicação */}
         <ExplanationCards
-          explanation={data.explanation}
+          explanation={data.explanation as any}
           isCorrect={data.metadata.isCorrect}
         />
       </div>
