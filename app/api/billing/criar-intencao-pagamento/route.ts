@@ -88,19 +88,39 @@ export async function POST(req: NextRequest) {
 
     // Se o Payment Intent não foi criado, finalizar a invoice para criar
     if (!paymentIntent && invoice?.id) {
-      console.log('[CRIAR_INTENCAO_PAGAMENTO] Finalizing invoice to create Payment Intent...');
+      console.log('[CRIAR_INTENCAO_PAGAMENTO] Payment Intent missing, checking invoice status...');
 
-      invoice = await stripe.invoices.finalizeInvoice(invoice.id, {
-        expand: ['payment_intent'],
-      });
+      // Só finalizar se a invoice estiver em draft
+      if (invoice.status === 'draft') {
+        console.log('[CRIAR_INTENCAO_PAGAMENTO] Invoice is draft, finalizing...');
 
-      paymentIntent = invoice.payment_intent;
+        invoice = await stripe.invoices.finalizeInvoice(invoice.id, {
+          expand: ['payment_intent'],
+        });
 
-      console.log('[CRIAR_INTENCAO_PAGAMENTO] After finalize:', {
-        invoiceStatus: invoice.status,
-        hasPaymentIntent: !!paymentIntent,
-        paymentIntentId: paymentIntent?.id,
-      });
+        paymentIntent = invoice.payment_intent;
+
+        console.log('[CRIAR_INTENCAO_PAGAMENTO] After finalize:', {
+          invoiceStatus: invoice.status,
+          hasPaymentIntent: !!paymentIntent,
+          paymentIntentId: paymentIntent?.id,
+        });
+      } else {
+        // Invoice já finalizada, buscar payment intent diretamente
+        console.log('[CRIAR_INTENCAO_PAGAMENTO] Invoice already finalized, retrieving...');
+
+        invoice = await stripe.invoices.retrieve(invoice.id, {
+          expand: ['payment_intent'],
+        });
+
+        paymentIntent = invoice.payment_intent;
+
+        console.log('[CRIAR_INTENCAO_PAGAMENTO] After retrieve:', {
+          invoiceStatus: invoice.status,
+          hasPaymentIntent: !!paymentIntent,
+          paymentIntentId: paymentIntent?.id,
+        });
+      }
     }
 
     console.log('[CRIAR_INTENCAO_PAGAMENTO] Final Payment Intent:', {

@@ -404,7 +404,6 @@ model Customer {
   id                String   @id @default(cuid())
   userId            String   @unique
   stripeCustomerId  String   @unique  // ID do cliente no Stripe (cus_XXXXX)
-  asaasCustomerId   String?  @unique  // ID do cliente no Asaas (legacy - não usado)
 
   // Dados do cliente
   name              String
