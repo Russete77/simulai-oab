@@ -157,8 +157,12 @@ export async function handleSubscriptionCreated(
       status: mapStripeStatus(subscription.status) as any,
       value: amount / 100, // Stripe usa centavos
       cycle: determineCycleFromPrice(priceId),
-      currentPeriodStart: new Date(subscription.current_period_start * 1000),
-      currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+      currentPeriodStart: subscription.current_period_start
+        ? new Date(subscription.current_period_start * 1000)
+        : null,
+      currentPeriodEnd: subscription.current_period_end
+        ? new Date(subscription.current_period_end * 1000)
+        : null,
       cancelAtPeriodEnd: subscription.cancel_at_period_end,
       trialStart: subscription.trial_start
         ? new Date(subscription.trial_start * 1000)
@@ -233,8 +237,12 @@ export async function handleSubscriptionUpdated(
       value: amount / 100,
       stripePriceId: priceId,
       plan,
-      currentPeriodStart: new Date(subscription.current_period_start * 1000),
-      currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+      currentPeriodStart: subscription.current_period_start
+        ? new Date(subscription.current_period_start * 1000)
+        : null,
+      currentPeriodEnd: subscription.current_period_end
+        ? new Date(subscription.current_period_end * 1000)
+        : null,
       cancelAtPeriodEnd: subscription.cancel_at_period_end,
       canceledAt: subscription.canceled_at
         ? new Date(subscription.canceled_at * 1000)
