@@ -76,20 +76,44 @@ export async function POST(req: NextRequest) {
       hasInvoice: !!subscription.latest_invoice,
     });
 
-    // Extrair clientSecret do PaymentIntent da invoice
-    const invoice = subscription.latest_invoice as any;
-    const paymentIntent = invoice?.payment_intent;
+    // Extrair invoice
+    let invoice = subscription.latest_invoice as any;
+    let paymentIntent = invoice?.payment_intent;
 
-    console.log('[CRIAR_INTENCAO_PAGAMENTO] Payment Intent:', {
+    console.log('[CRIAR_INTENCAO_PAGAMENTO] Initial Payment Intent:', {
+      hasPaymentIntent: !!paymentIntent,
+      invoiceStatus: invoice?.status,
+      invoiceId: invoice?.id,
+    });
+
+    // Se o Payment Intent não foi criado, finalizar a invoice para criar
+    if (!paymentIntent && invoice?.id) {
+      console.log('[CRIAR_INTENCAO_PAGAMENTO] Finalizing invoice to create Payment Intent...');
+
+      invoice = await stripe.invoices.finalizeInvoice(invoice.id, {
+        expand: ['payment_intent'],
+      });
+
+      paymentIntent = invoice.payment_intent;
+
+      console.log('[CRIAR_INTENCAO_PAGAMENTO] After finalize:', {
+        invoiceStatus: invoice.status,
+        hasPaymentIntent: !!paymentIntent,
+        paymentIntentId: paymentIntent?.id,
+      });
+    }
+
+    console.log('[CRIAR_INTENCAO_PAGAMENTO] Final Payment Intent:', {
       hasPaymentIntent: !!paymentIntent,
       hasClientSecret: !!paymentIntent?.client_secret,
       paymentIntentStatus: paymentIntent?.status,
     });
 
     if (!paymentIntent?.client_secret) {
-      console.error('[CRIAR_INTENCAO_PAGAMENTO] Missing client_secret', {
+      console.error('[CRIAR_INTENCAO_PAGAMENTO] Missing client_secret after finalize', {
         subscriptionId: subscription.id,
         invoiceId: invoice?.id,
+        invoiceStatus: invoice?.status,
         paymentIntentId: paymentIntent?.id,
       });
       throw new Error('Erro ao criar subscription - client_secret não encontrado');
