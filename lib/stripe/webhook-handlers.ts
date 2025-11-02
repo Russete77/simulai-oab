@@ -116,8 +116,23 @@ export async function handleSubscriptionCreated(
     include: { customer: true },
   });
 
-  if (!user || !user.customer) {
-    throw new Error(`User or customer not found: ${clerkUserId}`);
+  if (!user) {
+    throw new Error(`User not found: ${clerkUserId}`);
+  }
+
+  // Criar customer se não existir
+  let customer = user.customer;
+  if (!customer) {
+    const stripeCustomerId = subscription.customer as string;
+    customer = await prisma.customer.create({
+      data: {
+        userId: user.id,
+        stripeCustomerId,
+        name: user.name || 'Unknown',
+        email: user.email,
+      },
+    });
+    console.log('[WEBHOOK] Customer created:', customer.id);
   }
 
   const priceId = subscription.items.data[0]?.price.id;
@@ -130,7 +145,7 @@ export async function handleSubscriptionCreated(
   // Criar subscription no banco
   await prisma.subscription.create({
     data: {
-      customerId: user.customer.id,
+      customerId: customer.id,
       stripeSubscriptionId: subscription.id,
       stripePriceId: priceId,
       stripeProductId: productId,

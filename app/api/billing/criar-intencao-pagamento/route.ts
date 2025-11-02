@@ -70,11 +70,28 @@ export async function POST(req: NextRequest) {
       },
     });
 
+    console.log('[CRIAR_INTENCAO_PAGAMENTO] Subscription created:', {
+      id: subscription.id,
+      status: subscription.status,
+      hasInvoice: !!subscription.latest_invoice,
+    });
+
     // Extrair clientSecret do PaymentIntent da invoice
     const invoice = subscription.latest_invoice as any;
     const paymentIntent = invoice?.payment_intent;
 
+    console.log('[CRIAR_INTENCAO_PAGAMENTO] Payment Intent:', {
+      hasPaymentIntent: !!paymentIntent,
+      hasClientSecret: !!paymentIntent?.client_secret,
+      paymentIntentStatus: paymentIntent?.status,
+    });
+
     if (!paymentIntent?.client_secret) {
+      console.error('[CRIAR_INTENCAO_PAGAMENTO] Missing client_secret', {
+        subscriptionId: subscription.id,
+        invoiceId: invoice?.id,
+        paymentIntentId: paymentIntent?.id,
+      });
       throw new Error('Erro ao criar subscription - client_secret não encontrado');
     }
 
