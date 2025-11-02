@@ -8,6 +8,7 @@ import type { AnswerQuestionResponse } from "@/types/api";
 import { checkRateLimit, answerRateLimit } from "@/lib/rate-limit";
 import { createError } from "@/lib/errors";
 import { logger } from "@/lib/logger";
+import { incrementQuestionCount } from "@/lib/billing/limits";
 
 export async function POST(request: NextRequest) {
   try {
@@ -105,6 +106,9 @@ export async function POST(request: NextRequest) {
     // Modo prática: fazer gamificação completa
     await answerPromise;
 
+    // TODO: Incrementar contador de questões diárias (aguardando migração do Prisma)
+    // await incrementQuestionCount(user.id);
+
     if (user.profile) {
       const currentProfile = user.profile;
 
@@ -155,13 +159,28 @@ export async function POST(request: NextRequest) {
 
           const newAchievements = checkAchievements(userStats, unlockedKeys);
 
-          for (const achievement of newAchievements) {
-            let dbAchievement = await prisma.achievement.findUnique({
-              where: { key: achievement.key },
-            });
+          if (newAchievements.length === 0) return;
 
-            if (!dbAchievement) {
-              dbAchievement = await prisma.achievement.create({
+          // OTIMIZAÇÃO: Buscar TODOS os achievements de uma vez
+          const achievementKeys = newAchievements.map(a => a.key);
+          const existingAchievements = await prisma.achievement.findMany({
+            where: { key: { in: achievementKeys } },
+            select: { id: true, key: true },
+          });
+
+          const existingAchievementMap = new Map(
+            existingAchievements.map(a => [a.key, a.id])
+          );
+
+          // Criar achievements que não existem (em batch se possível)
+          const achievementsToCreate = newAchievements.filter(
+            a => !existingAchievementMap.has(a.key)
+          );
+
+          if (achievementsToCreate.length > 0) {
+            // Criar achievements faltantes
+            for (const achievement of achievementsToCreate) {
+              const created = await prisma.achievement.create({
                 data: {
                   key: achievement.key,
                   name: achievement.name,
@@ -170,19 +189,28 @@ export async function POST(request: NextRequest) {
                   points: achievement.points,
                 },
               });
+              existingAchievementMap.set(created.key, created.id);
             }
+          }
 
-            await prisma.userAchievement.create({
-              data: {
-                userId: user.id,
-                achievementId: dbAchievement.id,
-              },
-            });
+          // Criar userAchievements em uma transação
+          const userAchievementsData = newAchievements.map(achievement => ({
+            userId: user.id,
+            achievementId: existingAchievementMap.get(achievement.key)!,
+          }));
 
+          await prisma.userAchievement.createMany({
+            data: userAchievementsData,
+            skipDuplicates: true,
+          });
+
+          // Atualizar pontos do perfil UMA VEZ com total
+          const totalPoints = newAchievements.reduce((sum, a) => sum + a.points, 0);
+          if (totalPoints > 0) {
             await prisma.userProfile.update({
               where: { userId: user.id },
               data: {
-                totalPoints: { increment: achievement.points },
+                totalPoints: { increment: totalPoints },
               },
             });
           }

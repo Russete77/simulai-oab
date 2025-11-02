@@ -59,15 +59,22 @@ const SUBJECT_LABELS: Record<Subject, string> = {
 };
 
 export async function getUserAnalytics(userId: string): Promise<AnalyticsData> {
-  // Get all user answers
+  // Get user answers (limit to last 1000 for performance)
+  // 1000 é mais que suficiente para estatísticas precisas e evita timeout
   const userAnswers = await prisma.userAnswer.findMany({
     where: { userId },
     include: {
       question: {
-        include: { alternatives: true },
+        select: {
+          id: true,
+          subject: true,
+          statement: true,
+          // Não incluir alternatives completas para reduzir payload
+        },
       },
     },
     orderBy: { createdAt: "desc" },
+    take: 1000, // Limitar para evitar timeout em usuários muito ativos
   });
 
   // Calculate overview

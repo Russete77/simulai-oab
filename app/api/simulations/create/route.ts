@@ -6,6 +6,7 @@ import { SimulationType, Prisma } from "@prisma/client";
 import { checkRateLimit, simulationRateLimit } from "@/lib/rate-limit";
 import { createError } from "@/lib/errors";
 import { logger } from "@/lib/logger";
+import { checkSimulationLimit, incrementSimulationCount } from "@/lib/billing/limits";
 
 /**
  * Embaralha questões com diversificação de anos
@@ -93,6 +94,27 @@ export async function POST(request: NextRequest) {
     const user = await requireAuth();
     const body = await request.json();
 
+    // Verificar limite mensal de simulados
+    const limitCheck = await checkSimulationLimit(user.id);
+    if (!limitCheck.allowed) {
+      logger.warn("Monthly simulation limit exceeded", {
+        userId: user.id,
+        limit: limitCheck.limit,
+        current: limitCheck.current
+      });
+      return NextResponse.json(
+        {
+          error: "Limite mensal de simulados atingido",
+          limit: limitCheck.limit,
+          current: limitCheck.current,
+          resetAt: limitCheck.resetAt,
+          planType: user.planType,
+          message: `Você atingiu o limite de ${limitCheck.limit} simulados por mês do plano ${user.planType}. Faça upgrade para continuar!`
+        },
+        { status: 429 }
+      );
+    }
+
     // Rate limiting para criação de simulados
     const { success } = await checkRateLimit(user.id, simulationRateLimit);
     if (!success) {
@@ -141,7 +163,17 @@ export async function POST(request: NextRequest) {
       const questionPromises = subjectEntries.map(async ([subject, count]) => {
         if (count === 0) return [];
 
-        // ESTRATÉGIA: Buscar MAIS questões para poder filtrar e aleatorizar
+        // OTIMIZAÇÃO: Stage 1 - Contar questões não respondidas disponíveis
+        const availableCount = await prisma.question.count({
+          where: {
+            subject: subject as any,
+            nullified: false,
+            id: { notIn: Array.from(answeredQuestionIds) },
+          },
+        });
+
+        // Stage 2 - Buscar quantidade otimizada (1.5x para margem de segurança)
+        const fetchMultiplier = availableCount >= count ? 1.5 : 2.5;
         const questions = await prisma.question.findMany({
           where: {
             subject: subject as any,
@@ -152,7 +184,7 @@ export async function POST(request: NextRequest) {
             examYear: true,
             examPhase: true,
           },
-          take: count * 5, // Buscar 5x mais para ter opções
+          take: Math.ceil(count * fetchMultiplier), // Reduzido de 5x para 1.5-2.5x
         });
 
         // Filtrar questões já respondidas (priorizar não respondidas)
@@ -212,6 +244,9 @@ export async function POST(request: NextRequest) {
         totalQuestions: simulation.totalQuestions
       });
 
+      // Incrementar contador mensal de simulados
+      await incrementSimulationCount(user.id);
+
       return NextResponse.json(simulation);
     }
 
@@ -239,7 +274,18 @@ export async function POST(request: NextRequest) {
 
     const answeredQuestionIds = new Set(answeredQuestions.map(a => a.questionId));
 
-    // Buscar mais questões para ter opções de aleatorização
+    // OTIMIZAÇÃO: Stage 1 - Contar questões não respondidas disponíveis
+    const whereNotAnswered: Prisma.QuestionWhereInput = {
+      ...where,
+      id: { notIn: Array.from(answeredQuestionIds) },
+    };
+
+    const availableCount = await prisma.question.count({
+      where: whereNotAnswered,
+    });
+
+    // Stage 2 - Buscar quantidade otimizada baseada na disponibilidade
+    const fetchMultiplier = availableCount >= questionCount ? 1.5 : 2.5;
     const allQuestions = await prisma.question.findMany({
       where,
       select: {
@@ -247,7 +293,7 @@ export async function POST(request: NextRequest) {
         examYear: true,
         examPhase: true,
       },
-      take: questionCount * 3, // Buscar 3x mais para ter opções
+      take: Math.ceil(questionCount * fetchMultiplier), // Reduzido de 3x para 1.5-2.5x
     });
 
     // Filtrar e priorizar questões não respondidas
@@ -292,6 +338,9 @@ export async function POST(request: NextRequest) {
       type: simulation.type,
       totalQuestions: simulation.totalQuestions
     });
+
+    // Incrementar contador mensal de simulados
+    await incrementSimulationCount(user.id);
 
     return NextResponse.json(simulation);
   } catch (error) {

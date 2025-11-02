@@ -2,6 +2,7 @@ import { Webhook } from 'svix'
 import { headers } from 'next/headers'
 import { WebhookEvent } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/db/prisma'
+import { getServicoEmail } from '@/lib/email/servico-email'
 
 export async function POST(req: Request) {
   const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET
@@ -86,6 +87,19 @@ export async function POST(req: Request) {
       })
 
       console.log(`[webhook.clerk] Usuário criado: ${email}`, { clerkId: id })
+
+      // Enviar email de boas-vindas
+      try {
+        const servicoEmail = getServicoEmail()
+        await servicoEmail.enviarBoasVindas({
+          destinatario: email,
+          nomeUsuario: name || 'Estudante',
+        })
+        console.log(`[webhook.clerk] Email de boas-vindas enviado para: ${email}`)
+      } catch (emailError) {
+        // Não bloquear o webhook se o email falhar
+        console.error('[webhook.clerk] Erro ao enviar email de boas-vindas:', emailError)
+      }
     }
 
     // Evento: Usuário atualizado

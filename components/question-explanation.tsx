@@ -1,10 +1,9 @@
 'use client';
 
-import { useState } from "react";
 import { useExplanation } from "@/hooks/use-explanation";
 import { Card, Button } from "@/components/ui";
-import { Sparkles, MessageCircle, ChevronDown, ChevronUp } from "lucide-react";
-import ReactMarkdown from "react-markdown";
+import { Sparkles, MessageCircle } from "lucide-react";
+import { ExplanationCards } from "@/components/explanation-cards";
 
 interface QuestionExplanationProps {
   questionId: string;
@@ -16,7 +15,6 @@ export function QuestionExplanation({
   onOpenChat,
 }: QuestionExplanationProps) {
   const { data, loading, error, fetchExplanation } = useExplanation(questionId);
-  const [expanded, setExpanded] = useState(false);
 
   // Antes de carregar
   if (!data && !loading && !error) {
@@ -138,51 +136,11 @@ export function QuestionExplanation({
           </div>
         )}
 
-        {/* Conteúdo da explicação */}
-        <div
-          className={`relative ${
-            !expanded && "max-h-[400px] overflow-hidden"
-          }`}
-        >
-          <div className="prose prose-invert prose-blue max-w-none
-            prose-headings:font-['Inter'] prose-headings:text-white prose-headings:font-semibold prose-headings:tracking-tight
-            prose-h2:text-xl prose-h2:mb-3 prose-h2:mt-6 prose-h2:text-blue-200
-            prose-h3:text-lg prose-h3:mb-2 prose-h3:mt-4 prose-h3:text-blue-300
-            prose-p:font-['Plus_Jakarta_Sans'] prose-p:text-white/90 prose-p:text-[15px] prose-p:leading-[1.75] prose-p:mb-4
-            prose-strong:text-blue-300 prose-strong:font-semibold
-            prose-li:font-['Plus_Jakarta_Sans'] prose-li:text-white/90 prose-li:text-[14.5px] prose-li:leading-[1.7] prose-li:mb-1.5
-            prose-ul:my-3 prose-ol:my-3
-            prose-code:font-['JetBrains_Mono'] prose-code:text-cyan-300 prose-code:text-sm prose-code:bg-navy-800/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded">
-            <ReactMarkdown>{data.explanation}</ReactMarkdown>
-          </div>
-
-          {/* Gradient overlay quando não expandido */}
-          {!expanded && (
-            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-navy-900 to-transparent pointer-events-none" />
-          )}
-        </div>
-
-        {/* Botão expandir/recolher */}
-        <div className="mt-4 flex justify-center">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setExpanded(!expanded)}
-            className="flex items-center gap-2"
-          >
-            {expanded ? (
-              <>
-                <ChevronUp className="w-4 h-4" />
-                Recolher
-              </>
-            ) : (
-              <>
-                <ChevronDown className="w-4 h-4" />
-                Ver Explicação Completa
-              </>
-            )}
-          </Button>
-        </div>
+        {/* Cards estruturados de explicação */}
+        <ExplanationCards
+          explanation={data.explanation}
+          isCorrect={data.metadata.isCorrect}
+        />
       </div>
     </Card>
   );

@@ -12,23 +12,29 @@ export default async function SimulationPage({ params }: { params: Promise<{ id:
 
   const { id } = await params;
 
+  // OTIMIZAÇÃO: Buscar apenas informações básicas + IDs das questões
+  // Questões individuais serão carregadas sob demanda no client
   const simulation = await prisma.simulation.findUnique({
     where: { id },
-    include: {
+    select: {
+      id: true,
+      userId: true,
+      type: true,
+      status: true,
+      totalQuestions: true,
+      score: true,
+      timeSpent: true,
+      subjects: true,
+      targetDifficulty: true,
+      startedAt: true,
+      completedAt: true,
+      createdAt: true,
+      updatedAt: true,
       questions: {
-        include: {
-          question: {
-            include: {
-              alternatives: {
-                select: {
-                  id: true,
-                  label: true,
-                  text: true,
-                  questionId: true,
-                },
-              },
-            },
-          },
+        select: {
+          id: true,
+          questionId: true,
+          order: true,
         },
         orderBy: { order: 'asc' },
       },

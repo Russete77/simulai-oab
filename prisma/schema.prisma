@@ -58,6 +58,37 @@ enum PlanType {
   FREE
   BASIC
   PRO
+  PREMIUM
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  TRIALING
+  PAST_DUE
+  CANCELED
+  UNPAID
+  INCOMPLETE
+  INCOMPLETE_EXPIRED
+  PAUSED
+}
+
+enum PaymentStatus {
+  PENDING
+  CONFIRMED
+  RECEIVED
+  OVERDUE
+  REFUNDED
+  FAILED
+}
+
+enum PaymentMethod {
+  CARD
+  BOLETO
+  APPLE_PAY
+  GOOGLE_PAY
+  CASH_APP_PAY
+  ACH_DEBIT
+  OTHER
 }
 
 // ============================================================================
@@ -74,6 +105,16 @@ model User {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
+  // Controle de limites de uso (reset diário/mensal)
+  dailyQuestionsCount       Int      @default(0)
+  dailyQuestionsResetAt     DateTime?
+  monthlySimulationsCount   Int      @default(0)
+  monthlySimulationsResetAt DateTime?
+  dailyAiExplanationsCount  Int      @default(0)
+  dailyAiExplanationsResetAt DateTime?
+  dailyAiChatsCount         Int      @default(0)
+  dailyAiChatsResetAt       DateTime?
+
   // Relations
   answers       UserAnswer[]
   simulations   Simulation[]
@@ -81,6 +122,7 @@ model User {
   achievements  UserAchievement[]
   studyPlans    StudyPlan[]
   chatSessions  UserQuestionChat[]
+  customer      Customer?
 
   @@index([email])
   @@index([clerkId])
@@ -106,6 +148,12 @@ model UserProfile {
   // Study preferences
   dailyGoal         Int      @default(20)
   preferredSubjects Subject[]
+
+  // Onboarding tracking
+  onboardingCompleted      Boolean   @default(false)
+  onboardingStep           Int       @default(0)  // 0=not started, 1-3=steps, 4=completed
+  onboardingStartedAt      DateTime?
+  onboardingCompletedAt    DateTime?
 
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
@@ -190,6 +238,8 @@ model UserAnswer {
   @@index([questionId])
   @@index([simulationId])
   @@index([userId, isCorrect])
+  @@index([userId, createdAt])
+  @@index([questionId, isCorrect])
 }
 
 // ============================================================================
@@ -221,6 +271,7 @@ model Simulation {
 
   @@index([userId, status])
   @@index([createdAt])
+  @@index([userId, createdAt])
 }
 
 model SimulationQuestion {
@@ -343,4 +394,147 @@ model UserQuestionChat {
   @@index([userId, questionId])
   @@index([userId])
   @@index([questionId])
+}
+
+// ============================================================================
+// BILLING & PAYMENTS (STRIPE)
+// ============================================================================
+
+model Customer {
+  id                String   @id @default(cuid())
+  userId            String   @unique
+  stripeCustomerId  String   @unique  // ID do cliente no Stripe (cus_XXXXX)
+
+  // Dados do cliente
+  name              String
+  email             String
+  phone             String?
+  cpfCnpj           String?  // Opcional para billing brasileiro
+
+  // Relações
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subscriptions     Subscription[]
+  payments          Payment[]
+
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([userId])
+  @@index([stripeCustomerId])
+}
+
+model Subscription {
+  id                    String             @id @default(cuid())
+  customerId            String
+  stripeSubscriptionId  String?            @unique  // ID da assinatura no Stripe
+  stripePriceId         String?            // Price ID do Stripe
+  stripeProductId       String?            // Product ID do Stripe
+
+  // Plano
+  plan                  String             // "BASIC_MONTHLY", "PRO_YEARLY", etc
+  status                SubscriptionStatus @default(ACTIVE)
+
+  // Valores
+  value                 Float              // Valor por período
+  discount              Float?             // Desconto aplicado
+
+  // Configuração
+  cycle                 String             // "MONTHLY", "QUARTERLY", "YEARLY"
+
+  // Períodos (Stripe)
+  currentPeriodStart    DateTime?
+  currentPeriodEnd      DateTime?
+  cancelAtPeriodEnd     Boolean            @default(false)
+
+  // Trial
+  trialStart            DateTime?
+  trialEnd              DateTime?
+
+  // Datas
+  startDate             DateTime           @default(now())
+  endDate               DateTime?
+  canceledAt            DateTime?
+
+  // Relacionamentos
+  customer              Customer           @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  payments              Payment[]
+
+  // Metadados
+  metadata              Json?              // Dados extras (cupom, origem, etc)
+
+  createdAt             DateTime           @default(now())
+  updatedAt             DateTime           @updatedAt
+
+  @@index([customerId])
+  @@index([status])
+  @@index([stripeSubscriptionId])
+  @@index([stripePriceId])
+  @@index([currentPeriodEnd])
+}
+
+model Payment {
+  id                      String        @id @default(cuid())
+  customerId              String
+  subscriptionId          String?
+  stripePaymentId         String        @unique  // ID do pagamento no Stripe (ch_XXXXX ou pi_XXXXX)
+  stripePaymentIntentId   String?       // Payment Intent ID
+  stripeInvoiceId         String?       // Invoice ID
+
+  // Valores
+  value                   Float
+  netValue                Float?        // Valor líquido (após taxas)
+
+  // Status e método
+  status                  PaymentStatus
+  paymentMethod           PaymentMethod
+
+  // Dados de pagamento
+  dueDate                 DateTime
+  paymentDate             DateTime?
+  confirmedDate           DateTime?
+
+  // Stripe URLs
+  receiptUrl              String?       // URL do recibo
+  invoiceUrl              String?       // URL da fatura
+
+  // Cartão
+  creditCardBrand         String?
+  creditCardLast4         String?
+
+  // Relacionamentos
+  customer                Customer      @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  subscription            Subscription? @relation(fields: [subscriptionId], references: [id], onDelete: SetNull)
+
+  // Webhooks recebidos
+  webhookEvents           Json?
+
+  // Metadados
+  description             String?
+  externalReference       String?
+
+  createdAt               DateTime      @default(now())
+  updatedAt               DateTime      @updatedAt
+
+  @@index([customerId])
+  @@index([subscriptionId])
+  @@index([status])
+  @@index([dueDate])
+  @@index([stripePaymentId])
+  @@index([stripePaymentIntentId])
+}
+
+model WebhookLog {
+  id          String   @id @default(cuid())
+  event       String   // "PAYMENT_RECEIVED", "PAYMENT_OVERDUE", etc
+  payload     Json     // Payload completo do webhook
+  processed   Boolean  @default(false)
+  error       String?  @db.Text
+
+  createdAt   DateTime @default(now())
+  processedAt DateTime?
+
+  @@index([event])
+  @@index([processed])
+  @@index([createdAt])
+  @@index([processed, createdAt])
 }

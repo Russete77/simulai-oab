@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "@/lib/auth";
 import { chatAboutQuestion } from "@/lib/ai/explanation-service";
 import { prisma } from "@/lib/db/prisma";
+import { checkAiChatLimit, incrementAiChatCount } from "@/lib/billing/limits";
 
 export async function POST(
   request: NextRequest,
@@ -18,6 +19,23 @@ export async function POST(
       return NextResponse.json(
         { error: "Mensagem inválida" },
         { status: 400 }
+      );
+    }
+
+    // Verificar limite diário de chat IA
+    const limitCheck = await checkAiChatLimit(user.id);
+    if (!limitCheck.allowed) {
+      console.log(`⛔ Limite de chat IA atingido para usuário ${user.id}`);
+      return NextResponse.json(
+        {
+          error: "Limite diário de conversas com IA atingido",
+          limit: limitCheck.limit,
+          current: limitCheck.current,
+          resetAt: limitCheck.resetAt,
+          planType: user.planType,
+          message: `Você atingiu o limite de ${limitCheck.limit} mensagens no chat por dia do plano ${user.planType}. Faça upgrade para Pro ou Premium!`
+        },
+        { status: 429 }
       );
     }
 
@@ -42,6 +60,9 @@ export async function POST(
       message,
       chatHistory
     );
+
+    // Incrementar contador de chat IA
+    await incrementAiChatCount(user.id);
 
     // Salvar conversa no banco (opcional, para histórico)
     try {

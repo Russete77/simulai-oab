@@ -4,12 +4,11 @@ import { useEffect, useState } from 'react';
 
 // Força renderização dinâmica para garantir que ClerkProvider esteja disponível
 export const dynamic = 'force-dynamic';
-import { Card, Button } from '@/components/ui';
+import { Card, Button, StatsCard } from '@/components/ui';
 import { Header } from '@/components/layout/header';
 import { PerformanceChart } from '@/components/analytics/performance-chart';
 import { SubjectChart } from '@/components/analytics/subject-chart';
 import { ActivityChart } from '@/components/analytics/activity-chart';
-import { StatsCard } from '@/components/analytics/stats-card';
 import { ArrowLeft, Target, Clock, Flame, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 
@@ -104,6 +103,7 @@ export default function AnalyticsPage() {
         {/* Overview Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <StatsCard
+            variant="compact"
             title="Total de Questões"
             value={data.overview.totalQuestions}
             subtitle={`${data.overview.correctAnswers} corretas`}
@@ -111,6 +111,7 @@ export default function AnalyticsPage() {
             color="blue"
           />
           <StatsCard
+            variant="compact"
             title="Taxa de Acerto"
             value={`${data.overview.successRate.toFixed(1)}%`}
             subtitle="Média geral"
@@ -118,6 +119,7 @@ export default function AnalyticsPage() {
             color="green"
           />
           <StatsCard
+            variant="compact"
             title="Tempo Médio"
             value={formatTime(data.overview.averageTime)}
             subtitle="Por questão"
@@ -125,6 +127,7 @@ export default function AnalyticsPage() {
             color="purple"
           />
           <StatsCard
+            variant="compact"
             title="Sequência"
             value={data.overview.streak}
             subtitle={data.overview.streak === 1 ? "acerto seguido" : "acertos seguidos"}

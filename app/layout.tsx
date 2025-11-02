@@ -3,7 +3,6 @@ import { Inter, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ptBR } from "@clerk/localizations";
 import { Toaster } from "sonner";
-import { ClerkDebug } from "@/components/debug/clerk-debug";
 import "./globals.css";
 
 const inter = Inter({
@@ -103,7 +102,6 @@ export default function RootLayout({
               className: "bg-navy-900 border-navy-800 text-white",
             }}
           />
-          <ClerkDebug />
         </body>
       </html>
     );
@@ -114,7 +112,6 @@ export default function RootLayout({
       publishableKey={publishableKey}
       localization={ptBR}
       telemetry={false}
-      clerkJSUrl="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"
       appearance={{
         baseTheme: undefined,
       }}
@@ -134,7 +131,6 @@ export default function RootLayout({
               className: "bg-navy-900 border-navy-800 text-white",
             }}
           />
-          <ClerkDebug />
         </body>
       </html>
     </ClerkProvider>

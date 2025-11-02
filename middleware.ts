@@ -8,6 +8,7 @@ const isPublicRoute = createRouteMatcher([
   '/forgot-password(.*)',
   '/terms',
   '/privacy',
+  '/pricing',
   '/api/webhooks(.*)',
 ])
 
@@ -24,7 +25,10 @@ export default clerkMiddleware(
   },
   {
     // Necessário para permitir CORS quando usando domínio customizado (clerk.simulaioab.com)
-    authorizedParties: ['https://www.simulaioab.com'],
+    // Em desenvolvimento (localhost), não precisa de authorizedParties
+    ...(process.env.NODE_ENV === 'production' && {
+      authorizedParties: ['https://www.simulaioab.com'],
+    }),
   }
 )
 

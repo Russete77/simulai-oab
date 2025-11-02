@@ -4,6 +4,7 @@ import { Header } from "@/components/layout/header";
 import { StatsCard, Card, Progress, Button } from "@/components/ui";
 import { BookOpen, Target, Flame, Trophy, TrendingUp, Play, BarChart3, Crown } from "lucide-react";
 import Link from "next/link";
+import { OnboardingWrapper } from "@/components/onboarding/onboarding-wrapper";
 
 // Força renderização dinâmica para garantir que ClerkProvider esteja disponível
 export const dynamic = 'force-dynamic';
@@ -22,6 +23,7 @@ export default async function DashboardPage() {
   return (
     <div className="min-h-screen bg-navy-950">
       <Header />
+      <OnboardingWrapper />
 
       {/* Main Content */}
       <main id="main-content" role="main" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -65,7 +67,7 @@ export default async function DashboardPage() {
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
           <Card variant="glass">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-xl font-bold text-white">Iniciar Prática</h3>
@@ -77,6 +79,21 @@ export default async function DashboardPage() {
             <Link href="/practice">
               <Button variant="primary" className="w-full">
                 Começar Agora
+              </Button>
+            </Link>
+          </Card>
+
+          <Card variant="glass" className="border-amber-500/20 bg-amber-500/5">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xl font-bold text-white">Revisão Inteligente</h3>
+              <Flame className="w-6 h-6 text-amber-400" />
+            </div>
+            <p className="text-navy-600 mb-6">
+              Foque nas matérias que você mais precisa
+            </p>
+            <Link href="/smart-review">
+              <Button variant="primary" className="w-full bg-gradient-to-r from-amber-600 to-orange-600">
+                Ver Recomendações
               </Button>
             </Link>
           </Card>
@@ -107,21 +124,6 @@ export default async function DashboardPage() {
             <Link href="/analytics">
               <Button variant="outline" className="w-full">
                 Ver Análise
-              </Button>
-            </Link>
-          </Card>
-
-          <Card variant="glass">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-bold text-white">Ranking</h3>
-              <Crown className="w-6 h-6 text-yellow-400" />
-            </div>
-            <p className="text-navy-600 mb-6">
-              Compare-se com outros estudantes
-            </p>
-            <Link href="/leaderboard">
-              <Button variant="outline" className="w-full">
-                Ver Ranking
               </Button>
             </Link>
           </Card>

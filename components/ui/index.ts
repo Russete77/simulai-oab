@@ -12,3 +12,5 @@ export type { StatsCardProps } from './stats-card';
 
 export { Progress } from './progress';
 export type { ProgressProps } from './progress';
+
+export { LoadingSpinner, LoadingWithText, LoadingOverlay } from './loading-spinner';

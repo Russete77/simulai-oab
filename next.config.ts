@@ -8,7 +8,7 @@ const ContentSecurityPolicy = `
   style-src 'self' 'unsafe-inline' https://*.clerk.accounts.com https://*.clerk.com;
   img-src 'self' data: https: blob: https://*.clerk.com https://*.clerk.accounts.com;
   font-src 'self' data:;
-  connect-src 'self' https://*.clerk.accounts.com https://*.clerk.com https://clerk.simulaioab.com https://*.clerk.dev ${process.env.NEXT_PUBLIC_SUPABASE_URL || ''};
+  connect-src 'self' https://*.clerk.accounts.com https://*.clerk.com https://clerk.simulaioab.com https://*.clerk.dev;
   frame-src https://*.clerk.accounts.com https://*.clerk.com https://*.clerk.dev;
   media-src 'self';
   object-src 'none';
@@ -48,7 +48,6 @@ const nextConfig: NextConfig = {
     },
   },
   images: {
-    domains: ["huggingface.co"],
     remotePatterns: [
       {
         protocol: 'https',

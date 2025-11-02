@@ -54,7 +54,7 @@ export async function generateExplanation(
 
     console.log("🤖 Gerando explicação com IA (estilo:", style, ")...");
 
-    // 3. Chamar OpenAI
+    // 3. Chamar OpenAI com configurações otimizadas
     const response = await openai.chat.completions.create({
       model: MODEL,
       messages: [
@@ -67,8 +67,9 @@ export async function generateExplanation(
           content: prompt,
         },
       ],
-      temperature: style === 'concise' ? 0.5 : 0.7,
-      max_tokens: style === 'concise' ? 400 : 800,
+      temperature: 0.3, // Mais determinístico e rápido
+      max_tokens: 500, // Reduzido para respostas mais concisas
+      response_format: { type: "json_object" }, // Força retorno em JSON
     });
 
     const explanation = response.choices[0].message.content || "";
@@ -98,47 +99,96 @@ export async function generateExplanation(
 
 function buildExplanationPrompt(context: ExplanationContext, style: 'professor' | 'concise' | 'chat' = 'professor'): string {
   const userAnswerInfo = context.userAnswer
-    ? `\n**Resposta do usuário:** ${context.userAnswer} ${
-        context.userAnswer !== context.correctAnswer ? "❌ (INCORRETA)" : "✓ (CORRETA)"
+    ? `\nResposta do usuário: ${context.userAnswer} ${
+        context.userAnswer !== context.correctAnswer ? "(INCORRETA)" : "(CORRETA)"
       }`
     : "";
 
-  return `# Questão do Exame da OAB - ${context.subject}
-**Ano:** ${context.examYear}
+  const incorrectAlternatives = context.alternatives
+    .filter(alt => !alt.isCorrect)
+    .map(alt => `${alt.label}) ${alt.text}`)
+    .join('\n');
 
-## Enunciado
+  const correctAlt = context.alternatives.find(alt => alt.isCorrect);
+
+  return `Questão de ${context.subject} - Exame OAB ${context.examYear}
+
+ENUNCIADO:
 ${context.question}
 
-## Alternativas
-${context.alternatives
-  .map(
-    (alt) =>
-      `**${alt.label})** ${alt.text} ${alt.isCorrect ? "✓ **(CORRETA)**" : ""}`
-  )
-  .join("\n\n")}
+ALTERNATIVA CORRETA: ${context.correctAnswer}) ${correctAlt?.text}
+
+ALTERNATIVAS INCORRETAS:
+${incorrectAlternatives}
 ${userAnswerInfo}
 
----
+INSTRUÇÕES:
+Retorne um JSON válido com esta estrutura EXATA (sem markdown, sem blocos de código, APENAS o JSON):
+{
+  "resumo": "1 frase objetiva sobre o tema principal",
+  "correta": {
+    "motivo": "Por que a alternativa ${context.correctAnswer} está correta (máximo 2 frases)",
+    "baseLegal": "Artigo/Lei específica (ex: Art. 5º, CF/88)"
+  },
+  "incorretas": [
+    {"alternativa": "A", "motivo": "Motivo breve (1 frase)"},
+    {"alternativa": "B", "motivo": "Motivo breve (1 frase)"}
+  ],
+  "dica": "Macete ou analogia simples para memorizar (1 frase curta)",
+  "pegadinhas": ["Cuidado com X", "Não confundir Y com Z"]
+}
 
-**Por favor, explique:**
-1. Por que a alternativa **${context.correctAnswer}** é a correta
-2. Por que as outras alternativas estão incorretas
-3. Cite a legislação aplicável (lei, artigo, etc)
-4. Dê uma dica para memorizar ou entender o conceito
-
-Use Markdown para formatar sua resposta.`;
+IMPORTANTE:
+- Seja CONCISO e DIRETO
+- Use linguagem simples
+- Máximo 2 frases por campo
+- Retorne APENAS o JSON, sem \`\`\`json ou qualquer outra formatação`;
 }
 
 function getSystemPromptForStyle(style: 'professor' | 'concise' | 'chat', subject?: string) {
-  const base = `Você é um professor especialista em ${subject || 'Direito brasileiro'} preparando candidatos para a OAB.`;
-  if (style === 'concise') {
-    return `${base}\nForneça explicações CONCISAS e DIRETAS:\n1) Por que a alternativa correta está certa (1-2 frases + base legal)\n2) Por que as outras estão erradas\n3) Base legal\n4) Dica prática.\nUse Markdown limpo. Máximo 400 palavras.`;
-  }
+  // Para CHAT: retorna prompt conversacional (texto natural)
   if (style === 'chat') {
-    return `${base}\nResponda como um assistente conversacional: seja claro, amigável e prático. Use exemplos quando útil. Formate em Markdown se apropriado.`;
+    return `Você é um professor especialista em ${subject || 'Direito brasileiro'} preparando candidatos para a OAB.
+
+Sua tarefa é responder dúvidas de forma DIDÁTICA, CONVERSACIONAL e OBJETIVA.
+
+DIRETRIZES:
+- Responda em TEXTO NATURAL (não em JSON)
+- Seja CLARO e DIDÁTICO como um professor explicando para um aluno
+- Use ANALOGIAS e EXEMPLOS quando ajudar a entender
+- Seja CONCISO: vá direto ao ponto, evite rodeios
+- Use linguagem SIMPLES, evite jargão jurídico desnecessário
+- Quando relevante, cite ARTIGOS DE LEI específicos
+- Se o aluno errou algo, corrija de forma gentil e educativa
+
+FORMATO DA RESPOSTA:
+- Use parágrafos curtos (2-3 linhas)
+- Use tópicos quando listar informações
+- Destaque pontos importantes com ênfase natural
+- Seja amigável e encorajador
+
+Exemplo de BOA resposta:
+"A alternativa C está incorreta porque confunde competência originária com recursal. O STF só julga originariamente nos casos do Art. 102, I da CF/88, e este não se encaixa.
+
+O correto seria a alternativa B, pois trata de competência do STJ (Art. 105, I). A pegadinha aqui é trocar STF por STJ.
+
+Dica: STF = Constituição | STJ = Leis Federais"`;
   }
-  // professor (default)
-  return `${base}\nExplique como um professor didático: comece com visão geral do tema, apresente a resposta correta com justificativa detalhada, discuta alternativas incorretas com exemplos práticos e finalize com um resumo e dica de memorização. Use linguagem acessível e motivadora. Formate em Markdown.`;
+
+  // Para EXPLICAÇÕES: retorna prompt para JSON estruturado
+  return `Você é um professor especialista em ${subject || 'Direito brasileiro'} preparando candidatos para a OAB.
+
+Sua tarefa é explicar questões de forma DIDÁTICA e OBJETIVA, retornando um JSON estruturado.
+
+DIRETRIZES:
+- Seja CONCISO: máximo 2 frases por campo
+- Use linguagem SIMPLES e CLARA
+- Foque no ESSENCIAL para o aluno entender e memorizar
+- Evite jargão jurídico desnecessário
+- Crie dicas PRÁTICAS de memorização
+- Identifique pegadinhas COMUNS que o examinador usa
+
+IMPORTANTE: Retorne APENAS JSON válido, sem formatação markdown ou blocos de código.`;
 }
 
 
@@ -167,7 +217,36 @@ export async function chatAboutQuestion(
     const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [
       {
         role: "system",
-        content: `${system}\n\nVocê está ajudando um estudante com dúvidas sobre uma questão específica.\n\nContexto da questão:\n**Matéria:** ${question.subject}\n**Ano:** ${question.examYear}\n**Enunciado:** ${question.statement}\n**Alternativas:**\n${question.alternatives.map((a) => `${a.label}) ${a.text}`).join("\n")}\n**Correta:** ${question.alternatives.find((a) => a.isCorrect)?.label}\n\nResponda de forma didática, clara e objetiva. Use exemplos práticos quando possível.`,
+        content: `${system}
+
+⚠️ IMPORTANTE: Você DEVE responder APENAS sobre a questão fornecida abaixo.
+
+Contexto da questão:
+**Matéria:** ${question.subject}
+**Ano:** ${question.examYear}
+**Enunciado:** ${question.statement}
+**Alternativas:**
+${question.alternatives.map((a) => `${a.label}) ${a.text}`).join("\n")}
+**Correta:** ${question.alternatives.find((a) => a.isCorrect)?.label}
+
+🚫 REGRAS OBRIGATÓRIAS:
+1. Se a pergunta do usuário NÃO estiver relacionada à questão OAB acima, responda APENAS:
+   "Desculpe, posso ajudar apenas com dúvidas sobre esta questão específica da OAB. Por favor, faça uma pergunta relacionada ao conteúdo jurídico desta questão."
+
+2. NÃO responda sobre:
+   - Assuntos gerais não relacionados à questão
+   - Programação, tecnologia, receitas, ou outros temas
+   - Questões pessoais ou de outros exames
+   - Qualquer tema fora do escopo jurídico desta questão específica
+
+3. APENAS responda se a pergunta for sobre:
+   - Conceitos jurídicos desta questão
+   - Legislação aplicável à questão
+   - Explicação das alternativas
+   - Exemplos práticos relacionados ao tema jurídico da questão
+   - Dúvidas sobre a matéria específica (${question.subject})
+
+Responda de forma didática, clara e objetiva quando a pergunta for válida.`,
       },
       ...chatHistory.map((msg) => ({
         role: msg.role as "user" | "assistant",
