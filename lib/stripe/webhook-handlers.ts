@@ -83,6 +83,8 @@ export async function handleCheckoutCompleted(
         stripeCustomerId,
         name: user.name || 'Unknown',
         email: user.email,
+        cpfCnpj: '', // Campo obrigatório no banco
+        phone: '', // Campo obrigatório no banco
       },
     });
   } else if (customer.stripeCustomerId !== stripeCustomerId) {
@@ -130,6 +132,8 @@ export async function handleSubscriptionCreated(
         stripeCustomerId,
         name: user.name || 'Unknown',
         email: user.email,
+        cpfCnpj: '', // Campo obrigatório no banco, mas não coletamos no webhook
+        phone: '', // Campo obrigatório no banco
       },
     });
     console.log('[WEBHOOK] Customer created:', customer.id);

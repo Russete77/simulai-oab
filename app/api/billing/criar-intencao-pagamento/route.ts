@@ -119,7 +119,39 @@ export async function POST(req: NextRequest) {
           invoiceStatus: invoice.status,
           hasPaymentIntent: !!paymentIntent,
           paymentIntentId: paymentIntent?.id,
+          invoiceObject: JSON.stringify({
+            id: invoice.id,
+            status: invoice.status,
+            payment_intent: invoice.payment_intent,
+            auto_advance: invoice.auto_advance,
+            collection_method: invoice.collection_method,
+          }),
         });
+
+        // Se ainda não tem Payment Intent, criar manualmente
+        if (!paymentIntent) {
+          console.log('[CRIAR_INTENCAO_PAGAMENTO] Creating Payment Intent manually...');
+
+          paymentIntent = await stripe.paymentIntents.create({
+            amount: invoice.amount_due,
+            currency: invoice.currency || 'brl',
+            customer: customer.id,
+            metadata: {
+              invoice_id: invoice.id,
+              subscription_id: subscription.id,
+              clerk_user_id: userId,
+            },
+            automatic_payment_methods: {
+              enabled: true,
+            },
+          });
+
+          console.log('[CRIAR_INTENCAO_PAGAMENTO] Manual Payment Intent created:', {
+            id: paymentIntent.id,
+            status: paymentIntent.status,
+            amount: paymentIntent.amount,
+          });
+        }
       }
     }
 
