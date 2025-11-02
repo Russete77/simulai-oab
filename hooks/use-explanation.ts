@@ -1,16 +1,8 @@
 import { useState } from "react";
-
-interface ExplanationData {
-  explanation: string;
-  metadata: {
-    isCorrect?: boolean;
-    userAnswer?: string;
-    correctAnswer: string;
-  };
-}
+import type { ExplanationResponse } from "@/types/explanation";
 
 export function useExplanation(questionId: string) {
-  const [data, setData] = useState<ExplanationData | null>(null);
+  const [data, setData] = useState<ExplanationResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
