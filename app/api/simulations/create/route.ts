@@ -252,10 +252,12 @@ export async function POST(request: NextRequest) {
     // Validar dados
     const data = CreateSimulationSchema.parse(body);
 
-    logger.info("Creating simulation", {
+    logger.info("🚀🚀🚀 VERSÃO NOVA COM WEIGHTED ALGORITHM 🚀🚀🚀 Creating simulation", {
       userId: user.id,
       type: data.type,
-      questionCount: data.questionCount
+      questionCount: data.questionCount,
+      timestamp: new Date().toISOString(),
+      version: "WEIGHTED_V2"
     });
 
     const config = SIMULATION_CONFIGS[data.type];
@@ -296,8 +298,8 @@ export async function POST(request: NextRequest) {
           },
         });
 
-        // Stage 2 - Buscar quantidade otimizada (1.5x para margem de segurança)
-        const fetchMultiplier = availableCount >= count ? 1.5 : 2.5;
+        // Stage 2 - Buscar TODAS as questões da matéria (sem take)
+        // O algoritmo WEIGHTED fará a seleção ponderada por ano
         const questions = await prisma.question.findMany({
           where: {
             subject: subject as any,
@@ -308,7 +310,7 @@ export async function POST(request: NextRequest) {
             examYear: true,
             examPhase: true,
           },
-          take: Math.ceil(count * fetchMultiplier), // Reduzido de 5x para 1.5-2.5x
+          // SEM take! Pega todas e deixa o WEIGHTED selecionar
         });
 
         // Filtrar questões já respondidas (priorizar não respondidas)
@@ -427,8 +429,8 @@ export async function POST(request: NextRequest) {
       where: whereNotAnswered,
     });
 
-    // Stage 2 - Buscar quantidade otimizada baseada na disponibilidade
-    const fetchMultiplier = availableCount >= questionCount ? 1.5 : 2.5;
+    // Stage 2 - Buscar TODAS as questões (sem take)
+    // O algoritmo WEIGHTED fará a seleção ponderada por ano
     const allQuestions = await prisma.question.findMany({
       where,
       select: {
@@ -436,7 +438,7 @@ export async function POST(request: NextRequest) {
         examYear: true,
         examPhase: true,
       },
-      take: Math.ceil(questionCount * fetchMultiplier), // Reduzido de 3x para 1.5-2.5x
+      // SEM take! Deixa o WEIGHTED selecionar com base nos pesos por ano
     });
 
     // Filtrar e priorizar questões não respondidas
