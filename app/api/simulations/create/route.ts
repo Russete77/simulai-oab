@@ -9,56 +9,129 @@ import { logger } from "@/lib/logger";
 import { checkSimulationLimit, incrementSimulationCount } from "@/lib/billing/limits";
 
 /**
- * Embaralha questões com diversificação de anos
- * Garante que não haja muitas questões seguidas do mesmo ano
+ * Fisher-Yates shuffle algorithm (correto)
+ * Melhor que Math.random() - 0.5
+ */
+function fisherYatesShuffle<T>(array: T[]): T[] {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
+/**
+ * Embaralha questões com distribuição PROPORCIONAL e BALANCEADA por ano
+ *
+ * ALGORITMO:
+ * 1. Agrupa questões por ano
+ * 2. Calcula distribuição proporcional (quantas de cada ano selecionar)
+ * 3. Seleciona aleatoriamente dentro de cada ano
+ * 4. Embaralha resultado final para evitar blocos do mesmo ano
+ *
+ * EXEMPLO:
+ * - Input: 100 questões (50 de 2010, 30 de 2012, 20 de 2015)
+ * - Precisa: 10 questões
+ * - Output: ~5 de 2010, ~3 de 2012, ~2 de 2015 (proporcional)
  */
 function shuffleWithDiversity(
   questions: Array<{ id: string; examYear: number; examPhase: number }>,
   count: number
 ): Array<{ id: string; examYear: number; examPhase: number }> {
-  // Agrupar por ano
+  if (questions.length === 0) return [];
+  if (questions.length <= count) return fisherYatesShuffle(questions);
+
+  // PASSO 1: Agrupar por ano
   const byYear = new Map<number, typeof questions>();
   questions.forEach((q) => {
-    const year = q.examYear;
-    if (!byYear.has(year)) {
-      byYear.set(year, []);
+    if (!byYear.has(q.examYear)) {
+      byYear.set(q.examYear, []);
     }
-    byYear.get(year)!.push(q);
+    byYear.get(q.examYear)!.push(q);
   });
 
-  // Embaralhar cada grupo de ano
-  byYear.forEach((yearQuestions) => {
-    yearQuestions.sort(() => Math.random() - 0.5);
-  });
+  const totalAvailable = questions.length;
+  const years = Array.from(byYear.keys()).sort((a, b) => a - b);
 
-  // Distribuir questões de forma intercalada (round-robin por ano)
-  const result: typeof questions = [];
-  const years = Array.from(byYear.keys()).sort(() => Math.random() - 0.5);
-  let yearIndex = 0;
+  // PASSO 2: Calcular distribuição proporcional
+  const distribution = new Map<number, number>();
+  let allocated = 0;
 
-  while (result.length < count && result.length < questions.length) {
-    const year = years[yearIndex];
-    const yearQuestions = byYear.get(year);
+  years.forEach((year, index) => {
+    const yearQuestions = byYear.get(year)!;
+    const proportion = yearQuestions.length / totalAvailable;
 
-    if (yearQuestions && yearQuestions.length > 0) {
-      result.push(yearQuestions.shift()!);
+    // Distribuir proporcionalmente
+    let yearCount = Math.round(proportion * count);
+
+    // Garantir que não excede disponível
+    yearCount = Math.min(yearCount, yearQuestions.length);
+
+    // Última iteração: ajustar para bater exatamente `count`
+    if (index === years.length - 1) {
+      yearCount = Math.min(count - allocated, yearQuestions.length);
     }
 
-    yearIndex = (yearIndex + 1) % years.length;
+    distribution.set(year, yearCount);
+    allocated += yearCount;
+  });
 
-    // Remover anos vazios
-    if (byYear.get(year)?.length === 0) {
-      const emptyYearIndex = years.indexOf(year);
-      if (emptyYearIndex !== -1) {
-        years.splice(emptyYearIndex, 1);
+  // PASSO 3: Se ainda falta (devido a arredondamentos), redistribuir
+  let remaining = count - allocated;
+  while (remaining > 0) {
+    // Buscar anos que ainda têm questões disponíveis
+    for (const year of years) {
+      if (remaining <= 0) break;
+
+      const currentAlloc = distribution.get(year) || 0;
+      const available = byYear.get(year)!.length;
+
+      if (currentAlloc < available) {
+        distribution.set(year, currentAlloc + 1);
+        remaining--;
       }
     }
 
-    // Se não há mais questões, parar
-    if (years.length === 0) break;
+    // Evitar loop infinito
+    if (remaining > 0 && years.every(y => (distribution.get(y) || 0) >= byYear.get(y)!.length)) {
+      break;
+    }
   }
 
-  return result.slice(0, count);
+  // PASSO 4: Selecionar questões de cada ano
+  const result: typeof questions = [];
+
+  years.forEach((year) => {
+    const yearQuestions = byYear.get(year)!;
+    const neededCount = distribution.get(year) || 0;
+
+    if (neededCount === 0) return;
+
+    // Embaralhar questões do ano e pegar as N primeiras
+    const shuffled = fisherYatesShuffle(yearQuestions);
+    result.push(...shuffled.slice(0, neededCount));
+  });
+
+  // PASSO 5: Embaralhar resultado final para diversificar ordem
+  const finalResult = fisherYatesShuffle(result).slice(0, count);
+
+  // LOGGING DETALHADO (para debug)
+  const yearDistribution = new Map<number, number>();
+  finalResult.forEach((q) => {
+    yearDistribution.set(q.examYear, (yearDistribution.get(q.examYear) || 0) + 1);
+  });
+
+  logger.info('[SHUFFLE_DIVERSITY] Distribuição final:', {
+    solicitado: count,
+    retornado: finalResult.length,
+    disponivel: totalAvailable,
+    anos: Object.fromEntries(
+      Array.from(yearDistribution.entries()).sort((a, b) => a[0] - b[0])
+    ),
+  });
+
+  return finalResult;
 }
 
 const SIMULATION_CONFIGS = {
@@ -205,13 +278,32 @@ export async function POST(request: NextRequest) {
       const questionsArrays = await Promise.all(questionPromises);
       const questions = questionsArrays.flat();
 
-      // Shuffle final para misturar matérias
-      const finalShuffled = questions.sort(() => Math.random() - 0.5);
+      // Shuffle final para misturar matérias (Fisher-Yates)
+      const finalShuffled = fisherYatesShuffle(questions);
 
-      logger.debug("Full exam simulation questions selected", {
+      // LOGGING DETALHADO: Distribuição por matéria e ano
+      const subjectDistribution: Record<string, number> = {};
+      const yearDistributionFinal = new Map<number, number>();
+
+      // Buscar informações completas das questões para logging
+      const fullQuestions = await prisma.question.findMany({
+        where: { id: { in: finalShuffled } },
+        select: { id: true, subject: true, examYear: true },
+      });
+
+      fullQuestions.forEach((q) => {
+        subjectDistribution[q.subject] = (subjectDistribution[q.subject] || 0) + 1;
+        yearDistributionFinal.set(q.examYear, (yearDistributionFinal.get(q.examYear) || 0) + 1);
+      });
+
+      logger.info('[FULL_EXAM] Distribuição de questões:', {
         userId: user.id,
-        totalQuestions: finalShuffled.length,
-        expectedQuestions: 80
+        total: finalShuffled.length,
+        esperado: 80,
+        porMateria: subjectDistribution,
+        porAno: Object.fromEntries(
+          Array.from(yearDistributionFinal.entries()).sort((a, b) => a[0] - b[0])
+        ),
       });
 
       // Criar simulado com menos includes (otimização)
@@ -307,6 +399,30 @@ export async function POST(request: NextRequest) {
     // Embaralhar com diversificação de anos
     const shuffled = shuffleWithDiversity(availableQuestions, questionCount);
     const questions = shuffled;
+
+    // LOGGING DETALHADO: Distribuição por matéria e ano (outros tipos)
+    const subjectDistribution: Record<string, number> = {};
+    const yearDistribution = new Map<number, number>();
+
+    const fullQuestions = await prisma.question.findMany({
+      where: { id: { in: questions.map(q => q.id) } },
+      select: { id: true, subject: true, examYear: true },
+    });
+
+    fullQuestions.forEach((q) => {
+      subjectDistribution[q.subject] = (subjectDistribution[q.subject] || 0) + 1;
+      yearDistribution.set(q.examYear, (yearDistribution.get(q.examYear) || 0) + 1);
+    });
+
+    logger.info(`[${data.type}] Distribuição de questões:`, {
+      userId: user.id,
+      total: questions.length,
+      esperado: questionCount,
+      porMateria: subjectDistribution,
+      porAno: Object.fromEntries(
+        Array.from(yearDistribution.entries()).sort((a, b) => a[0] - b[0])
+      ),
+    });
 
     // Criar simulado (otimizado - sem includes desnecessários)
     const simulation = await prisma.simulation.create({
