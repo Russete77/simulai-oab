@@ -35,6 +35,28 @@ export default async function SimulationPage({ params }: { params: Promise<{ id:
           id: true,
           questionId: true,
           order: true,
+          question: {
+            select: {
+              id: true,
+              examId: true,
+              examYear: true,
+              examPhase: true,
+              questionNumber: true,
+              subject: true,
+              statement: true,
+              explanation: true,
+              nullified: true,
+              alternatives: {
+                select: {
+                  id: true,
+                  label: true,
+                  text: true,
+                  isCorrect: true,
+                },
+                orderBy: { label: 'asc' },
+              },
+            },
+          },
         },
         orderBy: { order: 'asc' },
       },

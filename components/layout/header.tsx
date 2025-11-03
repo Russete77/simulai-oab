@@ -105,6 +105,12 @@ export function Header({ showLogout = true }: HeaderProps) {
                   Praticar
                 </Link>
                 <Link
+                  href="/leaderboard"
+                  className="text-navy-300 hover:text-white transition-colors font-medium"
+                >
+                  Ranking
+                </Link>
+                <Link
                   href="/pricing"
                   className="text-navy-300 hover:text-white transition-colors font-medium"
                 >

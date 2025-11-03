@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
       items: [{ price: priceId }],
       payment_behavior: 'default_incomplete',
       payment_settings: {
-        payment_method_types: ['card'],
+        payment_method_types: ['card'], // Assinaturas recorrentes: apenas cartões
         save_default_payment_method: 'on_subscription',
       },
       expand: ['latest_invoice.payment_intent'],
