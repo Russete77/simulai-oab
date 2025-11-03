@@ -156,8 +156,6 @@ export async function handleSubscriptionCreated(
       plan,
       status: mapStripeStatus(subscription.status) as any,
       value: amount / 100, // Stripe usa centavos
-      totalValue: amount / 100, // Campo obrigatório (legacy Asaas)
-      billingType: 'CREDIT_CARD', // Campo obrigatório (legacy Asaas)
       cycle: determineCycleFromPrice(priceId),
       currentPeriodStart: subscription.current_period_start
         ? new Date(subscription.current_period_start * 1000)
