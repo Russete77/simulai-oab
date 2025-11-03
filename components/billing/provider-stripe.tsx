@@ -5,6 +5,8 @@ import { loadStripe, StripeElementsOptions } from '@stripe/stripe-js';
 import { stripeAppearance } from '@/lib/stripe/appearance';
 
 // Carregar Stripe.js
+console.log('[PROVIDER_STRIPE] Publishable Key:', process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?.substring(0, 20) + '...');
+
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 );

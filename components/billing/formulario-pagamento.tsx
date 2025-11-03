@@ -33,11 +33,21 @@ export function FormularioPagamento({
   const [pronto, setPronto] = useState(false);
 
   useEffect(() => {
-    if (!stripe || !elements) return;
+    console.log('[FORMULARIO_PAGAMENTO] Estado:', {
+      hasStripe: !!stripe,
+      hasElements: !!elements,
+      clientSecret: clientSecret?.substring(0, 20) + '...',
+    });
+
+    if (!stripe || !elements) {
+      console.log('[FORMULARIO_PAGAMENTO] Aguardando Stripe carregar...');
+      return;
+    }
 
     // Payment Element está pronto
+    console.log('[FORMULARIO_PAGAMENTO] Stripe pronto!');
     setPronto(true);
-  }, [stripe, elements]);
+  }, [stripe, elements, clientSecret]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
