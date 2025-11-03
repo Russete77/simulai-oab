@@ -93,6 +93,11 @@ export const ERROR_CODES = {
     userMessage: 'Você está fazendo muitas requisições. Aguarde um momento.',
     httpStatus: 429,
   },
+  MONTHLY_SIMULATION_LIMIT_EXCEEDED: {
+    code: 'MONTHLY_SIMULATION_LIMIT_EXCEEDED',
+    userMessage: 'Você atingiu o limite mensal de simulados do seu plano.',
+    httpStatus: 429,
+  },
   AI_RATE_LIMIT_EXCEEDED: {
     code: 'AI_RATE_LIMIT_EXCEEDED',
     userMessage:

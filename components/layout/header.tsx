@@ -6,6 +6,8 @@ import { UserButton } from '@clerk/nextjs';
 import { useUser } from '@clerk/nextjs';
 import { Button } from '@/components/ui';
 import { useEffect, useState } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
+import { ArrowLeft } from 'lucide-react';
 
 interface HeaderProps {
   showLogout?: boolean;
@@ -14,10 +16,18 @@ interface HeaderProps {
 export function Header({ showLogout = true }: HeaderProps) {
   const { isSignedIn, isLoaded } = useUser();
   const [mounted, setMounted] = useState(false);
+  const [isPWA, setIsPWA] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     setMounted(true);
+    // Detectar se está rodando como PWA
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+    setIsPWA(isStandalone);
   }, []);
+
+  const canGoBack = pathname !== '/' && pathname !== '/dashboard';
 
   // Renderizar conteúdo consistente até mounted
   if (!mounted || !isLoaded) {
@@ -73,20 +83,32 @@ export function Header({ showLogout = true }: HeaderProps) {
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4"
       >
         <div className="flex justify-between items-center">
-          <Link
-            href={isSignedIn ? "/dashboard" : "/"}
-            className="flex items-center"
-            aria-label="Ir para página inicial"
-          >
-            <Image
-              src="/logo.png"
-              alt="Simulai OAB - Página inicial"
-              width={112}
-              height={56}
-              style={{ height: 'auto' }}
-              className="h-14 hover:opacity-80 transition-opacity"
-            />
-          </Link>
+          <div className="flex items-center gap-3">
+            {/* Botão de voltar para PWA */}
+            {isPWA && canGoBack && (
+              <button
+                onClick={() => router.back()}
+                className="p-2 hover:bg-navy-800 rounded-lg transition-colors"
+                aria-label="Voltar"
+              >
+                <ArrowLeft className="w-5 h-5 text-navy-400" />
+              </button>
+            )}
+            <Link
+              href={isSignedIn ? "/dashboard" : "/"}
+              className="flex items-center"
+              aria-label="Ir para página inicial"
+            >
+              <Image
+                src="/logo.png"
+                alt="Simulai OAB - Página inicial"
+                width={112}
+                height={56}
+                style={{ height: 'auto' }}
+                className="h-14 hover:opacity-80 transition-opacity"
+              />
+            </Link>
+          </div>
 
           <div className="flex items-center gap-6">
             {/* Menu de navegação */}

@@ -21,6 +21,7 @@ export default function PracticeClient() {
   const [timer, setTimer] = useState(0);
   const [loading, setLoading] = useState(true);
   const [showChat, setShowChat] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Lista de questões recomendadas (quando modo recommended=true)
   const [recommendedQuestions, setRecommendedQuestions] = useState<any[]>([]);
@@ -162,6 +163,7 @@ export default function PracticeClient() {
     if (!selectedAlternative || !question) return;
 
     try {
+      setIsSubmitting(true);
       const response = await fetch('/api/questions/answer', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -181,6 +183,8 @@ export default function PracticeClient() {
       setShowResult(true);
     } catch (error) {
       console.error('Error submitting answer:', error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -323,10 +327,10 @@ export default function PracticeClient() {
                 variant="primary"
                 className="flex-1 flex items-center justify-center gap-2"
                 onClick={handleSubmitAnswer}
-                disabled={!selectedAlternative}
+                disabled={!selectedAlternative || isSubmitting}
               >
                 <CheckCircle className="w-4 h-4" />
-                <span>Confirmar Resposta</span>
+                <span>{isSubmitting ? 'Confirmando...' : 'Confirmar Resposta'}</span>
               </Button>
             </>
           ) : (

@@ -28,7 +28,22 @@ export default function SimulationsClient() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to create simulation');
+        const errorData = await response.json().catch(() => ({}));
+
+        // Se atingiu limite mensal
+        if (response.status === 429 && errorData.message) {
+          const goToUpgrade = confirm(
+            `${errorData.message}\n\nDeseja ver os planos disponíveis?`
+          );
+          if (goToUpgrade) {
+            router.push('/pricing');
+          }
+          setCreatingType(null);
+          return;
+        }
+
+        // Outros erros
+        throw new Error(errorData.error || 'Failed to create simulation');
       }
 
       const simulation = await response.json();
