@@ -7,7 +7,16 @@
       "Bash(node:*)",
       "Bash(npm run build:*)",
       "WebFetch(domain:clerk.com)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(npm install:*)",
+      "Bash(npx prisma db push:*)",
+      "Bash(rm:*)",
+      "Bash(\"$USERPROFILE/scoop/shims/stripe.exe\" trigger customer.subscription.created)",
+      "Bash(npx tsx:*)",
+      "Bash(npx next build:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(git add:*)",
+      "Bash(npx stripe:*)"
     ],
     "deny": [],
     "ask": []
