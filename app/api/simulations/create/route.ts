@@ -22,18 +22,45 @@ function fisherYatesShuffle<T>(array: T[]): T[] {
 }
 
 /**
- * Embaralha questões com distribuição PROPORCIONAL e BALANCEADA por ano
+ * Calcula peso de um ano baseado em quão recente ele é
+ * Anos mais recentes = maior peso = maior chance de seleção
+ *
+ * PESOS:
+ * - 2020-2024: peso 5.0 (prioridade máxima - legislação atual)
+ * - 2017-2019: peso 3.0 (alta prioridade)
+ * - 2014-2016: peso 2.0 (média prioridade)
+ * - 2011-2013: peso 1.0 (baixa prioridade)
+ * - Antes 2011: peso 0.5 (mínima - pode ter lei desatualizada)
+ */
+function getYearWeight(year: number): number {
+  const currentYear = new Date().getFullYear();
+
+  if (year >= 2020) return 5.0; // Últimos 4-5 anos: máxima prioridade
+  if (year >= 2017) return 3.0; // 5-7 anos atrás: alta prioridade
+  if (year >= 2014) return 2.0; // 8-10 anos atrás: média prioridade
+  if (year >= 2011) return 1.0; // 11-13 anos atrás: baixa prioridade
+  return 0.5;                     // Muito antigo: mínima prioridade
+}
+
+/**
+ * Embaralha questões com distribuição PONDERADA POR RELEVÂNCIA
  *
  * ALGORITMO:
  * 1. Agrupa questões por ano
- * 2. Calcula distribuição proporcional (quantas de cada ano selecionar)
- * 3. Seleciona aleatoriamente dentro de cada ano
- * 4. Embaralha resultado final para evitar blocos do mesmo ano
+ * 2. Calcula PESO de cada ano (anos recentes têm maior peso)
+ * 3. Distribui questões proporcionalmente aos pesos (não à quantidade)
+ * 4. Garante diversidade embaralhando resultado final
  *
- * EXEMPLO:
- * - Input: 100 questões (50 de 2010, 30 de 2012, 20 de 2015)
- * - Precisa: 10 questões
- * - Output: ~5 de 2010, ~3 de 2012, ~2 de 2015 (proporcional)
+ * OBJETIVO:
+ * - Priorizar questões RECENTES (legislação atual, jurisprudência atualizada)
+ * - Reduzir questões ANTIGAS (pode ter lei revogada, entendimento superado)
+ * - Manter DIVERSIDADE de anos
+ *
+ * EXEMPLO (80 questões):
+ * - 2020-2024: ~40 questões (50%) - peso 5.0
+ * - 2017-2019: ~25 questões (30%) - peso 3.0
+ * - 2014-2016: ~10 questões (13%) - peso 2.0
+ * - 2011-2013: ~5 questões (7%)   - peso 1.0
  */
 function shuffleWithDiversity(
   questions: Array<{ id: string; examYear: number; examPhase: number }>,
@@ -51,22 +78,42 @@ function shuffleWithDiversity(
     byYear.get(q.examYear)!.push(q);
   });
 
-  const totalAvailable = questions.length;
-  const years = Array.from(byYear.keys()).sort((a, b) => a - b);
+  const years = Array.from(byYear.keys()).sort((a, b) => b - a); // Ordenar do mais recente ao mais antigo
 
-  // PASSO 2: Calcular distribuição proporcional
+  // PASSO 2: Calcular peso total e distribuição
+  const yearWeights = new Map<number, number>();
+  let totalWeight = 0;
+
+  years.forEach((year) => {
+    const weight = getYearWeight(year);
+    const available = byYear.get(year)!.length;
+
+    // Peso efetivo = peso do ano * quantidade disponível
+    // Isso evita que anos com poucas questões dominem
+    const effectiveWeight = Math.min(weight, available / 10); // Normalizar
+
+    yearWeights.set(year, effectiveWeight);
+    totalWeight += effectiveWeight;
+  });
+
+  // PASSO 3: Distribuir questões proporcionalmente aos pesos
   const distribution = new Map<number, number>();
   let allocated = 0;
 
   years.forEach((year, index) => {
     const yearQuestions = byYear.get(year)!;
-    const proportion = yearQuestions.length / totalAvailable;
+    const weight = yearWeights.get(year)!;
 
-    // Distribuir proporcionalmente
-    let yearCount = Math.round(proportion * count);
+    // Calcular quantas questões deste ano baseado no peso
+    let yearCount = Math.round((weight / totalWeight) * count);
 
     // Garantir que não excede disponível
     yearCount = Math.min(yearCount, yearQuestions.length);
+
+    // Garantir pelo menos 1 questão se há disponível (diversidade)
+    if (yearCount === 0 && yearQuestions.length > 0 && allocated < count) {
+      yearCount = 1;
+    }
 
     // Última iteração: ajustar para bater exatamente `count`
     if (index === years.length - 1) {
@@ -77,10 +124,12 @@ function shuffleWithDiversity(
     allocated += yearCount;
   });
 
-  // PASSO 3: Se ainda falta (devido a arredondamentos), redistribuir
+  // PASSO 4: Se ainda falta, redistribuir priorizando anos RECENTES
   let remaining = count - allocated;
   while (remaining > 0) {
-    // Buscar anos que ainda têm questões disponíveis
+    let distributed = false;
+
+    // Tentar distribuir para anos mais recentes primeiro
     for (const year of years) {
       if (remaining <= 0) break;
 
@@ -90,16 +139,15 @@ function shuffleWithDiversity(
       if (currentAlloc < available) {
         distribution.set(year, currentAlloc + 1);
         remaining--;
+        distributed = true;
       }
     }
 
     // Evitar loop infinito
-    if (remaining > 0 && years.every(y => (distribution.get(y) || 0) >= byYear.get(y)!.length)) {
-      break;
-    }
+    if (!distributed) break;
   }
 
-  // PASSO 4: Selecionar questões de cada ano
+  // PASSO 5: Selecionar questões de cada ano
   const result: typeof questions = [];
 
   years.forEach((year) => {
@@ -113,7 +161,7 @@ function shuffleWithDiversity(
     result.push(...shuffled.slice(0, neededCount));
   });
 
-  // PASSO 5: Embaralhar resultado final para diversificar ordem
+  // PASSO 6: Embaralhar resultado final para diversificar ordem
   const finalResult = fisherYatesShuffle(result).slice(0, count);
 
   // LOGGING DETALHADO (para debug)
@@ -122,12 +170,15 @@ function shuffleWithDiversity(
     yearDistribution.set(q.examYear, (yearDistribution.get(q.examYear) || 0) + 1);
   });
 
-  logger.info('[SHUFFLE_DIVERSITY] Distribuição final:', {
+  logger.info('[SHUFFLE_DIVERSITY] Distribuição ponderada por relevância:', {
     solicitado: count,
     retornado: finalResult.length,
-    disponivel: totalAvailable,
-    anos: Object.fromEntries(
-      Array.from(yearDistribution.entries()).sort((a, b) => a[0] - b[0])
+    disponivel: questions.length,
+    distribuicaoPorAno: Object.fromEntries(
+      Array.from(yearDistribution.entries()).sort((a, b) => b[0] - a[0]) // Mais recente primeiro
+    ),
+    pesosPorAno: Object.fromEntries(
+      Array.from(yearWeights.entries()).sort((a, b) => b[0] - a[0])
     ),
   });
 
