@@ -107,7 +107,7 @@ export default function AnalyticsPage() {
             title="Total de Questões"
             value={data.overview.totalQuestions}
             subtitle={`${data.overview.correctAnswers} corretas`}
-            icon={Target}
+            icon={<Target className="w-5 h-5" />}
             color="blue"
           />
           <StatsCard
@@ -115,7 +115,7 @@ export default function AnalyticsPage() {
             title="Taxa de Acerto"
             value={`${data.overview.successRate.toFixed(1)}%`}
             subtitle="Média geral"
-            icon={TrendingUp}
+            icon={<TrendingUp className="w-5 h-5" />}
             color="green"
           />
           <StatsCard
@@ -123,7 +123,7 @@ export default function AnalyticsPage() {
             title="Tempo Médio"
             value={formatTime(data.overview.averageTime)}
             subtitle="Por questão"
-            icon={Clock}
+            icon={<Clock className="w-5 h-5" />}
             color="purple"
           />
           <StatsCard
@@ -131,7 +131,7 @@ export default function AnalyticsPage() {
             title="Sequência"
             value={data.overview.streak}
             subtitle={data.overview.streak === 1 ? "acerto seguido" : "acertos seguidos"}
-            icon={Flame}
+            icon={<Flame className="w-5 h-5" />}
             color="cyan"
           />
         </div>

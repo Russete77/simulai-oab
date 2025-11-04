@@ -1,18 +1,16 @@
-// @ts-nocheck
 'use client';
 
-import dynamic from 'next/dynamic';
 import { Card } from '@/components/ui';
-
-// Lazy load Recharts components (-150KB no bundle inicial)
-const LineChart = dynamic(() => import('recharts').then((mod) => mod.LineChart as any), { ssr: false });
-const Line = dynamic(() => import('recharts').then((mod) => mod.Line as any), { ssr: false });
-const XAxis = dynamic(() => import('recharts').then((mod) => mod.XAxis as any), { ssr: false });
-const YAxis = dynamic(() => import('recharts').then((mod) => mod.YAxis as any), { ssr: false });
-const CartesianGrid = dynamic(() => import('recharts').then((mod) => mod.CartesianGrid as any), { ssr: false });
-const Tooltip = dynamic(() => import('recharts').then((mod) => mod.Tooltip as any), { ssr: false });
-const ResponsiveContainer = dynamic(() => import('recharts').then((mod) => mod.ResponsiveContainer as any), { ssr: false });
-const Legend = dynamic(() => import('recharts').then((mod) => mod.Legend as any), { ssr: false });
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Legend
+} from 'recharts';
 
 interface PerformanceChartProps {
   data: {

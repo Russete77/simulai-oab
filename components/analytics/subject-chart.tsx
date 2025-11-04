@@ -1,18 +1,16 @@
-// @ts-nocheck
 'use client';
 
-import dynamic from 'next/dynamic';
 import { Card } from '@/components/ui';
-
-// Lazy load Recharts components
-const BarChart = dynamic(() => import('recharts').then((mod) => mod.BarChart as any), { ssr: false });
-const Bar = dynamic(() => import('recharts').then((mod) => mod.Bar as any), { ssr: false });
-const XAxis = dynamic(() => import('recharts').then((mod) => mod.XAxis as any), { ssr: false });
-const YAxis = dynamic(() => import('recharts').then((mod) => mod.YAxis as any), { ssr: false });
-const CartesianGrid = dynamic(() => import('recharts').then((mod) => mod.CartesianGrid as any), { ssr: false });
-const Tooltip = dynamic(() => import('recharts').then((mod) => mod.Tooltip as any), { ssr: false });
-const ResponsiveContainer = dynamic(() => import('recharts').then((mod) => mod.ResponsiveContainer as any), { ssr: false });
-const Cell = dynamic(() => import('recharts').then((mod) => mod.Cell as any), { ssr: false });
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Cell
+} from 'recharts';
 
 interface SubjectChartProps {
   data: {
