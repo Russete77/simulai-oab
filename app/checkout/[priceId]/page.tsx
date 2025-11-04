@@ -67,7 +67,7 @@ export default function CheckoutPage() {
   };
 
   const handleSucesso = () => {
-    console.log('Pagamento processado com sucesso!');
+    if (process.env.NODE_ENV === 'development') console.log('Pagamento processado com sucesso!');
   };
 
   const handleErro = (mensagem: string) => {

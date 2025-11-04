@@ -35,11 +35,13 @@ function fisherYatesShuffle<T>(array: T[]): T[] {
 function getYearWeight(year: number): number {
   const currentYear = new Date().getFullYear();
 
-  if (year >= 2020) return 5.0; // Últimos 4-5 anos: máxima prioridade
-  if (year >= 2017) return 3.0; // 5-7 anos atrás: alta prioridade
-  if (year >= 2014) return 2.0; // 8-10 anos atrás: média prioridade
-  if (year >= 2011) return 1.0; // 11-13 anos atrás: baixa prioridade
-  return 0.5;                     // Muito antigo: mínima prioridade
+  // PESOS AJUSTADOS - Anos recentes dominam MUITO mais
+  if (year >= currentYear - 2) return 10.0; // Últimos 2 anos: PRIORIDADE MÁXIMA
+  if (year >= 2020) return 5.0;  // 2020-2023: Alta prioridade
+  if (year >= 2017) return 2.0;  // 2017-2019: Média prioridade
+  if (year >= 2014) return 1.0;  // 2014-2016: Baixa prioridade
+  if (year >= 2011) return 0.3;  // 2011-2013: Muito baixa
+  return 0.1;                     // Antes 2011: MÍNIMA (quase zero)
 }
 
 /**
@@ -90,7 +92,8 @@ function shuffleWithDiversity(
 
     // Peso efetivo = peso do ano * quantidade disponível
     // Isso evita que anos com poucas questões dominem
-    const effectiveWeight = Math.min(weight, available / 10); // Normalizar
+    // Peso puro (sem normalização - prioriza anos recentes)
+    const effectiveWeight = weight;
 
     yearWeights.set(year, effectiveWeight);
     totalWeight += effectiveWeight;

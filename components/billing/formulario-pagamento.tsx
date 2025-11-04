@@ -33,19 +33,19 @@ export function FormularioPagamento({
   const [pronto, setPronto] = useState(false);
 
   useEffect(() => {
-    console.log('[FORMULARIO_PAGAMENTO] Estado:', {
+    if (process.env.NODE_ENV === 'development') console.log('[FORMULARIO_PAGAMENTO] Estado:', {
       hasStripe: !!stripe,
       hasElements: !!elements,
       clientSecret: clientSecret?.substring(0, 20) + '...',
     });
 
     if (!stripe || !elements) {
-      console.log('[FORMULARIO_PAGAMENTO] Aguardando Stripe carregar...');
+      if (process.env.NODE_ENV === 'development') console.log('[FORMULARIO_PAGAMENTO] Aguardando Stripe carregar...');
       return;
     }
 
     // Payment Element está pronto
-    console.log('[FORMULARIO_PAGAMENTO] Stripe pronto!');
+    if (process.env.NODE_ENV === 'development') console.log('[FORMULARIO_PAGAMENTO] Stripe pronto!');
     setPronto(true);
   }, [stripe, elements, clientSecret]);
 

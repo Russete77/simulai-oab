@@ -81,10 +81,15 @@ export default function ReviewPage() {
       }
 
       const data = await response.json();
-      setQuestions(data);
-      setFilteredQuestions(data);
+      // API retorna { questions: [...], summary: {...} }
+      const questionsList = data.questions || [];
+      setQuestions(questionsList);
+      setFilteredQuestions(questionsList);
     } catch (error) {
       console.error('Error loading wrong questions:', error);
+      // Em caso de erro, garantir que questions seja um array vazio
+      setQuestions([]);
+      setFilteredQuestions([]);
     } finally {
       setLoading(false);
     }
