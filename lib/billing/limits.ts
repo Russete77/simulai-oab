@@ -4,6 +4,7 @@
 
 import { PlanType } from '@prisma/client';
 import { prisma } from '@/lib/db/prisma';
+import { getEffectivePlanType } from "./free-access-mode";
 
 export interface PlanLimits {
   // Questões
@@ -101,7 +102,8 @@ export async function checkQuestionLimit(userId: string): Promise<{
     return { allowed: false, current: 0, limit: 0, resetAt: null };
   }
 
-  const limits = PLAN_LIMITS[user.planType];
+  const effectivePlan = getEffectivePlanType(user.planType) as PlanType;
+  const limits = PLAN_LIMITS[effectivePlan];
 
   // Reset se passou o dia
   if (shouldResetDaily(user.dailyQuestionsResetAt)) {
@@ -159,7 +161,8 @@ export async function checkSimulationLimit(userId: string): Promise<{
     return { allowed: false, current: 0, limit: 0, resetAt: null };
   }
 
-  const limits = PLAN_LIMITS[user.planType];
+  const effectivePlan = getEffectivePlanType(user.planType) as PlanType;
+  const limits = PLAN_LIMITS[effectivePlan];
 
   // Reset se passou o mês
   if (shouldResetMonthly(user.monthlySimulationsResetAt)) {
@@ -217,7 +220,8 @@ export async function checkAiExplanationLimit(userId: string): Promise<{
     return { allowed: false, current: 0, limit: 0, resetAt: null };
   }
 
-  const limits = PLAN_LIMITS[user.planType];
+  const effectivePlan = getEffectivePlanType(user.planType) as PlanType;
+  const limits = PLAN_LIMITS[effectivePlan];
 
   // Reset se passou o dia
   if (shouldResetDaily(user.dailyAiExplanationsResetAt)) {
@@ -275,7 +279,8 @@ export async function checkAiChatLimit(userId: string): Promise<{
     return { allowed: false, current: 0, limit: 0, resetAt: null };
   }
 
-  const limits = PLAN_LIMITS[user.planType];
+  const effectivePlan = getEffectivePlanType(user.planType) as PlanType;
+  const limits = PLAN_LIMITS[effectivePlan];
 
   // Reset se passou o dia
   if (shouldResetDaily(user.dailyAiChatsResetAt)) {
@@ -332,7 +337,8 @@ export async function getUserLimits(userId: string) {
 
   if (!user) return null;
 
-  const limits = PLAN_LIMITS[user.planType];
+  const effectivePlan = getEffectivePlanType(user.planType) as PlanType;
+  const limits = PLAN_LIMITS[effectivePlan];
 
   return {
     planType: user.planType,
