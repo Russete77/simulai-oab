@@ -1,3 +1,7 @@
+// Force dynamic rendering (não tentar SSG no build)
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // Cache por 1 hora
+
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
