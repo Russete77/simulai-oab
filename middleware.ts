@@ -10,6 +10,10 @@ const isPublicRoute = createRouteMatcher([
   '/privacy',
   '/pricing',
   '/api/webhooks(.*)',
+  // Novas páginas públicas para SEO
+  '/questoes(.*)',      // Páginas de questões individuais
+  '/materias(.*)',      // Páginas de matérias
+  '/blog(.*)',          // Blog
 ])
 
 export default clerkMiddleware(
@@ -34,7 +38,7 @@ export default clerkMiddleware(
 
 export const config = {
   matcher: [
-    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest|xml|txt)).*)',
+    '/((?!_next|[^?]*\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest|xml|txt)).*)',
     '/(api|trpc)(.*)',
   ],
 }

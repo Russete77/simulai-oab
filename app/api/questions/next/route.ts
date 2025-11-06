@@ -3,29 +3,67 @@ import { prisma } from "@/lib/db/prisma";
 import { requireAuth } from "@/lib/auth";
 import { GetNextQuestionSchema } from "@/lib/validations/question";
 import { Prisma } from "@prisma/client";
-import { checkQuestionLimit } from "@/lib/billing/limits";
+
+/**
+ * Calcula peso de um ano baseado em quão recente ele é
+ * MESMA LÓGICA DOS SIMULADOS
+ * 
+ * Anos mais recentes = maior peso = maior chance de seleção
+ */
+function getYearWeight(year: number): number {
+  const currentYear = new Date().getFullYear();
+
+  if (year >= currentYear - 2) return 10.0; // Últimos 2 anos: PRIORIDADE MÁXIMA
+  if (year >= 2020) return 5.0;  // 2020-2023: Alta prioridade
+  if (year >= 2017) return 2.0;  // 2017-2019: Média prioridade
+  if (year >= 2014) return 1.0;  // 2014-2016: Baixa prioridade
+  if (year >= 2011) return 0.3;  // 2011-2013: Muito baixa
+  return 0.1;                     // Antes 2011: MÍNIMA
+}
+
+/**
+ * Seleciona UMA questão usando distribuição PONDERADA por ano
+ * Questões mais recentes têm maior probabilidade de serem selecionadas
+ */
+function selectWeightedQuestion(
+  questions: Array<{ id: string; examYear: number }>
+): { id: string; examYear: number } {
+  if (questions.length === 0) {
+    throw new Error("Nenhuma questão disponível");
+  }
+
+  if (questions.length === 1) {
+    return questions[0];
+  }
+
+  // Calcular peso de cada questão
+  const weightedQuestions = questions.map(q => ({
+    question: q,
+    weight: getYearWeight(q.examYear),
+  }));
+
+  // Calcular peso total
+  const totalWeight = weightedQuestions.reduce((sum, wq) => sum + wq.weight, 0);
+
+  // Selecionar questão baseado em probabilidade ponderada
+  let random = Math.random() * totalWeight;
+  
+  for (const wq of weightedQuestions) {
+    random -= wq.weight;
+    if (random <= 0) {
+      return wq.question;
+    }
+  }
+
+  // Fallback (não deveria chegar aqui)
+  return weightedQuestions[weightedQuestions.length - 1].question;
+}
 
 export async function GET(request: NextRequest) {
   try {
     console.log("🔍 [API] Buscando próxima questão...");
     const user = await requireAuth();
     console.log("✅ [API] Usuário autenticado:", user.id);
-
-    // TODO: Verificar limite de questões diárias (aguardando migração do Prisma)
-    // const limitCheck = await checkQuestionLimit(user.id);
-    // if (!limitCheck.allowed) {
-    //   console.log("⛔ [API] Limite de questões atingido:", limitCheck);
-    //   return NextResponse.json(
-    //     {
-    //       error: "Limite diário de questões atingido",
-    //       limit: limitCheck.limit,
-    //       current: limitCheck.current,
-    //       resetAt: limitCheck.resetAt,
-    //       planType: user.planType,
-    //     },
-    //     { status: 429 }
-    //   );
-    // }
 
     const searchParams = request.nextUrl.searchParams;
     const questionId = searchParams.get("questionId");
@@ -88,11 +126,18 @@ export async function GET(request: NextRequest) {
       };
     }
 
-    // Buscar questão aleatória usando agregação
-    const count = await prisma.question.count({ where });
-    console.log("📊 [API] Total de questões encontradas:", count);
+    // Buscar TODAS as questões disponíveis (apenas ID e ano para performance)
+    const availableQuestions = await prisma.question.findMany({
+      where,
+      select: {
+        id: true,
+        examYear: true,
+      },
+    });
 
-    if (count === 0) {
+    console.log("📊 [API] Total de questões encontradas:", availableQuestions.length);
+
+    if (availableQuestions.length === 0) {
       console.log("❌ [API] Nenhuma questão disponível");
       return NextResponse.json(
         { error: "Nenhuma questão disponível com os critérios fornecidos" },
@@ -100,24 +145,27 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Usar uma abordagem mais aleatória: buscar IDs e selecionar um aleatório
-    const randomIndex = Math.floor(Math.random() * count);
+    // SELEÇÃO PONDERADA POR ANO (prioriza questões recentes)
+    const selectedQuestion = selectWeightedQuestion(availableQuestions);
 
-    const question = await prisma.question.findFirst({
-      where,
-      skip: randomIndex,
+    console.log("🎯 [API] Questão selecionada (ano prioritário):", {
+      id: selectedQuestion.id,
+      ano: selectedQuestion.examYear,
+      peso: getYearWeight(selectedQuestion.examYear)
+    });
+
+    // Buscar questão completa com alternativas
+    const question = await prisma.question.findUnique({
+      where: { id: selectedQuestion.id },
       include: {
         alternatives: {
           orderBy: { label: "asc" },
         },
       },
-      orderBy: {
-        id: 'asc', // Ordenar para garantir consistência na seleção
-      },
     });
 
     if (!question) {
-      console.log("❌ [API] Questão não encontrada após busca");
+      console.log("❌ [API] Questão não encontrada após seleção");
       return NextResponse.json(
         { error: "Questão não encontrada" },
         { status: 404 }
