@@ -71,6 +71,11 @@ export default function ReviewPage() {
     setCurrentIndex(0);
   }, [selectedSubject, questions]);
 
+  // Resetar chat modal ao mudar de questão
+  useEffect(() => {
+    setShowChat(false);
+  }, [currentIndex]);
+
   const loadWrongQuestions = async () => {
     try {
       setLoading(true);
@@ -228,6 +233,7 @@ export default function ReviewPage() {
 
         {/* AI Explanation */}
         <QuestionExplanation
+          key={currentQuestion.id}
           questionId={currentQuestion.id}
           onOpenChat={() => setShowChat(true)}
         />
@@ -235,6 +241,7 @@ export default function ReviewPage() {
         {/* Chat Modal */}
         {showChat && (
           <QuestionChat
+            key={currentQuestion.id}
             questionId={currentQuestion.id}
             onClose={() => setShowChat(false)}
           />

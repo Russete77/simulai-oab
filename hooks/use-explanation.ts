@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { ExplanationResponse } from "@/types/explanation";
 
 export function useExplanation(questionId: string) {
   const [data, setData] = useState<ExplanationResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Resetar estado quando questionId mudar
+  useEffect(() => {
+    setData(null);
+    setError(null);
+    setLoading(false);
+  }, [questionId]);
 
   const fetchExplanation = async () => {
     setLoading(true);

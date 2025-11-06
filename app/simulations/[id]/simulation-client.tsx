@@ -75,6 +75,9 @@ export default function SimulationClient({ simulation }: SimulationClientProps) 
       if (!confirm) return;
     }
 
+    // Prevenir múltiplos cliques
+    if (isFinishing) return;
+
     try {
       setIsFinishing(true);
 
@@ -108,11 +111,13 @@ export default function SimulationClient({ simulation }: SimulationClientProps) 
         throw new Error('Failed to finish simulation');
       }
 
+      // Se chegou aqui, sucesso! Navegar e não resetar isFinishing
+      // (componente será desmontado pela navegação)
       router.push(`/simulations/${simulation.id}/result`);
     } catch (error) {
       console.error('Error finishing simulation:', error);
       alert('Erro ao finalizar simulado. Tente novamente.');
-    } finally {
+      // Só resetar em caso de erro
       setIsFinishing(false);
     }
   };
