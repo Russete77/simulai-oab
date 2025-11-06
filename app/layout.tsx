@@ -4,6 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { ptBR } from "@clerk/localizations";
 import { Toaster } from "sonner";
 import Script from "next/script";
+import { FreeAccessBanner } from "@/components/layout/free-access-banner";
 import "./globals.css";
 
 const inter = Inter({
@@ -136,6 +137,9 @@ export default function RootLayout({
           <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-blue-600 focus:text-white focus:rounded-md focus:top-4 focus:left-1/2 focus:-translate-x-1/2">
             Pular para o conteúdo principal
           </a>
+
+          <FreeAccessBanner />
+
           {children}
           <Toaster
             position="top-right"
@@ -185,6 +189,9 @@ export default function RootLayout({
           <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-blue-600 focus:text-white focus:rounded-md focus:top-4 focus:left-1/2 focus:-translate-x-1/2">
             Pular para o conteúdo principal
           </a>
+
+          <FreeAccessBanner />
+
           {children}
           <Toaster
             position="top-right"

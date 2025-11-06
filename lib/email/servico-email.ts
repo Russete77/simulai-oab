@@ -363,6 +363,110 @@ export class ServicoEmail {
       return false;
     }
   }
+
+  /**
+   * Enviar aviso de fim do acesso gratuito
+   */
+  async enviarFimAcessoGratuito(dados: DadosEmailBase & { diasRestantes: number; dataTermino: string }): Promise<boolean> {
+    if (!resend) {
+      console.warn('[EMAIL] Resend não configurado. Adicione RESEND_API_KEY ao .env para enviar emails.');
+      return false;
+    }
+
+    try {
+      const urgencia = dados.diasRestantes <= 3; // 3 dias ou menos = urgente
+      const corPrincipal = urgencia ? '#F97316' : '#FACC15';
+      const corSecundaria = urgencia ? '#FB923C' : '#FDE047';
+
+      const html = `
+        <!DOCTYPE html>
+        <html>
+          <body style="background-color: #0F172A; font-family: sans-serif; padding: 20px;">
+            <div style="max-width: 600px; margin: 0 auto; background-color: #1E293B; border-radius: 12px; padding: 32px; border: 2px solid ${corPrincipal};">
+              <div style="text-align: center; margin-bottom: 24px;">
+                <span style="font-size: 64px;">${urgencia ? '⚠️' : '⏰'}</span>
+              </div>
+
+              <h1 style="color: ${corPrincipal}; font-size: 28px; margin-bottom: 20px; text-align: center;">
+                ${urgencia ? 'ÚLTIMOS DIAS!' : 'Acesso Premium Gratuito Terminando'}
+              </h1>
+
+              <p style="color: #E2E8F0; font-size: 16px; line-height: 24px;">
+                Olá, <strong>${dados.nomeUsuario}</strong>!
+              </p>
+
+              <div style="background: linear-gradient(135deg, ${corPrincipal}, ${corSecundaria});
+                          border-radius: 12px; padding: 24px; margin: 24px 0; text-align: center;">
+                <p style="color: #FFFFFF; font-size: 18px; margin: 0 0 8px 0; font-weight: 600;">
+                  Seu acesso Premium GRATUITO termina em
+                </p>
+                <p style="color: #FFFFFF; font-size: 48px; font-weight: bold; margin: 0;">
+                  ${dados.diasRestantes} ${dados.diasRestantes === 1 ? 'dia' : 'dias'}
+                </p>
+                <p style="color: #FFFFFF; font-size: 14px; margin: 8px 0 0 0; opacity: 0.9;">
+                  Data de término: ${dados.dataTermino}
+                </p>
+              </div>
+
+              <div style="background-color: #0F172A; border: 1px solid #334155; border-radius: 8px; padding: 20px; margin: 24px 0;">
+                <p style="color: #FFFFFF; font-size: 16px; font-weight: 600; margin: 0 0 16px 0;">
+                  ✨ Você aproveitou:
+                </p>
+                <ul style="color: #CBD5E1; font-size: 14px; line-height: 28px; margin: 0; padding-left: 20px;">
+                  <li><strong>Simulados ilimitados</strong> com 5.605 questões oficiais</li>
+                  <li><strong>Explicações IA</strong> sem limites</li>
+                  <li><strong>Analytics avançado</strong> do seu desempenho</li>
+                  <li><strong>Relatórios detalhados</strong> por matéria</li>
+                </ul>
+              </div>
+
+              <div style="background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+                          border-radius: 12px; padding: 24px; margin: 24px 0;">
+                <p style="color: #FFFFFF; font-size: 18px; font-weight: 600; margin: 0 0 12px 0; text-align: center;">
+                  🎯 Continue com o Premium!
+                </p>
+                <p style="color: #E0E7FF; font-size: 14px; margin: 0 0 20px 0; text-align: center;">
+                  Mantenha todo o progresso que você conquistou
+                </p>
+                <div style="text-align: center;">
+                  <a href="${process.env.NEXT_PUBLIC_APP_URL}/pricing"
+                     style="display: inline-block; background-color: #FFFFFF;
+                            color: #6366F1; text-decoration: none; padding: 16px 40px;
+                            border-radius: 8px; font-weight: 700; font-size: 16px;">
+                    Ver Planos Premium
+                  </a>
+                </div>
+              </div>
+
+              <p style="color: #94A3B8; font-size: 14px; margin-top: 24px; text-align: center;">
+                ${urgencia ? 'Não perca tempo! Garanta seu plano agora.' : 'Aproveite o desconto especial para quem já experimentou a plataforma.'}
+              </p>
+
+              <div style="border-top: 1px solid #334155; margin-top: 32px; padding-top: 24px;">
+                <p style="color: #94A3B8; font-size: 12px; text-align: center; margin: 0;">
+                  Após ${dados.dataTermino}, você voltará ao plano gratuito com 5 simulados/mês.
+                </p>
+              </div>
+            </div>
+          </body>
+        </html>
+      `;
+
+      await resend.emails.send({
+        from: emailConfig.from,
+        to: dados.destinatario,
+        replyTo: emailConfig.replyTo,
+        subject: assuntosEmail[TipoEmail.FIM_ACESSO_GRATUITO],
+        html,
+      });
+
+      console.log(`[EMAIL] Fim acesso gratuito enviado para ${dados.destinatario} (${dados.diasRestantes} dias restantes)`);
+      return true;
+    } catch (erro: any) {
+      console.error('[EMAIL] Erro ao enviar fim acesso gratuito:', erro);
+      return false;
+    }
+  }
 }
 
 // Singleton

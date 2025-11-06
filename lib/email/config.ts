@@ -38,6 +38,9 @@ export enum TipoEmail {
   LEMBRETE_ESTUDO = 'LEMBRETE_ESTUDO',
   CONQUISTA_DESBLOQUEADA = 'CONQUISTA_DESBLOQUEADA',
   RELATORIO_SEMANAL = 'RELATORIO_SEMANAL',
+
+  // Promoções
+  FIM_ACESSO_GRATUITO = 'FIM_ACESSO_GRATUITO',
 }
 
 /**
@@ -58,4 +61,7 @@ export const assuntosEmail: Record<TipoEmail, string> = {
   [TipoEmail.LEMBRETE_ESTUDO]: '📚 Hora de estudar!',
   [TipoEmail.CONQUISTA_DESBLOQUEADA]: '🏆 Você desbloqueou uma conquista!',
   [TipoEmail.RELATORIO_SEMANAL]: '📊 Seu relatório semanal está pronto',
+
+  // Promoções
+  [TipoEmail.FIM_ACESSO_GRATUITO]: '⏰ Últimos dias de Acesso Premium Gratuito - Simulai OAB',
 };

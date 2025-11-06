@@ -7,31 +7,9 @@ import { Header } from '@/components/layout/header';
 import { QuestionCard } from '@/components/question-card';
 import { QuestionExplanation } from '@/components/question-explanation';
 import { QuestionChat } from '@/components/question-chat';
-import { ArrowLeft, ArrowRight, BarChart3, CheckCircle, BookOpen, Filter } from 'lucide-react';
+import { ArrowLeft, ArrowRight, BarChart3, CheckCircle } from 'lucide-react';
 import Link from 'next/link';
 import { AnswerQuestionResponse } from '@/types/api';
-import { Subject } from '@prisma/client';
-
-// Labels em português para as matérias
-const SUBJECT_LABELS: Record<Subject, string> = {
-  ETHICS: 'Ética Profissional',
-  CONSTITUTIONAL: 'Direito Constitucional',
-  CIVIL: 'Direito Civil',
-  CIVIL_PROCEDURE: 'Processo Civil',
-  CRIMINAL: 'Direito Penal',
-  CRIMINAL_PROCEDURE: 'Processo Penal',
-  LABOUR: 'Direito do Trabalho',
-  LABOUR_PROCEDURE: 'Processo do Trabalho',
-  ADMINISTRATIVE: 'Direito Administrativo',
-  TAXES: 'Direito Tributário',
-  BUSINESS: 'Direito Empresarial',
-  CONSUMER: 'Direito do Consumidor',
-  ENVIRONMENTAL: 'Direito Ambiental',
-  CHILDREN: 'Estatuto da Criança e Adolescente',
-  INTERNATIONAL: 'Direito Internacional',
-  HUMAN_RIGHTS: 'Direitos Humanos',
-  GENERAL: 'Conhecimentos Gerais',
-};
 
 export default function PracticeClient() {
   const searchParams = useSearchParams();
@@ -44,10 +22,6 @@ export default function PracticeClient() {
   const [loading, setLoading] = useState(true);
   const [showChat, setShowChat] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // NOVO: Estado do filtro de matéria
-  const [selectedSubject, setSelectedSubject] = useState<Subject | 'all'>('all');
-  const [showFilters, setShowFilters] = useState(false);
 
   // Lista de questões recomendadas (quando modo recommended=true)
   const [recommendedQuestions, setRecommendedQuestions] = useState<any[]>([]);
@@ -63,14 +37,6 @@ export default function PracticeClient() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // NOVO: Recarregar questão quando mudar o filtro
-  useEffect(() => {
-    if (question && !showResult && !isRecommendedMode) {
-      loadNextQuestion(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedSubject]);
 
   useEffect(() => {
     if (!showResult && question) {
@@ -162,20 +128,11 @@ export default function PracticeClient() {
         }
       }
 
-      // Modo normal: questão aleatória (COM FILTRO DE MATÉRIA)
+      // Modo normal: questão aleatória
       const questionId = searchParams.get('questionId');
-
-      // NOVO: Construir URL com filtro de matéria
-      let url = questionId && !skipUrlClean
+      const url = questionId && !skipUrlClean
         ? `/api/questions/next?questionId=${questionId}`
         : '/api/questions/next?excludeAnswered=false';
-
-      // Adicionar filtro de matéria se selecionado
-      if (selectedSubject !== 'all') {
-        const separator = url.includes('?') ? '&' : '?';
-        url += `${separator}subject=${selectedSubject}`;
-        console.log('🎯 Filtrando por matéria:', selectedSubject);
-      }
 
       console.log('🔍 Buscando questão:', url);
       const response = await fetch(url);
@@ -231,18 +188,12 @@ export default function PracticeClient() {
     }
   };
 
-  // NOVO: Handler para mudar filtro
-  const handleSubjectChange = (subject: Subject | 'all') => {
-    setSelectedSubject(subject);
-    setShowFilters(false);
-  };
-
   if (loading) {
     return (
       <div className="min-h-screen bg-navy-950 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-navy-400">Carregando questão...</p>
+          <p className="text-navy-600">Carregando questão...</p>
         </div>
       </div>
     );
@@ -266,94 +217,6 @@ export default function PracticeClient() {
       <Header />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* NOVO: Filtro de Matérias */}
-        {!isRecommendedMode && (
-          <div className="mb-6">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="flex items-center gap-2">
-                <Filter className="w-5 h-5 text-blue-400" />
-                <span className="text-white font-semibold">Filtrar por Matéria:</span>
-              </div>
-              {selectedSubject !== 'all' && (
-                <button
-                  onClick={() => handleSubjectChange('all')}
-                  className="text-sm text-blue-400 hover:text-blue-300 underline"
-                >
-                  Limpar filtro
-                </button>
-              )}
-            </div>
-
-            <div className="relative">
-              <button
-                onClick={() => setShowFilters(!showFilters)}
-                className={`w-full md:w-auto px-4 py-3 rounded-xl border-2 transition-all flex items-center justify-between gap-3 ${
-                  selectedSubject !== 'all'
-                    ? 'bg-blue-500/10 border-blue-500/50 text-blue-400'
-                    : 'bg-navy-800/50 border-white/10 text-white hover:border-white/20'
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <BookOpen className="w-5 h-5" />
-                  <span className="font-medium">
-                    {selectedSubject === 'all' ? 'Todas as Matérias' : SUBJECT_LABELS[selectedSubject]}
-                  </span>
-                </div>
-                <svg
-                  className={`w-4 h-4 transition-transform ${showFilters ? 'rotate-180' : ''}`}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-
-              {/* Dropdown de Matérias */}
-              {showFilters && (
-                <div className="absolute z-10 mt-2 w-full md:w-96 bg-navy-900 border border-white/10 rounded-xl shadow-2xl max-h-96 overflow-y-auto">
-                  <button
-                    onClick={() => handleSubjectChange('all')}
-                    className={`w-full px-4 py-3 text-left hover:bg-white/5 transition-colors border-b border-white/5 ${
-                      selectedSubject === 'all' ? 'bg-blue-500/10 text-blue-400' : 'text-white'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="font-medium">Todas as Matérias</span>
-                      {selectedSubject === 'all' && <CheckCircle className="w-4 h-4" />}
-                    </div>
-                  </button>
-
-                  {Object.entries(SUBJECT_LABELS)
-                    .filter(([key]) => key !== 'GENERAL')
-                    .map(([key, label]) => (
-                      <button
-                        key={key}
-                        onClick={() => handleSubjectChange(key as Subject)}
-                        className={`w-full px-4 py-3 text-left hover:bg-white/5 transition-colors border-b border-white/5 last:border-b-0 ${
-                          selectedSubject === key ? 'bg-blue-500/10 text-blue-400' : 'text-white'
-                        }`}
-                      >
-                        <div className="flex items-center justify-between">
-                          <span>{label}</span>
-                          {selectedSubject === key && <CheckCircle className="w-4 h-4" />}
-                        </div>
-                      </button>
-                    ))}
-                </div>
-              )}
-            </div>
-
-            {/* Badge atual */}
-            {selectedSubject !== 'all' && (
-              <div className="mt-3 inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 text-blue-400 px-3 py-1.5 rounded-lg text-sm">
-                <span>Filtrando:</span>
-                <span className="font-semibold">{SUBJECT_LABELS[selectedSubject]}</span>
-              </div>
-            )}
-          </div>
-        )}
-
         {/* Recommended Mode Indicator */}
         {isRecommendedMode && recommendedQuestions.length > 0 && (
           <div className="mb-6 bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20 rounded-lg p-4">
@@ -416,15 +279,15 @@ export default function PracticeClient() {
                 )}
                 <div className="grid grid-cols-3 gap-4 mt-4">
                   <div className="bg-navy-800/50 rounded-lg p-3">
-                    <p className="text-navy-400 text-sm">Taxa de Acerto</p>
+                    <p className="text-navy-600 text-sm">Taxa de Acerto</p>
                     <p className="text-white font-bold text-lg">{result.statistics.successRate}%</p>
                   </div>
                   <div className="bg-navy-800/50 rounded-lg p-3">
-                    <p className="text-navy-400 text-sm">Tempo Médio</p>
+                    <p className="text-navy-600 text-sm">Tempo Médio</p>
                     <p className="text-white font-bold text-lg">{Math.floor(result.statistics.averageTime / 60)}:{String(result.statistics.averageTime % 60).padStart(2, '0')}</p>
                   </div>
                   <div className="bg-navy-800/50 rounded-lg p-3">
-                    <p className="text-navy-400 text-sm">Seu Tempo</p>
+                    <p className="text-navy-600 text-sm">Seu Tempo</p>
                     <p className="text-white font-bold text-lg">{Math.floor(result.statistics.yourTime / 60)}:{String(result.statistics.yourTime % 60).padStart(2, '0')}</p>
                   </div>
                 </div>

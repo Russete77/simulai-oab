@@ -10,12 +10,26 @@ import {
   Zap,
   Shield,
   Sparkles,
+  BookOpen,
+  Target,
+  TrendingUp,
+  Award,
+  Smartphone,
+  MessageSquare,
+  FileText,
+  Users,
+  Lock,
+  Globe,
+  HeadphonesIcon,
+  Trophy,
+  Flame,
+  X,
 } from 'lucide-react';
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#0a0e27]">
-      {/* Subtle gradient background */}
+      {/* Subtle gradient background - MANTIDO (1/2 gradientes) */}
       <div className="fixed inset-0 bg-gradient-to-b from-blue-950/20 via-transparent to-purple-950/20 pointer-events-none" />
 
       {/* Navigation */}
@@ -59,13 +73,19 @@ export default function Home() {
         <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <div className="text-center space-y-8">
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 text-green-400 px-4 py-2 rounded-full text-sm font-medium">
-                <Check className="w-4 h-4" />
-                Atualizado com o último exame da OAB
+              {/* Badges */}
+              <div className="flex flex-wrap items-center justify-center gap-3">
+                <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 text-green-400 px-4 py-2 rounded-full text-sm font-medium">
+                  <Check className="w-4 h-4" />
+                  Atualizado com o último exame da OAB
+                </div>
+                <div className="inline-flex items-center gap-2 bg-purple-500/10 border border-purple-500/20 text-purple-400 px-4 py-2 rounded-full text-sm font-medium">
+                  <Sparkles className="w-4 h-4" />
+                  ÚNICO com IA integrada
+                </div>
               </div>
 
-              {/* Headline */}
+              {/* Headline com gradiente (mantido) */}
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight max-w-4xl mx-auto">
                 Todas as questões oficiais da OAB{' '}
                 <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
@@ -81,11 +101,10 @@ export default function Home() {
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
                 <Link href="/register">
-                  <button className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold rounded-xl overflow-hidden transition-all hover:shadow-2xl hover:shadow-blue-500/50 hover:scale-105">
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <span className="relative flex items-center gap-2 text-lg">
+                  <button className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl transition-all hover:shadow-2xl hover:shadow-blue-500/50 hover:scale-105">
+                    <span className="flex items-center gap-2 text-lg">
                       Começar grátis agora
-                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight className="w-5 h-5" />
                     </span>
                   </button>
                 </Link>
@@ -115,10 +134,86 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Value Proposition */}
-        <section className="py-16 px-4 sm:px-6 lg:px-8 border-y border-white/5 bg-white/[0.02]">
+        {/* NOVA SEÇÃO: IA Diferencial - CRÍTICO! */}
+        <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white/[0.02] border-y border-white/5">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center gap-2 bg-purple-500/10 border border-purple-500/20 text-purple-400 px-4 py-2 rounded-full text-sm font-bold mb-6">
+                <Sparkles className="w-4 h-4" />
+                EXCLUSIVO - ÚNICO NO MERCADO
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                Inteligência Artificial do Seu Lado
+              </h2>
+              <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+                Somos o único sistema de simulados OAB com IA integrada para explicações personalizadas e chat inteligente
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* Explicações com IA */}
+              <div className="bg-blue-500/5 border border-blue-500/20 rounded-2xl p-8">
+                <div className="w-16 h-16 bg-blue-500/20 rounded-xl flex items-center justify-center mb-6">
+                  <Brain className="w-8 h-8 text-blue-400" />
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-3">
+                  Explicações Personalizadas com IA
+                </h3>
+                <p className="text-gray-400 mb-6 leading-relaxed">
+                  Cada questão vem com explicação detalhada gerada por GPT-4, em linguagem clara e didática.
+                  Entenda não só a resposta certa, mas o porquê de cada alternativa.
+                </p>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-300">Explicações automáticas para todas as questões</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-300">Linguagem clara e objetiva</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-300">Contextualização com a lei e doutrina</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Chat com IA */}
+              <div className="bg-purple-500/5 border border-purple-500/20 rounded-2xl p-8">
+                <div className="w-16 h-16 bg-purple-500/20 rounded-xl flex items-center justify-center mb-6">
+                  <MessageSquare className="w-8 h-8 text-purple-400" />
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-3">
+                  Chat Inteligente com IA
+                </h3>
+                <p className="text-gray-400 mb-6 leading-relaxed">
+                  Tire dúvidas sobre qualquer questão conversando diretamente com a IA.
+                  Como ter um professor particular 24/7 ao seu lado.
+                </p>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-300">Conversas ilimitadas com a IA</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-300">Respostas instantâneas e contextualizadas</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-300">Aprenda no seu ritmo, sem limites</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Value Proposition - SEM GRADIENTE */}
+        <section className="py-16 px-4 sm:px-6 lg:px-8 border-b border-white/5">
           <div className="max-w-5xl mx-auto">
-            <div className="bg-gradient-to-br from-green-500/10 to-blue-500/10 border border-green-500/20 rounded-3xl p-8 md:p-12">
+            <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12">
               <div className="flex items-start gap-4 mb-6">
                 <div className="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
                   <Shield className="w-6 h-6 text-green-400" />
@@ -156,60 +251,253 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Features */}
+        {/* Features Expandidas - SEM GRADIENTES */}
         <section className="py-24 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold text-white mb-4">
                 Tudo que você precisa para aprovar
               </h2>
               <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-                Pratique, simule e acompanhe sua evolução com o banco oficial completo
+                Funcionalidades completas para uma preparação eficiente e focada
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="group relative bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/10 hover:border-green-500/50 transition-all duration-300">
-                <div className="w-14 h-14 bg-green-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* 1. Banco Oficial */}
+              <div className="bg-white/5 border border-white/10 hover:border-green-500/50 rounded-2xl p-6 transition-all">
+                <div className="w-14 h-14 bg-green-500/20 rounded-xl flex items-center justify-center mb-4">
                   <Shield className="w-7 h-7 text-green-400" />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-3">
+                <h3 className="text-xl font-bold text-white mb-2">
                   Banco Oficial Completo
                 </h3>
-                <p className="text-gray-400 leading-relaxed">
+                <p className="text-gray-400 leading-relaxed text-sm">
                   5.605 questões oficiais da OAB de 2010 a 2025. Atualizado automaticamente a cada novo exame.
                 </p>
               </div>
 
-              <div className="group relative bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/10 hover:border-purple-500/50 transition-all duration-300">
-                <div className="w-14 h-14 bg-purple-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                  <Zap className="w-7 h-7 text-purple-400" />
+              {/* 2. Simulados */}
+              <div className="bg-white/5 border border-white/10 hover:border-purple-500/50 rounded-2xl p-6 transition-all">
+                <div className="w-14 h-14 bg-purple-500/20 rounded-xl flex items-center justify-center mb-4">
+                  <FileText className="w-7 h-7 text-purple-400" />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-3">
+                <h3 className="text-xl font-bold text-white mb-2">
                   Simulados Realistas
                 </h3>
-                <p className="text-gray-400 leading-relaxed">
-                  Simule o exame real com a mesma distribuição de questões por matéria da FGV.
+                <p className="text-gray-400 leading-relaxed text-sm">
+                  Simule o exame real com a mesma distribuição de questões por matéria da FGV. Formato idêntico à prova.
                 </p>
               </div>
 
-              <div className="group relative bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/10 hover:border-blue-500/50 transition-all duration-300">
-                <div className="w-14 h-14 bg-blue-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              {/* 3. Analytics Avançados */}
+              <div className="bg-white/5 border border-white/10 hover:border-blue-500/50 rounded-2xl p-6 transition-all">
+                <div className="w-14 h-14 bg-blue-500/20 rounded-xl flex items-center justify-center mb-4">
                   <BarChart3 className="w-7 h-7 text-blue-400" />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-3">
-                  Acompanhe sua Evolução
+                <h3 className="text-xl font-bold text-white mb-2">
+                  Analytics Avançados
                 </h3>
-                <p className="text-gray-400 leading-relaxed">
-                  Analytics detalhado por matéria, dificuldade e histórico de desempenho.
+                <p className="text-gray-400 leading-relaxed text-sm">
+                  Performance por matéria, predição de aprovação, evolução ao longo do tempo e muito mais.
+                </p>
+              </div>
+
+              {/* 4. 5 Modos de Estudo */}
+              <div className="bg-white/5 border border-white/10 hover:border-cyan-500/50 rounded-2xl p-6 transition-all">
+                <div className="w-14 h-14 bg-cyan-500/20 rounded-xl flex items-center justify-center mb-4">
+                  <Target className="w-7 h-7 text-cyan-400" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2">
+                  5 Modos de Estudo
+                </h3>
+                <p className="text-gray-400 leading-relaxed text-sm">
+                  Completo (80q), Adaptativo (40q), Rápido (20q), Revisão de Erros (30q) e Por Matéria (50q).
+                </p>
+              </div>
+
+              {/* 5. Revisão Inteligente */}
+              <div className="bg-white/5 border border-white/10 hover:border-amber-500/50 rounded-2xl p-6 transition-all">
+                <div className="w-14 h-14 bg-amber-500/20 rounded-xl flex items-center justify-center mb-4">
+                  <Brain className="w-7 h-7 text-amber-400" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2">
+                  Revisão Inteligente
+                </h3>
+                <p className="text-gray-400 leading-relaxed text-sm">
+                  Sistema aprende com seus erros e recomenda questões personalizadas. Foco em matérias fracas.
+                </p>
+              </div>
+
+              {/* 6. PWA - App Instalável */}
+              <div className="bg-white/5 border border-white/10 hover:border-pink-500/50 rounded-2xl p-6 transition-all">
+                <div className="w-14 h-14 bg-pink-500/20 rounded-xl flex items-center justify-center mb-4">
+                  <Smartphone className="w-7 h-7 text-pink-400" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2">
+                  Funciona como App
+                </h3>
+                <p className="text-gray-400 leading-relaxed text-sm">
+                  Instalável no celular, estude offline, receba notificações. Sem precisar baixar da loja!
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* How it works */}
-        <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white/[0.02]">
+        {/* NOVA SEÇÃO: Gamificação */}
+        <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white/[0.02] border-y border-white/5">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-white mb-4">
+                Gamificação que Motiva
+              </h2>
+              <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+                Transforme seus estudos em uma jornada épica com conquistas, ranking e muito mais
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {/* Conquistas */}
+              <div className="text-center bg-white/5 border border-white/10 rounded-2xl p-6">
+                <div className="w-16 h-16 bg-yellow-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Award className="w-8 h-8 text-yellow-400" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2">
+                  Conquistas
+                </h3>
+                <p className="text-gray-400 text-sm">
+                  20+ badges desbloqueáveis. Mostre seu progresso!
+                </p>
+              </div>
+
+              {/* Ranking */}
+              <div className="text-center bg-white/5 border border-white/10 rounded-2xl p-6">
+                <div className="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Trophy className="w-8 h-8 text-purple-400" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2">
+                  Ranking
+                </h3>
+                <p className="text-gray-400 text-sm">
+                  Compare-se com outros estudantes. Suba no leaderboard!
+                </p>
+              </div>
+
+              {/* Pontos e Níveis */}
+              <div className="text-center bg-white/5 border border-white/10 rounded-2xl p-6">
+                <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <TrendingUp className="w-8 h-8 text-blue-400" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2">
+                  Pontos e Níveis
+                </h3>
+                <p className="text-gray-400 text-sm">
+                  Ganhe XP a cada questão. Suba de nível!
+                </p>
+              </div>
+
+              {/* Streak */}
+              <div className="text-center bg-white/5 border border-white/10 rounded-2xl p-6">
+                <div className="w-16 h-16 bg-orange-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Flame className="w-8 h-8 text-orange-400" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2">
+                  Streak de Estudos
+                </h3>
+                <p className="text-gray-400 text-sm">
+                  Dias consecutivos estudando. Não quebre a corrente!
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* NOVA SEÇÃO: Comparativo com Concorrentes */}
+        <section className="py-24 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-white mb-4">
+                Por que escolher o Simulai OAB?
+              </h2>
+              <p className="text-xl text-gray-400">
+                Compare e veja o diferencial
+              </p>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse">
+                <thead>
+                  <tr className="border-b border-white/10">
+                    <th className="text-left py-4 px-4 text-white font-semibold">Funcionalidade</th>
+                    <th className="text-center py-4 px-4">
+                      <div className="text-white font-bold">Simulai OAB</div>
+                      <div className="text-sm text-purple-400">Você está aqui</div>
+                    </th>
+                    <th className="text-center py-4 px-4 text-gray-400">Gran Cursos</th>
+                    <th className="text-center py-4 px-4 text-gray-400">Estratégia OAB</th>
+                    <th className="text-center py-4 px-4 text-gray-400">CEISC</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b border-white/5">
+                    <td className="py-4 px-4 text-gray-300">IA - Explicações</td>
+                    <td className="text-center py-4 px-4"><Check className="w-5 h-5 text-green-400 mx-auto" /></td>
+                    <td className="text-center py-4 px-4"><X className="w-5 h-5 text-red-400 mx-auto" /></td>
+                    <td className="text-center py-4 px-4"><X className="w-5 h-5 text-red-400 mx-auto" /></td>
+                    <td className="text-center py-4 px-4"><X className="w-5 h-5 text-red-400 mx-auto" /></td>
+                  </tr>
+                  <tr className="border-b border-white/5">
+                    <td className="py-4 px-4 text-gray-300">Chat com IA</td>
+                    <td className="text-center py-4 px-4"><Check className="w-5 h-5 text-green-400 mx-auto" /></td>
+                    <td className="text-center py-4 px-4"><X className="w-5 h-5 text-red-400 mx-auto" /></td>
+                    <td className="text-center py-4 px-4"><X className="w-5 h-5 text-red-400 mx-auto" /></td>
+                    <td className="text-center py-4 px-4"><X className="w-5 h-5 text-red-400 mx-auto" /></td>
+                  </tr>
+                  <tr className="border-b border-white/5">
+                    <td className="py-4 px-4 text-gray-300">Gamificação</td>
+                    <td className="text-center py-4 px-4"><Check className="w-5 h-5 text-green-400 mx-auto" /></td>
+                    <td className="text-center py-4 px-4"><X className="w-5 h-5 text-red-400 mx-auto" /></td>
+                    <td className="text-center py-4 px-4 text-gray-500 text-sm">Básica</td>
+                    <td className="text-center py-4 px-4"><X className="w-5 h-5 text-red-400 mx-auto" /></td>
+                  </tr>
+                  <tr className="border-b border-white/5">
+                    <td className="py-4 px-4 text-gray-300">PWA / App Instalável</td>
+                    <td className="text-center py-4 px-4"><Check className="w-5 h-5 text-green-400 mx-auto" /></td>
+                    <td className="text-center py-4 px-4"><X className="w-5 h-5 text-red-400 mx-auto" /></td>
+                    <td className="text-center py-4 px-4"><X className="w-5 h-5 text-red-400 mx-auto" /></td>
+                    <td className="text-center py-4 px-4"><X className="w-5 h-5 text-red-400 mx-auto" /></td>
+                  </tr>
+                  <tr className="border-b border-white/5">
+                    <td className="py-4 px-4 text-gray-300">5.605 Questões</td>
+                    <td className="text-center py-4 px-4"><Check className="w-5 h-5 text-green-400 mx-auto" /></td>
+                    <td className="text-center py-4 px-4"><Check className="w-5 h-5 text-green-400 mx-auto" /></td>
+                    <td className="text-center py-4 px-4"><Check className="w-5 h-5 text-green-400 mx-auto" /></td>
+                    <td className="text-center py-4 px-4"><Check className="w-5 h-5 text-green-400 mx-auto" /></td>
+                  </tr>
+                  <tr className="border-b border-white/5 bg-purple-500/5">
+                    <td className="py-4 px-4 text-white font-bold">Preço</td>
+                    <td className="text-center py-4 px-4 text-purple-400 font-bold text-lg">R$ 49,90</td>
+                    <td className="text-center py-4 px-4 text-gray-400">R$ 89,90</td>
+                    <td className="text-center py-4 px-4 text-gray-400">R$ 129,90</td>
+                    <td className="text-center py-4 px-4 text-gray-400">R$ 99,90</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="text-center mt-8">
+              <Link href="/register">
+                <Button variant="primary" size="lg">
+                  Começar grátis agora
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* How it works - SEM GRADIENTES NOS CIRCLES */}
+        <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white/[0.02] border-y border-white/5">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold text-white mb-4">
@@ -222,7 +510,7 @@ export default function Home() {
 
             <div className="grid md:grid-cols-3 gap-12">
               <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-4 shadow-lg shadow-blue-500/50">
+                <div className="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                   1
                 </div>
                 <h3 className="text-xl font-bold text-white mb-2">Crie sua conta grátis</h3>
@@ -230,7 +518,7 @@ export default function Home() {
               </div>
 
               <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-4 shadow-lg shadow-purple-500/50">
+                <div className="w-16 h-16 bg-purple-600 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                   2
                 </div>
                 <h3 className="text-xl font-bold text-white mb-2">Pratique questões</h3>
@@ -238,7 +526,7 @@ export default function Home() {
               </div>
 
               <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-4 shadow-lg shadow-green-500/50">
+                <div className="w-16 h-16 bg-green-600 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                   3
                 </div>
                 <h3 className="text-xl font-bold text-white mb-2">Aprove na OAB</h3>
@@ -250,51 +538,40 @@ export default function Home() {
 
         {/* Testimonial */}
         <section className="py-24 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-12 text-center">
-              <div className="flex justify-center mb-6">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-6 h-6 text-yellow-400 fill-yellow-400" />
-                ))}
-              </div>
-              <blockquote className="text-2xl md:text-3xl font-medium text-white mb-6">
-                &quot;Ter acesso a TODAS as questões oficiais em um só lugar fez toda a diferença.
-                Consegui praticar muito mais e entender o padrão das provas.&quot;
-              </blockquote>
-              <div className="text-gray-400">
-                <div className="font-semibold text-white">Maria Silva</div>
-                <div>Aprovada no XXXVIII Exame da OAB</div>
-              </div>
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="flex justify-center mb-4">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <Star key={i} className="w-6 h-6 text-yellow-400 fill-current" />
+              ))}
+            </div>
+            <blockquote className="text-2xl md:text-3xl text-white font-medium mb-6">
+              &ldquo;O Simulai mudou completamente minha preparação. As explicações com IA são incríveis e o sistema de gamificação me mantém motivado todos os dias!&rdquo;
+            </blockquote>
+            <div className="text-gray-400">
+              <p className="font-semibold text-white">Maria Silva</p>
+              <p className="text-sm">Aprovada OAB XXXVIII</p>
             </div>
           </div>
         </section>
 
-        {/* CTA Final */}
+        {/* CTA Final com gradiente - MANTIDO (2/2 gradientes) */}
         <section className="py-24 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div className="relative bg-gradient-to-br from-blue-600 to-purple-600 rounded-3xl p-12 text-center overflow-hidden">
-              {/* Decorative elements */}
-              <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjAzIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-40" />
-
               <div className="relative z-10">
-                <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                  Comece sua jornada de aprovação hoje
+                <h2 className="text-4xl font-bold text-white mb-4">
+                  Comece sua jornada rumo à aprovação
                 </h2>
-                <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-                  Junte-se a milhares de estudantes que já estão se preparando com a melhor plataforma
+                <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+                  Junte-se a milhares de estudantes que já estão usando o Simulai OAB para alcançar a aprovação
                 </p>
                 <Link href="/register">
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="text-lg px-8 py-6 bg-white text-blue-600 hover:bg-gray-50 border-0 shadow-xl"
-                  >
-                    Criar conta grátis
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Button>
+                  <button className="px-8 py-4 bg-white text-blue-600 font-bold rounded-xl hover:bg-gray-100 transition-all text-lg">
+                    Criar conta grátis agora
+                  </button>
                 </Link>
-                <p className="text-blue-100 mt-4 text-sm">
-                  Sem cartão de crédito • Comece em 1 minuto
+                <p className="text-white/80 text-sm mt-4">
+                  30 dias grátis • Sem cartão de crédito • Cancele quando quiser
                 </p>
               </div>
             </div>
@@ -302,62 +579,49 @@ export default function Home() {
         </section>
 
         {/* Footer */}
-        <footer className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/5">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+        <footer className="bg-white/[0.02] border-t border-white/5 py-12 px-4">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid md:grid-cols-4 gap-8 mb-8">
               <div>
-                <h3 className="font-semibold text-white mb-3">Produto</h3>
+                <Image
+                  src="/logo.png"
+                  alt="Simulai OAB"
+                  width={140}
+                  height={70}
+                  className="h-10 w-auto mb-4"
+                />
+                <p className="text-gray-400 text-sm">
+                  O sistema mais completo de preparação para a OAB com IA integrada.
+                </p>
+              </div>
+
+              <div>
+                <h4 className="text-white font-semibold mb-4">Produto</h4>
                 <ul className="space-y-2 text-gray-400 text-sm">
-                  <li>
-                    <Link href="/pricing" className="hover:text-white transition">
-                      Planos
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/register" className="hover:text-white transition">
-                      Começar Grátis
-                    </Link>
-                  </li>
+                  <li><Link href="/practice" className="hover:text-white transition">Praticar</Link></li>
+                  <li><Link href="/simulations" className="hover:text-white transition">Simulados</Link></li>
+                  <li><Link href="/analytics" className="hover:text-white transition">Analytics</Link></li>
+                  <li><Link href="/pricing" className="hover:text-white transition">Planos</Link></li>
                 </ul>
               </div>
+
               <div>
-                <h3 className="font-semibold text-white mb-3">Legal</h3>
+                <h4 className="text-white font-semibold mb-4">Empresa</h4>
                 <ul className="space-y-2 text-gray-400 text-sm">
-                  <li>
-                    <Link href="/terms" className="hover:text-white transition">
-                      Termos de Uso
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/privacy" className="hover:text-white transition">
-                      Privacidade
-                    </Link>
-                  </li>
+                  <li><Link href="/privacy" className="hover:text-white transition">Privacidade</Link></li>
+                  <li><Link href="/terms" className="hover:text-white transition">Termos</Link></li>
                 </ul>
               </div>
+
               <div>
-                <h3 className="font-semibold text-white mb-3">Recursos</h3>
+                <h4 className="text-white font-semibold mb-4">Contato</h4>
                 <ul className="space-y-2 text-gray-400 text-sm">
-                  <li>
-                    <Link href="/dashboard" className="hover:text-white transition">
-                      Dashboard
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/practice" className="hover:text-white transition">
-                      Prática
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-3">Contato</h3>
-                <ul className="space-y-2 text-gray-400 text-sm">
-                  <li>suporte@simulaioab.com</li>
+                  <li>suporte@simulaioab.com.br</li>
                 </ul>
               </div>
             </div>
-            <div className="border-t border-white/5 pt-8 text-center text-gray-500 text-sm">
+
+            <div className="border-t border-white/5 pt-8 text-center text-gray-400 text-sm">
               <p>&copy; 2025 Simulai OAB. Todos os direitos reservados.</p>
             </div>
           </div>
