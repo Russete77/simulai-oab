@@ -184,7 +184,9 @@ export default async function QuestionPage(props: PageProps) {
 
           {/* Questão */}
           <Card variant="glass" className="mb-6">
-            <h1 className="text-xl font-semibold text-white mb-6">Enunciado</h1>
+            <h1 className="text-xl font-semibold text-white mb-6">
+              Questão {question.questionNumber} de {subjectName} — OAB {question.examYear}
+            </h1>
             <p className="text-white/90 leading-relaxed whitespace-pre-wrap">{question.statement}</p>
           </Card>
 
