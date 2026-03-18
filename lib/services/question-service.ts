@@ -395,8 +395,8 @@ export async function getNextQuestion(
     // Build filter conditions
     const where: Prisma.QuestionWhereInput = {
       nullified: false,
-      ...(filters?.subject && { subject: filters.subject }),
-      ...(filters?.difficulty && { difficulty: filters.difficulty }),
+      ...(filters?.subject && { subject: filters.subject as any }),
+      ...(filters?.difficulty && { difficulty: filters.difficulty as any }),
     };
 
     // Exclude answered questions if requested

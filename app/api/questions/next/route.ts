@@ -118,8 +118,8 @@ export async function GET(request: NextRequest) {
     // Construir where clause
     const where: Prisma.QuestionWhereInput = {
       nullified: false,
-      ...(params.subject && { subject: params.subject }),
-      ...(params.difficulty && { difficulty: params.difficulty }),
+      ...(params.subject && { subject: params.subject as any }),
+      ...(params.difficulty && { difficulty: params.difficulty as any }),
     };
 
     // Excluir questões já respondidas
