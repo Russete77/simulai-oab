@@ -43,10 +43,13 @@ export default async function sitemap({
 }: {
   id: number;
 }): Promise<MetadataRoute.Sitemap> {
+  // Next.js pode passar id como string — normalizar
+  const pageId = Number(id);
+
   // ==========================================
   // Página 0: Estáticas + Matérias
   // ==========================================
-  if (id === 0) {
+  if (pageId === 0) {
     const staticPages: MetadataRoute.Sitemap = [
       {
         url: baseUrl,
@@ -143,7 +146,7 @@ export default async function sitemap({
   // ==========================================
   // Páginas 1+: Questões (paginadas, 1000 por página)
   // ==========================================
-  const questionPageIndex = id - 1; // Ajustar índice (id 1 = primeira página de questões)
+  const questionPageIndex = pageId - 1; // Ajustar índice (id 1 = primeira página de questões)
 
   const questions = await prisma.question.findMany({
     select: {
