@@ -3,7 +3,7 @@ import { clsx } from 'clsx';
 
 export interface CardProps extends HTMLAttributes<HTMLDivElement> {
   variant?: 'glass' | 'premium' | 'solid';
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export function Card({ variant = 'glass', className, children, ...props }: CardProps) {
