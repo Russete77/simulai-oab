@@ -4,7 +4,8 @@ import { notFound } from 'next/navigation';
 import { Header } from '@/components/layout/header';
 import { Card, Button } from '@/components/ui';
 import { getBlogPost, getAllBlogPosts } from '@/content/blog';
-import { Home, ArrowLeft, Clock, Calendar, ArrowRight, Share2 } from 'lucide-react';
+import { Home, ArrowLeft, Clock, Calendar, ArrowRight } from 'lucide-react';
+import { ShareButton } from './share-button';
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -176,24 +177,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 Ajude outros candidatos a se preparar melhor para a OAB
               </p>
             </div>
-            <button
-              onClick={() => {
-                const url = `${typeof window !== 'undefined' ? window.location.origin : ''}/blog/${post.slug}`;
-                const text = `${post.title} - Simulai OAB`;
-                if (navigator.share) {
-                  navigator.share({
-                    title: text,
-                    url,
-                  });
-                } else {
-                  navigator.clipboard.writeText(url);
-                }
-              }}
-              className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium transition-colors"
-            >
-              <Share2 className="w-4 h-4" />
-              Compartilhar
-            </button>
+            <ShareButton slug={post.slug} title={post.title} />
           </div>
         </div>
 
