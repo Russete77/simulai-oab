@@ -52,6 +52,15 @@ export const metadata: Metadata = {
   creator: "Simulai OAB",
   publisher: "Simulai OAB",
   manifest: "/manifest.json",
+  icons: {
+    icon: [
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/icon-192.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
@@ -77,10 +86,10 @@ export const metadata: Metadata = {
     description: 'Plataforma completa de preparação para o Exame da OAB com 5.605 questões reais de 2010 a 2025, revisão comentada e chatbot com IA integrado.',
     images: [
       {
-        url: 'https://simulaioab.com/logo.png',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Simulai OAB - Preparação Inteligente',
+        alt: 'Simulai OAB - Preparação Inteligente para o Exame da OAB',
       },
     ],
   },
@@ -88,7 +97,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Simulai OAB - Preparação Inteligente para o Exame da OAB',
     description: 'Plataforma completa com 5.605 questões reais, revisão comentada e IA integrada.',
-    images: ['https://simulaioab.com/logo.png'],
+    images: ['/og-image.png'],
     creator: '@simulaioab',
   },
 };
