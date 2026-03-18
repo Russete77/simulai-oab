@@ -139,16 +139,17 @@ export async function checkRateLimit(
       reset: result.reset,
     };
   } catch (error) {
-    // Em caso de erro no Redis, permitir a requisição (fail open)
-    logger.error('Erro ao verificar rate limit', {
+    // Em caso de erro no Redis, BLOQUEAR para endpoints de IA (fail closed)
+    // Isso protege contra abuso quando Redis está indisponível
+    logger.error('Erro ao verificar rate limit — bloqueando por segurança', {
       error: error instanceof Error ? error.message : String(error),
       identifier,
     });
 
     return {
-      success: true,
-      limit: 999,
-      remaining: 999,
+      success: false,
+      limit: 0,
+      remaining: 0,
       reset: Date.now() + 60000,
     };
   }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Card, Button } from '@/components/ui';
 import { Header } from '@/components/layout/header';
@@ -11,6 +11,7 @@ import { ArrowLeft, ArrowRight, BarChart3, CheckCircle, BookOpen, Filter } from 
 import Link from 'next/link';
 import { AnswerQuestionResponse } from '@/types/api';
 import { Subject } from '@prisma/client';
+import { AnswerQuestionSchema } from '@/lib/validations/question';
 
 // Labels em português para as matérias
 const SUBJECT_LABELS: Record<Subject, string> = {
@@ -53,6 +54,16 @@ export default function PracticeClient() {
   const [recommendedQuestions, setRecommendedQuestions] = useState<any[]>([]);
   const [currentRecommendedIndex, setCurrentRecommendedIndex] = useState(0);
   const [isRecommendedMode, setIsRecommendedMode] = useState(false);
+
+  // AbortController para cancelar fetches ao desmontar
+  const abortControllerRef = useRef<AbortController | null>(null);
+
+  // Cleanup: cancelar fetches pendentes ao desmontar
+  useEffect(() => {
+    return () => {
+      abortControllerRef.current?.abort('component unmounted');
+    };
+  }, []);
 
   useEffect(() => {
     const recommended = searchParams.get('recommended');
@@ -139,6 +150,11 @@ export default function PracticeClient() {
   };
 
   const loadNextQuestion = async (skipUrlClean = false) => {
+    // Criar controller FORA do try para ter referência local no finally
+    abortControllerRef.current?.abort('component unmounted');
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
     try {
       setLoading(true);
 
@@ -178,7 +194,7 @@ export default function PracticeClient() {
       }
 
       console.log('🔍 Buscando questão:', url);
-      const response = await fetch(url);
+      const response = await fetch(url, { signal: controller.signal });
 
       if (!response.ok) {
         throw new Error('Failed to fetch question');
@@ -196,25 +212,39 @@ export default function PracticeClient() {
         router.replace('/practice', { scroll: false });
       }
     } catch (error) {
+      // Ignorar abort de cleanup do React
+      if (typeof error === 'string' && error === 'component unmounted') return;
+      if (error instanceof DOMException && error.name === 'AbortError') return;
       console.error('Error loading question:', error);
     } finally {
-      setLoading(false);
+      // Checar o controller LOCAL desta chamada (não o ref que pode ter sido sobrescrito)
+      if (!controller.signal.aborted) {
+        setLoading(false);
+      }
     }
   };
 
-  const handleSubmitAnswer = async () => {
+  const handleSubmitAnswer = useCallback(async () => {
     if (!selectedAlternative || !question) return;
+
+    // Validação client-side com Zod
+    const payload = {
+      questionId: question.id,
+      alternativeId: selectedAlternative,
+      timeSpent: timer,
+    };
+    const validation = AnswerQuestionSchema.safeParse(payload);
+    if (!validation.success) {
+      console.error('Validação falhou:', validation.error.flatten());
+      return;
+    }
 
     try {
       setIsSubmitting(true);
       const response = await fetch('/api/questions/answer', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          questionId: question.id,
-          alternativeId: selectedAlternative,
-          timeSpent: timer,
-        }),
+        body: JSON.stringify(validation.data),
       });
 
       if (!response.ok) {
@@ -229,13 +259,13 @@ export default function PracticeClient() {
     } finally {
       setIsSubmitting(false);
     }
-  };
+  }, [selectedAlternative, question, timer]);
 
   // NOVO: Handler para mudar filtro
-  const handleSubjectChange = (subject: Subject | 'all') => {
+  const handleSubjectChange = useCallback((subject: Subject | 'all') => {
     setSelectedSubject(subject);
     setShowFilters(false);
-  };
+  }, []);
 
   if (loading) {
     return (
@@ -370,7 +400,7 @@ export default function PracticeClient() {
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-2xl font-bold text-amber-400">
+                <div className="text-2xl font-bold text-amber-500">
                   {Math.round(((currentRecommendedIndex + 1) / recommendedQuestions.length) * 100)}%
                 </div>
                 <div className="text-xs text-gray-500">Progresso</div>
@@ -401,14 +431,14 @@ export default function PracticeClient() {
           <Card variant="glass" className="mt-6">
             <div className="flex items-start gap-4">
               {result.isCorrect ? (
-                <CheckCircle className="w-8 h-8 text-green-400 flex-shrink-0" />
+                <CheckCircle className="w-8 h-8 text-green-500 flex-shrink-0" />
               ) : (
                 <div className="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0">
-                  <span className="text-red-400 text-xl">✗</span>
+                  <span className="text-red-500 text-xl">✗</span>
                 </div>
               )}
               <div className="flex-1">
-                <h3 className={`text-xl font-bold mb-2 ${result.isCorrect ? 'text-green-400' : 'text-red-400'}`}>
+                <h3 className={`text-xl font-bold mb-2 ${result.isCorrect ? 'text-green-500' : 'text-red-500'}`}>
                   {result.isCorrect ? 'Resposta Correta!' : 'Resposta Incorreta'}
                 </h3>
                 {result.explanation && (
@@ -485,7 +515,7 @@ export default function PracticeClient() {
                 <div className="w-full">
                   <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4 mb-4 text-center">
                     <div className="text-4xl mb-2">🎉</div>
-                    <h3 className="text-xl font-bold text-green-400 mb-2">
+                    <h3 className="text-xl font-bold text-green-500 mb-2">
                       Parabéns! Você completou todas as questões recomendadas!
                     </h3>
                     <p className="text-gray-400 text-sm">

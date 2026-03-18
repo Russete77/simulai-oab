@@ -226,7 +226,7 @@ export default function SimulationClient({ simulation }: SimulationClientProps) 
                   ${currentQuestionIndex === index
                     ? 'bg-blue-500 text-white'
                     : answers[sq.question.id]
-                    ? 'bg-green-500/20 text-green-400 border-2 border-green-500'
+                    ? 'bg-green-500/20 text-green-500 border-2 border-green-500'
                     : 'bg-navy-800 text-navy-400 hover:bg-navy-700'
                   }
                 `}

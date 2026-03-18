@@ -52,8 +52,8 @@ export function ToastProvider({ children }: { children: ReactNode }) {
 
 function ToastItem({ toast, onClose }: { toast: Toast; onClose: () => void }) {
   const icons = {
-    success: <CheckCircle className="w-5 h-5 text-green-400" />,
-    error: <XCircle className="w-5 h-5 text-red-400" />,
+    success: <CheckCircle className="w-5 h-5 text-green-500" />,
+    error: <XCircle className="w-5 h-5 text-red-500" />,
     info: <AlertCircle className="w-5 h-5 text-blue-400" />,
   };
 

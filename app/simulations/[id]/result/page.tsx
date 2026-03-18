@@ -176,15 +176,15 @@ export default async function SimulationResultPage({ params }: { params: Promise
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Score Card */}
         <Card variant="premium" className="mb-8 text-center">
-          <Trophy className="w-16 h-16 text-amber-400 mx-auto mb-4" />
+          <Trophy className="w-16 h-16 text-amber-500 mx-auto mb-4" />
           <h2 className="text-5xl font-bold text-white mb-2">{score.toFixed(1)}%</h2>
           <p className="text-navy-600 mb-4">
             {correctAnswers} de {totalQuestions} questões corretas
           </p>
           <div className={`inline-block px-4 py-2 rounded-lg ${
-            score >= 75 ? 'bg-green-500/20 text-green-400' :
+            score >= 75 ? 'bg-green-500/20 text-green-500' :
             score >= 50 ? 'bg-blue-500/20 text-blue-400' :
-            'bg-red-500/20 text-red-400'
+            'bg-red-500/20 text-red-500'
           }`}>
             {score >= 75 ? 'Excelente!' : score >= 50 ? 'Bom desempenho' : 'Continue praticando'}
           </div>
@@ -264,7 +264,7 @@ export default async function SimulationResultPage({ params }: { params: Promise
                   {weakAreas.map((area) => (
                     <span
                       key={area.subject}
-                      className="px-3 py-1 bg-amber-500/20 text-amber-400 rounded-lg text-sm"
+                      className="px-3 py-1 bg-amber-500/20 text-amber-500 rounded-lg text-sm"
                     >
                       {SUBJECT_LABELS[area.subject]} ({area.accuracy}%)
                     </span>

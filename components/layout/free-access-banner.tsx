@@ -58,7 +58,7 @@ export function FreeAccessBanner() {
     if (isLastDay) {
       return {
         bg: 'from-red-600 via-red-500 to-orange-600',
-        badge: 'bg-red-900/80 border-red-400/50',
+        badge: 'bg-red-900/80 border-red-500/50',
         badgeText: 'text-red-100',
         button: 'bg-white text-red-600 hover:bg-red-50',
         pulse: true,

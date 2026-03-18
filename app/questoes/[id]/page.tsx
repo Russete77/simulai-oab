@@ -82,20 +82,22 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   }
 
   const subjectName = SUBJECT_NAMES[question.subject] || question.subject;
-  const title = `Questão OAB ${question.examId} - Questão ${question.questionNumber} - ${subjectName}`;
-  const description = `${question.statement.substring(0, 155)}...`;
+  const title = `Questão ${question.questionNumber} de ${subjectName} — OAB ${question.examYear} (Fase ${question.examPhase})`;
+  // Limpar HTML e truncar statement para descrição SEO
+  const cleanStatement = question.statement.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+  const description = `Resolva a questão ${question.questionNumber} de ${subjectName} do Exame OAB ${question.examYear} com gabarito comentado e explicação com IA. ${cleanStatement.substring(0, 120)}...`;
 
   return {
     title,
     description,
     keywords: [
-      'OAB',
       'questão OAB',
+      `questão ${subjectName} OAB`,
+      `OAB ${question.examYear}`,
+      `questão ${question.questionNumber} OAB ${question.examYear}`,
       subjectName,
-      `exame ${question.examId}`,
-      'simulado OAB',
-      'prova OAB',
-      'preparação OAB',
+      'gabarito OAB',
+      'prova OAB comentada',
     ],
     openGraph: {
       title,
@@ -107,6 +109,9 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
       card: 'summary_large_image',
       title,
       description,
+    },
+    alternates: {
+      canonical: `https://simulaioab.com/questoes/${params.id}`,
     },
   };
 }

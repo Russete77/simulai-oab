@@ -7,7 +7,7 @@ import { useUser } from '@clerk/nextjs';
 import { Button } from '@/components/ui';
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Menu, X } from 'lucide-react';
 
 interface HeaderProps {
   showLogout?: boolean;
@@ -17,6 +17,7 @@ export function Header({ showLogout = true }: HeaderProps) {
   const { isSignedIn, isLoaded } = useUser();
   const [mounted, setMounted] = useState(false);
   const [isPWA, setIsPWA] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -27,7 +28,14 @@ export function Header({ showLogout = true }: HeaderProps) {
     setIsPWA(isStandalone);
   }, []);
 
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
+
   const canGoBack = pathname !== '/' && pathname !== '/dashboard';
+
+  const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/');
 
   // Renderizar conteúdo consistente até mounted
   if (!mounted || !isLoaded) {
@@ -52,7 +60,7 @@ export function Header({ showLogout = true }: HeaderProps) {
                 alt="Simulai OAB - Página inicial"
                 width={112}
                 height={56}
-                style={{ height: 'auto' }}
+                style={{ width: 'auto', height: 'auto' }}
                 className="h-14 hover:opacity-80 transition-opacity"
               />
             </Link>
@@ -62,7 +70,7 @@ export function Header({ showLogout = true }: HeaderProps) {
                 href="/pricing"
                 className="text-navy-300 hover:text-white transition-colors font-medium"
               >
-                Planos
+                Assinar
               </Link>
               <div className="w-20 h-10" /> {/* Placeholder para evitar shift */}
             </div>
@@ -104,48 +112,89 @@ export function Header({ showLogout = true }: HeaderProps) {
                 alt="Simulai OAB - Página inicial"
                 width={112}
                 height={56}
-                style={{ height: 'auto' }}
+                style={{ width: 'auto', height: 'auto' }}
                 className="h-14 hover:opacity-80 transition-opacity"
               />
             </Link>
           </div>
 
-          <div className="flex items-center gap-6">
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-6">
             {/* Menu de navegação */}
             {isSignedIn ? (
               <>
                 <Link
                   href="/dashboard"
-                  className="text-navy-300 hover:text-white transition-colors font-medium"
+                  className={`transition-colors font-medium pb-1 border-b-2 ${
+                    isActive('/dashboard')
+                      ? 'text-white border-blue-500'
+                      : 'text-navy-300 hover:text-white border-transparent'
+                  }`}
                 >
                   Dashboard
                 </Link>
                 <Link
                   href="/practice"
-                  className="text-navy-300 hover:text-white transition-colors font-medium"
+                  className={`transition-colors font-medium pb-1 border-b-2 ${
+                    isActive('/practice')
+                      ? 'text-white border-blue-500'
+                      : 'text-navy-300 hover:text-white border-transparent'
+                  }`}
                 >
                   Praticar
                 </Link>
                 <Link
+                  href="/revisao-inteligente"
+                  className={`transition-colors font-medium pb-1 border-b-2 ${
+                    isActive('/revisao-inteligente')
+                      ? 'text-white border-blue-500'
+                      : 'text-navy-300 hover:text-white border-transparent'
+                  }`}
+                >
+                  Revisão
+                </Link>
+                <Link
+                  href="/plano-estudos"
+                  className={`transition-colors font-medium pb-1 border-b-2 ${
+                    isActive('/plano-estudos')
+                      ? 'text-white border-blue-500'
+                      : 'text-navy-300 hover:text-white border-transparent'
+                  }`}
+                >
+                  Plano
+                </Link>
+                <Link
                   href="/leaderboard"
-                  className="text-navy-300 hover:text-white transition-colors font-medium"
+                  className={`transition-colors font-medium pb-1 border-b-2 ${
+                    isActive('/leaderboard')
+                      ? 'text-white border-blue-500'
+                      : 'text-navy-300 hover:text-white border-transparent'
+                  }`}
                 >
                   Ranking
                 </Link>
                 <Link
                   href="/pricing"
-                  className="text-navy-300 hover:text-white transition-colors font-medium"
+                  className={`transition-colors font-medium pb-1 border-b-2 ${
+                    isActive('/pricing')
+                      ? 'text-white border-blue-500'
+                      : 'text-navy-300 hover:text-white border-transparent'
+                  }`}
                 >
-                  Planos
+                  Assinar
                 </Link>
               </>
             ) : (
               <>
                 <Link
                   href="/pricing"
-                  className="text-navy-300 hover:text-white transition-colors font-medium"
+                  className={`transition-colors font-medium pb-1 border-b-2 ${
+                    isActive('/pricing')
+                      ? 'text-white border-blue-500'
+                      : 'text-navy-300 hover:text-white border-transparent'
+                  }`}
                 >
-                  Planos
+                  Assinar
                 </Link>
                 <Link href="/login">
                   <Button variant="ghost" size="sm">
@@ -164,7 +213,6 @@ export function Header({ showLogout = true }: HeaderProps) {
             {showLogout && isSignedIn && (
               <div role="navigation" aria-label="Menu do usuário">
                 <UserButton
-                  afterSignOutUrl="/"
                   appearance={{
                     elements: {
                       avatarBox: "w-10 h-10 ring-2 ring-navy-700 hover:ring-blue-500 transition-all",
@@ -183,7 +231,138 @@ export function Header({ showLogout = true }: HeaderProps) {
               </div>
             )}
           </div>
+
+          {/* Mobile Menu Button & User Button */}
+          <div className="flex md:hidden items-center gap-4">
+            {showLogout && isSignedIn && (
+              <div role="navigation" aria-label="Menu do usuário">
+                <UserButton
+                  appearance={{
+                    elements: {
+                      avatarBox: "w-10 h-10 ring-2 ring-navy-700 hover:ring-blue-500 transition-all",
+                      userButtonPopoverCard: "bg-navy-900/95 backdrop-blur-xl border border-navy-800 shadow-2xl",
+                      userButtonPopoverActionButton: "!text-white hover:bg-navy-800/50 transition-colors",
+                      userButtonPopoverActionButtonText: "!text-white font-medium",
+                      userButtonPopoverActionButtonIcon: "text-navy-400",
+                      userButtonPopoverFooter: "hidden",
+                      userButtonPopoverMain: "bg-navy-900/95",
+                      userPreviewMainIdentifier: "!text-white font-semibold",
+                      userPreviewSecondaryIdentifier: "!text-white",
+                      userButtonPopoverActions: "border-t border-navy-800",
+                    }
+                  }}
+                />
+              </div>
+            )}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 hover:bg-navy-800 rounded-lg transition-colors"
+              aria-label="Abrir menu"
+              aria-expanded={mobileMenuOpen}
+            >
+              {mobileMenuOpen ? (
+                <X className="w-6 h-6 text-white" />
+              ) : (
+                <Menu className="w-6 h-6 text-white" />
+              )}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Navigation Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden mt-4 pb-4 border-t border-navy-800 pt-4">
+            <div className="flex flex-col gap-3">
+              {isSignedIn ? (
+                <>
+                  <Link
+                    href="/dashboard"
+                    className={`px-3 py-2 rounded-lg transition-colors font-medium ${
+                      isActive('/dashboard')
+                        ? 'bg-blue-600/20 text-white'
+                        : 'text-navy-300 hover:bg-navy-800 hover:text-white'
+                    }`}
+                  >
+                    Dashboard
+                  </Link>
+                  <Link
+                    href="/practice"
+                    className={`px-3 py-2 rounded-lg transition-colors font-medium ${
+                      isActive('/practice')
+                        ? 'bg-blue-600/20 text-white'
+                        : 'text-navy-300 hover:bg-navy-800 hover:text-white'
+                    }`}
+                  >
+                    Praticar
+                  </Link>
+                  <Link
+                    href="/revisao-inteligente"
+                    className={`px-3 py-2 rounded-lg transition-colors font-medium ${
+                      isActive('/revisao-inteligente')
+                        ? 'bg-blue-600/20 text-white'
+                        : 'text-navy-300 hover:bg-navy-800 hover:text-white'
+                    }`}
+                  >
+                    Revisão Inteligente
+                  </Link>
+                  <Link
+                    href="/plano-estudos"
+                    className={`px-3 py-2 rounded-lg transition-colors font-medium ${
+                      isActive('/plano-estudos')
+                        ? 'bg-blue-600/20 text-white'
+                        : 'text-navy-300 hover:bg-navy-800 hover:text-white'
+                    }`}
+                  >
+                    Plano de Estudos
+                  </Link>
+                  <Link
+                    href="/leaderboard"
+                    className={`px-3 py-2 rounded-lg transition-colors font-medium ${
+                      isActive('/leaderboard')
+                        ? 'bg-blue-600/20 text-white'
+                        : 'text-navy-300 hover:bg-navy-800 hover:text-white'
+                    }`}
+                  >
+                    Ranking
+                  </Link>
+                  <Link
+                    href="/pricing"
+                    className={`px-3 py-2 rounded-lg transition-colors font-medium ${
+                      isActive('/pricing')
+                        ? 'bg-blue-600/20 text-white'
+                        : 'text-navy-300 hover:bg-navy-800 hover:text-white'
+                    }`}
+                  >
+                    Assinar
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/pricing"
+                    className={`px-3 py-2 rounded-lg transition-colors font-medium ${
+                      isActive('/pricing')
+                        ? 'bg-blue-600/20 text-white'
+                        : 'text-navy-300 hover:bg-navy-800 hover:text-white'
+                    }`}
+                  >
+                    Assinar
+                  </Link>
+                  <Link href="/login">
+                    <Button variant="ghost" size="sm" className="w-full justify-start">
+                      Entrar
+                    </Button>
+                  </Link>
+                  <Link href="/register">
+                    <Button variant="primary" size="sm" className="w-full justify-start">
+                      Começar Grátis
+                    </Button>
+                  </Link>
+                </>
+              )}
+            </div>
+          </div>
+        )}
       </nav>
     </header>
   );

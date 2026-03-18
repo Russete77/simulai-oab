@@ -108,7 +108,7 @@ export default function SubjectSelectorModal({
         <div className="flex items-center justify-between p-6 border-b border-white/10">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-green-500/20 rounded-xl flex items-center justify-center">
-              <BookOpen className="w-5 h-5 text-green-400" />
+              <BookOpen className="w-5 h-5 text-green-500" />
             </div>
             <div>
               <h2 className="text-2xl font-bold text-white">Escolha as Matérias</h2>
@@ -149,7 +149,7 @@ export default function SubjectSelectorModal({
                     relative p-4 rounded-xl border-2 transition-all text-left
                     ${
                       isSelected
-                        ? 'bg-green-500/10 border-green-500/50 shadow-lg shadow-green-500/20'
+                        ? 'bg-green-500/10 border-green-500/50 shadow-lg shadow-green-500/20 text-green-500'
                         : 'bg-navy-800/50 border-white/10 hover:border-white/20 hover:bg-navy-800'
                     }
                   `}
@@ -158,7 +158,7 @@ export default function SubjectSelectorModal({
                     <div className="flex-1 min-w-0">
                       <h3
                         className={`font-semibold text-sm mb-1 ${
-                          isSelected ? 'text-green-400' : 'text-white'
+                          isSelected ? 'text-green-500' : 'text-white'
                         }`}
                       >
                         {SUBJECT_LABELS[subject]}

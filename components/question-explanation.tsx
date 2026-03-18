@@ -64,10 +64,10 @@ export function QuestionExplanation({
       <Card variant="glass" className="mt-6 p-6 border-red-500/20 bg-red-500/5">
         <div className="flex items-start gap-3">
           <div className="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0">
-            <span className="text-red-400 text-xl">✗</span>
+            <span className="text-red-500 text-xl">✗</span>
           </div>
           <div className="flex-1">
-            <h3 className="text-red-400 font-semibold mb-1">Erro ao gerar explicação</h3>
+            <h3 className="text-red-500 font-semibold mb-1">Erro ao gerar explicação</h3>
             <p className="text-red-300/80 text-sm">{error}</p>
             <Button
               variant="ghost"
@@ -126,7 +126,7 @@ export function QuestionExplanation({
           >
             <p
               className={`text-sm font-medium ${
-                data.metadata.isCorrect ? "text-green-400" : "text-red-400"
+                data.metadata.isCorrect ? "text-green-500" : "text-red-500"
               }`}
             >
               {data.metadata.isCorrect ? "✓" : "✗"} Você respondeu:{" "}

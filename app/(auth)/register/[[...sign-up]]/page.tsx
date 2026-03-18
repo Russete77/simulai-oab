@@ -9,8 +9,8 @@ export default function RegisterPage() {
     <div className="min-h-screen flex items-center justify-center p-4 bg-navy-950">
       {/* Background decorativo */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 -left-48 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-1/4 -left-48 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-purple-600/5 rounded-full blur-3xl" />
       </div>
 
       <div className="w-full max-w-md relative z-10">
@@ -23,7 +23,8 @@ export default function RegisterPage() {
               width={192}
               height={96}
               priority
-              className="h-24 w-auto"
+              style={{ width: 'auto', height: 'auto' }}
+              className="h-24"
             />
           </div>
           <p className="text-navy-400">
@@ -40,7 +41,7 @@ export default function RegisterPage() {
                 card: "bg-navy-900/50 backdrop-blur-xl border border-navy-800/50 shadow-2xl",
                 headerTitle: "text-white text-2xl font-bold",
                 headerSubtitle: "text-navy-400",
-                formButtonPrimary: "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg shadow-blue-500/50 transition-all duration-300",
+                formButtonPrimary: "bg-blue-600 hover:bg-blue-500 text-white shadow-md transition-all duration-300",
                 formFieldInput: "bg-navy-800/50 border-navy-700 !text-white placeholder:text-navy-500 focus:border-blue-500 focus:ring-blue-500",
                 formFieldLabel: "!text-white",
                 formFieldInputShowPasswordButton: "text-navy-400 hover:text-white",
@@ -61,7 +62,7 @@ export default function RegisterPage() {
                 otpCodeFieldInput: "bg-navy-800/50 border-navy-700 !text-white",
                 alternativeMethodsBlockButton: "bg-navy-800/50 border-navy-700 !text-white hover:bg-navy-800",
                 alertText: "!text-white",
-                alert: "bg-red-500/10 border-red-500/20 text-red-400",
+                alert: "bg-red-500/10 border-red-500/20 text-red-500",
                 formResendCodeLink: "text-blue-400 hover:text-blue-300",
                 identityPreview: "bg-navy-800/50 border-navy-700",
                 formFieldRow: "!text-white",
@@ -70,7 +71,7 @@ export default function RegisterPage() {
             routing="path"
             path="/register"
             signInUrl="/login"
-            afterSignUpUrl="/dashboard"
+            fallbackRedirectUrl="/dashboard"
           />
         </div>
 

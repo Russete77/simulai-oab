@@ -1,6 +1,13 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, Mail, Globe, AlertTriangle } from 'lucide-react';
 import { Card } from '@/components/ui';
+
+export const metadata: Metadata = {
+  title: 'Termos de Uso',
+  description: 'Termos de Uso do Simulai OAB - plataforma de simulados para o Exame da OAB. Leia os termos de serviço, política de uso aceitável e propriedade intelectual.',
+  robots: { index: true, follow: true },
+};
 
 export default function TermsPage() {
   return (
@@ -153,7 +160,7 @@ export default function TermsPage() {
 
               <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4 mb-4">
                 <div className="flex items-start gap-3">
-                  <AlertTriangle className="w-5 h-5 text-amber-400 mt-1 flex-shrink-0" />
+                  <AlertTriangle className="w-5 h-5 text-amber-500 mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-amber-200 font-semibold mb-2">Importante:</p>
                     <p className="text-white/80 text-sm leading-relaxed">

@@ -9,17 +9,23 @@ const HUGGINGFACE_API_URL =
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
-
-    // Validar dados
-    const data = ImportDatasetSchema.parse(body);
-
-    // Check admin authorization (você pode adicionar verificação de role aqui)
+    // Verificar autenticação admin ANTES de processar body (fail-close)
     const apiKey = request.headers.get("x-admin-key");
-
-    if (apiKey !== process.env.ADMIN_API_KEY) {
+    if (!process.env.ADMIN_API_KEY || apiKey !== process.env.ADMIN_API_KEY) {
       return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
     }
+
+    const body = await request.json();
+
+    // Validar dados com safeParse
+    const parsed = ImportDatasetSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: "Dados inválidos", details: parsed.error.flatten() },
+        { status: 400 }
+      );
+    }
+    const data = parsed.data;
 
     let offset = 0;
     const limit = data.batchSize;

@@ -10,24 +10,36 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
 
     // Validar dados
-    const data = FinishSimulationSchema.parse(body);
+    const parsed = FinishSimulationSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: "Dados inválidos", details: parsed.error.flatten() },
+        { status: 400 }
+      );
+    }
+    const data = parsed.data;
 
-    // Buscar simulado
-    const simulation = await prisma.simulation.findUnique({
-      where: { id: data.simulationId },
-      include: {
-        questions: {
-          include: {
-            question: {
-              include: {
-                alternatives: true,
+    // P1 FIX: Reduzir nesting de 4 para 2 níveis — não precisa de alternatives
+    // P1 FIX: Buscar answers separadamente e usar Map para O(1) lookup
+    const [simulation, answers] = await Promise.all([
+      prisma.simulation.findUnique({
+        where: { id: data.simulationId },
+        include: {
+          questions: {
+            include: {
+              question: {
+                select: { id: true, subject: true }, // SEM alternatives — não são usadas aqui
               },
             },
+            orderBy: { order: 'asc' },
           },
         },
-        answers: true,
-      },
-    });
+      }),
+      prisma.userAnswer.findMany({
+        where: { simulationId: data.simulationId },
+        select: { questionId: true, isCorrect: true, timeSpent: true },
+      }),
+    ]);
 
     if (!simulation) {
       return NextResponse.json(
@@ -51,9 +63,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Calcular score e tempo total
-    const correctAnswers = simulation.answers.filter((a) => a.isCorrect).length;
+    const correctAnswers = answers.filter((a) => a.isCorrect).length;
     const score = (correctAnswers / simulation.totalQuestions) * 100;
-    const timeSpent = simulation.answers.reduce((sum, a) => sum + a.timeSpent, 0);
+    const timeSpent = answers.reduce((sum, a) => sum + a.timeSpent, 0);
 
     // Atualizar simulado
     await prisma.simulation.update({
@@ -66,6 +78,11 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    // P1 FIX: Usar Map para lookup O(1) ao invés de .find() O(n) em loop
+    const answerMap = new Map(
+      answers.map((a) => [a.questionId, a])
+    );
+
     // Calcular estatísticas por matéria
     const bySubject = new Map<
       string,
@@ -74,9 +91,7 @@ export async function POST(request: NextRequest) {
 
     for (const simQuestion of simulation.questions) {
       const subject = simQuestion.question.subject;
-      const answer = simulation.answers.find(
-        (a) => a.questionId === simQuestion.questionId
-      );
+      const answer = answerMap.get(simQuestion.questionId);
 
       if (!bySubject.has(subject)) {
         bySubject.set(subject, { total: 0, correct: 0 });

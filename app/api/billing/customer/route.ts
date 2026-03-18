@@ -1,48 +1,63 @@
 /**
- * API para gerenciar clientes do Stripe
- * POST /api/billing/customer - Criar ou obter cliente
- * GET /api/billing/customer - Obter cliente atual
+ * API para gerenciar clientes Asaas
+ * POST /api/billing/customer — Criar ou obter customer
+ * GET /api/billing/customer — Obter customer atual pelo userId
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { auth } from '@clerk/nextjs/server';
-import { getCustomerService } from '@/lib/stripe';
+import { auth, currentUser } from '@clerk/nextjs/server';
+import { prisma } from '@/lib/db/prisma';
+import { logger } from '@/lib/logger';
+import { findOrCreateAsaasCustomer } from '@/lib/asaas/checkout';
 
 export async function POST(req: NextRequest) {
   try {
-    const { userId } = await auth();
+    const { userId: clerkId } = await auth();
+    const user = await currentUser();
 
-    if (!userId) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    if (!clerkId || !user) {
+      return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
     }
 
-    const body = await req.json();
-    const { email, name, phone } = body;
+    // Resolver Clerk ID → Database User ID
+    const dbUser = await prisma.user.findUnique({
+      where: { clerkId },
+      select: { id: true },
+    });
+    if (!dbUser) {
+      return NextResponse.json({ error: 'Usuário não encontrado' }, { status: 404 });
+    }
+    const userId = dbUser.id;
 
-    if (!email) {
+    const body = await req.json();
+    const { cpfCnpj, phone } = body as { cpfCnpj: string; phone?: string };
+
+    if (!cpfCnpj) {
       return NextResponse.json(
-        { error: 'Email is required' },
+        { error: 'CPF/CNPJ é obrigatório' },
         { status: 400 }
       );
     }
 
-    const customerService = getCustomerService();
+    const email = user.emailAddresses[0]?.emailAddress;
+    const name = `${user.firstName || ''} ${user.lastName || ''}`.trim() || email;
 
-    // Buscar ou criar cliente
-    const customer = await customerService.getOrCreate({
-      email,
+    const asaasCustomerId = await findOrCreateAsaasCustomer(userId, {
       name,
+      email,
+      cpfCnpj,
       phone,
-      metadata: {
-        clerk_user_id: userId,
-      },
     });
 
-    return NextResponse.json(customer);
-  } catch (error: any) {
-    console.error('[BILLING_CUSTOMER_POST]', error);
+    return NextResponse.json({
+      asaasCustomerId,
+      userId,
+    });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Erro interno';
+    logger.error('[BILLING_CUSTOMER_POST]', { error: message });
     return NextResponse.json(
-      { error: error.message || 'Internal error' },
+      { error: message },
       { status: 500 }
     );
   }
@@ -50,30 +65,47 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   try {
-    const { userId } = await auth();
+    const { userId: clerkId } = await auth();
 
-    if (!userId) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    if (!clerkId) {
+      return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
     }
 
-    const { searchParams } = new URL(req.url);
-    const customerId = searchParams.get('customerId');
+    // Resolver Clerk ID → Database User ID
+    const dbUser = await prisma.user.findUnique({
+      where: { clerkId },
+      select: { id: true },
+    });
+    if (!dbUser) {
+      return NextResponse.json({ error: 'Usuário não encontrado' }, { status: 404 });
+    }
+    const userId = dbUser.id;
 
-    if (!customerId) {
+    const customer = await prisma.customer.findFirst({
+      where: { userId, gateway: 'asaas' },
+      select: {
+        id: true,
+        asaasCustomerId: true,
+        name: true,
+        email: true,
+        cpfCnpj: true,
+        phone: true,
+      },
+    });
+
+    if (!customer) {
       return NextResponse.json(
-        { error: 'Customer ID is required' },
-        { status: 400 }
+        { error: 'Customer não encontrado' },
+        { status: 404 }
       );
     }
 
-    const customerService = getCustomerService();
-    const customer = await customerService.get(customerId);
-
     return NextResponse.json(customer);
-  } catch (error: any) {
-    console.error('[BILLING_CUSTOMER_GET]', error);
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Erro interno';
+    logger.error('[BILLING_CUSTOMER_GET]', { error: message });
     return NextResponse.json(
-      { error: error.message || 'Internal error' },
+      { error: message },
       { status: 500 }
     );
   }

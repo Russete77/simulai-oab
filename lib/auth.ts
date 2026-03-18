@@ -1,5 +1,6 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/db/prisma";
+import { logger } from "@/lib/logger";
 
 export async function getCurrentUser() {
   const { userId } = await auth();
@@ -33,10 +34,7 @@ export async function getCurrentUser() {
 
         if (existingUser) {
           // Atualizar usuário existente com clerkId
-          console.log('[auth.getCurrentUser] Updating existing user with clerkId', {
-            email,
-            clerkId: userId,
-          });
+          logger.info('Updating existing user with clerkId', { email, clerkId: userId });
 
           dbUser = await prisma.user.update({
             where: { email: email! },
@@ -50,13 +48,10 @@ export async function getCurrentUser() {
             },
           });
 
-          console.log('[auth.getCurrentUser] User updated successfully');
+          logger.info('User updated successfully');
         } else {
           // Criar novo usuário
-          console.log('[auth.getCurrentUser] Creating new user', {
-            clerkId: userId,
-            email,
-          });
+          logger.info('Creating new user', { clerkId: userId, email });
 
           dbUser = await prisma.user.create({
             data: {
@@ -79,14 +74,14 @@ export async function getCurrentUser() {
             },
           });
 
-          console.log('[auth.getCurrentUser] User created successfully');
+          logger.info('User created successfully');
         }
       }
     }
 
     return dbUser;
   } catch (error: any) {
-    console.error('[auth.getCurrentUser] Failed to fetch/create user', {
+    logger.error('Failed to fetch/create user', {
       clerkId: userId,
       error: error?.message ?? String(error),
     });

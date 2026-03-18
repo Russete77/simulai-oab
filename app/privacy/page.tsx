@@ -1,6 +1,13 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, Mail, Globe } from 'lucide-react';
 import { Card } from '@/components/ui';
+
+export const metadata: Metadata = {
+  title: 'Política de Privacidade',
+  description: 'Política de Privacidade do Simulai OAB. Saiba como coletamos, utilizamos e protegemos seus dados pessoais conforme a LGPD.',
+  robots: { index: true, follow: true },
+};
 
 export default function PrivacyPage() {
   return (

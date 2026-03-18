@@ -101,11 +101,19 @@ export async function GET(request: NextRequest) {
     }
 
     // Validar query params
-    const params = GetNextQuestionSchema.parse({
+    const parsed = GetNextQuestionSchema.safeParse({
       subject: searchParams.get("subject") || undefined,
       difficulty: searchParams.get("difficulty") || undefined,
       excludeAnswered: searchParams.get("excludeAnswered") === "true",
     });
+
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: "Parâmetros inválidos", details: parsed.error.flatten() },
+        { status: 400 }
+      );
+    }
+    const params = parsed.data;
 
     // Construir where clause
     const where: Prisma.QuestionWhereInput = {

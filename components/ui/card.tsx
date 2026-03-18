@@ -8,7 +8,7 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
 
 export function Card({ variant = 'glass', className, children, ...props }: CardProps) {
   const variants = {
-    glass: 'bg-navy-900/80 backdrop-blur-xl border border-white/10 shadow-2xl hover:shadow-blue-500/20',
+    glass: 'bg-navy-900/80 backdrop-blur-xl border border-white/10 shadow-lg hover:border-white/15',
     premium: 'relative p-[2px] bg-gradient-to-r from-blue-500 to-purple-500',
     solid: 'bg-navy-900 border border-navy-800',
   };

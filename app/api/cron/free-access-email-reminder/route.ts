@@ -14,11 +14,9 @@ import { getDaysUntilEnd, isNearingEnd, getFreeAccessEndDate } from '@/lib/billi
  */
 export async function POST(request: NextRequest) {
   try {
-    // Verificar autenticação do cron job
+    // Verificar autenticação do cron job (fail-close: rejeita se CRON_SECRET não estiver configurado)
     const authHeader = request.headers.get('authorization');
-    const expectedAuth = `Bearer ${process.env.CRON_SECRET}`;
-
-    if (process.env.CRON_SECRET && authHeader !== expectedAuth) {
+    if (!process.env.CRON_SECRET || authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }

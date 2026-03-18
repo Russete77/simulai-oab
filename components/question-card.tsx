@@ -65,7 +65,7 @@ export function QuestionCard({
   };
 
   return (
-    <div className="bg-navy-900/70 backdrop-blur-2xl border border-white/5 rounded-3xl overflow-hidden shadow-2xl">
+    <div className="bg-navy-900/70 backdrop-blur-xl border border-white/5 rounded-2xl overflow-hidden shadow-lg">
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-600/10 to-purple-600/10 p-5 border-b border-white/5">
         <div className="flex justify-between items-center gap-4">
@@ -158,10 +158,10 @@ export function QuestionCard({
                     {alternative.text}
                   </span>
                   {showResult && isCorrect && (
-                    <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                    <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                   )}
                   {showResult && isWrong && (
-                    <XCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                    <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
                   )}
                 </div>
               </button>

@@ -5,96 +5,146 @@ import { useUser } from '@clerk/nextjs';
 import { useRouter, useParams } from 'next/navigation';
 import { Header } from '@/components/layout/header';
 import { Card } from '@/components/ui';
-import { ProviderStripe } from '@/components/billing/provider-stripe';
-import { FormularioPagamento } from '@/components/billing/formulario-pagamento';
-import { Loader2, CheckCircle2, Shield, CreditCard } from 'lucide-react';
-import { getPlanFromPriceId } from '@/lib/billing/stripe-plan-mapping';
-import { PLANS } from '@/lib/billing/plans';
+import {
+  Loader2,
+  CheckCircle2,
+  Shield,
+  CreditCard,
+  QrCode,
+  FileText,
+} from 'lucide-react';
+import { PLANS, type PlanTier, type BillingCycle } from '@/lib/billing/plans';
+
+type BillingMethod = 'PIX' | 'BOLETO' | 'CREDIT_CARD';
 
 export default function CheckoutPage() {
-  const { isSignedIn, isLoaded } = useUser();
+  const { user, isSignedIn, isLoaded } = useUser();
   const router = useRouter();
   const params = useParams();
-  const priceId = params.priceId as string;
+  const planKey = params.priceId as string; // ex: "BASIC_MONTHLY" ou "PRO_MONTHLY"
 
-  const [clientSecret, setClientSecret] = useState<string | null>(null);
-  const [carregando, setCarregando] = useState(true);
+  const [billingMethod, setBillingMethod] = useState<BillingMethod>('PIX');
+  const [cpfCnpj, setCpfCnpj] = useState('');
+  const [carregando, setCarregando] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
 
-  // Obter informações do plano
-  const planConfig = getPlanFromPriceId(priceId);
-  const planDetails = planConfig
-    ? PLANS[planConfig.tier][planConfig.cycle]
-    : null;
+  // Cartão
+  const [cardNumber, setCardNumber] = useState('');
+  const [cardName, setCardName] = useState('');
+  const [cardExpMonth, setCardExpMonth] = useState('');
+  const [cardExpYear, setCardExpYear] = useState('');
+  const [cardCcv, setCardCcv] = useState('');
+  const [cardPostalCode, setCardPostalCode] = useState('');
+  const [cardAddressNumber, setCardAddressNumber] = useState('');
+  const [cardPhone, setCardPhone] = useState('');
+
+  // Parse planKey → tier + cycle
+  const parts = planKey?.split('_') || [];
+  const tier = parts[0] as PlanTier;
+  const cycle = parts.slice(1).join('_') as BillingCycle;
+  const planDetails =
+    tier && cycle && PLANS[tier]?.[cycle] ? PLANS[tier][cycle] : null;
 
   useEffect(() => {
     if (!isLoaded) return;
-
     if (!isSignedIn) {
       router.push('/register');
+    }
+  }, [isLoaded, isSignedIn, router]);
+
+  const formatCpf = (value: string) => {
+    const digits = value.replace(/\D/g, '').slice(0, 14);
+    if (digits.length <= 11) {
+      return digits
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+    }
+    return digits
+      .replace(/(\d{2})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d)/, '$1/$2')
+      .replace(/(\d{4})(\d{1,2})$/, '$1-$2');
+  };
+
+  const handleSubmit = async () => {
+    if (!cpfCnpj || cpfCnpj.replace(/\D/g, '').length < 11) {
+      setErro('CPF/CNPJ inválido');
       return;
     }
 
-    if (!priceId) return;
+    setCarregando(true);
+    setErro(null);
 
-    criarIntencaoPagamento();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSignedIn, isLoaded, priceId]);
-
-  const criarIntencaoPagamento = async () => {
     try {
-      setCarregando(true);
-      setErro(null);
+      const payload: Record<string, any> = {
+        plan: planKey,
+        billingType: billingMethod,
+        cpfCnpj: cpfCnpj.replace(/\D/g, ''),
+      };
 
-      const response = await fetch('/api/billing/criar-intencao-pagamento', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ priceId }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Erro ao criar intenção de pagamento');
+      if (billingMethod === 'CREDIT_CARD') {
+        if (!cardNumber || !cardName || !cardExpMonth || !cardExpYear || !cardCcv) {
+          setErro('Preencha todos os dados do cartão');
+          setCarregando(false);
+          return;
+        }
+        payload.creditCard = {
+          holderName: cardName,
+          number: cardNumber.replace(/\s/g, ''),
+          expiryMonth: cardExpMonth,
+          expiryYear: cardExpYear,
+          ccv: cardCcv,
+        };
+        payload.creditCardHolderInfo = {
+          name: cardName,
+          email: user?.emailAddresses[0]?.emailAddress || '',
+          cpfCnpj: cpfCnpj.replace(/\D/g, ''),
+          postalCode: cardPostalCode.replace(/\D/g, ''),
+          addressNumber: cardAddressNumber,
+          phone: cardPhone.replace(/\D/g, ''),
+        };
       }
 
-      const data = await response.json();
-      setClientSecret(data.clientSecret);
-    } catch (err: any) {
-      console.error('Erro:', err);
-      setErro(err.message || 'Erro ao carregar checkout');
+      const res = await fetch('/api/billing/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Erro ao criar assinatura');
+      }
+
+      // Redirecionar
+      if (data.redirectUrl) {
+        window.location.href = data.redirectUrl;
+      }
+    } catch (err: unknown) {
+      setErro(err instanceof Error ? err.message : 'Erro ao processar pagamento');
     } finally {
       setCarregando(false);
     }
   };
 
-  const handleSucesso = () => {
-    if (process.env.NODE_ENV === 'development') console.log('Pagamento processado com sucesso!');
-  };
-
-  const handleErro = (mensagem: string) => {
-    console.error('Erro no pagamento:', mensagem);
-  };
-
-  if (!isLoaded || carregando) {
+  if (!isLoaded) {
     return (
       <div className="min-h-screen bg-navy-950 flex items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="w-12 h-12 text-blue-500 animate-spin mx-auto mb-4" />
-          <p className="text-gray-400">Carregando checkout...</p>
-        </div>
+        <Loader2 className="w-12 h-12 text-blue-500 animate-spin" />
       </div>
     );
   }
 
-  if (erro || !planConfig || !planDetails) {
+  if (!planDetails) {
     return (
       <div className="min-h-screen bg-navy-950">
         <Header />
         <div className="max-w-2xl mx-auto px-4 py-12">
           <Card variant="glass">
             <div className="text-center py-12">
-              <p className="text-red-400 mb-4">
-                {erro || 'Plano não encontrado'}
-              </p>
+              <p className="text-red-500 mb-4">Plano não encontrado</p>
               <button
                 onClick={() => router.push('/pricing')}
                 className="text-blue-400 hover:text-blue-300"
@@ -107,6 +157,9 @@ export default function CheckoutPage() {
       </div>
     );
   }
+
+  const formatPrice = (v: number) =>
+    new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(v);
 
   return (
     <div className="min-h-screen bg-navy-950">
@@ -128,22 +181,19 @@ export default function CheckoutPage() {
                     {planDetails.name}
                   </p>
                 </div>
-
                 <div>
                   <p className="text-sm text-gray-400 mb-1">Descrição</p>
                   <p className="text-white">{planDetails.description}</p>
                 </div>
-
                 {planDetails.discount > 0 && (
                   <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-3">
-                    <p className="text-green-400 text-sm font-semibold">
-                      🎉 Economize {planDetails.discount}%
+                    <p className="text-green-500 text-sm font-semibold">
+                      Economize {planDetails.discount}%
                     </p>
                   </div>
                 )}
               </div>
 
-              {/* Features do Plano */}
               <div className="border-t border-white/10 pt-6 mb-6">
                 <p className="text-sm font-semibold text-white mb-3">
                   Incluído no plano:
@@ -151,7 +201,7 @@ export default function CheckoutPage() {
                 <div className="space-y-2">
                   {planDetails.features.slice(0, 5).map((feature, idx) => (
                     <div key={idx} className="flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
                       <span className="text-sm text-gray-300">{feature}</span>
                     </div>
                   ))}
@@ -163,32 +213,22 @@ export default function CheckoutPage() {
                 </div>
               </div>
 
-              {/* Total */}
               <div className="border-t border-white/10 pt-6">
                 <div className="flex justify-between items-baseline mb-2">
                   <span className="text-gray-400">Valor mensal</span>
-                  <span className="text-white">
-                    {new Intl.NumberFormat('pt-BR', {
-                      style: 'currency',
-                      currency: 'BRL',
-                    }).format(planDetails.monthlyValue)}
-                  </span>
+                  <span className="text-white">{formatPrice(planDetails.monthlyValue)}</span>
                 </div>
                 <div className="flex justify-between items-baseline">
                   <span className="text-lg font-semibold text-white">Total</span>
                   <span className="text-2xl font-bold text-white">
-                    {new Intl.NumberFormat('pt-BR', {
-                      style: 'currency',
-                      currency: 'BRL',
-                    }).format(planDetails.value)}
+                    {formatPrice(planDetails.value)}
                   </span>
                 </div>
                 <p className="text-xs text-gray-400 mt-2">
-                  Cobrado {planConfig.cycle === 'MONTHLY' ? 'mensalmente' : planConfig.cycle === 'QUARTERLY' ? 'trimestralmente' : 'anualmente'}
+                  Cobrado mensalmente
                 </p>
               </div>
 
-              {/* Garantia */}
               <div className="mt-6 bg-blue-500/10 border border-blue-500/20 rounded-xl p-4">
                 <div className="flex items-start gap-3">
                   <Shield className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
@@ -213,42 +253,203 @@ export default function CheckoutPage() {
                   Finalizar Pagamento
                 </h2>
                 <p className="text-gray-400">
-                  Complete as informações abaixo para confirmar sua assinatura
+                  Escolha a forma de pagamento e complete sua assinatura
                 </p>
               </div>
 
-              {clientSecret ? (
-                <ProviderStripe clientSecret={clientSecret}>
-                  <FormularioPagamento
-                    clientSecret={clientSecret}
-                    onSucesso={handleSucesso}
-                    onErro={handleErro}
-                  />
-                </ProviderStripe>
-              ) : (
-                <div className="text-center py-12">
-                  <Loader2 className="w-12 h-12 text-blue-500 animate-spin mx-auto mb-4" />
-                  <p className="text-gray-400">Preparando checkout...</p>
+              {/* Seletor de método */}
+              <div className="grid grid-cols-3 gap-3 mb-8">
+                <button
+                  onClick={() => setBillingMethod('PIX')}
+                  className={`flex flex-col items-center gap-2 p-4 rounded-xl border transition-all ${
+                    billingMethod === 'PIX'
+                      ? 'border-green-500 bg-green-500/10 text-green-500'
+                      : 'border-white/10 text-gray-400 hover:border-white/20'
+                  }`}
+                >
+                  <QrCode className="w-6 h-6" />
+                  <span className="text-sm font-semibold">PIX</span>
+                  <span className="text-xs opacity-70">Instantâneo</span>
+                </button>
+                <button
+                  onClick={() => setBillingMethod('BOLETO')}
+                  className={`flex flex-col items-center gap-2 p-4 rounded-xl border transition-all ${
+                    billingMethod === 'BOLETO'
+                      ? 'border-yellow-500 bg-yellow-500/10 text-yellow-400'
+                      : 'border-white/10 text-gray-400 hover:border-white/20'
+                  }`}
+                >
+                  <FileText className="w-6 h-6" />
+                  <span className="text-sm font-semibold">Boleto</span>
+                  <span className="text-xs opacity-70">1-3 dias úteis</span>
+                </button>
+                <button
+                  onClick={() => setBillingMethod('CREDIT_CARD')}
+                  className={`flex flex-col items-center gap-2 p-4 rounded-xl border transition-all ${
+                    billingMethod === 'CREDIT_CARD'
+                      ? 'border-blue-500 bg-blue-500/10 text-blue-400'
+                      : 'border-white/10 text-gray-400 hover:border-white/20'
+                  }`}
+                >
+                  <CreditCard className="w-6 h-6" />
+                  <span className="text-sm font-semibold">Cartão</span>
+                  <span className="text-xs opacity-70">Instantâneo</span>
+                </button>
+              </div>
+
+              {/* CPF/CNPJ (sempre necessário) */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  CPF ou CNPJ
+                </label>
+                <input
+                  type="text"
+                  value={cpfCnpj}
+                  onChange={(e) => setCpfCnpj(formatCpf(e.target.value))}
+                  placeholder="000.000.000-00"
+                  className="w-full bg-navy-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
+                />
+              </div>
+
+              {/* Campos de cartão */}
+              {billingMethod === 'CREDIT_CARD' && (
+                <div className="space-y-4 mb-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      Nome no cartão
+                    </label>
+                    <input
+                      type="text"
+                      value={cardName}
+                      onChange={(e) => setCardName(e.target.value)}
+                      placeholder="Como está no cartão"
+                      className="w-full bg-navy-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      Número do cartão
+                    </label>
+                    <input
+                      type="text"
+                      value={cardNumber}
+                      onChange={(e) => setCardNumber(e.target.value.replace(/\D/g, '').slice(0, 16))}
+                      placeholder="0000 0000 0000 0000"
+                      className="w-full bg-navy-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors font-mono"
+                    />
+                  </div>
+                  <div className="grid grid-cols-3 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Mês</label>
+                      <input
+                        type="text"
+                        value={cardExpMonth}
+                        onChange={(e) => setCardExpMonth(e.target.value.replace(/\D/g, '').slice(0, 2))}
+                        placeholder="MM"
+                        className="w-full bg-navy-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors text-center font-mono"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Ano</label>
+                      <input
+                        type="text"
+                        value={cardExpYear}
+                        onChange={(e) => setCardExpYear(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                        placeholder="AAAA"
+                        className="w-full bg-navy-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors text-center font-mono"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">CVV</label>
+                      <input
+                        type="text"
+                        value={cardCcv}
+                        onChange={(e) => setCardCcv(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                        placeholder="000"
+                        className="w-full bg-navy-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors text-center font-mono"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">CEP</label>
+                      <input
+                        type="text"
+                        value={cardPostalCode}
+                        onChange={(e) => setCardPostalCode(e.target.value.replace(/\D/g, '').slice(0, 8))}
+                        placeholder="00000-000"
+                        className="w-full bg-navy-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors font-mono"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Número</label>
+                      <input
+                        type="text"
+                        value={cardAddressNumber}
+                        onChange={(e) => setCardAddressNumber(e.target.value)}
+                        placeholder="Nº endereço"
+                        className="w-full bg-navy-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Telefone</label>
+                    <input
+                      type="text"
+                      value={cardPhone}
+                      onChange={(e) => setCardPhone(e.target.value.replace(/\D/g, '').slice(0, 11))}
+                      placeholder="11999999999"
+                      className="w-full bg-navy-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors font-mono"
+                    />
+                  </div>
                 </div>
               )}
 
-              {/* Métodos de pagamento aceitos */}
+              {/* Erro */}
+              {erro && (
+                <div className="mb-6 bg-red-500/10 border border-red-500/20 rounded-xl p-4">
+                  <p className="text-red-500 text-sm">{erro}</p>
+                </div>
+              )}
+
+              {/* Botão */}
+              <button
+                onClick={handleSubmit}
+                disabled={carregando}
+                className="w-full bg-blue-600 hover:bg-blue-500 disabled:bg-blue-600/50 text-white font-semibold py-4 rounded-xl transition-colors flex items-center justify-center gap-2 text-lg"
+              >
+                {carregando ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    Processando...
+                  </>
+                ) : (
+                  <>
+                    Pagar {formatPrice(planDetails.value)}
+                    {billingMethod === 'PIX' && ' via PIX'}
+                    {billingMethod === 'BOLETO' && ' via Boleto'}
+                    {billingMethod === 'CREDIT_CARD' && ' no Cartão'}
+                  </>
+                )}
+              </button>
+
+              {/* Métodos aceitos */}
               <div className="mt-8 pt-8 border-t border-white/10">
                 <p className="text-sm text-gray-400 text-center mb-4">
-                  Métodos de pagamento aceitos:
+                  Pagamento processado com segurança via Asaas
                 </p>
-                <div className="flex items-center justify-center gap-4 flex-wrap">
+                <div className="flex items-center justify-center gap-6 flex-wrap">
+                  <div className="flex items-center gap-2 text-gray-400">
+                    <QrCode className="w-5 h-5" />
+                    <span className="text-sm">PIX</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-gray-400">
+                    <FileText className="w-5 h-5" />
+                    <span className="text-sm">Boleto</span>
+                  </div>
                   <div className="flex items-center gap-2 text-gray-400">
                     <CreditCard className="w-5 h-5" />
                     <span className="text-sm">Cartões</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-gray-400">
-                    <span className="text-lg">🍎</span>
-                    <span className="text-sm">Apple Pay</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-gray-400">
-                    <span className="text-lg">📱</span>
-                    <span className="text-sm">Google Pay</span>
                   </div>
                 </div>
               </div>

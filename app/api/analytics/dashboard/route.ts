@@ -4,24 +4,71 @@ import { requireAuth } from "@/lib/auth";
 import type { DashboardAnalyticsResponse } from "@/types/api";
 import { Subject } from "@prisma/client";
 
+// Tipo para resultado da query raw de agregação por matéria
+interface SubjectAggregation {
+  subject: Subject;
+  total: number;
+  correct: number;
+  percentage: number;
+}
+
+// Tipo para resultado da query raw de atividade recente
+interface DailyActivity {
+  date: string;
+  total: number;
+  correct: number;
+}
+
 export async function GET(request: NextRequest) {
   try {
     const user = await requireAuth();
 
-    // Buscar todas as respostas do usuário
-    const userAnswers = await prisma.userAnswer.findMany({
-      where: { userId: user.id },
-      include: {
-        question: {
-          select: {
-            subject: true,
-          },
-        },
-      },
-      orderBy: { createdAt: "asc" },
-    });
+    // P0+P1 FIX: Usar agregação no banco ao invés de carregar tudo na memória
+    // Antes: findMany sem take → forEach/Map em JS
+    // Agora: 3 queries paralelas com GROUP BY no PostgreSQL
 
-    if (userAnswers.length === 0) {
+    const [totalStats, subjectStats, recentActivity] = await Promise.all([
+      // Total e acertos gerais
+      prisma.$queryRaw<[{ total: bigint; correct: bigint }]>`
+        SELECT
+          COUNT(*)::bigint as total,
+          SUM(CASE WHEN "isCorrect" THEN 1 ELSE 0 END)::bigint as correct
+        FROM "UserAnswer"
+        WHERE "userId" = ${user.id}
+      `,
+
+      // Agregação por matéria (feita no banco, não em JS)
+      prisma.$queryRaw<SubjectAggregation[]>`
+        SELECT
+          q.subject,
+          COUNT(*)::int as total,
+          SUM(CASE WHEN ua."isCorrect" THEN 1 ELSE 0 END)::int as correct,
+          ROUND(AVG(CASE WHEN ua."isCorrect" THEN 1.0 ELSE 0.0 END) * 100, 1)::float as percentage
+        FROM "UserAnswer" ua
+        JOIN "Question" q ON ua."questionId" = q.id
+        WHERE ua."userId" = ${user.id}
+        GROUP BY q.subject
+        ORDER BY percentage ASC
+      `,
+
+      // Atividade dos últimos 7 dias (agregada no banco)
+      prisma.$queryRaw<DailyActivity[]>`
+        SELECT
+          TO_CHAR("createdAt", 'YYYY-MM-DD') as date,
+          COUNT(*)::int as total,
+          SUM(CASE WHEN "isCorrect" THEN 1 ELSE 0 END)::int as correct
+        FROM "UserAnswer"
+        WHERE "userId" = ${user.id}
+          AND "createdAt" >= NOW() - INTERVAL '7 days'
+        GROUP BY TO_CHAR("createdAt", 'YYYY-MM-DD')
+        ORDER BY date ASC
+      `,
+    ]);
+
+    const totalQuestions = Number(totalStats[0]?.total || 0);
+    const correctAnswers = Number(totalStats[0]?.correct || 0);
+
+    if (totalQuestions === 0) {
       return NextResponse.json({
         totalQuestions: 0,
         accuracy: 0,
@@ -35,57 +82,46 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    // Calcular métricas gerais
-    const totalQuestions = userAnswers.length;
-    const correctAnswers = userAnswers.filter((a) => a.isCorrect).length;
     const accuracy = (correctAnswers / totalQuestions) * 100;
 
-    // Calcular por matéria
-    const bySubjectMap = new Map<
-      Subject,
-      { total: number; correct: number; recent: boolean[] }
-    >();
+    // Trend por matéria: últimas 10 respostas por matéria via window function
+    const recentBySubject = await prisma.$queryRaw<
+      { subject: Subject; recent_accuracy: number }[]
+    >`
+      SELECT subject, recent_accuracy FROM (
+        SELECT
+          q.subject,
+          ROUND(AVG(CASE WHEN ua."isCorrect" THEN 1.0 ELSE 0.0 END) * 100, 1)::float as recent_accuracy
+        FROM (
+          SELECT ua2.*, ROW_NUMBER() OVER (
+            PARTITION BY q2.subject
+            ORDER BY ua2."createdAt" DESC
+          ) as rn
+          FROM "UserAnswer" ua2
+          JOIN "Question" q2 ON ua2."questionId" = q2.id
+          WHERE ua2."userId" = ${user.id}
+        ) ua
+        JOIN "Question" q ON ua."questionId" = q.id
+        WHERE ua.rn <= 10
+        GROUP BY q.subject
+      ) sub
+    `;
 
-    userAnswers.forEach((answer) => {
-      const subject = answer.question.subject;
-
-      if (!bySubjectMap.has(subject)) {
-        bySubjectMap.set(subject, { total: 0, correct: 0, recent: [] });
-      }
-
-      const stats = bySubjectMap.get(subject)!;
-      stats.total += 1;
-
-      if (answer.isCorrect) {
-        stats.correct += 1;
-      }
-
-      // Últimas 10 respostas para calcular trend
-      if (stats.recent.length < 10) {
-        stats.recent.push(answer.isCorrect);
-      }
-    });
-
-    const bySubject = Array.from(bySubjectMap.entries()).map(
-      ([subject, stats]) => {
-        const accuracy = (stats.correct / stats.total) * 100;
-
-        // Calcular trend (diferença entre últimas 10 e média geral)
-        const recentAccuracy =
-          stats.recent.length > 0
-            ? (stats.recent.filter((r) => r).length / stats.recent.length) * 100
-            : accuracy;
-
-        const trend = recentAccuracy - accuracy;
-
-        return {
-          subject,
-          accuracy: Math.round(accuracy * 10) / 10,
-          trend: Math.round(trend * 10) / 10,
-          total: stats.total,
-        };
-      }
+    const recentMap = new Map(
+      recentBySubject.map((r) => [r.subject, r.recent_accuracy])
     );
+
+    const bySubject = subjectStats.map((stats) => {
+      const recentAccuracy = recentMap.get(stats.subject) ?? stats.percentage;
+      const trend = recentAccuracy - stats.percentage;
+
+      return {
+        subject: stats.subject,
+        accuracy: Math.round(stats.percentage * 10) / 10,
+        trend: Math.round(trend * 10) / 10,
+        total: stats.total,
+      };
+    });
 
     // Identificar áreas fracas (< 60% de acerto)
     const weakAreas = bySubject
@@ -94,42 +130,17 @@ export async function GET(request: NextRequest) {
       .slice(0, 3)
       .map((s) => s.subject);
 
-    // Predição simples de score no exame (baseado na média ponderada)
-    const examScore = Math.min(100, accuracy * 1.1); // 10% de bônus otimista
-    const probability = Math.min(95, accuracy * 0.9); // Probabilidade de aprovação
+    // Predição simples de score no exame
+    const examScore = Math.min(100, accuracy * 1.1);
+    const probability = Math.min(95, accuracy * 0.9);
 
-    // Atividade recente (últimos 7 dias)
-    const sevenDaysAgo = new Date();
-    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-
-    const recentAnswers = userAnswers.filter(
-      (a) => a.createdAt >= sevenDaysAgo
-    );
-
-    const activityByDay = new Map<string, { total: number; correct: number }>();
-
-    recentAnswers.forEach((answer) => {
-      const date = answer.createdAt.toISOString().split("T")[0];
-
-      if (!activityByDay.has(date)) {
-        activityByDay.set(date, { total: 0, correct: 0 });
-      }
-
-      const day = activityByDay.get(date)!;
-      day.total += 1;
-
-      if (answer.isCorrect) {
-        day.correct += 1;
-      }
-    });
-
-    const recentActivity = Array.from(activityByDay.entries()).map(
-      ([date, stats]) => ({
-        date,
-        questionsAnswered: stats.total,
-        accuracy: Math.round((stats.correct / stats.total) * 100 * 10) / 10,
-      })
-    );
+    const formattedActivity = recentActivity.map((day) => ({
+      date: day.date,
+      questionsAnswered: day.total,
+      accuracy: day.total > 0
+        ? Math.round((day.correct / day.total) * 100 * 10) / 10
+        : 0,
+    }));
 
     const response: DashboardAnalyticsResponse = {
       totalQuestions,
@@ -140,7 +151,7 @@ export async function GET(request: NextRequest) {
         examScore: Math.round(examScore * 10) / 10,
         probability: Math.round(probability * 10) / 10,
       },
-      recentActivity,
+      recentActivity: formattedActivity,
     };
 
     return NextResponse.json(response);

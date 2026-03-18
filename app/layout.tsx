@@ -3,8 +3,9 @@ import { Inter, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ptBR } from "@clerk/localizations";
 import { Toaster } from "sonner";
-import Script from "next/script";
 import { FreeAccessBanner } from "@/components/layout/free-access-banner";
+import { CookieConsent } from "@/components/layout/cookie-consent";
+import { logger } from "@/lib/logger";
 import "./globals.css";
 
 const inter = Inter({
@@ -99,58 +100,93 @@ export const viewport: Viewport = {
   maximumScale: 5,
 };
 
+/**
+ * Body compartilhado — usado com e sem Clerk
+ * GA4 NÃO é mais carregado no <head>. Ele é injetado
+ * dinamicamente pelo <CookieConsent> após consentimento LGPD.
+ */
+function RootBody({ children }: { children: React.ReactNode }) {
+  return (
+    <body
+      className={`${inter.variable} ${plusJakarta.variable} ${jetbrainsMono.variable} font-sans antialiased bg-navy-950 text-white`}
+    >
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@graph': [
+              {
+                '@type': 'Organization',
+                '@id': 'https://simulaioab.com/#organization',
+                name: 'Simulai OAB',
+                url: 'https://simulaioab.com',
+                logo: {
+                  '@type': 'ImageObject',
+                  url: 'https://simulaioab.com/logo.png',
+                },
+                sameAs: [],
+                description: 'Plataforma de preparação para o Exame da OAB com simulados, questões comentadas e IA integrada.',
+              },
+              {
+                '@type': 'WebSite',
+                '@id': 'https://simulaioab.com/#website',
+                url: 'https://simulaioab.com',
+                name: 'Simulai OAB',
+                publisher: { '@id': 'https://simulaioab.com/#organization' },
+                inLanguage: 'pt-BR',
+              },
+              {
+                '@type': 'EducationalOrganization',
+                '@id': 'https://simulaioab.com/#edu',
+                name: 'Simulai OAB',
+                url: 'https://simulaioab.com',
+                description: 'Plataforma EdTech de preparação para o Exame da OAB com mais de 5.605 questões reais, simulados adaptativos e inteligência artificial.',
+              },
+            ],
+          }),
+        }}
+      />
+
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-blue-600 focus:text-white focus:rounded-md focus:top-4 focus:left-1/2 focus:-translate-x-1/2"
+      >
+        Pular para o conteúdo principal
+      </a>
+
+      <FreeAccessBanner />
+
+      <main id="main-content">{children}</main>
+
+      <Toaster
+        position="top-right"
+        theme="dark"
+        richColors
+        closeButton
+        toastOptions={{
+          className: "bg-navy-900 border-navy-800 text-white",
+        }}
+      />
+
+      <CookieConsent />
+    </body>
+  );
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Obter a chave publicável do Clerk
   const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
   // Durante o build, se a chave não estiver disponível, renderizar sem Clerk
-  // Isso permite que o build seja concluído, mas o Clerk funcionará em runtime
   if (!publishableKey) {
-    console.warn('⚠️ NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY não encontrada durante o build. Configure no Vercel para produção.');
+    logger.warn("NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY não encontrada durante o build");
     return (
       <html lang="pt-BR" className="dark">
-        <head>
-          {/* Google tag (gtag.js) */}
-          <Script
-            src="https://www.googletagmanager.com/gtag/js?id=G-S86LF7WYCL"
-            strategy="afterInteractive"
-          />
-          <Script
-            id="google-analytics"
-            strategy="afterInteractive"
-            dangerouslySetInnerHTML={{
-              __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'G-S86LF7WYCL');
-              `,
-            }}
-          />
-        </head>
-        <body className={`${inter.variable} ${plusJakarta.variable} ${jetbrainsMono.variable} font-sans antialiased bg-navy-950 text-white`}>
-
-          <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-blue-600 focus:text-white focus:rounded-md focus:top-4 focus:left-1/2 focus:-translate-x-1/2">
-            Pular para o conteúdo principal
-          </a>
-
-          <FreeAccessBanner />
-
-          {children}
-          <Toaster
-            position="top-right"
-            theme="dark"
-            richColors
-            closeButton
-            toastOptions={{
-              className: "bg-navy-900 border-navy-800 text-white",
-            }}
-          />
-        </body>
+        <RootBody>{children}</RootBody>
       </html>
     );
   }
@@ -160,49 +196,13 @@ export default function RootLayout({
       publishableKey={publishableKey}
       localization={ptBR}
       telemetry={false}
+      afterSignOutUrl="/"
       appearance={{
         baseTheme: undefined,
       }}
     >
       <html lang="pt-BR" className="dark">
-        <head>
-          {/* Google tag (gtag.js) */}
-          <Script
-            src="https://www.googletagmanager.com/gtag/js?id=G-S86LF7WYCL"
-            strategy="afterInteractive"
-          />
-          <Script
-            id="google-analytics"
-            strategy="afterInteractive"
-            dangerouslySetInnerHTML={{
-              __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'G-S86LF7WYCL');
-              `,
-            }}
-          />
-        </head>
-        <body className={`${inter.variable} ${plusJakarta.variable} ${jetbrainsMono.variable} font-sans antialiased bg-navy-950 text-white`}>
-
-          <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-blue-600 focus:text-white focus:rounded-md focus:top-4 focus:left-1/2 focus:-translate-x-1/2">
-            Pular para o conteúdo principal
-          </a>
-
-          <FreeAccessBanner />
-
-          {children}
-          <Toaster
-            position="top-right"
-            theme="dark"
-            richColors
-            closeButton
-            toastOptions={{
-              className: "bg-navy-900 border-navy-800 text-white",
-            }}
-          />
-        </body>
+        <RootBody>{children}</RootBody>
       </html>
     </ClerkProvider>
   );

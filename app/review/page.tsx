@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 // Força renderização dinâmica para garantir que ClerkProvider esteja disponível
 export const dynamic = 'force-dynamic';
@@ -59,7 +59,35 @@ export default function ReviewPage() {
   const [selectedSubject, setSelectedSubject] = useState<string>('all');
 
   useEffect(() => {
+    const controller = new AbortController();
+
+    const loadWrongQuestions = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/review/wrong-questions', { signal: controller.signal });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch wrong questions');
+        }
+
+        const data = await response.json();
+        // API retorna { questions: [...], summary: {...} }
+        const questionsList = data.questions || [];
+        setQuestions(questionsList);
+        setFilteredQuestions(questionsList);
+      } catch (error) {
+        if (error instanceof DOMException && error.name === 'AbortError') return;
+        if (typeof error === 'string' && error === 'component unmounted') return;
+        console.error('Error loading wrong questions:', error);
+        setQuestions([]);
+        setFilteredQuestions([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     loadWrongQuestions();
+    return () => controller.abort('component unmounted');
   }, []);
 
   useEffect(() => {
@@ -76,41 +104,13 @@ export default function ReviewPage() {
     setShowChat(false);
   }, [currentIndex]);
 
-  const loadWrongQuestions = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch('/api/review/wrong-questions');
+  const handleNext = useCallback(() => {
+    setCurrentIndex(prev => prev < filteredQuestions.length - 1 ? prev + 1 : prev);
+  }, [filteredQuestions.length]);
 
-      if (!response.ok) {
-        throw new Error('Failed to fetch wrong questions');
-      }
-
-      const data = await response.json();
-      // API retorna { questions: [...], summary: {...} }
-      const questionsList = data.questions || [];
-      setQuestions(questionsList);
-      setFilteredQuestions(questionsList);
-    } catch (error) {
-      console.error('Error loading wrong questions:', error);
-      // Em caso de erro, garantir que questions seja um array vazio
-      setQuestions([]);
-      setFilteredQuestions([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleNext = () => {
-    if (currentIndex < filteredQuestions.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-    }
-  };
-
-  const handlePrevious = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-    }
-  };
+  const handlePrevious = useCallback(() => {
+    setCurrentIndex(prev => prev > 0 ? prev - 1 : prev);
+  }, []);
 
   if (loading) {
     return (

@@ -1,11 +1,16 @@
 'use client';
 
 import { use, useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import { Card, Button } from '@/components/ui';
-import { SimulationSubjectChart } from '@/components/simulation/simulation-subject-chart';
 import { ArrowLeft, Download, RefreshCw, BookOpen, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+
+const SimulationSubjectChart = dynamic(() => import('@/components/simulation/simulation-subject-chart').then(mod => ({ default: mod.SimulationSubjectChart })), {
+  ssr: false,
+  loading: () => <div className="h-64 bg-navy-800/30 rounded-xl animate-pulse" />,
+});
 
 interface SimulationAnalytics {
   simulation: {
@@ -80,10 +85,10 @@ export default function SimulationReportPage({
   };
 
   const getPerformanceMessage = (rate: number) => {
-    if (rate >= 75) return { text: 'Excelente! Você está pronto!', color: 'text-green-400' };
+    if (rate >= 75) return { text: 'Excelente! Você está pronto!', color: 'text-green-500' };
     if (rate >= 60) return { text: 'Bom desempenho! Continue praticando.', color: 'text-blue-400' };
     if (rate >= 50) return { text: 'Precisa melhorar. Foque nos erros.', color: 'text-yellow-400' };
-    return { text: 'Continue estudando. Você consegue!', color: 'text-red-400' };
+    return { text: 'Continue estudando. Você consegue!', color: 'text-red-500' };
   };
 
   if (loading) {
@@ -150,7 +155,7 @@ export default function SimulationReportPage({
             <div className="flex items-center justify-center gap-8 mt-6 text-white/80">
               <div>
                 <p className="text-navy-400 text-sm">Acertos</p>
-                <p className="text-2xl font-bold text-green-400">
+                <p className="text-2xl font-bold text-green-500">
                   {data.simulation.correctAnswers}/{data.simulation.totalQuestions}
                 </p>
               </div>
@@ -179,7 +184,7 @@ export default function SimulationReportPage({
         {data.wrongAnswers.length > 0 && (
           <Card variant="glass" className="p-6 mb-6">
             <div className="flex items-center gap-3 mb-6">
-              <AlertCircle className="w-6 h-6 text-red-400" />
+              <AlertCircle className="w-6 h-6 text-red-500" />
               <h3 className="text-xl font-semibold text-white">
                 Questões Erradas ({data.wrongAnswers.length})
               </h3>
@@ -192,7 +197,7 @@ export default function SimulationReportPage({
                   className="bg-navy-800/30 border border-red-500/20 rounded-xl p-4"
                 >
                   <div className="flex items-start justify-between gap-4 mb-3">
-                    <span className="px-3 py-1 bg-red-500/10 text-red-300 border border-red-500/20 rounded-lg text-xs font-medium">
+                    <span className="px-3 py-1 bg-red-500/10 text-red-500 border border-red-500/20 rounded-lg text-xs font-medium">
                       {wrong.subjectLabel}
                     </span>
                   </div>
@@ -202,13 +207,13 @@ export default function SimulationReportPage({
                   <div className="flex gap-6 text-sm">
                     <div>
                       <span className="text-navy-400">Sua resposta: </span>
-                      <span className="text-red-400 font-medium">
+                      <span className="text-red-500 font-medium">
                         {wrong.userAnswer || 'Não respondida'}
                       </span>
                     </div>
                     <div>
                       <span className="text-navy-400">Correta: </span>
-                      <span className="text-green-400 font-medium">
+                      <span className="text-green-500 font-medium">
                         {wrong.correctAnswer}
                       </span>
                     </div>

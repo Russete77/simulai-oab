@@ -1,8 +1,11 @@
 /**
  * Logger estruturado para produção
  *
- * Substitui console.log por um sistema de logging adequado
- * que funciona em desenvolvimento e produção.
+ * Em PRODUÇÃO: só warn e error são exibidos (JSON estruturado)
+ * Em DEV: tudo é exibido com cores
+ *
+ * Para silenciar console.log direto em produção, este módulo
+ * sobrescreve console.log/console.debug em produção (server-side).
  */
 
 type LogLevel = 'debug' | 'info' | 'warn' | 'error';
@@ -11,29 +14,24 @@ interface LogMetadata {
   [key: string]: any;
 }
 
-class Logger {
-  private isDevelopment = process.env.NODE_ENV === 'development';
-  private isServer = typeof window === 'undefined';
+const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+const IS_SERVER = typeof window === 'undefined';
 
+class Logger {
   private log(level: LogLevel, message: string, meta?: LogMetadata) {
-    // Em desenvolvimento, apenas debug não aparece
-    if (!this.isDevelopment && level === 'debug') return;
+    // Em produção: só warn e error (sem debug e info verbosos nos logs da Vercel)
+    if (IS_PRODUCTION && (level === 'debug' || level === 'info')) return;
 
     const timestamp = new Date().toISOString();
     const logData = {
       timestamp,
       level,
       message,
-      environment: process.env.NODE_ENV,
       ...(meta && { meta }),
     };
 
-    // Em produção, enviar para serviço externo (Sentry, LogRocket, etc)
-    if (process.env.NODE_ENV === 'production' && this.isServer) {
-      // TODO: Integrar com Sentry quando configurado
-      // Sentry.captureMessage(message, { level, extra: meta });
-
-      // Por enquanto, log estruturado no console
+    if (IS_PRODUCTION && IS_SERVER) {
+      // Log estruturado JSON para Vercel/produção
       console[level === 'debug' ? 'log' : level](JSON.stringify(logData));
     } else {
       // Em desenvolvimento, log colorido e legível
@@ -93,3 +91,16 @@ class Logger {
 }
 
 export const logger = new Logger();
+
+/**
+ * Silencia console.log e console.debug em produção (server-side)
+ * Mantém console.warn e console.error funcionando normalmente
+ * Isso pega todos os console.log espalhados pelo código que não usam o logger
+ */
+if (IS_PRODUCTION && IS_SERVER) {
+  const noop = () => {};
+  // eslint-disable-next-line no-console
+  console.log = noop;
+  // eslint-disable-next-line no-console
+  console.debug = noop;
+}

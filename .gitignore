@@ -35,3 +35,34 @@ next-env.d.ts
 
 # prisma
 prisma/migrations
+
+# backup & SQL avulsos (nunca commitar)
+*.backup
+*.bak
+*.sql
+!prisma/setup.sql
+
+# datasets pesados (já estão no banco)
+dataset.parquet
+dataset_*.json
+hf_rows/
+
+# arquivos pessoais / rascunhos
+instruct.txt
+prd.txt
+politicas.txt
+image.png
+simulai_logo.png
+clerk.png
+
+# auditorias internas (não são código)
+AUDIT-*.md
+AUDITORIA_*.md
+PRODUCTION_READINESS_REPORT.md
+DESIGN_SYSTEM.md
+FEATURES_IMPLEMENTATION_GUIDE.md
+STUDY_PLAN_IMPLEMENTATION.md
+STUDY_PLAN_QUICK_REFERENCE.md
+
+# claude config
+.claude/

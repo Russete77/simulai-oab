@@ -1,70 +1,85 @@
 /**
  * API para verificar status da assinatura do usuário
- * GET /api/billing/status - Obter status da assinatura atual
+ * GET /api/billing/status — consulta banco local (sem chamada ao Asaas)
  */
 
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
-import { getCustomerService, getSubscriptionService } from '@/lib/stripe';
+import { prisma } from '@/lib/db/prisma';
+import { logger } from '@/lib/logger';
 
 export async function GET(req: NextRequest) {
   try {
-    const { userId } = await auth();
+    const { userId: clerkId } = await auth();
 
-    if (!userId) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    if (!clerkId) {
+      return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
     }
 
-    const { searchParams } = new URL(req.url);
-    const email = searchParams.get('email');
+    // Buscar usuário pelo clerkId (não pelo id interno)
+    const user = await prisma.user.findUnique({
+      where: { clerkId },
+      select: {
+        planType: true,
+        customer: {
+          select: {
+            id: true,
+            asaasCustomerId: true,
+            gateway: true,
+            subscriptions: {
+              where: {
+                gateway: 'asaas',
+                status: { in: ['ACTIVE', 'PAST_DUE'] },
+              },
+              orderBy: { createdAt: 'desc' },
+              take: 1,
+              select: {
+                id: true,
+                asaasSubscriptionId: true,
+                plan: true,
+                status: true,
+                value: true,
+                cycle: true,
+                currentPeriodStart: true,
+                currentPeriodEnd: true,
+                cancelAtPeriodEnd: true,
+              },
+            },
+          },
+        },
+      },
+    });
 
-    if (!email) {
-      return NextResponse.json(
-        { error: 'Email is required' },
-        { status: 400 }
-      );
+    if (!user) {
+      return NextResponse.json({ error: 'Usuário não encontrado' }, { status: 404 });
     }
 
-    const customerService = getCustomerService();
-    const subscriptionService = getSubscriptionService();
-
-    // Buscar cliente por email
-    const customers = await customerService.list({ email, limit: 1 });
-
-    if (customers.data.length === 0) {
-      return NextResponse.json({
-        hasSubscription: false,
-        status: 'no_customer',
-      });
-    }
-
-    const customer = customers.data[0];
-
-    // Buscar assinatura ativa
-    const subscription = await subscriptionService.getActiveByCustomer(
-      customer.id
-    );
+    const subscription = user.customer?.subscriptions?.[0];
 
     if (!subscription) {
       return NextResponse.json({
         hasSubscription: false,
-        status: 'no_subscription',
-        customerId: customer.id,
+        planType: user.planType || 'FREE',
+        status: user.customer ? 'no_subscription' : 'no_customer',
       });
     }
 
     return NextResponse.json({
       hasSubscription: true,
+      planType: user.planType,
       status: subscription.status,
-      customerId: customer.id,
-      subscriptionId: subscription.id,
-      currentPeriodEnd: subscription.current_period_end,
-      cancelAtPeriodEnd: subscription.cancel_at_period_end,
+      plan: subscription.plan,
+      value: subscription.value,
+      cycle: subscription.cycle,
+      currentPeriodEnd: subscription.currentPeriodEnd,
+      cancelAtPeriodEnd: subscription.cancelAtPeriodEnd,
+      subscriptionId: subscription.asaasSubscriptionId,
     });
-  } catch (error: any) {
-    console.error('[BILLING_STATUS_GET]', error);
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Erro interno';
+    logger.error('[BILLING_STATUS]', { error: message });
     return NextResponse.json(
-      { error: error.message || 'Internal error' },
+      { error: message },
       { status: 500 }
     );
   }

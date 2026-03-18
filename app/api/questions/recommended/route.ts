@@ -4,6 +4,14 @@ import { prisma } from "@/lib/db/prisma";
 import { Subject } from "@prisma/client";
 import { logger } from "@/lib/logger";
 
+// Tipo para resultado da agregação por matéria no banco
+interface SubjectPerformance {
+  subject: Subject;
+  total: number;
+  correct: number;
+  percentage: number;
+}
+
 /**
  * GET /api/questions/recommended
  * Retorna questões recomendadas baseadas nas matérias com pior desempenho
@@ -14,21 +22,21 @@ export async function GET(request: NextRequest) {
 
     logger.info("Fetching recommended questions", { userId: user.id });
 
-    // 1. Analisar performance por matéria
-    const userAnswers = await prisma.userAnswer.findMany({
-      where: { userId: user.id },
-      select: {
-        isCorrect: true,
-        question: {
-          select: {
-            subject: true,
-          },
-        },
-      },
-    });
+    // P0+P1 FIX: Usar agregação no banco ao invés de findMany + forEach em JS
+    const subjectStats = await prisma.$queryRaw<SubjectPerformance[]>`
+      SELECT
+        q.subject,
+        COUNT(*)::int as total,
+        SUM(CASE WHEN ua."isCorrect" THEN 1 ELSE 0 END)::int as correct,
+        ROUND(AVG(CASE WHEN ua."isCorrect" THEN 1.0 ELSE 0.0 END) * 100, 0)::int as percentage
+      FROM "UserAnswer" ua
+      JOIN "Question" q ON ua."questionId" = q.id
+      WHERE ua."userId" = ${user.id}
+      GROUP BY q.subject
+    `;
 
     // Se usuário ainda não respondeu nada, retornar questões aleatórias
-    if (userAnswers.length === 0) {
+    if (subjectStats.length === 0) {
       const randomQuestions = await prisma.question.findMany({
         where: { nullified: false },
         include: { alternatives: true },
@@ -43,53 +51,32 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    // 2. Calcular taxa de acerto por matéria
-    const subjectStats = new Map<
-      Subject,
-      { correct: number; total: number; percentage: number }
-    >();
-
-    userAnswers.forEach((answer) => {
-      const subject = answer.question.subject;
-      const current = subjectStats.get(subject) || { correct: 0, total: 0, percentage: 0 };
-      current.total++;
-      if (answer.isCorrect) current.correct++;
-      subjectStats.set(subject, current);
-    });
-
-    // Calcular percentuais
-    subjectStats.forEach((stats, subject) => {
-      stats.percentage = Math.round((stats.correct / stats.total) * 100);
-    });
-
-    // 3. Identificar matérias com <70% de acerto (mínimo 5 questões respondidas)
-    const weakSubjects = Array.from(subjectStats.entries())
-      .filter(([_, stats]) => stats.percentage < 70 && stats.total >= 5)
-      .sort((a, b) => a[1].percentage - b[1].percentage) // Pior primeiro
+    // Identificar matérias com <70% de acerto (mínimo 5 questões respondidas)
+    const weakSubjects = subjectStats
+      .filter((s) => s.percentage < 70 && s.total >= 5)
+      .sort((a, b) => a.percentage - b.percentage) // Pior primeiro
       .slice(0, 3) // Top 3 piores
-      .map(([subject, stats]) => ({
-        subject,
-        percentage: stats.percentage,
-        total: stats.total,
-        correct: stats.correct,
+      .map((s) => ({
+        subject: s.subject,
+        percentage: s.percentage,
+        total: s.total,
+        correct: s.correct,
       }));
 
     // Se não tem matérias fracas, pegar as com menos questões respondidas
     if (weakSubjects.length === 0) {
-      const leastPracticedSubjects = Array.from(subjectStats.entries())
-        .sort((a, b) => a[1].total - b[1].total) // Menos praticadas primeiro
+      const leastPracticedSubjects = subjectStats
+        .sort((a, b) => a.total - b.total) // Menos praticadas primeiro
         .slice(0, 3)
-        .map(([subject, stats]) => ({
-          subject,
-          percentage: stats.percentage,
-          total: stats.total,
-          correct: stats.correct,
+        .map((s) => ({
+          subject: s.subject,
+          percentage: s.percentage,
+          total: s.total,
+          correct: s.correct,
           reason: "Pratique mais esta matéria",
         }));
 
       const subjectsToRecommend = leastPracticedSubjects.map((s) => s.subject);
-
-      // Buscar questões dessas matérias
       const questions = await getQuestionsForSubjects(user.id, subjectsToRecommend);
 
       return NextResponse.json({
@@ -99,7 +86,7 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    // 4. Buscar questões das matérias fracas que o usuário ainda não respondeu
+    // Buscar questões das matérias fracas que o usuário ainda não respondeu
     const subjectsToRecommend = weakSubjects.map((s) => s.subject);
     const questions = await getQuestionsForSubjects(user.id, subjectsToRecommend);
 
@@ -140,11 +127,12 @@ async function getQuestionsForSubjects(
   userId: string,
   subjects: Subject[]
 ): Promise<any[]> {
-  // Buscar questões já respondidas
+  // P0 FIX: Adicionar take limit — antes carregava TODOS os questionIds sem limite
   const answeredQuestions = await prisma.userAnswer.findMany({
     where: { userId },
     select: { questionId: true },
     distinct: ["questionId"],
+    take: 5000, // Limite de segurança
   });
 
   const answeredIds = new Set(answeredQuestions.map((a) => a.questionId));
@@ -157,14 +145,14 @@ async function getQuestionsForSubjects(
       id: { notIn: Array.from(answeredIds) },
     },
     include: { alternatives: true },
-    take: 20, // 20 questões recomendadas
+    take: 20,
     orderBy: [
-      { examYear: "desc" }, // Priorizar questões mais recentes
+      { examYear: "desc" },
       { examPhase: "desc" },
     ],
   });
 
-  // Se não há questões não respondidas, permitir questões já respondidas
+  // Se não há questões não respondidas suficientes, permitir questões já respondidas
   if (questions.length < 10) {
     const additionalQuestions = await prisma.question.findMany({
       where: {

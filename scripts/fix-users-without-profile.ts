@@ -17,7 +17,6 @@ async function fixUsersWithoutProfile() {
     select: {
       id: true,
       email: true,
-      supabaseId: true,
       name: true,
     },
   });

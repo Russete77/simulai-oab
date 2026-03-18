@@ -1,16 +1,26 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
+import nextDynamic from 'next/dynamic';
 
 // Força renderização dinâmica para garantir que ClerkProvider esteja disponível
 export const dynamic = 'force-dynamic';
 import { Card, Button, StatsCard } from '@/components/ui';
 import { Header } from '@/components/layout/header';
-import { PerformanceChart } from '@/components/analytics/performance-chart';
-import { SubjectChart } from '@/components/analytics/subject-chart';
-import { ActivityChart } from '@/components/analytics/activity-chart';
-import { ArrowLeft, Target, Clock, Flame, TrendingUp } from 'lucide-react';
-import Link from 'next/link';
+import { Target, Clock, Flame, TrendingUp } from 'lucide-react';
+
+const PerformanceChart = nextDynamic(() => import('@/components/analytics/performance-chart').then(mod => ({ default: mod.PerformanceChart })), {
+  ssr: false,
+  loading: () => <div className="h-64 bg-navy-800/30 rounded-xl animate-pulse" />,
+});
+const SubjectChart = nextDynamic(() => import('@/components/analytics/subject-chart').then(mod => ({ default: mod.SubjectChart })), {
+  ssr: false,
+  loading: () => <div className="h-64 bg-navy-800/30 rounded-xl animate-pulse" />,
+});
+const ActivityChart = nextDynamic(() => import('@/components/analytics/activity-chart').then(mod => ({ default: mod.ActivityChart })), {
+  ssr: false,
+  loading: () => <div className="h-64 bg-navy-800/30 rounded-xl animate-pulse" />,
+});
 
 interface AnalyticsData {
   overview: {
@@ -42,15 +52,13 @@ interface AnalyticsData {
 export default function AnalyticsPage() {
   const [data, setData] = useState<AnalyticsData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-  useEffect(() => {
-    loadAnalytics();
-  }, []);
-
-  const loadAnalytics = async () => {
+  const loadAnalytics = useCallback(async (controller?: AbortController) => {
     try {
       setLoading(true);
-      const response = await fetch('/api/analytics');
+      setError(false);
+      const response = await fetch('/api/analytics', { signal: controller?.signal });
 
       if (!response.ok) {
         throw new Error('Failed to fetch analytics');
@@ -58,18 +66,30 @@ export default function AnalyticsPage() {
 
       const result = await response.json();
       setData(result);
-    } catch (error) {
-      console.error('Error loading analytics:', error);
+    } catch (err) {
+      if (err instanceof DOMException && err.name === 'AbortError') return;
+      if (typeof err === 'string' && err === 'component unmounted') return;
+      console.error('Error loading analytics:', err);
+      setError(true);
     } finally {
-      setLoading(false);
+      // Só atualizar estado se este fetch NÃO foi abortado (React Strict Mode double-mount)
+      if (!controller?.signal.aborted) {
+        setLoading(false);
+      }
     }
-  };
+  }, []);
 
-  const formatTime = (seconds: number) => {
+  useEffect(() => {
+    const controller = new AbortController();
+    loadAnalytics(controller);
+    return () => controller.abort('component unmounted');
+  }, [loadAnalytics]);
+
+  const formatTime = useCallback((seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${mins}:${String(secs).padStart(2, '0')}`;
-  };
+  }, []);
 
   if (loading) {
     return (
@@ -82,12 +102,12 @@ export default function AnalyticsPage() {
     );
   }
 
-  if (!data) {
+  if (error || !data) {
     return (
       <div className="min-h-screen bg-navy-950 flex items-center justify-center">
         <Card variant="glass" className="text-center p-8">
           <p className="text-white mb-4">Erro ao carregar análises</p>
-          <Button variant="primary" onClick={loadAnalytics}>
+          <Button variant="primary" onClick={() => loadAnalytics()}>
             Tentar Novamente
           </Button>
         </Card>
@@ -167,15 +187,15 @@ export default function AnalyticsPage() {
                   <tr key={index} className="border-b border-navy-800/50">
                     <td className="text-white py-3 px-4">{subject.subjectLabel}</td>
                     <td className="text-center text-navy-300 py-3 px-4">{subject.total}</td>
-                    <td className="text-center text-green-400 py-3 px-4">{subject.correct}</td>
+                    <td className="text-center text-green-500 py-3 px-4">{subject.correct}</td>
                     <td className="text-center py-3 px-4">
                       <span
                         className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${
                           subject.percentage >= 70
-                            ? 'bg-green-500/20 text-green-400'
+                            ? 'bg-green-500/20 text-green-500'
                             : subject.percentage >= 50
                             ? 'bg-yellow-500/20 text-yellow-400'
-                            : 'bg-red-500/20 text-red-400'
+                            : 'bg-red-500/20 text-red-500'
                         }`}
                       >
                         {subject.percentage.toFixed(1)}%

@@ -27,12 +27,13 @@ export interface PlanLimits {
 }
 
 export const PLAN_LIMITS: Record<PlanType, PlanLimits> = {
+  // FREE — R$ 0 — Extremamente limitado para incentivar upgrade
   FREE: {
-    dailyQuestions: 20,
-    questionBankSize: 500,
-    monthlySimulations: 2,
-    dailyAiExplanations: 3,  // ✅ Corrigido: era 0, agora 3/dia
-    dailyAiChats: 3,         // ✅ Corrigido: era 0, agora 3/dia (mesmo que explicações)
+    dailyQuestions: 5,
+    questionBankSize: 100,
+    monthlySimulations: 1,
+    dailyAiExplanations: 0,
+    dailyAiChats: 0,
     canUseAdaptiveSimulations: false,
     canExportPdf: false,
     hasAnalytics: 'basic',
@@ -40,32 +41,35 @@ export const PLAN_LIMITS: Record<PlanType, PlanLimits> = {
     hasPrioritySupport: false,
   },
 
+  // BASIC = Essencial — R$ 19,99/mês — Tudo liberado, SEM IA
   BASIC: {
-    dailyQuestions: 50,
-    questionBankSize: 2000,
-    monthlySimulations: 5,
-    dailyAiExplanations: 5,
-    dailyAiChats: 0,
-    canUseAdaptiveSimulations: false,
-    canExportPdf: false,
-    hasAnalytics: 'medium',
-    hasErrorReview: 'basic',
-    hasPrioritySupport: false,
-  },
-
-  PRO: {
     dailyQuestions: Infinity,
     questionBankSize: 5605,
-    monthlySimulations: 10,
-    dailyAiExplanations: 20,
-    dailyAiChats: 10,
+    monthlySimulations: Infinity,
+    dailyAiExplanations: 0,
+    dailyAiChats: 0,
     canUseAdaptiveSimulations: true,
-    canExportPdf: true,
+    canExportPdf: false,
     hasAnalytics: 'advanced',
     hasErrorReview: 'advanced',
     hasPrioritySupport: false,
   },
 
+  // PRO — R$ 89,99/mês — Tudo + IA ilimitada + Chat IA
+  PRO: {
+    dailyQuestions: Infinity,
+    questionBankSize: 5605,
+    monthlySimulations: Infinity,
+    dailyAiExplanations: Infinity,
+    dailyAiChats: Infinity,
+    canUseAdaptiveSimulations: true,
+    canExportPdf: true,
+    hasAnalytics: 'complete',
+    hasErrorReview: 'ai',
+    hasPrioritySupport: true,
+  },
+
+  // PREMIUM = alias do PRO (compatibilidade com assinaturas existentes)
   PREMIUM: {
     dailyQuestions: Infinity,
     questionBankSize: 5605,
@@ -134,7 +138,6 @@ export async function incrementQuestionCount(userId: string): Promise<void> {
     where: { id: userId },
     data: {
       dailyQuestionsCount: { increment: 1 },
-      dailyQuestionsResetAt: { set: new Date() },
     },
   });
 }
@@ -193,7 +196,6 @@ export async function incrementSimulationCount(userId: string): Promise<void> {
     where: { id: userId },
     data: {
       monthlySimulationsCount: { increment: 1 },
-      monthlySimulationsResetAt: { set: new Date() },
     },
   });
 }
@@ -252,7 +254,6 @@ export async function incrementAiExplanationCount(userId: string): Promise<void>
     where: { id: userId },
     data: {
       dailyAiExplanationsCount: { increment: 1 },
-      dailyAiExplanationsResetAt: { set: new Date() },
     },
   });
 }
@@ -311,7 +312,6 @@ export async function incrementAiChatCount(userId: string): Promise<void> {
     where: { id: userId },
     data: {
       dailyAiChatsCount: { increment: 1 },
-      dailyAiChatsResetAt: { set: new Date() },
     },
   });
 }

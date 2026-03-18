@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 // Força renderização dinâmica para garantir que ClerkProvider esteja disponível
 export const dynamic = 'force-dynamic';
@@ -38,35 +38,43 @@ export default function LeaderboardPage() {
   const [limit, setLimit] = useState(50);
 
   useEffect(() => {
+    const controller = new AbortController();
+
     async function fetchLeaderboard() {
       try {
         setLoading(true);
-        const response = await fetch(`/api/leaderboard?limit=${limit}`);
+        const response = await fetch(`/api/leaderboard?limit=${limit}`, { signal: controller.signal });
         const result = await response.json();
         setData(result);
       } catch (error) {
+        if (error instanceof DOMException && error.name === 'AbortError') return;
+        if (typeof error === 'string' && error === 'component unmounted') return;
         console.error('Erro ao buscar leaderboard:', error);
       } finally {
-        setLoading(false);
+        // Não atualizar estado se o fetch foi abortado (React Strict Mode double-mount)
+        if (!controller.signal.aborted) {
+          setLoading(false);
+        }
       }
     }
 
     fetchLeaderboard();
+    return () => controller.abort('component unmounted');
   }, [limit]);
 
-  const getRankIcon = (rank: number) => {
+  const getRankIcon = useCallback((rank: number) => {
     if (rank === 1) return <Crown className="w-6 h-6 text-yellow-400" />;
     if (rank === 2) return <Medal className="w-6 h-6 text-gray-400" />;
     if (rank === 3) return <Medal className="w-6 h-6 text-amber-600" />;
     return <span className="text-lg font-bold text-navy-400">#{rank}</span>;
-  };
+  }, []);
 
-  const getRankColor = (rank: number) => {
+  const getRankColor = useCallback((rank: number) => {
     if (rank === 1) return 'from-yellow-500/20 to-amber-500/20 border-yellow-500/50';
     if (rank === 2) return 'from-gray-400/20 to-gray-500/20 border-gray-400/50';
     if (rank === 3) return 'from-amber-600/20 to-amber-700/20 border-amber-600/50';
     return 'from-navy-800/50 to-navy-900/50 border-navy-700';
-  };
+  }, []);
 
   if (loading) {
     return (

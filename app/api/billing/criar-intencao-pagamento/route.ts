@@ -1,186 +1,105 @@
 /**
- * API para criar Payment Intent no Stripe
+ * API para criar assinatura Asaas
+ *
  * POST /api/billing/criar-intencao-pagamento
- * Usado para checkout embedded com Payment Element
+ * Redireciona para /api/billing/subscribe — mantido por compatibilidade.
+ *
+ * Body: { plan: AsaasPlanKey, billingType, cpfCnpj, creditCard?, creditCardHolderInfo? }
  */
 
 import { NextRequest, NextResponse } from 'next/server';
 import { auth, currentUser } from '@clerk/nextjs/server';
-import { getStripeClient, getCustomerService } from '@/lib/stripe';
-import { getPlanFromPriceId } from '@/lib/billing/stripe-plan-mapping';
+import { prisma } from '@/lib/db/prisma';
+import { logger } from '@/lib/logger';
+import {
+  findOrCreateAsaasCustomer,
+  createAsaasSubscription,
+  ASAAS_PLANS,
+  type AsaasPlanKey,
+} from '@/lib/asaas/checkout';
+import type { AsaasBillingType } from '@/lib/asaas/types';
 
 export async function POST(req: NextRequest) {
   try {
-    const { userId } = await auth();
+    const { userId: clerkId } = await auth();
     const user = await currentUser();
 
-    if (!userId || !user) {
+    if (!clerkId || !user) {
       return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
     }
 
+    // Resolver Clerk ID → Database User ID
+    const dbUser = await prisma.user.findUnique({
+      where: { clerkId },
+      select: { id: true },
+    });
+    if (!dbUser) {
+      return NextResponse.json({ error: 'Usuário não encontrado' }, { status: 404 });
+    }
+    const userId = dbUser.id;
+
     const body = await req.json();
-    const { priceId } = body;
+    const { plan, billingType, cpfCnpj, creditCard, creditCardHolderInfo } = body as {
+      plan: AsaasPlanKey;
+      billingType: AsaasBillingType;
+      cpfCnpj: string;
+      creditCard?: any;
+      creditCardHolderInfo?: any;
+    };
 
-    if (!priceId) {
-      return NextResponse.json(
-        { error: 'Price ID é obrigatório' },
-        { status: 400 }
-      );
+    if (!plan || !(plan in ASAAS_PLANS)) {
+      return NextResponse.json({ error: 'Plano inválido' }, { status: 400 });
     }
 
-    // Obter informações do plano
-    const planConfig = getPlanFromPriceId(priceId);
-    if (!planConfig) {
-      return NextResponse.json(
-        { error: 'Plano não encontrado' },
-        { status: 404 }
-      );
+    if (!billingType || !['PIX', 'BOLETO', 'CREDIT_CARD'].includes(billingType)) {
+      return NextResponse.json({ error: 'Forma de pagamento inválida' }, { status: 400 });
     }
 
-    const stripe = getStripeClient().getInstance();
-    const customerService = getCustomerService();
-
-    // Buscar ou criar cliente no Stripe
-    const customer = await customerService.getOrCreate({
-      email: user.emailAddresses[0]?.emailAddress,
-      name: `${user.firstName || ''} ${user.lastName || ''}`.trim(),
-      metadata: {
-        clerk_user_id: userId,
-      },
-    });
-
-    // Obter preço do Stripe para calcular valor
-    const price = await stripe.prices.retrieve(priceId);
-    const amount = price.unit_amount || 0;
-
-    // Criar Subscription (assinatura recorrente)
-    const subscription = await stripe.subscriptions.create({
-      customer: customer.id,
-      items: [{ price: priceId }],
-      payment_behavior: 'default_incomplete',
-      payment_settings: {
-        payment_method_types: ['card'], // Assinaturas recorrentes: apenas cartões
-        save_default_payment_method: 'on_subscription',
-      },
-      expand: ['latest_invoice.payment_intent'],
-      metadata: {
-        clerk_user_id: userId,
-        plan_tier: planConfig.tier,
-        plan_cycle: planConfig.cycle,
-      },
-    });
-
-    console.log('[CRIAR_INTENCAO_PAGAMENTO] Subscription created:', {
-      id: subscription.id,
-      status: subscription.status,
-      hasInvoice: !!subscription.latest_invoice,
-    });
-
-    // Extrair invoice
-    let invoice = subscription.latest_invoice as any;
-    let paymentIntent = invoice?.payment_intent;
-
-    console.log('[CRIAR_INTENCAO_PAGAMENTO] Initial Payment Intent:', {
-      hasPaymentIntent: !!paymentIntent,
-      invoiceStatus: invoice?.status,
-      invoiceId: invoice?.id,
-    });
-
-    // Se o Payment Intent não foi criado, finalizar a invoice para criar
-    if (!paymentIntent && invoice?.id) {
-      console.log('[CRIAR_INTENCAO_PAGAMENTO] Payment Intent missing, checking invoice status...');
-
-      // Só finalizar se a invoice estiver em draft
-      if (invoice.status === 'draft') {
-        console.log('[CRIAR_INTENCAO_PAGAMENTO] Invoice is draft, finalizing...');
-
-        invoice = await stripe.invoices.finalizeInvoice(invoice.id, {
-          expand: ['payment_intent'],
-        });
-
-        paymentIntent = invoice.payment_intent;
-
-        console.log('[CRIAR_INTENCAO_PAGAMENTO] After finalize:', {
-          invoiceStatus: invoice.status,
-          hasPaymentIntent: !!paymentIntent,
-          paymentIntentId: paymentIntent?.id,
-        });
-      } else {
-        // Invoice já finalizada, buscar payment intent diretamente
-        console.log('[CRIAR_INTENCAO_PAGAMENTO] Invoice already finalized, retrieving...');
-
-        invoice = await stripe.invoices.retrieve(invoice.id, {
-          expand: ['payment_intent'],
-        });
-
-        paymentIntent = invoice.payment_intent;
-
-        console.log('[CRIAR_INTENCAO_PAGAMENTO] After retrieve:', {
-          invoiceStatus: invoice.status,
-          hasPaymentIntent: !!paymentIntent,
-          paymentIntentId: paymentIntent?.id,
-          invoiceObject: JSON.stringify({
-            id: invoice.id,
-            status: invoice.status,
-            payment_intent: invoice.payment_intent,
-            auto_advance: invoice.auto_advance,
-            collection_method: invoice.collection_method,
-          }),
-        });
-
-        // Se ainda não tem Payment Intent, criar manualmente
-        if (!paymentIntent) {
-          console.log('[CRIAR_INTENCAO_PAGAMENTO] Creating Payment Intent manually...');
-
-          paymentIntent = await stripe.paymentIntents.create({
-            amount: invoice.amount_due,
-            currency: invoice.currency || 'brl',
-            customer: customer.id,
-            metadata: {
-              invoice_id: invoice.id,
-              subscription_id: subscription.id,
-              clerk_user_id: userId,
-            },
-            automatic_payment_methods: {
-              enabled: true,
-            },
-          });
-
-          console.log('[CRIAR_INTENCAO_PAGAMENTO] Manual Payment Intent created:', {
-            id: paymentIntent.id,
-            status: paymentIntent.status,
-            amount: paymentIntent.amount,
-          });
-        }
-      }
+    if (!cpfCnpj) {
+      return NextResponse.json({ error: 'CPF/CNPJ é obrigatório' }, { status: 400 });
     }
 
-    console.log('[CRIAR_INTENCAO_PAGAMENTO] Final Payment Intent:', {
-      hasPaymentIntent: !!paymentIntent,
-      hasClientSecret: !!paymentIntent?.client_secret,
-      paymentIntentStatus: paymentIntent?.status,
+    const email = user.emailAddresses[0]?.emailAddress;
+    const name = `${user.firstName || ''} ${user.lastName || ''}`.trim() || email;
+
+    const asaasCustomerId = await findOrCreateAsaasCustomer(userId, {
+      name,
+      email,
+      cpfCnpj,
     });
 
-    if (!paymentIntent?.client_secret) {
-      console.error('[CRIAR_INTENCAO_PAGAMENTO] Missing client_secret after finalize', {
-        subscriptionId: subscription.id,
-        invoiceId: invoice?.id,
-        invoiceStatus: invoice?.status,
-        paymentIntentId: paymentIntent?.id,
-      });
-      throw new Error('Erro ao criar subscription - client_secret não encontrado');
-    }
+    const subscription = await createAsaasSubscription({
+      userId,
+      asaasCustomerId,
+      plan,
+      billingType,
+      creditCard,
+      creditCardHolderInfo,
+    });
+
+    const planConfig = ASAAS_PLANS[plan];
+
+    logger.info('[CRIAR_INTENCAO_PAGAMENTO] Assinatura Asaas criada', {
+      userId,
+      plan,
+      billingType,
+      subscriptionId: subscription.id,
+    });
 
     return NextResponse.json({
-      clientSecret: paymentIntent.client_secret,
       subscriptionId: subscription.id,
-      customerId: customer.id,
-      amount: amount / 100, // Converter para reais
+      plan: planConfig.name,
+      value: planConfig.value,
+      billingType,
+      // Para PIX/Boleto, o front-end redireciona a /pagamento/[subscriptionId]
+      // Para cartão, pagamento já processado
+      paymentPending: billingType !== 'CREDIT_CARD',
     });
-  } catch (error: any) {
-    console.error('[CRIAR_INTENCAO_PAGAMENTO]', error);
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Erro interno';
+    logger.error('[CRIAR_INTENCAO_PAGAMENTO]', { error: message });
     return NextResponse.json(
-      { error: error.message || 'Erro interno' },
+      { error: message },
       { status: 500 }
     );
   }

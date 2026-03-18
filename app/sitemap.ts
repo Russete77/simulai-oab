@@ -1,134 +1,169 @@
 /**
- * Sitemap dinâmico
+ * Sitemap dinâmico e paginado
  *
- * Gera sitemap.xml para melhorar indexação por buscadores
- * Atualizado para incluir apenas páginas públicas + questões + matérias
+ * Gera sitemap.xml para melhorar indexação por buscadores.
+ * Usa generateSitemaps() do Next.js para paginar automaticamente
+ * (máx 1000 URLs por página de sitemap).
  */
 
 import { MetadataRoute } from 'next';
 import { prisma } from '@/lib/db/prisma';
+import { getAllBlogPosts } from '@/content/blog';
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://simulaioab.com';
-  
-  const sitemap: MetadataRoute.Sitemap = [];
+const QUESTIONS_PER_SITEMAP = 1000;
+const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://simulaioab.com';
 
-  // ==========================================
-  // 1. Páginas estáticas públicas
-  // ==========================================
-  sitemap.push(
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/login`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/register`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/pricing`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/terms`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/privacy`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
-  );
+// Matérias disponíveis
+const subjects = [
+  'etica', 'constitucional', 'civil', 'processo-civil',
+  'penal', 'processo-penal', 'trabalho', 'processo-trabalho',
+  'administrativo', 'tributario', 'empresarial', 'consumidor',
+  'ambiental', 'crianca-adolescente', 'internacional',
+  'direitos-humanos', 'geral',
+];
 
-  // ==========================================
-  // 2. Páginas de matérias públicas
-  // ==========================================
-  const subjects = [
-    'etica',
-    'constitucional',
-    'civil',
-    'processo-civil',
-    'penal',
-    'processo-penal',
-    'trabalho',
-    'processo-trabalho',
-    'administrativo',
-    'tributario',
-    'empresarial',
-    'consumidor',
-    'ambiental',
-    'crianca-adolescente',
-    'internacional',
-    'direitos-humanos',
-    'geral',
-  ];
-
-  subjects.forEach(subject => {
-    sitemap.push({
-      url: `${baseUrl}/materias/${subject}`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    });
+/**
+ * Gera índice de sitemaps paginados.
+ * Sitemap 0 = páginas estáticas + matérias
+ * Sitemap 1..N = questões (1000 por página)
+ */
+export async function generateSitemaps() {
+  const totalQuestions = await prisma.question.count({
+    where: { nullified: false },
   });
 
+  const questionPages = Math.ceil(totalQuestions / QUESTIONS_PER_SITEMAP);
+
+  // Página 0 = estáticas + matérias, páginas 1+ = questões
+  return Array.from({ length: 1 + questionPages }, (_, i) => ({ id: i }));
+}
+
+export default async function sitemap({
+  id,
+}: {
+  id: number;
+}): Promise<MetadataRoute.Sitemap> {
   // ==========================================
-  // 3. Páginas individuais de questões (SEO!)
+  // Página 0: Estáticas + Matérias
   // ==========================================
-  try {
-    // Buscar todas as questões (apenas IDs para performance)
-    const questions = await prisma.question.findMany({
-      select: {
-        id: true,
-        updatedAt: true,
-        subject: true,
+  if (id === 0) {
+    const staticPages: MetadataRoute.Sitemap = [
+      {
+        url: baseUrl,
+        lastModified: new Date(),
+        changeFrequency: 'weekly',
+        priority: 1,
       },
-      where: {
-        nullified: false, // Não incluir questões anuladas
+      {
+        url: `${baseUrl}/pricing`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly',
+        priority: 0.9,
       },
-      orderBy: {
-        examYear: 'desc',
+      {
+        url: `${baseUrl}/register`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly',
+        priority: 0.8,
       },
+      {
+        url: `${baseUrl}/login`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly',
+        priority: 0.6,
+      },
+      {
+        url: `${baseUrl}/blog`,
+        lastModified: new Date(),
+        changeFrequency: 'daily',
+        priority: 0.8,
+      },
+      {
+        url: `${baseUrl}/terms`,
+        lastModified: new Date(),
+        changeFrequency: 'yearly',
+        priority: 0.3,
+      },
+      {
+        url: `${baseUrl}/privacy`,
+        lastModified: new Date(),
+        changeFrequency: 'yearly',
+        priority: 0.3,
+      },
+    ];
+
+    // Páginas de matérias
+    const subjectPages: MetadataRoute.Sitemap = subjects.map((subject) => ({
+      url: `${baseUrl}/materias/${subject}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    }));
+
+    // Páginas de gabarito e simulado por exame
+    const exams = await prisma.question.groupBy({
+      by: ['examId'],
+      where: { nullified: false },
     });
 
-    questions.forEach(question => {
-      sitemap.push({
-        url: `${baseUrl}/questoes/${question.id}`,
-        lastModified: question.updatedAt,
-        changeFrequency: 'monthly',
-        priority: 0.7,
-      });
-    });
-  } catch (error) {
-    console.error('Erro ao gerar sitemap de questões:', error);
-    // Em caso de erro, continua sem as questões
+    const gabaritoPages: MetadataRoute.Sitemap = [
+      {
+        url: `${baseUrl}/gabarito`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.9,
+      },
+      ...exams.map((exam) => ({
+        url: `${baseUrl}/gabarito/${exam.examId}`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly' as const,
+        priority: 0.8,
+      })),
+    ];
+
+    const simuladoPages: MetadataRoute.Sitemap = exams.map((exam) => ({
+      url: `${baseUrl}/simulado/${exam.examId}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    }));
+
+    // Blog posts
+    const blogPosts = getAllBlogPosts();
+    const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+      url: `${baseUrl}/blog/${post.slug}`,
+      lastModified: post.updatedAt ? new Date(post.updatedAt) : new Date(post.publishedAt),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    }));
+
+    return [...staticPages, ...subjectPages, ...gabaritoPages, ...simuladoPages, ...blogPages];
   }
 
   // ==========================================
-  // 4. Páginas de blog (quando implementarmos)
+  // Páginas 1+: Questões (paginadas, 1000 por página)
   // ==========================================
-  // TODO: Adicionar URLs de blog quando criar o sistema de blog
-  // sitemap.push({
-  //   url: `${baseUrl}/blog`,
-  //   lastModified: new Date(),
-  //   changeFrequency: 'daily',
-  //   priority: 0.8,
-  // });
+  const questionPageIndex = id - 1; // Ajustar índice (id 1 = primeira página de questões)
 
-  return sitemap;
+  const questions = await prisma.question.findMany({
+    select: {
+      id: true,
+      updatedAt: true,
+    },
+    where: {
+      nullified: false,
+    },
+    orderBy: {
+      examYear: 'desc',
+    },
+    skip: questionPageIndex * QUESTIONS_PER_SITEMAP,
+    take: QUESTIONS_PER_SITEMAP,
+  });
+
+  return questions.map((question) => ({
+    url: `${baseUrl}/questoes/${question.id}`,
+    lastModified: question.updatedAt,
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }));
 }

@@ -96,7 +96,7 @@ export default function SmartReviewPage() {
         <Header />
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Card variant="glass" className="p-8 text-center">
-            <p className="text-red-400 mb-4">Erro: {error}</p>
+            <p className="text-red-500 mb-4">Erro: {error}</p>
             <Button onClick={fetchRecommendations} className="flex items-center gap-2">
               <RefreshCw className="w-4 h-4" />
               Tentar Novamente
@@ -142,7 +142,7 @@ export default function SmartReviewPage() {
         {hasRecommendations && (
           <div className="mb-8">
             <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-              <TrendingDown className="w-6 h-6 text-amber-400" />
+              <TrendingDown className="w-6 h-6 text-amber-500" />
               Matérias que precisam de atenção
             </h2>
 
@@ -157,7 +157,7 @@ export default function SmartReviewPage() {
                     <h3 className="text-lg font-bold text-white">
                       {SUBJECT_LABELS[rec.subject]}
                     </h3>
-                    <div className="text-2xl font-bold text-red-400">
+                    <div className="text-2xl font-bold text-red-500">
                       {rec.percentage}%
                     </div>
                   </div>
@@ -195,7 +195,7 @@ export default function SmartReviewPage() {
           <div>
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                <BookOpen className="w-6 h-6 text-green-400" />
+                <BookOpen className="w-6 h-6 text-green-500" />
                 Questões Recomendadas ({data.questions.length})
               </h2>
               <Link href={`/practice?recommended=true`}>

@@ -253,7 +253,14 @@ export async function POST(request: NextRequest) {
     }
 
     // Validar dados
-    const data = CreateSimulationSchema.parse(body);
+    const parsed = CreateSimulationSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: "Dados inválidos", details: parsed.error.flatten() },
+        { status: 400 }
+      );
+    }
+    const data = parsed.data;
 
     logger.info("🚀🚀🚀 VERSÃO NOVA COM WEIGHTED ALGORITHM 🚀🚀🚀 Creating simulation", {
       userId: user.id,
@@ -301,8 +308,8 @@ export async function POST(request: NextRequest) {
           },
         });
 
-        // Stage 2 - Buscar TODAS as questões da matéria (sem take)
-        // O algoritmo WEIGHTED fará a seleção ponderada por ano
+        // P0 FIX: Adicionar take limit — antes carregava TODAS as questões (~10k)
+        // Buscar candidatas suficientes para o weighted algorithm
         const questions = await prisma.question.findMany({
           where: {
             subject: subject as any,
@@ -313,7 +320,8 @@ export async function POST(request: NextRequest) {
             examYear: true,
             examPhase: true,
           },
-          // SEM take! Pega todas e deixa o WEIGHTED selecionar
+          take: Math.max(count * 10, 200), // Margem para weighted selection
+          orderBy: { examYear: 'desc' }, // Priorizar recentes na seleção
         });
 
         // Filtrar questões já respondidas (priorizar não respondidas)
@@ -337,29 +345,13 @@ export async function POST(request: NextRequest) {
       // Shuffle final para misturar matérias (Fisher-Yates)
       const finalShuffled = fisherYatesShuffle(questions);
 
-      // LOGGING DETALHADO: Distribuição por matéria e ano
-      const subjectDistribution: Record<string, number> = {};
-      const yearDistributionFinal = new Map<number, number>();
-
-      // Buscar informações completas das questões para logging
-      const fullQuestions = await prisma.question.findMany({
-        where: { id: { in: finalShuffled } },
-        select: { id: true, subject: true, examYear: true },
-      });
-
-      fullQuestions.forEach((q) => {
-        subjectDistribution[q.subject] = (subjectDistribution[q.subject] || 0) + 1;
-        yearDistributionFinal.set(q.examYear, (yearDistributionFinal.get(q.examYear) || 0) + 1);
-      });
-
-      logger.info('[FULL_EXAM] Distribuição de questões:', {
+      // P1 FIX: Logging sem re-fetch — calcular distribuição a partir dos dados já carregados
+      // (antes: query extra desnecessária buscando questões já na memória)
+      logger.info('[FULL_EXAM] Simulado criado', {
         userId: user.id,
         total: finalShuffled.length,
         esperado: 80,
-        porMateria: subjectDistribution,
-        porAno: Object.fromEntries(
-          Array.from(yearDistributionFinal.entries()).sort((a, b) => a[0] - b[0])
-        ),
+        // Distribuição por matéria já está implícita na config SIMULATION_CONFIGS.FULL_EXAM
       });
 
       // Criar simulado com menos includes (otimização)
@@ -432,8 +424,7 @@ export async function POST(request: NextRequest) {
       where: whereNotAnswered,
     });
 
-    // Stage 2 - Buscar TODAS as questões (sem take)
-    // O algoritmo WEIGHTED fará a seleção ponderada por ano
+    // P0 FIX: Adicionar take limit (antes: sem take, carregava tudo)
     const allQuestions = await prisma.question.findMany({
       where,
       select: {
@@ -441,7 +432,8 @@ export async function POST(request: NextRequest) {
         examYear: true,
         examPhase: true,
       },
-      // SEM take! Deixa o WEIGHTED selecionar com base nos pesos por ano
+      take: Math.max(questionCount * 10, 500), // Margem para weighted selection
+      orderBy: { examYear: 'desc' },
     });
 
     // Filtrar e priorizar questões não respondidas
@@ -456,25 +448,17 @@ export async function POST(request: NextRequest) {
     const shuffled = shuffleWithDiversity(availableQuestions, questionCount);
     const questions = shuffled;
 
-    // LOGGING DETALHADO: Distribuição por matéria e ano (outros tipos)
-    const subjectDistribution: Record<string, number> = {};
+    // P1 FIX: Logging sem re-fetch (antes: query extra desnecessária)
+    // Distribuição por ano já disponível nos dados em memória
     const yearDistribution = new Map<number, number>();
-
-    const fullQuestions = await prisma.question.findMany({
-      where: { id: { in: questions.map(q => q.id) } },
-      select: { id: true, subject: true, examYear: true },
-    });
-
-    fullQuestions.forEach((q) => {
-      subjectDistribution[q.subject] = (subjectDistribution[q.subject] || 0) + 1;
+    questions.forEach((q) => {
       yearDistribution.set(q.examYear, (yearDistribution.get(q.examYear) || 0) + 1);
     });
 
-    logger.info(`[${data.type}] Distribuição de questões:`, {
+    logger.info(`[${data.type}] Simulado criado`, {
       userId: user.id,
       total: questions.length,
       esperado: questionCount,
-      porMateria: subjectDistribution,
       porAno: Object.fromEntries(
         Array.from(yearDistribution.entries()).sort((a, b) => a[0] - b[0])
       ),

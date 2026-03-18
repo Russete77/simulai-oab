@@ -88,8 +88,12 @@ enum PaymentMethod {
   GOOGLE_PAY
   CASH_APP_PAY
   ACH_DEBIT
+  PIX
   OTHER
 }
+
+// Planos válidos: BASIC_MONTHLY (R$19,99) e PRO_MONTHLY (R$89,99)
+// Subscription.plan é String para compatibilidade — validação feita no app
 
 // ============================================================================
 // USER & AUTHENTICATION
@@ -100,7 +104,6 @@ model User {
   email         String   @unique
   name          String?
   clerkId       String?  @unique
-  supabaseId    String?  @unique  // Temporário para migração
   planType      PlanType @default(FREE)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
@@ -122,11 +125,12 @@ model User {
   achievements  UserAchievement[]
   studyPlans    StudyPlan[]
   chatSessions  UserQuestionChat[]
-  customer      Customer?
+  customer           Customer?
+  reviewCards        ReviewCard[]
+  pushSubscriptions  PushSubscription[]
 
   @@index([email])
   @@index([clerkId])
-  @@index([supabaseId])
 }
 
 model UserProfile {
@@ -171,8 +175,15 @@ model Question {
   questionNumber  Int         // 1-100
   subject         Subject
   statement       String      @db.Text
+
+  // P3 FIX: explanation DEPRECIADO — usar QuestionExplanation como source of truth
+  // Mantido por retrocompatibilidade (fallback se QuestionExplanation não existir)
   explanation     String?     @db.Text
+
+  // Anulação
   nullified       Boolean     @default(false)
+  nullifiedAt     DateTime?   // P3 FIX: Quando foi anulada
+  nullifiedBy     String?     // P3 FIX: "FGV" | "ADMIN" — quem anulou
 
   // Metadados calculados
   difficulty      Difficulty?
@@ -189,11 +200,13 @@ model Question {
   simulationQuestions SimulationQuestion[]
   aiExplanation   QuestionExplanation?
   chatSessions    UserQuestionChat[]
+  reviewCards     ReviewCard[]
 
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
 
   @@unique([examId, questionNumber])
+  @@index([examId])
   @@index([subject, difficulty])
   @@index([examYear, examPhase])
 }
@@ -240,6 +253,7 @@ model UserAnswer {
   @@index([userId, isCorrect])
   @@index([userId, createdAt])
   @@index([questionId, isCorrect])
+  @@index([userId, questionId]) // P2 FIX: Otimiza queries "questões já respondidas por usuário"
 }
 
 // ============================================================================
@@ -343,6 +357,58 @@ model StudyPlan {
 }
 
 // ============================================================================
+// SPACED REPETITION SYSTEM (SRS)
+// ============================================================================
+
+model ReviewCard {
+  id            String   @id @default(cuid())
+  userId        String
+  questionId    String
+
+  // SRS Algorithm fields (SM-2 inspired)
+  easeFactor    Float    @default(2.5)  // Difficulty factor (1.3 - 5.0)
+  interval      Int      @default(1)     // Days until next review
+  repetitions   Int      @default(0)     // Number of successful reviews
+
+  // Scheduling
+  nextReviewAt  DateTime @default(now()) // When to show this card
+  lastReviewAt  DateTime?
+
+  // Stats
+  totalReviews  Int      @default(0)
+  correctReviews Int     @default(0)
+
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question      Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@unique([userId, questionId])
+  @@index([userId, nextReviewAt])
+  @@index([userId])
+}
+
+// ============================================================================
+// PUSH NOTIFICATIONS
+// ============================================================================
+
+model PushSubscription {
+  id        String   @id @default(cuid())
+  userId    String
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+// ============================================================================
 // AI EXPLANATIONS & CHAT
 // ============================================================================
 
@@ -378,7 +444,9 @@ model UserQuestionChat {
   questionId  String
 
   // Conversa (array de mensagens)
-  messages    Json     // [{role: "user"|"assistant", content: string, timestamp: string}]
+  // P3 FIX: Schema documentado + validação Zod em runtime (ver lib/validations/chat.ts)
+  // Formato: [{role: "user"|"assistant", content: string, timestamp: string}]
+  messages    Json
 
   // Metadados
   messageCount Int     @default(0)
@@ -397,19 +465,20 @@ model UserQuestionChat {
 }
 
 // ============================================================================
-// BILLING & PAYMENTS (STRIPE)
+// BILLING & PAYMENTS (ASAAS)
 // ============================================================================
 
 model Customer {
   id                String   @id @default(cuid())
   userId            String   @unique
-  stripeCustomerId  String   @unique  // ID do cliente no Stripe (cus_XXXXX)
+  asaasCustomerId   String?  @unique  // ID do cliente no Asaas (cus_XXXXX)
+  gateway           String   @default("asaas") // Gateway de pagamento
 
   // Dados do cliente
   name              String
   email             String
   phone             String?
-  cpfCnpj           String?  // Opcional para billing brasileiro
+  cpfCnpj           String?  // CPF/CNPJ para billing Asaas (obrigatório)
 
   // Relações
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -420,18 +489,17 @@ model Customer {
   updatedAt         DateTime @updatedAt
 
   @@index([userId])
-  @@index([stripeCustomerId])
+  @@index([asaasCustomerId])
 }
 
 model Subscription {
   id                    String             @id @default(cuid())
   customerId            String
-  stripeSubscriptionId  String?            @unique  // ID da assinatura no Stripe
-  stripePriceId         String?            // Price ID do Stripe
-  stripeProductId       String?            // Product ID do Stripe
+  asaasSubscriptionId   String?            @unique  // ID da assinatura no Asaas (sub_XXXXX)
+  gateway               String             @default("asaas") // Gateway de pagamento
 
-  // Plano
-  plan                  String             // "BASIC_MONTHLY", "PRO_YEARLY", etc
+  // Plano (String para compatibilidade com dados existentes, validação no app)
+  plan                  String             // "BASIC_MONTHLY" ou "PRO_MONTHLY"
   status                SubscriptionStatus @default(ACTIVE)
 
   // Valores
@@ -439,9 +507,9 @@ model Subscription {
   discount              Float?             // Desconto aplicado
 
   // Configuração
-  cycle                 String             // "MONTHLY", "QUARTERLY", "YEARLY"
+  cycle                 String             // "MONTHLY" (único ciclo suportado)
 
-  // Períodos (Stripe)
+  // Períodos
   currentPeriodStart    DateTime?
   currentPeriodEnd      DateTime?
   cancelAtPeriodEnd     Boolean            @default(false)
@@ -467,8 +535,7 @@ model Subscription {
 
   @@index([customerId])
   @@index([status])
-  @@index([stripeSubscriptionId])
-  @@index([stripePriceId])
+  @@index([asaasSubscriptionId])
   @@index([currentPeriodEnd])
 }
 
@@ -476,9 +543,9 @@ model Payment {
   id                      String        @id @default(cuid())
   customerId              String
   subscriptionId          String?
-  stripePaymentId         String        @unique  // ID do pagamento no Stripe (ch_XXXXX ou pi_XXXXX)
-  stripePaymentIntentId   String?       // Payment Intent ID
-  stripeInvoiceId         String?       // Invoice ID
+
+  // ID externo do pagamento no gateway
+  externalPaymentId       String        @unique  // ID do pagamento no Asaas (pay_XXXXX)
 
   // Valores
   value                   Float
@@ -493,7 +560,7 @@ model Payment {
   paymentDate             DateTime?
   confirmedDate           DateTime?
 
-  // Stripe URLs
+  // URLs
   receiptUrl              String?       // URL do recibo
   invoiceUrl              String?       // URL da fatura
 
@@ -519,13 +586,14 @@ model Payment {
   @@index([subscriptionId])
   @@index([status])
   @@index([dueDate])
-  @@index([stripePaymentId])
-  @@index([stripePaymentIntentId])
+  @@index([externalPaymentId])
 }
 
 model WebhookLog {
   id          String   @id @default(cuid())
-  event       String   // "PAYMENT_RECEIVED", "PAYMENT_OVERDUE", etc
+  eventType   String   @default("unknown") // "PAYMENT_RECEIVED", "ai_usage", etc.
+  eventId     String?  // ID único do evento (para idempotência)
+  source      String   @default("asaas") // "asaas" | "system"
   payload     Json     // Payload completo do webhook
   processed   Boolean  @default(false)
   error       String?  @db.Text
@@ -533,7 +601,9 @@ model WebhookLog {
   createdAt   DateTime @default(now())
   processedAt DateTime?
 
-  @@index([event])
+  @@index([eventType])
+  @@index([eventId])
+  @@index([source])
   @@index([processed])
   @@index([createdAt])
   @@index([processed, createdAt])

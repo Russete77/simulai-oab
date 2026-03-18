@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { Card } from '@/components/ui';
 import {
   BarChart,
@@ -11,6 +12,7 @@ import {
   ResponsiveContainer,
   Cell
 } from 'recharts';
+import { CHART_COLORS } from '@/lib/design/chart-colors';
 
 interface SimulationSubjectChartProps {
   data: {
@@ -22,7 +24,7 @@ interface SimulationSubjectChartProps {
   }[];
 }
 
-export function SimulationSubjectChart({ data }: SimulationSubjectChartProps) {
+function SimulationSubjectChartBase({ data }: SimulationSubjectChartProps) {
   const chartData = data.map((item) => ({
     subject: item.subjectLabel,
     'Acertos (%)': Math.round(item.percentage),
@@ -38,24 +40,24 @@ export function SimulationSubjectChart({ data }: SimulationSubjectChartProps) {
 
       <ResponsiveContainer width="100%" height={400}>
         <BarChart data={chartData} layout="vertical">
-          <CartesianGrid strokeDasharray="3 3" stroke="#1e3a5f" />
+          <CartesianGrid strokeDasharray="3 3" stroke={CHART_COLORS.grid} />
           <XAxis
             type="number"
-            stroke="#64748b"
+            stroke={CHART_COLORS.gridStroke}
             style={{ fontSize: '12px' }}
             domain={[0, 100]}
           />
           <YAxis
             type="category"
             dataKey="subject"
-            stroke="#64748b"
+            stroke={CHART_COLORS.gridStroke}
             style={{ fontSize: '11px' }}
             width={120}
           />
           <Tooltip
             contentStyle={{
-              backgroundColor: '#0f172a',
-              border: '1px solid #1e3a5f',
+              backgroundColor: CHART_COLORS.background,
+              border: `1px solid ${CHART_COLORS.grid}`,
               borderRadius: '8px',
               color: '#fff',
             }}
@@ -72,7 +74,7 @@ export function SimulationSubjectChart({ data }: SimulationSubjectChartProps) {
           <Bar dataKey="Acertos (%)" radius={[0, 8, 8, 0]}>
             {chartData.map((entry, index) => {
               const percentage = entry['Acertos (%)'];
-              const color = percentage >= 70 ? '#10b981' : percentage >= 50 ? '#f59e0b' : '#ef4444';
+              const color = percentage >= 70 ? CHART_COLORS.success : percentage >= 50 ? CHART_COLORS.warning : CHART_COLORS.error;
               return <Cell key={`cell-${index}`} fill={color} />;
             })}
           </Bar>
@@ -81,3 +83,5 @@ export function SimulationSubjectChart({ data }: SimulationSubjectChartProps) {
     </Card>
   );
 }
+
+export const SimulationSubjectChart = React.memo(SimulationSubjectChartBase);

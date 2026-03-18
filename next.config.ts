@@ -1,15 +1,16 @@
 import type { NextConfig } from "next";
-import withPWA from "next-pwa";
+import withPWA from "@ducanh2912/next-pwa";
 
 // Content Security Policy
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://*.clerk.accounts.com https://*.clerk.com https://clerk.simulaioab.com https://*.clerk.dev;
-  style-src 'self' 'unsafe-inline' https://*.clerk.accounts.com https://*.clerk.com;
-  img-src 'self' data: https: blob: https://*.clerk.com https://*.clerk.accounts.com;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://*.clerk.accounts.com https://*.clerk.accounts.dev https://*.clerk.com https://clerk.simulaioab.com https://*.clerk.dev https://www.googletagmanager.com https://www.google-analytics.com;
+  worker-src 'self' blob:;
+  style-src 'self' 'unsafe-inline' https://*.clerk.accounts.com https://*.clerk.accounts.dev https://*.clerk.com;
+  img-src 'self' data: https: blob: https://*.clerk.com https://*.clerk.accounts.com https://*.clerk.accounts.dev https://www.google-analytics.com;
   font-src 'self' data:;
-  connect-src 'self' https://*.clerk.accounts.com https://*.clerk.com https://clerk.simulaioab.com https://*.clerk.dev;
-  frame-src https://*.clerk.accounts.com https://*.clerk.com https://*.clerk.dev;
+  connect-src 'self' https://*.clerk.accounts.com https://*.clerk.accounts.dev https://*.clerk.com https://clerk.simulaioab.com https://*.clerk.dev https://www.google-analytics.com https://api.openai.com;
+  frame-src https://*.clerk.accounts.com https://*.clerk.accounts.dev https://*.clerk.com https://*.clerk.dev;
   media-src 'self';
   object-src 'none';
   base-uri 'self';
@@ -17,8 +18,8 @@ const ContentSecurityPolicy = `
   frame-ancestors 'none';
 `;
 
-// Security headers (TEMPORARIAMENTE DESABILITADO para debug do Clerk)
-const securityHeaders = false ? [
+// Security headers
+const securityHeaders = [
   {
     key: 'Content-Security-Policy',
     value: ContentSecurityPolicy.replace(/\s{2,}/g, ' ').trim(),
@@ -39,7 +40,7 @@ const securityHeaders = false ? [
     key: 'Permissions-Policy',
     value: 'camera=(), microphone=(), geolocation=()',
   },
-] : [];
+];
 
 const nextConfig: NextConfig = {
   experimental: {

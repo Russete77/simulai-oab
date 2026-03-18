@@ -33,7 +33,7 @@ export function ExplanationCards({ explanation, isCorrect }: ExplanationCardsPro
       <Card variant="glass" className="p-5 border-green-500/20 bg-green-500/5">
         <div className="flex items-start gap-3">
           <div className="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center flex-shrink-0">
-            <CheckCircle className="w-5 h-5 text-green-400" />
+            <CheckCircle className="w-5 h-5 text-green-500" />
           </div>
           <div className="flex-1">
             <h4 className="text-sm font-semibold text-green-300 uppercase tracking-wide mb-2">
@@ -44,7 +44,7 @@ export function ExplanationCards({ explanation, isCorrect }: ExplanationCardsPro
             </p>
             {explanation.correta.baseLegal && (
               <div className="flex items-center gap-2 mt-3 pt-3 border-t border-green-500/20">
-                <span className="text-xs font-mono text-green-400 bg-green-500/10 px-2 py-1 rounded">
+                <span className="text-xs font-mono text-green-500 bg-green-500/10 px-2 py-1 rounded">
                   {explanation.correta.baseLegal}
                 </span>
               </div>
@@ -58,7 +58,7 @@ export function ExplanationCards({ explanation, isCorrect }: ExplanationCardsPro
         <Card variant="glass" className="p-5 border-red-500/20 bg-red-500/5">
           <div className="flex items-start gap-3">
             <div className="w-10 h-10 rounded-lg bg-red-500/20 flex items-center justify-center flex-shrink-0">
-              <XCircle className="w-5 h-5 text-red-400" />
+              <XCircle className="w-5 h-5 text-red-500" />
             </div>
             <div className="flex-1">
               <h4 className="text-sm font-semibold text-red-300 uppercase tracking-wide mb-3">
@@ -67,7 +67,7 @@ export function ExplanationCards({ explanation, isCorrect }: ExplanationCardsPro
               <div className="space-y-3">
                 {explanation.incorretas.map((item, index) => (
                   <div key={index} className="flex gap-3">
-                    <span className="text-red-400 font-semibold text-sm mt-0.5 flex-shrink-0">
+                    <span className="text-red-500 font-semibold text-sm mt-0.5 flex-shrink-0">
                       {item.alternativa})
                     </span>
                     <p className="text-white/90 text-[15px] leading-relaxed flex-1">
@@ -86,7 +86,7 @@ export function ExplanationCards({ explanation, isCorrect }: ExplanationCardsPro
         <Card variant="glass" className="p-5 border-amber-500/20 bg-amber-500/5">
           <div className="flex items-start gap-3">
             <div className="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center flex-shrink-0">
-              <Lightbulb className="w-5 h-5 text-amber-400" />
+              <Lightbulb className="w-5 h-5 text-amber-500" />
             </div>
             <div className="flex-1">
               <h4 className="text-sm font-semibold text-amber-300 uppercase tracking-wide mb-2">

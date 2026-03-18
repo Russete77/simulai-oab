@@ -5,8 +5,9 @@ import { Header } from '@/components/layout/header';
 import { ArrowLeft, FileText, Zap, Target, RotateCcw, BookMarked, BookOpen } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { SimulationType, Subject } from '@prisma/client';
+import { CreateSimulationSchema } from '@/lib/validations/simulation';
 import {
   SIMULATION_TYPE_LABELS,
   SIMULATION_TYPE_DESCRIPTIONS,
@@ -20,10 +21,17 @@ export default function SimulationsClient() {
   const [creatingType, setCreatingType] = useState<SimulationType | null>(null);
   const [showSubjectModal, setShowSubjectModal] = useState(false);
 
-  const createSimulation = async (type: SimulationType) => {
+  const createSimulation = useCallback(async (type: SimulationType) => {
     // Se for BY_SUBJECT, abrir modal de seleção
     if (type === 'BY_SUBJECT') {
       setShowSubjectModal(true);
+      return;
+    }
+
+    // Validação client-side com Zod
+    const validation = CreateSimulationSchema.safeParse({ type });
+    if (!validation.success) {
+      console.error('Validação falhou:', validation.error.flatten());
       return;
     }
 
@@ -33,7 +41,7 @@ export default function SimulationsClient() {
       const response = await fetch('/api/simulations/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type }),
+        body: JSON.stringify(validation.data),
       });
 
       if (!response.ok) {
@@ -62,18 +70,22 @@ export default function SimulationsClient() {
       alert('Erro ao criar simulado. Tente novamente.');
       setCreatingType(null);
     }
-  };
+  }, [router]);
 
-  const createSubjectSimulation = async (subjects: Subject[]) => {
+  const createSubjectSimulation = useCallback(async (subjects: Subject[]) => {
+    // Validação client-side com Zod
+    const validation = CreateSimulationSchema.safeParse({ type: 'BY_SUBJECT', subjects });
+    if (!validation.success) {
+      console.error('Validação falhou:', validation.error.flatten());
+      return;
+    }
+
     try {
       setCreatingType('BY_SUBJECT');
       const response = await fetch('/api/simulations/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          type: 'BY_SUBJECT',
-          subjects: subjects,
-        }),
+        body: JSON.stringify(validation.data),
       });
 
       if (!response.ok) {
@@ -102,7 +114,7 @@ export default function SimulationsClient() {
       alert('Erro ao criar simulado. Tente novamente.');
       setCreatingType(null);
     }
-  };
+  }, [router]);
 
   const simulationTypes = [
     {

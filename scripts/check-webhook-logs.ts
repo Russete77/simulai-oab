@@ -8,7 +8,7 @@ async function checkLogs() {
     take: 5,
     select: {
       id: true,
-      event: true,
+      eventType: true,
       error: true,
       createdAt: true,
       processed: true,
@@ -17,7 +17,7 @@ async function checkLogs() {
 
   console.log('\n📋 Recent Webhook Logs:\n');
   logs.forEach((log) => {
-    console.log(`Event: ${log.event}`);
+    console.log(`Event: ${log.eventType}`);
     console.log(`Processed: ${log.processed}`);
     console.log(`Time: ${log.createdAt}`);
     if (log.error) {

@@ -1,9 +1,16 @@
 import OpenAI from "openai";
 import { prisma } from "@/lib/db/prisma";
+import { logger } from "@/lib/logger";
+import { checkBudget, trackUsage } from "@/lib/ai/cost-guard";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// Lazy initialization — evita crash se OPENAI_API_KEY não está configurada
+function getOpenAI(): OpenAI {
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) {
+    throw new Error('OPENAI_API_KEY não configurada. Configure no .env para habilitar explicações com IA.');
+  }
+  return new OpenAI({ apiKey });
+}
 
 const MODEL = process.env.AI_EXPLANATION_MODEL || "gpt-4o-mini";
 
@@ -45,17 +52,23 @@ export async function generateExplanation(
       }
     } catch (dbError) {
       // Se a tabela não existir ainda, continuar sem cache
-      console.log("⚠️  Tabela de explicações não encontrada, gerando sem cache");
+      logger.warn("Tabela de explicações não encontrada, gerando sem cache");
     }
 
     // 2. Preparar prompt e system message baseado no estilo
     const prompt = buildExplanationPrompt(context, style);
     const systemMessage = getSystemPromptForStyle(style, context.subject);
 
-    console.log("🤖 Gerando explicação com IA (estilo:", style, ")...");
+    logger.info("Gerando explicação com IA", { style });
 
-    // 3. Chamar OpenAI com configurações otimizadas
-    const response = await openai.chat.completions.create({
+    // 3. Verificar orçamento antes de chamar OpenAI
+    const budget = await checkBudget();
+    if (!budget.allowed) {
+      throw new Error("Orçamento mensal de IA excedido. Tente novamente no próximo mês.");
+    }
+
+    // 4. Chamar OpenAI com configurações otimizadas
+    const response = await getOpenAI().chat.completions.create({
       model: MODEL,
       messages: [
         {
@@ -74,7 +87,17 @@ export async function generateExplanation(
 
     const explanation = response.choices[0].message.content || "";
 
-    // 4. Salvar no banco (se a tabela existir)
+    // 5. Registrar custo
+    if (response.usage) {
+      await trackUsage(
+        MODEL,
+        response.usage.prompt_tokens,
+        response.usage.completion_tokens,
+        "explanation"
+      );
+    }
+
+    // 6. Salvar no banco (se a tabela existir)
     try {
       await prisma.questionExplanation.create({
         data: {
@@ -85,14 +108,14 @@ export async function generateExplanation(
           usageCount: 1,
         },
       });
-      console.log("✅ Explicação gerada e salva com sucesso!");
+      logger.info("Explicação gerada e salva com sucesso");
     } catch (dbError) {
-      console.log("⚠️  Não foi possível salvar no cache, mas explicação gerada com sucesso");
+      logger.warn("Não foi possível salvar no cache, mas explicação gerada com sucesso");
     }
 
     return explanation;
   } catch (error) {
-    console.error("❌ Erro ao gerar explicação:", error);
+    logger.error("Erro ao gerar explicação", { error: error instanceof Error ? error.message : String(error) });
     throw new Error("Erro ao gerar explicação com IA");
   }
 }
@@ -258,8 +281,14 @@ Responda de forma didática, clara e objetiva quando a pergunta for válida.`,
       },
     ];
 
+    // Verificar orçamento antes de chamar OpenAI
+    const budgetCheck = await checkBudget();
+    if (!budgetCheck.allowed) {
+      throw new Error("Orçamento mensal de IA excedido. Tente novamente no próximo mês.");
+    }
+
     // Chamar OpenAI com streaming
-    const stream = await openai.chat.completions.create({
+    const stream = await getOpenAI().chat.completions.create({
       model: MODEL,
       messages,
       temperature: 0.8,
@@ -295,7 +324,7 @@ Responda de forma didática, clara e objetiva quando a pergunta for válida.`,
       },
     });
   } catch (error) {
-    console.error("❌ Erro no chat:", error);
+    logger.error("Erro no chat", { error: error instanceof Error ? error.message : String(error) });
     throw error;
   }
 }

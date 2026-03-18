@@ -42,17 +42,17 @@ export function StatsCard({
   const iconColorClasses = {
     default: {
       blue: 'bg-blue-500/20 text-blue-400 group-hover:bg-blue-500/30',
-      green: 'bg-green-500/20 text-green-400 group-hover:bg-green-500/30',
+      green: 'bg-green-500/20 text-green-500 group-hover:bg-green-500/30',
       purple: 'bg-purple-500/20 text-purple-400 group-hover:bg-purple-500/30',
       cyan: 'bg-cyan-500/20 text-cyan-400 group-hover:bg-cyan-500/30',
-      amber: 'bg-amber-500/20 text-amber-400 group-hover:bg-amber-500/30',
+      amber: 'bg-amber-500/20 text-amber-500 group-hover:bg-amber-500/30',
     },
     compact: {
       blue: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-      green: 'bg-green-500/10 text-green-400 border-green-500/20',
+      green: 'bg-green-500/10 text-green-500 border-green-500/20',
       purple: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
       cyan: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
-      amber: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+      amber: 'bg-amber-500/10 text-amber-500 border-amber-500/20',
     },
   };
 
@@ -105,9 +105,9 @@ export function StatsCard({
   // Default variant (dashboard style)
   return (
     <div className={clsx('group relative', className)} {...props}>
-      {/* Glow Effect */}
+      {/* Subtle hover accent */}
       <div className={clsx(
-        'absolute inset-0 opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500',
+        'absolute inset-0 opacity-0 group-hover:opacity-5 blur-xl transition-opacity duration-500 pointer-events-none',
         glowColors[color]
       )} />
 
@@ -121,7 +121,7 @@ export function StatsCard({
           {trend !== undefined && (
             <div className={clsx(
               'flex items-center gap-1 text-sm',
-              trend >= 0 ? 'text-green-400' : 'text-red-400'
+              trend >= 0 ? 'text-green-500' : 'text-red-500'
             )}>
               {trend >= 0 ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
               <span>{trend >= 0 ? '+' : ''}{trend}%</span>

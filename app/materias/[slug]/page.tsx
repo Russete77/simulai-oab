@@ -167,7 +167,63 @@ export default async function SubjectPage(props: PageProps) {
     notFound();
   }
 
+  // JSON-LD para SEO
+  const jsonLdCourse = {
+    '@context': 'https://schema.org',
+    '@type': 'Course',
+    name: `Questões OAB - ${data.name}`,
+    description: data.description,
+    provider: { '@type': 'Organization', name: 'Simulai OAB', url: 'https://simulaioab.com' },
+    numberOfCredits: data.totalQuestions,
+    educationalLevel: 'Graduação em Direito',
+    hasPart: { '@type': 'Quiz', name: `Simulado de ${data.name}`, numberOfQuestions: data.totalQuestions },
+  };
+
+  const jsonLdBreadcrumb = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://simulaioab.com' },
+      { '@type': 'ListItem', position: 2, name: data.name, item: `https://simulaioab.com/materias/${params.slug}` },
+    ],
+  };
+
+  const jsonLdFaq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: `Quantas questões de ${data.name} caem na OAB?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `O Simulai OAB possui ${data.totalQuestions} questões oficiais de ${data.name} cobradas em provas da OAB de 2010 até o exame mais recente. A distribuição varia por exame, mas ${data.name} é uma matéria recorrente na 1ª fase.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: `Como estudar ${data.name} para a OAB?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `Pratique com questões reais da FGV organizadas por matéria. O Simulai OAB oferece explicações detalhadas com IA para cada questão, ajudando a entender a lógica da banca e os temas mais cobrados em ${data.name}.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: `Qual a taxa de acerto média em ${data.name}?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `A taxa de acerto varia por questão. No Simulai OAB, você pode acompanhar sua taxa de acerto em ${data.name} e compará-la com a média dos outros estudantes para identificar seus pontos fracos.`,
+        },
+      },
+    ],
+  };
+
   return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdCourse) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
     <div className="min-h-screen bg-navy-950">
       <Header />
 
@@ -212,7 +268,7 @@ export default async function SubjectPage(props: PageProps) {
           <Card variant="glass">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-green-600/20 border border-green-500/30 flex items-center justify-center">
-                <TrendingUp className="w-5 h-5 text-green-400" />
+                <TrendingUp className="w-5 h-5 text-green-500" />
               </div>
               <div>
                 <p className="text-2xl font-bold text-white">
@@ -315,8 +371,62 @@ export default async function SubjectPage(props: PageProps) {
             </div>
           </div>
         </div>
+
+        {/* FAQ visível (duplica JSON-LD para UX + SEO) */}
+        <section className="mt-12 mb-8">
+          <h2 className="text-2xl font-bold text-white mb-6">Perguntas frequentes sobre {data.name} na OAB</h2>
+          <div className="space-y-4">
+            <details className="bg-white/5 border border-white/10 rounded-xl p-5 group" open>
+              <summary className="text-white font-medium cursor-pointer list-none flex items-center justify-between">
+                Quantas questões de {data.name} caem na OAB?
+                <span className="text-gray-500 group-open:rotate-180 transition-transform">▾</span>
+              </summary>
+              <p className="text-gray-400 mt-3 text-sm leading-relaxed">
+                O Simulai OAB possui {data.totalQuestions} questões oficiais de {data.name} cobradas em provas da OAB de 2010 até o exame mais recente. A distribuição varia por exame, mas {data.name} é uma matéria recorrente na 1ª fase.
+              </p>
+            </details>
+            <details className="bg-white/5 border border-white/10 rounded-xl p-5 group">
+              <summary className="text-white font-medium cursor-pointer list-none flex items-center justify-between">
+                Como estudar {data.name} para a OAB?
+                <span className="text-gray-500 group-open:rotate-180 transition-transform">▾</span>
+              </summary>
+              <p className="text-gray-400 mt-3 text-sm leading-relaxed">
+                Pratique com questões reais da FGV organizadas por matéria. O Simulai OAB oferece explicações detalhadas com IA para cada questão, ajudando a entender a lógica da banca e os temas mais cobrados em {data.name}.
+              </p>
+            </details>
+            <details className="bg-white/5 border border-white/10 rounded-xl p-5 group">
+              <summary className="text-white font-medium cursor-pointer list-none flex items-center justify-between">
+                Qual a taxa de acerto média em {data.name}?
+                <span className="text-gray-500 group-open:rotate-180 transition-transform">▾</span>
+              </summary>
+              <p className="text-gray-400 mt-3 text-sm leading-relaxed">
+                A taxa de acerto varia por questão. No Simulai OAB, você pode acompanhar sua taxa de acerto em {data.name} e compará-la com a média dos outros estudantes para identificar seus pontos fracos.
+              </p>
+            </details>
+          </div>
+        </section>
+
+        {/* Internal links — Matérias relacionadas */}
+        <section className="mt-8 mb-8">
+          <h2 className="text-lg font-semibold text-white mb-4">Estude também</h2>
+          <div className="flex flex-wrap gap-2">
+            {Object.entries(SUBJECT_NAMES)
+              .filter(([slug]) => slug !== params.slug)
+              .slice(0, 8)
+              .map(([slug, name]) => (
+                <Link
+                  key={slug}
+                  href={`/materias/${slug}`}
+                  className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-sm text-gray-300 hover:text-white hover:border-blue-500/30 transition"
+                >
+                  {name}
+                </Link>
+              ))}
+          </div>
+        </section>
       </div>
     </div>
+    </>
   );
 }
 

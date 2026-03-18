@@ -16,8 +16,8 @@ export default function ForgotPasswordPage() {
     <div className="min-h-screen flex items-center justify-center p-4 bg-navy-950">
       {/* Background decorativo */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 -left-48 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-1/4 -left-48 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-purple-600/5 rounded-full blur-3xl" />
       </div>
 
       <div className="w-full max-w-md relative z-10 text-center">
@@ -28,7 +28,8 @@ export default function ForgotPasswordPage() {
             width={192}
             height={96}
             priority
-            className="h-24 w-auto"
+            style={{ width: 'auto', height: 'auto' }}
+            className="h-24"
           />
         </div>
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto" />

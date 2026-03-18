@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { Card } from '@/components/ui';
 import {
   BarChart,
@@ -11,6 +12,7 @@ import {
   ResponsiveContainer,
   Cell
 } from 'recharts';
+import { CHART_COLORS, getSubjectColor } from '@/lib/design/chart-colors';
 
 interface SubjectChartProps {
   data: {
@@ -22,18 +24,8 @@ interface SubjectChartProps {
   }[];
 }
 
-const COLORS = [
-  '#3b82f6', // blue
-  '#8b5cf6', // purple
-  '#06b6d4', // cyan
-  '#10b981', // green
-  '#f59e0b', // amber
-  '#ef4444', // red
-  '#ec4899', // pink
-  '#6366f1', // indigo
-];
 
-export function SubjectChart({ data }: SubjectChartProps) {
+function SubjectChartBase({ data }: SubjectChartProps) {
   // Format data for chart and limit to top subjects
   const chartData = data
     .sort((a, b) => b.percentage - a.percentage)
@@ -43,7 +35,7 @@ export function SubjectChart({ data }: SubjectChartProps) {
       'Taxa de Acerto (%)': Math.round(item.percentage),
       total: item.total,
       correct: item.correct,
-      color: COLORS[index % COLORS.length],
+      color: getSubjectColor(index),
     }));
 
   return (
@@ -59,24 +51,24 @@ export function SubjectChart({ data }: SubjectChartProps) {
       ) : (
         <ResponsiveContainer width="100%" height={400}>
           <BarChart data={chartData} layout="vertical">
-            <CartesianGrid strokeDasharray="3 3" stroke="#1e3a5f" />
+            <CartesianGrid strokeDasharray="3 3" stroke={CHART_COLORS.grid} />
             <XAxis
               type="number"
-              stroke="#64748b"
+              stroke={CHART_COLORS.gridStroke}
               style={{ fontSize: '12px' }}
               domain={[0, 100]}
             />
             <YAxis
               type="category"
               dataKey="subject"
-              stroke="#64748b"
+              stroke={CHART_COLORS.gridStroke}
               style={{ fontSize: '12px' }}
               width={150}
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: '#0f172a',
-                border: '1px solid #1e3a5f',
+                backgroundColor: CHART_COLORS.background,
+                border: `1px solid ${CHART_COLORS.grid}`,
                 borderRadius: '8px',
                 color: '#fff',
               }}
@@ -101,3 +93,5 @@ export function SubjectChart({ data }: SubjectChartProps) {
     </Card>
   );
 }
+
+export const SubjectChart = React.memo(SubjectChartBase);

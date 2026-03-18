@@ -9,6 +9,7 @@ import { checkRateLimit, answerRateLimit } from "@/lib/rate-limit";
 import { createError } from "@/lib/errors";
 import { logger } from "@/lib/logger";
 import { incrementQuestionCount } from "@/lib/billing/limits";
+import { ensureReviewCard } from "@/lib/srs/service";
 
 export async function POST(request: NextRequest) {
   try {
@@ -26,7 +27,14 @@ export async function POST(request: NextRequest) {
     }
 
     // Validar dados
-    const data = AnswerQuestionSchema.parse(body);
+    const parsed = AnswerQuestionSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: "Dados inválidos", details: parsed.error.flatten() },
+        { status: 400 }
+      );
+    }
+    const data = parsed.data;
 
     // OTIMIZAÇÃO: Buscar apenas o necessário
     const [question, alternative] = await Promise.all([
@@ -109,6 +117,15 @@ export async function POST(request: NextRequest) {
     // TODO: Incrementar contador de questões diárias (aguardando migração do Prisma)
     // await incrementQuestionCount(user.id);
 
+    // SRS: Criar ou atualizar card de revisão (fire-and-forget)
+    ensureReviewCard(user.id, data.questionId, isCorrect).catch(err =>
+      logger.error('SRS card creation error', {
+        error: err instanceof Error ? err.message : 'Unknown error',
+        userId: user.id,
+        questionId: data.questionId
+      })
+    );
+
     if (user.profile) {
       const currentProfile = user.profile;
 
@@ -172,25 +189,29 @@ export async function POST(request: NextRequest) {
             existingAchievements.map(a => [a.key, a.id])
           );
 
-          // Criar achievements que não existem (em batch se possível)
+          // P1 FIX: Criar achievements em batch (antes: loop N+1 com create individual)
           const achievementsToCreate = newAchievements.filter(
             a => !existingAchievementMap.has(a.key)
           );
 
           if (achievementsToCreate.length > 0) {
-            // Criar achievements faltantes
-            for (const achievement of achievementsToCreate) {
-              const created = await prisma.achievement.create({
-                data: {
-                  key: achievement.key,
-                  name: achievement.name,
-                  description: achievement.description,
-                  icon: achievement.icon,
-                  points: achievement.points,
-                },
-              });
-              existingAchievementMap.set(created.key, created.id);
-            }
+            await prisma.achievement.createMany({
+              data: achievementsToCreate.map(a => ({
+                key: a.key,
+                name: a.name,
+                description: a.description,
+                icon: a.icon,
+                points: a.points,
+              })),
+              skipDuplicates: true,
+            });
+
+            // Re-fetch apenas os criados para obter IDs
+            const created = await prisma.achievement.findMany({
+              where: { key: { in: achievementsToCreate.map(a => a.key) } },
+              select: { id: true, key: true },
+            });
+            created.forEach(a => existingAchievementMap.set(a.key, a.id));
           }
 
           // Criar userAchievements em uma transação

@@ -3,6 +3,7 @@ import { requireAuth } from "@/lib/auth";
 import { chatAboutQuestion } from "@/lib/ai/explanation-service";
 import { prisma } from "@/lib/db/prisma";
 import { checkAiChatLimit, incrementAiChatCount } from "@/lib/billing/limits";
+import { ChatMessagesSchema, type ChatMessage } from "@/lib/validations/chat";
 
 export async function POST(
   request: NextRequest,
@@ -73,16 +74,23 @@ export async function POST(
         },
       });
 
-      const newMessages = [
-        ...chatHistory,
-        { role: "user", content: message, timestamp: new Date().toISOString() },
-      ];
+      // P3 FIX: Validar mensagens com Zod antes de salvar no banco
+      const newMessage: ChatMessage = {
+        role: "user",
+        content: message,
+        timestamp: new Date().toISOString(),
+      };
+      const newMessages = [...chatHistory, newMessage];
+      const validatedMessages = ChatMessagesSchema.safeParse(newMessages);
+      const messagesToSave = validatedMessages.success
+        ? validatedMessages.data
+        : [newMessage]; // Fallback: só a mensagem atual se histórico inválido
 
       if (existingChat) {
         await prisma.userQuestionChat.update({
           where: { id: existingChat.id },
           data: {
-            messages: newMessages,
+            messages: messagesToSave,
             messageCount: { increment: 1 },
             lastMessage: message,
           },
@@ -92,7 +100,7 @@ export async function POST(
           data: {
             userId: user.id,
             questionId: id,
-            messages: newMessages,
+            messages: messagesToSave,
             messageCount: 1,
             lastMessage: message,
           },

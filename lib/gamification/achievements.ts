@@ -142,59 +142,57 @@ export function checkAchievements(
 
 /**
  * Calcula estatísticas do usuário para verificar conquistas
+ * P0+P1 FIX: Usa agregação no banco ao invés de carregar tudo na memória
  */
 export async function getUserStats(
   userId: string,
   prisma: any
 ): Promise<UserStats> {
-  // Buscar dados do usuário
-  const [profile, answers, simulations] = await Promise.all([
+  // Buscar dados em paralelo — usando agregação no banco
+  const [profile, subjectAgg, simulationStats, speedRunCount] = await Promise.all([
     prisma.userProfile.findUnique({ where: { userId } }),
-    prisma.userAnswer.findMany({
-      where: { userId },
-      include: { question: true },
-    }),
-    prisma.simulation.findMany({
-      where: { userId, status: "COMPLETED" },
+
+    // P1 FIX: Agregar por matéria no banco (antes: findMany + forEach)
+    prisma.$queryRaw`
+      SELECT
+        q.subject,
+        COUNT(*)::int as total,
+        SUM(CASE WHEN ua."isCorrect" THEN 1 ELSE 0 END)::int as correct
+      FROM "UserAnswer" ua
+      JOIN "Question" q ON ua."questionId" = q.id
+      WHERE ua."userId" = ${userId}
+      GROUP BY q.subject
+      HAVING COUNT(*) >= 20
+    ` as Promise<Array<{ subject: string; total: number; correct: number }>>,
+
+    // P0 FIX: Contar simulados no banco (antes: findMany sem take)
+    prisma.$queryRaw`
+      SELECT
+        COUNT(*)::int as total,
+        SUM(CASE WHEN score = 100 THEN 1 ELSE 0 END)::int as perfect
+      FROM "Simulation"
+      WHERE "userId" = ${userId} AND status = 'COMPLETED'
+    ` as Promise<[{ total: number; perfect: number }]>,
+
+    // P0 FIX: Contar speed runs no banco (antes: findMany + filter em JS)
+    prisma.userAnswer.count({
+      where: { userId, timeSpent: { lt: 30 }, isCorrect: true },
     }),
   ]);
 
-  // Calcular accuracy por matéria
-  const subjectStats: Record<string, { total: number; correct: number }> = {};
-
-  for (const answer of answers) {
-    const subject = answer.question.subject;
-    if (!subjectStats[subject]) {
-      subjectStats[subject] = { total: 0, correct: 0 };
-    }
-    subjectStats[subject].total++;
-    if (answer.isCorrect) {
-      subjectStats[subject].correct++;
-    }
-  }
-
+  // Converter agregação em subjectMastery
   const subjectMastery: Record<string, number> = {};
-  for (const [subject, stats] of Object.entries(subjectStats)) {
-    if (stats.total >= 20) {
-      // Mínimo 20 questões
-      subjectMastery[subject] = (stats.correct / stats.total) * 100;
-    }
+  for (const row of subjectAgg) {
+    subjectMastery[row.subject] = (row.correct / row.total) * 100;
   }
-
-  // Contar simulados perfeitos
-  const perfectSimulations = simulations.filter((sim: any) => sim.score === 100).length;
-
-  // Contar speed runs (questões < 30s)
-  const speedRuns = answers.filter((ans: any) => ans.timeSpent < 30 && ans.isCorrect)
-    .length;
 
   return {
     totalQuestions: profile?.totalQuestions || 0,
     correctAnswers: profile?.correctAnswers || 0,
     streak: profile?.streak || 0,
-    totalSimulations: simulations.length,
-    perfectSimulations,
+    totalSimulations: simulationStats[0]?.total || 0,
+    perfectSimulations: simulationStats[0]?.perfect || 0,
     subjectMastery,
-    speedRuns,
+    speedRuns: speedRunCount,
   };
 }
