@@ -32,10 +32,10 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://simulaioab.com'),
   title: {
-    default: "Simulai OAB - Preparação Inteligente para o Exame da OAB",
+    default: "Simulado OAB Online Grátis 2026 — 5.605 Questões com IA | Simulai OAB",
     template: "%s | Simulai OAB",
   },
-  description: "Plataforma completa de preparação para o Exame da OAB com 5.605 questões reais de 2010 a 2025, revisão comentada e chatbot com IA integrado, simulados adaptativos e análise de desempenho.",
+  description: "Simulados OAB online grátis com 5.605 questões oficiais FGV (2010-2025). Explicações por IA, cronômetro real, 5 modos de estudo e predição de aprovação. A plataforma #1 para passar na OAB.",
   applicationName: "Simulai OAB",
   keywords: [
     "OAB",

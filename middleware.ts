@@ -10,10 +10,19 @@ const isPublicRoute = createRouteMatcher([
   '/privacy',
   '/pricing',
   '/api/webhooks(.*)',
-  // Novas páginas públicas para SEO
-  '/questoes(.*)',      // Páginas de questões individuais
-  '/materias(.*)',      // Páginas de matérias
-  '/blog(.*)',          // Blog
+  // ===== PÁGINAS PÚBLICAS PARA SEO =====
+  // Todas as páginas que devem ser indexadas pelo Google
+  '/questoes(.*)',           // Questões individuais (5.605 páginas)
+  '/materias(.*)',           // Páginas por matéria (17 páginas)
+  '/blog(.*)',               // Blog posts
+  '/gabarito(.*)',           // Gabaritos de exames (43+ páginas)
+  '/simulado(.*)',           // Simulados por exame (43+ páginas)
+  '/simulado-oab-online',   // Landing page SEO principal
+  '/questao-do-dia',        // Questão do dia (engajamento + SEO)
+  '/leaderboard',           // Ranking público (social proof)
+  '/como-funciona',         // Página institucional SEO
+  '/questoes-oab(.*)',      // Hub de questões por matéria
+  '/simulados-oab(.*)',     // Hub de simulados
 ])
 
 export default clerkMiddleware(

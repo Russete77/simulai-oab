@@ -258,6 +258,27 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </div>
           </div>
         </Card>
+
+        {/* Related Content & CTA */}
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 rounded-2xl p-8 text-center mb-8">
+            <h2 className="text-2xl font-bold text-white mb-3">Pratique com Simulados OAB</h2>
+            <p className="text-navy-300 mb-6">Coloque seus conhecimentos em prática com 5.605 questões oficiais FGV e explicações por IA.</p>
+            <Link href="/simulado-oab-online" className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-500 hover:to-purple-500 transition-all">
+              Começar Simulado Grátis
+            </Link>
+          </div>
+          <div className="grid md:grid-cols-2 gap-4">
+            <Link href="/questoes-oab" className="bg-navy-900/50 border border-white/10 rounded-xl p-4 hover:border-blue-500/50 transition-all">
+              <div className="text-white font-medium">Questões OAB Comentadas</div>
+              <div className="text-sm text-navy-400">5.605 questões organizadas por matéria</div>
+            </Link>
+            <Link href="/gabarito" className="bg-navy-900/50 border border-white/10 rounded-xl p-4 hover:border-blue-500/50 transition-all">
+              <div className="text-white font-medium">Gabaritos OAB</div>
+              <div className="text-sm text-navy-400">Todos os exames com respostas comentadas</div>
+            </Link>
+          </div>
+        </div>
       </article>
 
       {/* JSON-LD Schema */}

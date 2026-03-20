@@ -1,5 +1,5 @@
-// Force dynamic rendering
-export const dynamic = 'force-dynamic';
+
+
 export const revalidate = 3600;
 
 import { Metadata } from 'next';
@@ -72,6 +72,14 @@ const SUBJECT_NAMES: Record<string, string> = {
   GENERAL: 'Geral',
 };
 
+export async function generateStaticParams() {
+  const exams = await prisma.question.groupBy({
+    by: ['examId'],
+    where: { nullified: false },
+  });
+  return exams.map((exam) => ({ slug: exam.examId }));
+}
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const parsed = parseSimuladoSlug(slug);
@@ -84,6 +92,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title,
     description,
+    alternates: {
+      canonical: `https://simulaioab.com/simulado/${slug}`,
+    },
     openGraph: { title, description, type: 'website' },
   };
 }

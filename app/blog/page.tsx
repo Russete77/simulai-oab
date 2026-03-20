@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   title: 'Blog - Simulai OAB',
   description: 'Dicas, estratégias e conteúdos para você se preparar melhor para o Exame da OAB. Aprenda com especialistas em preparação para OAB.',
   keywords: ['blog OAB', 'dicas OAB', 'preparação OAB', 'estratégias OAB', 'como passar na OAB', 'simulai'],
+  alternates: {
+    canonical: 'https://simulaioab.com/blog',
+  },
   openGraph: {
     title: 'Blog - Simulai OAB',
     description: 'Dicas, estratégias e conteúdos para você se preparar melhor para o Exame da OAB',

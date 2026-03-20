@@ -150,6 +150,40 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
           </div>
         </div>
       </div>
+
+      {/* SEO Internal Links */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-white/10 mt-8">
+        <div className="grid md:grid-cols-3 gap-8 text-sm">
+          <div>
+            <h3 className="text-white font-semibold mb-3">Simulados OAB</h3>
+            <div className="space-y-1">
+              <Link href="/simulado-oab-online" className="block text-navy-400 hover:text-white transition-colors">Simulado OAB Online Grátis</Link>
+              <Link href="/questoes-oab" className="block text-navy-400 hover:text-white transition-colors">Questões OAB Comentadas</Link>
+              <Link href="/gabarito" className="block text-navy-400 hover:text-white transition-colors">Gabaritos OAB</Link>
+              <Link href="/questao-do-dia" className="block text-navy-400 hover:text-white transition-colors">Questão do Dia</Link>
+            </div>
+          </div>
+          <div>
+            <h3 className="text-white font-semibold mb-3">Matérias Mais Cobradas</h3>
+            <div className="space-y-1">
+              <Link href="/materias/etica" className="block text-navy-400 hover:text-white transition-colors">Ética e Estatuto da OAB</Link>
+              <Link href="/materias/constitucional" className="block text-navy-400 hover:text-white transition-colors">Direito Constitucional</Link>
+              <Link href="/materias/civil" className="block text-navy-400 hover:text-white transition-colors">Direito Civil</Link>
+              <Link href="/materias/penal" className="block text-navy-400 hover:text-white transition-colors">Direito Penal</Link>
+              <Link href="/materias/processo-civil" className="block text-navy-400 hover:text-white transition-colors">Processo Civil</Link>
+              <Link href="/materias/trabalho" className="block text-navy-400 hover:text-white transition-colors">Direito do Trabalho</Link>
+            </div>
+          </div>
+          <div>
+            <h3 className="text-white font-semibold mb-3">Sobre o Simulai</h3>
+            <div className="space-y-1">
+              <Link href="/como-funciona" className="block text-navy-400 hover:text-white transition-colors">Como Funciona</Link>
+              <Link href="/pricing" className="block text-navy-400 hover:text-white transition-colors">Planos e Preços</Link>
+              <Link href="/register" className="block text-navy-400 hover:text-white transition-colors">Criar Conta Grátis</Link>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

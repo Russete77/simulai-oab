@@ -1,5 +1,5 @@
-// Force dynamic rendering (não tentar SSG no build)
-export const dynamic = 'force-dynamic';
+
+
 export const revalidate = 3600; // Cache por 1 hora
 
 import { Metadata } from 'next';
@@ -184,7 +184,8 @@ export default async function SubjectPage(props: PageProps) {
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://simulaioab.com' },
-      { '@type': 'ListItem', position: 2, name: data.name, item: `https://simulaioab.com/materias/${params.slug}` },
+      { '@type': 'ListItem', position: 2, name: 'Matérias', item: 'https://simulaioab.com/questoes-oab' },
+      { '@type': 'ListItem', position: 3, name: data.name, item: `https://simulaioab.com/materias/${params.slug}` },
     ],
   };
 

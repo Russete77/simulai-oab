@@ -1,5 +1,5 @@
-// Force dynamic rendering
-export const dynamic = 'force-dynamic';
+
+
 export const revalidate = 3600;
 
 import { Metadata } from 'next';
@@ -11,6 +11,9 @@ import { FileText, ChevronRight, Home } from 'lucide-react';
 export const metadata: Metadata = {
   title: 'Gabaritos OAB - Todos os Exames com Respostas Comentadas',
   description: 'Gabaritos oficiais de todos os Exames da OAB com respostas corretas, explicações detalhadas com IA e estatísticas por matéria. De 2010 até o exame mais recente.',
+  alternates: {
+    canonical: 'https://simulaioab.com/gabarito',
+  },
   openGraph: {
     title: 'Gabaritos OAB - Todos os Exames',
     description: 'Gabaritos oficiais de todos os Exames da OAB com respostas e explicações.',
@@ -52,9 +55,51 @@ export default async function GabaritosIndexPage() {
     numberOfItems: exams.length,
   };
 
+  const breadcrumbLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://simulaioab.com' },
+      { '@type': 'ListItem', position: 2, name: 'Gabaritos OAB', item: 'https://simulaioab.com/gabarito' },
+    ],
+  };
+
+  const faqLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'O que é um gabarito da OAB?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Um gabarito da OAB é a lista oficial de respostas corretas para cada questão do Exame de Ordem dos Advogados do Brasil. O Simulai OAB fornece gabaritos completos para todos os exames com explicações detalhadas de cada resposta.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Como usar os gabaritos para estudar?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Os gabaritos do Simulai OAB podem ser usados para verificar suas respostas após fazer um simulado, entender os padrões da banca FGV, revisar questões difíceis com explicações com IA, e comparar sua performance com a média dos candidatos.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Onde encontro gabaritos de todos os exames da OAB?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No Simulai OAB você encontra gabaritos oficiais de todos os Exames da OAB desde 2010, organizados por exame e fase, com respostas comentadas, explicações com inteligência artificial e estatísticas detalhadas por matéria.',
+        },
+      },
+    ],
+  };
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
 
       <div className="min-h-screen bg-navy-950">
         <Header />

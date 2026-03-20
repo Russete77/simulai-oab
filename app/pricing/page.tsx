@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: 'Planos e Preços - Simulai OAB',
   description: 'Compare os planos do Simulai OAB: Gratuito, Básico (R$49,90/mês), Pro (R$89,90/mês) e Premium (R$129,90/mês). Simulados ilimitados, IA integrada e analytics completos para aprovação na OAB.',
   keywords: ['preço simulado oab', 'planos simulado oab', 'quanto custa simulai oab', 'assinatura oab', 'simulado oab preço'],
+  alternates: {
+    canonical: 'https://simulaioab.com/pricing',
+  },
   openGraph: {
     title: 'Planos e Preços - Simulai OAB',
     description: 'Compare os planos do Simulai OAB. A partir de R$0. Simulados ilimitados, IA integrada e analytics.',
