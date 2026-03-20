@@ -45,16 +45,22 @@ const subjects = [
 ];
 
 export default async function QuestoesOabPage() {
-  const totalQuestions = await prisma.question.count({ where: { nullified: false } });
+  let totalQuestions = 5605;
+  let countMap: Record<string, number> = {};
+  try {
+    totalQuestions = await prisma.question.count({ where: { nullified: false } });
 
-  // Get count per subject
-  const subjectCounts = await prisma.question.groupBy({
-    by: ['subject'],
-    where: { nullified: false },
-    _count: { id: true },
-  });
+    // Get count per subject
+    const subjectCounts = await prisma.question.groupBy({
+      by: ['subject'],
+      where: { nullified: false },
+      _count: { id: true },
+    });
 
-  const countMap = Object.fromEntries(subjectCounts.map(s => [s.subject, s._count.id]));
+    countMap = Object.fromEntries(subjectCounts.map(s => [s.subject, s._count.id]));
+  } catch (error) {
+    console.error('Erro ao buscar dados para questoes-oab:', error);
+  }
 
   const SUBJECT_DB_MAP: Record<string, string> = {
     'etica': 'ETHICS', 'constitucional': 'CONSTITUTIONAL', 'civil': 'CIVIL',

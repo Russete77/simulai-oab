@@ -84,40 +84,54 @@ async function getSubjectData(slug: string) {
   const subject = SLUG_TO_SUBJECT[slug];
   if (!subject) return null;
 
-  // Buscar estatísticas da matéria
-  const [totalQuestions, questions] = await Promise.all([
-    prisma.question.count({
-      where: { subject },
-    }),
-    prisma.question.findMany({
-      where: { subject },
-      include: {
-        alternatives: {
-          orderBy: { label: 'asc' },
+  try {
+    // Buscar estatísticas da matéria
+    const [totalQuestions, questions] = await Promise.all([
+      prisma.question.count({
+        where: { subject },
+      }),
+      prisma.question.findMany({
+        where: { subject },
+        include: {
+          alternatives: {
+            orderBy: { label: 'asc' },
+          },
         },
-      },
-      orderBy: [
-        { examYear: 'desc' },
-        { examPhase: 'desc' },
-        { questionNumber: 'asc' },
-      ],
-      take: 20, // Apenas primeiras 20 para teaser
-    }),
-  ]);
+        orderBy: [
+          { examYear: 'desc' },
+          { examPhase: 'desc' },
+          { questionNumber: 'asc' },
+        ],
+        take: 20, // Apenas primeiras 20 para teaser
+      }),
+    ]);
 
-  // Calcular taxa média de acerto (se houver dados)
-  const avgSuccessRate = questions
-    .filter((q) => q.successRate !== null)
-    .reduce((acc, q) => acc + (q.successRate || 0), 0) / questions.length;
+    // Calcular taxa média de acerto (com proteção contra divisão por zero)
+    const questionsWithRate = questions.filter((q) => q.successRate !== null);
+    const avgSuccessRate = questionsWithRate.length > 0
+      ? questionsWithRate.reduce((acc, q) => acc + (q.successRate || 0), 0) / questionsWithRate.length
+      : 0;
 
-  return {
-    subject,
-    name: SUBJECT_NAMES[slug],
-    description: SUBJECT_DESCRIPTIONS[slug],
-    totalQuestions,
-    avgSuccessRate: avgSuccessRate || 0,
-    questions,
-  };
+    return {
+      subject,
+      name: SUBJECT_NAMES[slug],
+      description: SUBJECT_DESCRIPTIONS[slug],
+      totalQuestions,
+      avgSuccessRate,
+      questions,
+    };
+  } catch (error) {
+    console.error(`Erro ao buscar dados da matéria ${slug}:`, error);
+    // Retornar dados mínimos para não quebrar o build
+    return {
+      subject,
+      name: SUBJECT_NAMES[slug],
+      description: SUBJECT_DESCRIPTIONS[slug],
+      totalQuestions: 0,
+      avgSuccessRate: 0,
+      questions: [],
+    };
+  }
 }
 
 export async function generateMetadata(props: PageProps): Promise<Metadata> {

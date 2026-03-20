@@ -40,11 +40,17 @@ const subjects = [
 ];
 
 export default async function SimuladoOabOnlinePage() {
-  const totalQuestions = await prisma.question.count({ where: { nullified: false } });
-  const totalExams = await prisma.question.groupBy({
-    by: ['examId'],
-    where: { nullified: false },
-  });
+  let totalQuestions = 5605;
+  let totalExams: { examId: string }[] = [];
+  try {
+    totalQuestions = await prisma.question.count({ where: { nullified: false } });
+    totalExams = await prisma.question.groupBy({
+      by: ['examId'],
+      where: { nullified: false },
+    });
+  } catch (error) {
+    console.error('Erro ao buscar dados para simulado-oab-online:', error);
+  }
 
   const jsonLdCourse = {
     '@context': 'https://schema.org',
