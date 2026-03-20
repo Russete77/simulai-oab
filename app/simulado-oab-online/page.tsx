@@ -39,18 +39,23 @@ const subjects = [
   { slug: 'consumidor', name: 'Direito do Consumidor', icon: '🛒' },
 ];
 
-export default async function SimuladoOabOnlinePage() {
-  let totalQuestions = 5605;
-  let totalExams: { examId: string }[] = [];
+async function getPageData() {
   try {
-    totalQuestions = await prisma.question.count({ where: { nullified: false } });
-    totalExams = await prisma.question.groupBy({
+    const totalQuestions = await prisma.question.count({ where: { nullified: false } });
+    const groupResult = await prisma.question.groupBy({
       by: ['examId'],
       where: { nullified: false },
     });
+    const examIds = groupResult.map((e) => e.examId);
+    return { totalQuestions, examIds };
   } catch (error) {
     console.error('Erro ao buscar dados para simulado-oab-online:', error);
+    return { totalQuestions: 5605, examIds: [] as string[] };
   }
+}
+
+export default async function SimuladoOabOnlinePage() {
+  const { totalQuestions, examIds } = await getPageData();
 
   const jsonLdCourse = {
     '@context': 'https://schema.org',
@@ -81,7 +86,7 @@ export default async function SimuladoOabOnlinePage() {
       {
         '@type': 'Question',
         name: 'Quantas questões OAB tem no Simulai?',
-        acceptedAnswer: { '@type': 'Answer', text: `São ${totalQuestions} questões oficiais da FGV, cobrindo todos os ${totalExams.length} exames da OAB de 2010 a 2025, em 17 matérias. O banco é atualizado automaticamente a cada novo exame.` },
+        acceptedAnswer: { '@type': 'Answer', text: `São ${totalQuestions} questões oficiais da FGV, cobrindo todos os ${examIds.length} exames da OAB de 2010 a 2025, em 17 matérias. O banco é atualizado automaticamente a cada novo exame.` },
       },
       {
         '@type': 'Question',
@@ -162,7 +167,7 @@ export default async function SimuladoOabOnlinePage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
             {[
               { icon: BookOpen, label: 'Questões Oficiais', value: totalQuestions.toLocaleString('pt-BR') },
-              { icon: Target, label: 'Exames Cobertos', value: `${totalExams.length}+` },
+              { icon: Target, label: 'Exames Cobertos', value: `${examIds.length}+` },
               { icon: Brain, label: 'Explicações com IA', value: 'Ilimitadas' },
               { icon: Users, label: 'Estudantes Ativos', value: '220+' },
             ].map((stat, i) => (
@@ -210,7 +215,7 @@ export default async function SimuladoOabOnlinePage() {
                   O Exame da OAB exige 40 acertos em 80 questões (50%) na 1ª fase, cobrindo 17 matérias em apenas 4 horas. Sem prática com simulados completos, muitos candidatos perdem tempo em questões difíceis e não conseguem completar a prova. Com o Simulai OAB, você treina nas condições reais e identifica exatamente quais matérias precisa reforçar.
                 </p>
                 <p className="text-navy-200 text-lg leading-relaxed">
-                  O diferencial do Simulai é a Inteligência Artificial integrada: cada questão conta com explicação detalhada gerada por IA, com fundamentação legal, doutrina e jurisprudência. Além disso, o chat inteligente funciona como um professor particular 24/7, tirando suas dúvidas em tempo real. Tudo isso com o maior banco de questões oficiais do mercado: {totalQuestions.toLocaleString('pt-BR')} questões de {totalExams.length}+ exames.
+                  O diferencial do Simulai é a Inteligência Artificial integrada: cada questão conta com explicação detalhada gerada por IA, com fundamentação legal, doutrina e jurisprudência. Além disso, o chat inteligente funciona como um professor particular 24/7, tirando suas dúvidas em tempo real. Tudo isso com o maior banco de questões oficiais do mercado: {totalQuestions.toLocaleString('pt-BR')} questões de {examIds.length}+ exames.
                 </p>
               </div>
             </div>
@@ -247,13 +252,13 @@ export default async function SimuladoOabOnlinePage() {
               <div>
                 <h3 className="text-xl font-semibold text-white mb-4">Gabaritos Comentados</h3>
                 <div className="space-y-2">
-                  {totalExams.slice(0, 10).map((exam) => (
+                  {examIds.slice(0, 10).map((examId) => (
                     <Link
-                      key={exam.examId}
-                      href={`/gabarito/${exam.examId}`}
+                      key={examId}
+                      href={`/gabarito/${examId}`}
                       className="block text-blue-400 hover:text-blue-300 transition-colors"
                     >
-                      Gabarito {exam.examId.toUpperCase()} →
+                      Gabarito {examId.toUpperCase()} →
                     </Link>
                   ))}
                   <Link href="/gabarito" className="block text-navy-400 hover:text-white transition-colors mt-2">
@@ -264,13 +269,13 @@ export default async function SimuladoOabOnlinePage() {
               <div>
                 <h3 className="text-xl font-semibold text-white mb-4">Simulados por Exame</h3>
                 <div className="space-y-2">
-                  {totalExams.slice(0, 10).map((exam) => (
+                  {examIds.slice(0, 10).map((examId) => (
                     <Link
-                      key={exam.examId}
-                      href={`/simulado/${exam.examId}`}
+                      key={examId}
+                      href={`/simulado/${examId}`}
                       className="block text-blue-400 hover:text-blue-300 transition-colors"
                     >
-                      Simulado {exam.examId.toUpperCase()} →
+                      Simulado {examId.toUpperCase()} →
                     </Link>
                   ))}
                 </div>
@@ -287,7 +292,7 @@ export default async function SimuladoOabOnlinePage() {
               {[
                 { q: 'Como funciona o simulado OAB online do Simulai?', a: `O Simulai oferece simulados com ${totalQuestions.toLocaleString('pt-BR')} questões oficiais da FGV. Escolha entre 5 modos de estudo, responda com cronômetro real e receba explicações detalhadas por IA para cada questão.` },
                 { q: 'O simulado OAB do Simulai é grátis?', a: 'Sim! O plano gratuito permite fazer simulados e resolver questões diárias. Para acesso ilimitado com IA integrada, existem planos a partir de R$ 19,99/mês.' },
-                { q: 'Quantas questões OAB tem no banco?', a: `São ${totalQuestions.toLocaleString('pt-BR')} questões oficiais da FGV, de ${totalExams.length}+ exames (2010-2025), em 17 matérias.` },
+                { q: 'Quantas questões OAB tem no banco?', a: `São ${totalQuestions.toLocaleString('pt-BR')} questões oficiais da FGV, de ${examIds.length}+ exames (2010-2025), em 17 matérias.` },
                 { q: 'O simulado tem gabarito comentado?', a: 'Sim! Cada questão tem gabarito oficial. No plano Pro, a IA gera explicações detalhadas com fundamentação legal e jurisprudência.' },
                 { q: 'Funciona no celular?', a: 'Sim! O Simulai é um PWA — funciona como app nativo no celular sem precisar baixar da loja.' },
                 { q: 'Qual a diferença do Simulai para outros simulados?', a: 'O Simulai é o único com IA integrada para explicações em tempo real, maior banco de questões do mercado, 5 modos de estudo, gamificação completa e predição de aprovação.' },
