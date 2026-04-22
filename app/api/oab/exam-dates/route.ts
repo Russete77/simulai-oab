@@ -7,43 +7,45 @@ interface OABExamDate {
   phase: number;
 }
 
-// OAB Exam dates for 2026
-// Source: Realistic future dates based on historical OAB exam schedule
+// Datas oficiais do calendário FGV/OAB 2026-2027
+// Fonte: https://oab.estrategia.com/portal/quais-as-datas-dos-editais-da-oab-46-47-e-48/
+// Atualizado em 22/04/2026 — corrige dados desatualizados (41-43) para os exames
+// reais do ciclo atual (46, 47, 48).
 const OAB_EXAM_DATES: OABExamDate[] = [
   {
-    id: '41',
-    name: '41º Exame de Ordem',
-    date: '2026-04-19T13:00:00-03:00',
+    id: '46',
+    name: '46º Exame de Ordem',
+    date: '2026-05-03T13:00:00-03:00',
     phase: 1,
   },
   {
-    id: '41-2',
-    name: '41º Exame de Ordem - 2ª Fase',
-    date: '2026-06-14T13:00:00-03:00',
+    id: '46-2',
+    name: '46º Exame de Ordem - 2ª Fase',
+    date: '2026-06-21T13:00:00-03:00',
     phase: 2,
   },
   {
-    id: '42',
-    name: '42º Exame de Ordem',
-    date: '2026-08-16T13:00:00-03:00',
+    id: '47',
+    name: '47º Exame de Ordem',
+    date: '2026-08-30T13:00:00-03:00',
     phase: 1,
   },
   {
-    id: '42-2',
-    name: '42º Exame de Ordem - 2ª Fase',
-    date: '2026-10-11T13:00:00-03:00',
+    id: '47-2',
+    name: '47º Exame de Ordem - 2ª Fase',
+    date: '2026-10-18T13:00:00-03:00',
     phase: 2,
   },
   {
-    id: '43',
-    name: '43º Exame de Ordem',
-    date: '2027-04-18T13:00:00-03:00',
+    id: '48',
+    name: '48º Exame de Ordem',
+    date: '2026-12-20T13:00:00-03:00',
     phase: 1,
   },
   {
-    id: '43-2',
-    name: '43º Exame de Ordem - 2ª Fase',
-    date: '2027-06-13T13:00:00-03:00',
+    id: '48-2',
+    name: '48º Exame de Ordem - 2ª Fase',
+    date: '2027-02-21T13:00:00-03:00',
     phase: 2,
   },
 ];
