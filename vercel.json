@@ -3,6 +3,10 @@
     {
       "path": "/api/cron/free-access-email-reminder",
       "schedule": "0 10 * * *"
+    },
+    {
+      "path": "/api/cron/reconcile-asaas",
+      "schedule": "*/10 * * * *"
     }
   ]
 }

@@ -50,7 +50,14 @@ export async function handlePaymentConfirmed(payload: AsaasWebhookPayload) {
       });
 
       if (user) {
-        await activatePremium(user.id, payment.subscription, payment.customer, payment.paymentDate, payment.value);
+        await activatePremium(
+          user.id,
+          payment.subscription,
+          payment.customer,
+          payment.paymentDate,
+          payment.value,
+          payment.description
+        );
         return;
       }
     }
@@ -67,7 +74,8 @@ export async function handlePaymentConfirmed(payload: AsaasWebhookPayload) {
     payment.subscription,
     payment.customer,
     payment.paymentDate,
-    payment.value
+    payment.value,
+    payment.description
   );
 
   // Enviar email de confirmação
@@ -216,43 +224,65 @@ async function activatePremium(
   asaasSubscriptionId: string,
   asaasCustomerId: string,
   paymentDate?: string | null,
-  paymentValue?: number
+  paymentValue?: number,
+  paymentDescription?: string | null
 ) {
-  // Detectar plano pelo valor pago
-  const planKey = detectPlanFromValue(paymentValue) || 'BASIC_MONTHLY';
+  // P0 FIX — detecção robusta: valor → descrição → fallback (nunca rebaixa silencioso)
+  const planKey =
+    detectPlanFromValue(paymentValue) ||
+    detectPlanFromDescription(paymentDescription) ||
+    'BASIC_MONTHLY';
   const planConfig = ASAAS_PLANS[planKey as AsaasPlanKey];
   const nextPeriodEnd = calculatePeriodEnd(paymentDate || new Date().toISOString(), planConfig.cycle);
 
   // P0 FIX: Transação atômica — subscription + user update devem ser consistentes
   await prisma.$transaction(async (tx) => {
-    const customer = await tx.customer.findFirst({
-      where: { userId },
-    });
-
-    if (customer) {
-      await tx.subscription.upsert({
-        where: { asaasSubscriptionId },
-        update: {
-          status: 'ACTIVE',
-          plan: planKey,
-          value: planConfig.value,
-          cycle: planConfig.cycle,
-          currentPeriodStart: new Date(),
-          currentPeriodEnd: new Date(nextPeriodEnd),
-        },
-        create: {
-          customerId: customer.id,
-          asaasSubscriptionId,
+    // P0 FIX — se Customer não existir (edge case), criar com dados do User
+    // (evita User.planType=PRO sem Subscription registrada)
+    let customer = await tx.customer.findFirst({ where: { userId } });
+    if (!customer) {
+      const user = await tx.user.findUnique({ where: { id: userId } });
+      if (!user) {
+        throw new Error(`User ${userId} não encontrado ao ativar premium`);
+      }
+      customer = await tx.customer.create({
+        data: {
+          userId,
+          asaasCustomerId,
           gateway: 'asaas',
-          plan: planKey,
-          status: 'ACTIVE',
-          value: planConfig.value,
-          cycle: planConfig.cycle,
-          currentPeriodStart: new Date(),
-          currentPeriodEnd: new Date(nextPeriodEnd),
+          name: user.name || user.email,
+          email: user.email,
+          cpfCnpj: '',
         },
       });
+      logger.warn('[ASAAS_HANDLER] Customer criado via webhook (fallback)', {
+        userId,
+        asaasCustomerId,
+      });
     }
+
+    await tx.subscription.upsert({
+      where: { asaasSubscriptionId },
+      update: {
+        status: 'ACTIVE',
+        plan: planKey,
+        value: planConfig.value,
+        cycle: planConfig.cycle,
+        currentPeriodStart: new Date(),
+        currentPeriodEnd: new Date(nextPeriodEnd),
+      },
+      create: {
+        customerId: customer.id,
+        asaasSubscriptionId,
+        gateway: 'asaas',
+        plan: planKey,
+        status: 'ACTIVE',
+        value: planConfig.value,
+        cycle: planConfig.cycle,
+        currentPeriodStart: new Date(),
+        currentPeriodEnd: new Date(nextPeriodEnd),
+      },
+    });
 
     await tx.user.update({
       where: { id: userId },
@@ -289,11 +319,28 @@ function calculatePeriodEnd(fromDate: string, cycle: string): string {
 
 function detectPlanFromValue(value?: number): AsaasPlanKey | null {
   if (!value) return null;
-  // Encontrar plano pelo valor exato (com tolerância de R$0.10 para arredondamentos)
+  // P0 FIX — tolerância 0.50 acomoda taxas/descontos do Asaas (value vs netValue)
+  // sem ativar plano errado (R$89,99 pago NUNCA deve virar BASIC R$19,99).
   for (const [key, plan] of Object.entries(ASAAS_PLANS)) {
-    if (Math.abs(plan.value - value) < 0.1) {
+    if (Math.abs(plan.value - value) <= 0.5) {
       return key as AsaasPlanKey;
     }
+  }
+  return null;
+}
+
+/**
+ * Fallback de detecção de plano por descrição da cobrança.
+ * Usado quando o valor veio com desconto/taxa fora da tolerância.
+ */
+function detectPlanFromDescription(description?: string | null): AsaasPlanKey | null {
+  if (!description) return null;
+  const d = description.toLowerCase();
+  if (d.includes(' pro ') || d.includes('pro -') || d.includes('pro_') || d.includes('com ia')) {
+    return 'PRO_MONTHLY';
+  }
+  if (d.includes('essencial') || d.includes('basic')) {
+    return 'BASIC_MONTHLY';
   }
   return null;
 }

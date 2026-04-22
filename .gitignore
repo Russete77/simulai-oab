@@ -66,3 +66,15 @@ STUDY_PLAN_QUICK_REFERENCE.md
 
 # claude config
 .claude/
+
+# ============================================================================
+# MIGRAÇÃO Next.js → Vike+Express (WIP — NÃO commitar ainda)
+# Deploy de produção ainda roda o Next.js (root). Quando a migração terminar
+# e o deploy cutover acontecer, remover estas linhas e commitar numa branch
+# dedicada (ex: refactor/migrate-to-vike-express).
+# ============================================================================
+/frontend
+/backend
+MIGRATION_REPORT.md
+MIGRATION_INVENTORY.md
+LOGS.txt

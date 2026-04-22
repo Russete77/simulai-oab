@@ -186,6 +186,37 @@ export async function createAsaasSubscription(params: {
 }) {
   const planConfig = ASAAS_PLANS[params.plan];
 
+  // P1 FIX — evitar assinaturas duplicadas.
+  // Se o cliente tenta pagar 2x (PIX travou, troca pra cartão, etc), cancela
+  // a anterior antes de criar nova pra não ficar com cobrança dupla.
+  const existing = await prisma.subscription.findMany({
+    where: {
+      customer: { userId: params.userId },
+      gateway: 'asaas',
+      status: { in: ['ACTIVE', 'PAST_DUE'] },
+    },
+  });
+  for (const sub of existing) {
+    if (!sub.asaasSubscriptionId) continue;
+    try {
+      await asaas.cancelSubscription(sub.asaasSubscriptionId);
+      await prisma.subscription.update({
+        where: { id: sub.id },
+        data: { status: 'CANCELED', canceledAt: new Date(), cancelAtPeriodEnd: true },
+      });
+      logger.info('[ASAAS_CHECKOUT] Subscription anterior cancelada (evita duplicata)', {
+        userId: params.userId,
+        oldSubscriptionId: sub.asaasSubscriptionId,
+      });
+    } catch (err) {
+      logger.warn('[ASAAS_CHECKOUT] Falha ao cancelar subscription anterior', {
+        userId: params.userId,
+        oldSubscriptionId: sub.asaasSubscriptionId,
+        error: err instanceof Error ? err.message : String(err),
+      });
+    }
+  }
+
   // Data de vencimento: hoje + 1 dia (dar tempo de gerar PIX/boleto)
   const nextDueDate = new Date();
   nextDueDate.setDate(nextDueDate.getDate() + 1);

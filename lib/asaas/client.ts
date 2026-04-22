@@ -162,6 +162,21 @@ class AsaasClient {
   async refundPayment(id: string): Promise<AsaasPayment> {
     return this.request<AsaasPayment>('POST', `/payments/${id}/refund`);
   }
+
+  /**
+   * Lista pagamentos por status com paginação.
+   * Usado pelo job de reconciliação.
+   */
+  async listPaymentsByStatus(
+    status: 'RECEIVED' | 'CONFIRMED' | 'PENDING' | 'OVERDUE',
+    limit = 100,
+    offset = 0
+  ): Promise<AsaasPaginatedResponse<AsaasPayment>> {
+    return this.request<AsaasPaginatedResponse<AsaasPayment>>(
+      'GET',
+      `/payments?status=${status}&limit=${limit}&offset=${offset}`
+    );
+  }
 }
 
 export const asaas = new AsaasClient();
