@@ -52,9 +52,9 @@ export function AchievementModal({ achievement, onClose }: AchievementModalProps
           {/* Close button */}
           <button
             onClick={handleClose}
-            className="absolute top-4 right-4 z-10 p-2 hover:bg-navy-800 rounded-lg transition-colors"
+            className="absolute top-4 right-4 z-10 p-2 hover:bg-surface-2 rounded-lg transition-colors"
           >
-            <X className="w-5 h-5 text-navy-400" />
+            <X className="w-5 h-5 text-ink-2" />
           </button>
 
           <div className="relative p-8 text-center">
@@ -75,16 +75,16 @@ export function AchievementModal({ achievement, onClose }: AchievementModalProps
                 <span className="text-sm uppercase tracking-wider">Conquista Desbloqueada!</span>
                 <Sparkles className="w-4 h-4" />
               </div>
-              <h2 className="text-3xl font-bold text-white mb-2">
+              <h2 className="text-3xl font-bold text-ink-1 mb-2">
                 {achievement.icon} {achievement.name}
               </h2>
-              <p className="text-navy-400 mb-4">{achievement.description}</p>
+              <p className="text-ink-2 mb-4">{achievement.description}</p>
             </div>
 
             {/* Points */}
-            <div className="mb-6 inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-lg">
-              <span className="text-blue-400 font-bold">+{achievement.points}</span>
-              <span className="text-navy-400">pontos</span>
+            <div className="mb-6 inline-flex items-center gap-2 px-4 py-2 bg-accent-soft border-accent rounded-lg">
+              <span className="text-accent font-bold">+{achievement.points}</span>
+              <span className="text-ink-2">pontos</span>
             </div>
 
             {/* Continue button */}

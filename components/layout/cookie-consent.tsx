@@ -61,20 +61,20 @@ export function CookieConsent() {
     <div
       role="dialog"
       aria-label="Consentimento de cookies"
-      className="fixed bottom-0 left-0 right-0 z-[9999] bg-navy-900 border-t border-white/10 px-4 py-4 sm:px-6 shadow-2xl"
+      className="fixed bottom-0 left-0 right-0 z-[9999] bg-surface border-t border px-4 py-4 sm:px-6 shadow-2xl"
     >
       <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center gap-4">
         <p className="text-sm text-gray-300 flex-1">
           Usamos cookies de analytics (Google Analytics) para melhorar sua
           experiência. Nenhum dado pessoal é compartilhado com terceiros.{" "}
-          <a href="/privacy" className="text-blue-400 underline hover:text-blue-300">
+          <a href="/privacy" className="text-accent underline hover:text-accent">
             Saiba mais
           </a>
         </p>
         <div className="flex gap-3 shrink-0">
           <button
             onClick={handleReject}
-            className="px-4 py-2 text-sm text-gray-400 border border-white/10 rounded-lg hover:bg-white/5 transition"
+            className="px-4 py-2 text-sm text-gray-400 border rounded-lg hover:bg-surface-2 transition"
           >
             Recusar
           </button>

@@ -130,14 +130,14 @@ export function SimuladoAmigosClient() {
   };
 
   return (
-    <div className="min-h-screen bg-navy-950">
+    <div className="min-h-screen bg-bg">
       <Header />
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">Simulado com Amigos</h1>
-          <p className="text-navy-600">
+          <h1 className="text-4xl font-bold text-ink-1 mb-2">Simulado com Amigos</h1>
+          <p className="text-ink-3">
             Crie desafios e compare seus resultados com amigos
           </p>
         </div>
@@ -159,17 +159,17 @@ export function SimuladoAmigosClient() {
             {/* Main Actions */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               {/* Create Challenge Card */}
-              <Card variant="glass" className="border-blue-500/20 bg-blue-500/5">
+              <Card variant="glass" className="border-accent bg-accent-soft">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-2xl font-bold text-white">Criar Desafio</h3>
-                  <Zap className="w-8 h-8 text-blue-400" />
+                  <h3 className="text-2xl font-bold text-ink-1">Criar Desafio</h3>
+                  <Zap className="w-8 h-8 text-accent" />
                 </div>
-                <p className="text-navy-600 mb-6">
+                <p className="text-ink-3 mb-6">
                   Crie um novo desafio e convide seus amigos para competir
                 </p>
                 <Button
                   variant="primary"
-                  className="w-full bg-gradient-to-r from-blue-600 to-cyan-600"
+                  className="w-full bg-accent"
                   onClick={() => setMode('create')}
                 >
                   Começar
@@ -179,10 +179,10 @@ export function SimuladoAmigosClient() {
               {/* Join Challenge Card */}
               <Card variant="glass" className="border-emerald-500/20 bg-emerald-500/5">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-2xl font-bold text-white">Entrar em Desafio</h3>
+                  <h3 className="text-2xl font-bold text-ink-1">Entrar em Desafio</h3>
                   <Users className="w-8 h-8 text-emerald-400" />
                 </div>
-                <p className="text-navy-600 mb-6">
+                <p className="text-ink-3 mb-6">
                   Insira um código para entrar em um desafio existente
                 </p>
                 <Button
@@ -200,18 +200,18 @@ export function SimuladoAmigosClient() {
               <Card variant="glass" className="border-emerald-500/30 bg-emerald-500/10">
                 <div className="flex items-center gap-3 mb-4">
                   <CheckCircle className="w-6 h-6 text-emerald-400" />
-                  <h3 className="text-xl font-bold text-white">Desafio Criado!</h3>
+                  <h3 className="text-xl font-bold text-ink-1">Desafio Criado!</h3>
                 </div>
 
-                <p className="text-navy-600 mb-6">
+                <p className="text-ink-3 mb-6">
                   Compartilhe o código abaixo com seus amigos para que eles possam se juntar ao
                   desafio:
                 </p>
 
-                <div className="bg-navy-900 rounded-xl p-6 mb-6 border border-emerald-500/20">
+                <div className="bg-surface rounded-xl p-6 mb-6 border border-emerald-500/20">
                   <div className="flex items-center justify-between gap-4">
                     <div>
-                      <p className="text-navy-600 text-sm mb-2">Código do Desafio</p>
+                      <p className="text-ink-3 text-sm mb-2">Código do Desafio</p>
                       <p className="text-3xl font-bold text-emerald-400 font-mono">
                         {challengeCode}
                       </p>
@@ -221,9 +221,9 @@ export function SimuladoAmigosClient() {
                       className="p-3 bg-emerald-600 hover:bg-emerald-500 rounded-lg transition-colors"
                     >
                       {copiedCode === challengeCode ? (
-                        <CheckCircle className="w-6 h-6 text-white" />
+                        <CheckCircle className="w-6 h-6 text-ink-1" />
                       ) : (
-                        <Copy className="w-6 h-6 text-white" />
+                        <Copy className="w-6 h-6 text-ink-1" />
                       )}
                     </button>
                   </div>
@@ -233,11 +233,11 @@ export function SimuladoAmigosClient() {
                   </p>
                 </div>
 
-                <div className="bg-navy-900/50 rounded-lg p-4 mb-6 border border-blue-500/20">
-                  <p className="text-sm text-navy-400">
+                <div className="bg-surface rounded-lg p-4 mb-6 border-accent">
+                  <p className="text-sm text-ink-2">
                     <span className="font-semibold">Link para compartilhar:</span>
                     <br />
-                    <span className="text-blue-400 break-all">
+                    <span className="text-accent break-all">
                       simulaioab.com/simulado-amigos/{challengeCode}
                     </span>
                   </p>
@@ -255,7 +255,7 @@ export function SimuladoAmigosClient() {
 
                 <button
                   onClick={() => setChallengeCode('')}
-                  className="w-full mt-3 text-navy-600 hover:text-navy-400 text-sm font-medium transition-colors"
+                  className="w-full mt-3 text-ink-3 hover:text-ink-2 text-sm font-medium transition-colors"
                 >
                   Criar Novo Desafio
                 </button>
@@ -263,23 +263,23 @@ export function SimuladoAmigosClient() {
             )}
 
             {/* Tips */}
-            <Card variant="glass" className="mt-8 border-blue-500/20">
-              <h3 className="text-lg font-semibold text-white mb-3">💡 Como Funciona</h3>
-              <ul className="space-y-3 text-navy-600 text-sm">
+            <Card variant="glass" className="mt-8 border-accent">
+              <h3 className="text-lg font-semibold text-ink-1 mb-3">💡 Como Funciona</h3>
+              <ul className="space-y-3 text-ink-3 text-sm">
                 <li className="flex gap-3">
-                  <span className="text-blue-400 font-bold">1</span>
+                  <span className="text-accent font-bold">1</span>
                   <span>Crie um desafio e escolha o tipo de simulado</span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-blue-400 font-bold">2</span>
+                  <span className="text-accent font-bold">2</span>
                   <span>Compartilhe o código com seus amigos</span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-blue-400 font-bold">3</span>
+                  <span className="text-accent font-bold">3</span>
                   <span>Seus amigos entram com o código e fazem o mesmo simulado</span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-blue-400 font-bold">4</span>
+                  <span className="text-accent font-bold">4</span>
                   <span>Compare resultados e veja quem se saiu melhor</span>
                 </li>
               </ul>
@@ -292,7 +292,7 @@ export function SimuladoAmigosClient() {
           <div className="space-y-6">
             {/* Simulation Type Selection */}
             <Card variant="glass">
-              <h3 className="text-lg font-bold text-white mb-6">Selecione o Tipo de Simulado</h3>
+              <h3 className="text-lg font-bold text-ink-1 mb-6">Selecione o Tipo de Simulado</h3>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {Object.entries(SIMULATION_TYPE_LABELS).map(([key, label]) => (
@@ -301,16 +301,16 @@ export function SimuladoAmigosClient() {
                     onClick={() => setSimulationType(key as SimulationType)}
                     className={`p-4 rounded-xl border-2 transition-all text-left ${
                       simulationType === key
-                        ? 'border-blue-600 bg-blue-600/10'
-                        : 'border-white/10 hover:border-white/20 bg-navy-900/50'
+                        ? 'border-blue-600 bg-accent-soft'
+                        : 'border hover:border-strong bg-surface'
                     }`}
                   >
                     <div className="flex items-start justify-between">
                       <div>
-                        <p className="font-semibold text-white">
+                        <p className="font-semibold text-ink-1">
                           {SIMULATION_TYPE_EMOJIS[key as SimulationType]} {label}
                         </p>
-                        <p className="text-sm text-navy-600 mt-1">
+                        <p className="text-sm text-ink-3 mt-1">
                           {getSimulationDescription(key as SimulationType)}
                         </p>
                       </div>
@@ -324,19 +324,19 @@ export function SimuladoAmigosClient() {
             </Card>
 
             {/* Summary Card */}
-            <Card variant="glass" className="border-blue-500/30">
-              <h3 className="text-lg font-bold text-white mb-4">Resumo</h3>
+            <Card variant="glass" className="border-accent">
+              <h3 className="text-lg font-bold text-ink-1 mb-4">Resumo</h3>
 
               <div className="space-y-3 mb-6">
-                <div className="flex items-center justify-between p-3 bg-navy-900/50 rounded-lg">
-                  <span className="text-navy-600">Tipo de Simulado</span>
-                  <span className="text-white font-semibold">
+                <div className="flex items-center justify-between p-3 bg-surface rounded-lg">
+                  <span className="text-ink-3">Tipo de Simulado</span>
+                  <span className="text-ink-1 font-semibold">
                     {SIMULATION_TYPE_LABELS[simulationType]}
                   </span>
                 </div>
-                <div className="flex items-center justify-between p-3 bg-navy-900/50 rounded-lg">
-                  <span className="text-navy-600">Participantes</span>
-                  <span className="text-white font-semibold">Você + amigos</span>
+                <div className="flex items-center justify-between p-3 bg-surface rounded-lg">
+                  <span className="text-ink-3">Participantes</span>
+                  <span className="text-ink-1 font-semibold">Você + amigos</span>
                 </div>
               </div>
 
@@ -366,10 +366,10 @@ export function SimuladoAmigosClient() {
         {mode === 'join' && (
           <div className="space-y-6">
             <Card variant="glass">
-              <h3 className="text-lg font-bold text-white mb-6">Entrar em Desafio</h3>
+              <h3 className="text-lg font-bold text-ink-1 mb-6">Entrar em Desafio</h3>
 
               <div className="mb-6">
-                <label className="block text-navy-600 text-sm font-semibold mb-3">
+                <label className="block text-ink-3 text-sm font-semibold mb-3">
                   Código do Desafio
                 </label>
                 <input
@@ -378,9 +378,9 @@ export function SimuladoAmigosClient() {
                   onChange={(e) => setJoinCode(e.target.value.toUpperCase())}
                   placeholder="Ex: ABC123"
                   maxLength={6}
-                  className="w-full px-4 py-3 rounded-lg bg-navy-800 border border-white/10 text-white placeholder-navy-600 focus:outline-none focus:border-blue-500 text-center text-xl font-mono tracking-widest"
+                  className="w-full px-4 py-3 rounded-lg bg-surface-2 border text-ink-1 placeholder-navy-600 focus:outline-none focus:border-accent text-center text-xl font-mono tracking-widest"
                 />
-                <p className="text-navy-600 text-sm mt-2">
+                <p className="text-ink-3 text-sm mt-2">
                   Insira o código que recebeu de seu amigo
                 </p>
               </div>
@@ -407,8 +407,8 @@ export function SimuladoAmigosClient() {
 
             {/* Tips */}
             <Card variant="glass" className="border-yellow-500/20 bg-yellow-500/5">
-              <h3 className="text-lg font-semibold text-white mb-3">📌 Dica</h3>
-              <p className="text-navy-600 text-sm">
+              <h3 className="text-lg font-semibold text-ink-1 mb-3">📌 Dica</h3>
+              <p className="text-ink-3 text-sm">
                 O código deve conter 6 caracteres (letras e números). Se você recebeu um link,
                 copie apenas o código da URL.
               </p>

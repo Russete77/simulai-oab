@@ -96,17 +96,17 @@ export default function PlanoEstudosClient() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-navy-950">
+      <div className="min-h-screen bg-bg">
         <Header />
         <div className="flex items-center justify-center h-64">
-          <Loader2 className="w-12 h-12 text-blue-500 animate-spin" />
+          <Loader2 className="w-12 h-12 text-accent animate-spin" />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-navy-950">
+    <div className="min-h-screen bg-bg">
       <Header />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex items-center gap-3 mb-8">
@@ -114,8 +114,8 @@ export default function PlanoEstudosClient() {
             <Brain className="w-8 h-8 text-purple-400" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-white">Plano de Estudos</h1>
-            <p className="text-navy-400">Personalizado com base no seu desempenho</p>
+            <h1 className="text-3xl font-bold text-ink-1">Plano de Estudos</h1>
+            <p className="text-ink-2">Personalizado com base no seu desempenho</p>
           </div>
         </div>
 
@@ -126,22 +126,22 @@ export default function PlanoEstudosClient() {
               <div className="p-4 bg-purple-500/10 rounded-2xl w-fit mx-auto mb-6">
                 <BookOpen className="w-12 h-12 text-purple-400" />
               </div>
-              <h2 className="text-2xl font-bold text-white mb-3">
+              <h2 className="text-2xl font-bold text-ink-1 mb-3">
                 Crie seu Plano Personalizado
               </h2>
-              <p className="text-navy-400 mb-8">
+              <p className="text-ink-2 mb-8">
                 Vamos analisar seu desempenho e criar um plano focado nas suas matérias mais fracas.
               </p>
 
               <div className="mb-6">
-                <label className="block text-sm text-navy-400 mb-2 text-left">
+                <label className="block text-sm text-ink-2 mb-2 text-left">
                   Data da prova (opcional)
                 </label>
                 <input
                   type="date"
                   value={examDate}
                   onChange={(e) => setExamDate(e.target.value)}
-                  className="w-full bg-navy-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-navy-500 focus:outline-none focus:border-blue-500/50 transition-colors"
+                  className="w-full bg-surface-2 border rounded-xl px-4 py-3 text-ink-1 placeholder-navy-500 focus:outline-none focus:border-accent/50 transition-colors"
                 />
               </div>
 
@@ -172,13 +172,13 @@ export default function PlanoEstudosClient() {
             <Card variant="glass" className="p-6">
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <h2 className="text-xl font-bold text-white">{plan.name}</h2>
-                  <p className="text-navy-400 text-sm mt-1">{plan.description}</p>
+                  <h2 className="text-xl font-bold text-ink-1">{plan.name}</h2>
+                  <p className="text-ink-2 text-sm mt-1">{plan.description}</p>
                 </div>
                 <button
                   onClick={generatePlan}
                   disabled={generating}
-                  className="text-navy-400 hover:text-white transition-colors p-2"
+                  className="text-ink-2 hover:text-ink-1 transition-colors p-2"
                   title="Regenerar plano"
                 >
                   <RefreshCw className={`w-5 h-5 ${generating ? 'animate-spin' : ''}`} />
@@ -198,14 +198,14 @@ export default function PlanoEstudosClient() {
               {/* Weekly Progress */}
               <div className="mt-4">
                 <div className="flex justify-between text-sm mb-2">
-                  <span className="text-navy-400">Progresso semanal</span>
-                  <span className="text-white font-semibold">
+                  <span className="text-ink-2">Progresso semanal</span>
+                  <span className="text-ink-1 font-semibold">
                     {plan.weeklyProgress}/{plan.weeklyGoal} questões
                   </span>
                 </div>
-                <div className="w-full bg-navy-800 rounded-full h-3">
+                <div className="w-full bg-surface-2 rounded-full h-3">
                   <div
-                    className="bg-gradient-to-r from-blue-500 to-purple-500 h-3 rounded-full transition-all duration-500"
+                    className="bg-accent h-3 rounded-full transition-all duration-500"
                     style={{ width: `${plan.weeklyPercentage}%` }}
                   />
                 </div>
@@ -216,7 +216,7 @@ export default function PlanoEstudosClient() {
             <Card variant="glass" className="p-6">
               <div className="flex items-center gap-2 mb-4">
                 <Target className="w-5 h-5 text-red-400" />
-                <h3 className="text-lg font-bold text-white">Matérias para Focar</h3>
+                <h3 className="text-lg font-bold text-ink-1">Matérias para Focar</h3>
               </div>
 
               <div className="space-y-3">
@@ -226,26 +226,26 @@ export default function PlanoEstudosClient() {
                     <Link
                       key={subject}
                       href={`/practice?subject=${subject}`}
-                      className="flex items-center justify-between p-4 bg-navy-800/50 hover:bg-navy-800 border border-white/5 rounded-xl transition-colors group"
+                      className="flex items-center justify-between p-4 bg-surface-2 hover:bg-surface-2 border-divider rounded-xl transition-colors group"
                     >
                       <div>
-                        <p className="text-white font-medium">{SUBJECT_LABELS[subject] || subject}</p>
+                        <p className="text-ink-1 font-medium">{SUBJECT_LABELS[subject] || subject}</p>
                         {subjectData && (
-                          <p className="text-sm text-navy-400">
+                          <p className="text-sm text-ink-2">
                             {subjectData.accuracy}% de acerto em {subjectData.total} questões
                           </p>
                         )}
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="text-sm text-blue-400 group-hover:text-blue-300">Praticar</span>
-                        <ChevronRight className="w-4 h-4 text-blue-400 group-hover:text-blue-300" />
+                        <span className="text-sm text-accent group-hover:text-accent">Praticar</span>
+                        <ChevronRight className="w-4 h-4 text-accent group-hover:text-accent" />
                       </div>
                     </Link>
                   );
                 })}
 
                 {plan.focusSubjects.length === 0 && (
-                  <p className="text-navy-400 text-center py-4">
+                  <p className="text-ink-2 text-center py-4">
                     Parabéns! Todas as matérias acima de 60%. Continue praticando!
                   </p>
                 )}
@@ -255,14 +255,14 @@ export default function PlanoEstudosClient() {
             {/* Quick Actions */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Link href="/practice">
-                <Card variant="glass" className="p-6 hover:border-blue-500/50 transition-colors cursor-pointer">
+                <Card variant="glass" className="p-6 hover:border-accent/50 transition-colors cursor-pointer">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 bg-blue-500/10 rounded-lg">
-                      <BookOpen className="w-6 h-6 text-blue-400" />
+                    <div className="p-2 bg-accent-soft rounded-lg">
+                      <BookOpen className="w-6 h-6 text-accent" />
                     </div>
                     <div>
-                      <p className="text-white font-semibold">Praticar Agora</p>
-                      <p className="text-sm text-navy-400">Questões aleatórias</p>
+                      <p className="text-ink-1 font-semibold">Praticar Agora</p>
+                      <p className="text-sm text-ink-2">Questões aleatórias</p>
                     </div>
                   </div>
                 </Card>
@@ -275,8 +275,8 @@ export default function PlanoEstudosClient() {
                       <TrendingUp className="w-6 h-6 text-purple-400" />
                     </div>
                     <div>
-                      <p className="text-white font-semibold">Revisar Erros</p>
-                      <p className="text-sm text-navy-400">Caderno de erros</p>
+                      <p className="text-ink-1 font-semibold">Revisar Erros</p>
+                      <p className="text-sm text-ink-2">Caderno de erros</p>
                     </div>
                   </div>
                 </Card>

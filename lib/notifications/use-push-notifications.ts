@@ -80,7 +80,7 @@ export function usePushNotifications(): UsePushNotificationsReturn {
       // Criar subscription
       const subscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array(publicKey) as BufferSource,
+        applicationServerKey: urlBase64ToUint8Array(publicKey) as unknown as BufferSource,
       });
 
       // Enviar para o server

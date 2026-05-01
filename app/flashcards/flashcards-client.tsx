@@ -119,28 +119,28 @@ export function FlashcardsClient() {
   const progress = flashcards.length > 0 ? currentIndex + 1 : 0;
 
   return (
-    <div className="min-h-screen bg-navy-950">
+    <div className="min-h-screen bg-bg">
       <Header />
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">Flashcards</h1>
-          <p className="text-navy-600">
+          <h1 className="text-4xl font-bold text-ink-1 mb-2">Flashcards</h1>
+          <p className="text-ink-3">
             Estude com flashcards gerados de questões reais da OAB
           </p>
         </div>
 
         {/* Subject Selector */}
         <Card variant="glass" className="mb-8">
-          <h3 className="text-lg font-semibold text-white mb-4">Selecionar Matéria</h3>
+          <h3 className="text-lg font-semibold text-ink-1 mb-4">Selecionar Matéria</h3>
           <div className="flex flex-wrap gap-3">
             <button
               onClick={() => setSubject('ALL')}
               className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
                 subject === 'ALL'
                   ? 'bg-blue-600 text-white'
-                  : 'bg-navy-800 text-navy-400 hover:bg-navy-700'
+                  : 'bg-surface-2 text-ink-2 hover:bg-surface-2'
               }`}
             >
               Todas
@@ -152,7 +152,7 @@ export function FlashcardsClient() {
                 className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
                   subject === subj
                     ? 'bg-blue-600 text-white'
-                    : 'bg-navy-800 text-navy-400 hover:bg-navy-700'
+                    : 'bg-surface-2 text-ink-2 hover:bg-surface-2'
                 }`}
               >
                 {SUBJECT_LABELS[subj]}
@@ -167,7 +167,7 @@ export function FlashcardsClient() {
             <div className="inline-block animate-spin">
               <div className="h-8 w-8 border-4 border-blue-600 border-t-transparent rounded-full"></div>
             </div>
-            <p className="text-navy-600 mt-4">Carregando flashcards...</p>
+            <p className="text-ink-3 mt-4">Carregando flashcards...</p>
           </Card>
         )}
 
@@ -195,18 +195,18 @@ export function FlashcardsClient() {
               >
                 {/* Front of Card */}
                 <div
-                  className="absolute inset-0 bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl p-8 flex flex-col justify-between border border-blue-500/30"
+                  className="absolute inset-0 bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl p-8 flex flex-col justify-between border-accent"
                   style={{
                     backfaceVisibility: 'hidden' as any,
                   }}
                 >
                   <div>
-                    <p className="text-sm font-semibold text-blue-100 mb-4">Pergunta</p>
-                    <p className="text-white text-xl leading-relaxed line-clamp-4">
+                    <p className="text-sm font-semibold text-accent mb-4">Pergunta</p>
+                    <p className="text-ink-1 text-xl leading-relaxed line-clamp-4">
                       {currentCard?.statement}
                     </p>
                   </div>
-                  <p className="text-blue-100 text-sm text-center">
+                  <p className="text-accent text-sm text-center">
                     Clique para ver a resposta
                   </p>
                 </div>
@@ -221,7 +221,7 @@ export function FlashcardsClient() {
                 >
                   <div>
                     <p className="text-sm font-semibold text-emerald-100 mb-4">Resposta</p>
-                    <p className="text-white text-lg leading-relaxed mb-6">
+                    <p className="text-ink-1 text-lg leading-relaxed mb-6">
                       {currentCard?.correctAnswerText}
                     </p>
                     {currentCard?.explanation && (
@@ -242,7 +242,7 @@ export function FlashcardsClient() {
 
             {/* Subject Badge */}
             <div className="text-center mb-6">
-              <span className="inline-block bg-navy-800 text-blue-400 px-4 py-2 rounded-lg text-sm font-medium">
+              <span className="inline-block bg-surface-2 text-accent px-4 py-2 rounded-lg text-sm font-medium">
                 {currentCard && SUBJECT_LABELS[currentCard.subject]}
               </span>
             </div>
@@ -250,12 +250,12 @@ export function FlashcardsClient() {
             {/* Progress Bar */}
             <div className="mb-8">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-navy-400 text-sm">Progresso</p>
-                <p className="text-white font-semibold">
+                <p className="text-ink-2 text-sm">Progresso</p>
+                <p className="text-ink-1 font-semibold">
                   {progress} de {flashcards.length}
                 </p>
               </div>
-              <div className="w-full bg-navy-800 rounded-full h-2">
+              <div className="w-full bg-surface-2 rounded-full h-2">
                 <div
                   className="bg-gradient-to-r from-blue-600 to-emerald-600 h-2 rounded-full transition-all duration-300"
                   style={{
@@ -303,7 +303,7 @@ export function FlashcardsClient() {
         {/* Empty State */}
         {!loading && flashcards.length === 0 && !error && (
           <Card variant="glass" className="text-center py-12">
-            <p className="text-navy-600">Nenhum flashcard disponível para esta matéria.</p>
+            <p className="text-ink-3">Nenhum flashcard disponível para esta matéria.</p>
           </Card>
         )}
       </main>

@@ -59,7 +59,7 @@ export async function GET(req: NextRequest) {
     if (!subscription) {
       return NextResponse.json({
         hasSubscription: false,
-        planType: user.planType || 'FREE',
+        planType: user.planType || 'BASIC',
         status: user.customer ? 'no_subscription' : 'no_customer',
       });
     }

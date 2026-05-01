@@ -14,7 +14,7 @@ export function Skeleton({ className }: SkeletonProps) {
   return (
     <div
       className={cn(
-        'animate-pulse rounded-md bg-navy-800/50',
+        'animate-pulse rounded-md bg-surface-2',
         className
       )}
       role="status"
@@ -30,7 +30,7 @@ export function Skeleton({ className }: SkeletonProps) {
  */
 export function SkeletonStatsCard() {
   return (
-    <div className="bg-navy-900/50 backdrop-blur-xl border border-navy-800/50 rounded-2xl p-6">
+    <div className="bg-surface border rounded-lg p-6">
       <div className="flex items-center justify-between mb-4">
         <Skeleton className="h-10 w-10 rounded-full" />
         <Skeleton className="h-6 w-20" />
@@ -46,7 +46,7 @@ export function SkeletonStatsCard() {
  */
 export function SkeletonQuestion() {
   return (
-    <div className="bg-navy-900/50 backdrop-blur-xl border border-navy-800/50 rounded-2xl p-8">
+    <div className="bg-surface border rounded-lg p-8">
       {/* Cabeçalho */}
       <div className="flex items-center justify-between mb-6">
         <Skeleton className="h-6 w-32" />
@@ -65,7 +65,7 @@ export function SkeletonQuestion() {
         {[1, 2, 3, 4].map((i) => (
           <div
             key={i}
-            className="border border-navy-700 rounded-xl p-4"
+            className="border rounded-lg p-4"
           >
             <div className="flex items-start gap-3">
               <Skeleton className="h-6 w-6 rounded-full flex-shrink-0" />
@@ -86,7 +86,7 @@ export function SkeletonQuestion() {
  */
 export function SkeletonSimulationCard() {
   return (
-    <div className="bg-navy-900/50 backdrop-blur-xl border border-navy-800/50 rounded-2xl p-6">
+    <div className="bg-surface border rounded-lg p-6">
       <div className="flex items-center justify-between mb-4">
         <Skeleton className="h-6 w-48" />
         <Skeleton className="h-6 w-20 rounded-full" />
@@ -110,7 +110,7 @@ export function SkeletonSimulationCard() {
  */
 export function SkeletonLeaderboardRow() {
   return (
-    <div className="flex items-center gap-4 p-4 bg-navy-900/30 rounded-xl">
+    <div className="flex items-center gap-4 p-4 bg-surface border rounded-lg">
       <Skeleton className="h-8 w-8 rounded-full" />
       <Skeleton className="h-10 w-10 rounded-full" />
       <div className="flex-1 space-y-2">

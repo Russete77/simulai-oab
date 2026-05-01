@@ -2,38 +2,47 @@ import { ButtonHTMLAttributes, forwardRef } from 'react';
 import { clsx } from 'clsx';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'ghost' | 'neon' | 'outline';
+  variant?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'outline' | 'neon';
   size?: 'sm' | 'md' | 'lg';
+  fullWidth?: boolean;
   children: React.ReactNode;
 }
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant = 'primary', size = 'md', className, children, ...props }, ref) => {
-    const baseClasses = 'rounded-xl font-semibold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed';
+const baseClass =
+  'inline-flex items-center justify-center gap-2 font-medium rounded-md transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed select-none whitespace-nowrap';
 
-    const variants = {
-      primary: 'bg-blue-600 text-white hover:bg-blue-500 shadow-md hover:-translate-y-0.5 active:translate-y-0',
-      ghost: 'bg-transparent border-2 border-white/10 text-blue-400 backdrop-blur-md hover:bg-blue-500/10 hover:border-blue-500',
-      neon: 'relative bg-blue-600 text-white overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500',
-      outline: 'border-2 border-blue-500 text-blue-400 hover:bg-blue-500/10',
-    };
+const variants: Record<NonNullable<ButtonProps['variant']>, string> = {
+  primary: 'bg-accent text-accent-fg hover:bg-accent-hover active:scale-[0.98] shadow-sm',
+  secondary: 'bg-surface text-ink-1 border hover:bg-surface-2 active:scale-[0.98]',
+  ghost: 'bg-transparent text-ink-1 hover:bg-surface-2 active:scale-[0.98]',
+  danger: 'bg-danger text-white hover:opacity-90 active:scale-[0.98] shadow-sm',
+  outline: 'bg-surface text-ink-1 border hover:bg-surface-2 active:scale-[0.98]',
+  neon: 'bg-accent text-accent-fg hover:bg-accent-hover active:scale-[0.98] shadow-sm',
+};
 
-    const sizes = {
-      sm: 'px-4 py-2 text-sm',
-      md: 'px-6 py-3 text-base',
-      lg: 'px-8 py-4 text-lg',
-    };
+const sizes: Record<NonNullable<ButtonProps['size']>, string> = {
+  sm: 'h-8 px-3 text-sm',
+  md: 'h-10 px-4 text-sm',
+  lg: 'h-12 px-6 text-base',
+};
 
-    return (
-      <button
-        ref={ref}
-        className={clsx(baseClasses, variants[variant], sizes[size], className)}
-        {...props}
-      >
-        {children}
-      </button>
-    );
-  }
-);
-
-Button.displayName = 'Button';
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+  { variant = 'primary', size = 'md', fullWidth, className, children, ...props },
+  ref
+) {
+  return (
+    <button
+      ref={ref}
+      className={clsx(
+        baseClass,
+        variants[variant],
+        sizes[size],
+        fullWidth && 'w-full',
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+});

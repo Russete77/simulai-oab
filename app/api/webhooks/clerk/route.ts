@@ -67,7 +67,9 @@ export async function POST(req: Request) {
 
       const name = [first_name, last_name].filter(Boolean).join(' ') || null
 
-      // Criar usuário no banco de dados
+      // Criar usuário sem subscription. App é payment-only — gate.ts vai bloquear
+      // tudo até o user assinar via /pricing.
+      // Recovery campaigns disparam D+1, D+3, D+7, D+14, D+30 pra trazer de volta.
       await prisma.user.create({
         data: {
           clerkId: id,
@@ -86,7 +88,9 @@ export async function POST(req: Request) {
         },
       })
 
-      console.log(`[webhook.clerk] Usuário criado: ${email}`, { clerkId: id })
+      console.log(`[webhook.clerk] Usuário criado (sem subscription): ${email}`, {
+        clerkId: id,
+      })
 
       // Enviar email de boas-vindas
       try {

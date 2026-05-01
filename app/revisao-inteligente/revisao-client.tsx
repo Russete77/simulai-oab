@@ -117,10 +117,10 @@ export default function RevisaoClientPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-navy-950">
+      <div className="min-h-screen bg-bg">
         <Header />
         <div className="flex items-center justify-center h-64">
-          <Loader2 className="w-12 h-12 text-blue-500 animate-spin" />
+          <Loader2 className="w-12 h-12 text-accent animate-spin" />
         </div>
       </div>
     );
@@ -128,15 +128,15 @@ export default function RevisaoClientPage() {
 
   if (questions.length === 0) {
     return (
-      <div className="min-h-screen bg-navy-950">
+      <div className="min-h-screen bg-bg">
         <Header />
         <div className="max-w-2xl mx-auto px-4 py-12">
           <Card variant="glass" className="p-8 text-center">
             <div className="p-4 bg-green-500/10 rounded-2xl w-fit mx-auto mb-4">
               <CheckCircle2 className="w-12 h-12 text-green-400" />
             </div>
-            <h2 className="text-2xl font-bold text-white mb-2">Nenhuma revisão pendente!</h2>
-            <p className="text-navy-400 mb-6">
+            <h2 className="text-2xl font-bold text-ink-1 mb-2">Nenhuma revisão pendente!</h2>
+            <p className="text-ink-2 mb-6">
               Todas as questões estão em dia. Continue praticando para adicionar novas ao sistema de revisão.
             </p>
             <Link href="/practice">
@@ -154,13 +154,13 @@ export default function RevisaoClientPage() {
   }
 
   return (
-    <div className="min-h-screen bg-navy-950">
+    <div className="min-h-screen bg-bg">
       <Header />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Back button */}
         <div className="mb-6">
           <Link href="/dashboard">
-            <button className="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors">
+            <button className="flex items-center gap-2 text-accent hover:text-accent transition-colors">
               <ArrowLeft className="w-4 h-4" />
               Voltar
             </button>
@@ -171,7 +171,7 @@ export default function RevisaoClientPage() {
         <div className="flex items-center gap-4 mb-6">
           <div className="flex items-center gap-2">
             <Brain className="w-5 h-5 text-purple-400" />
-            <span className="text-white font-bold text-lg">Revisão Inteligente</span>
+            <span className="text-ink-1 font-bold text-lg">Revisão Inteligente</span>
           </div>
           <div className="flex gap-3 text-sm flex-wrap">
             <span className="px-3 py-1 bg-purple-500/10 border border-purple-500/20 rounded-full text-purple-400">
@@ -185,14 +185,14 @@ export default function RevisaoClientPage() {
 
         {/* Progress */}
         <div className="flex items-center justify-between mb-4">
-          <span className="text-navy-400 text-sm">
+          <span className="text-ink-2 text-sm">
             Questão {currentIndex + 1} de {questions.length}
           </span>
-          <span className="text-navy-400 text-sm">
+          <span className="text-ink-2 text-sm">
             {completed} revisadas nesta sessão
           </span>
         </div>
-        <div className="w-full bg-navy-800 rounded-full h-2 mb-6">
+        <div className="w-full bg-surface-2 rounded-full h-2 mb-6">
           <div
             className="bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full transition-all"
             style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }}
@@ -216,19 +216,19 @@ export default function RevisaoClientPage() {
         <Card variant="glass" className="p-6 mb-6">
           <div className="mb-4 flex items-center justify-between">
             <div className="flex gap-2 flex-wrap">
-              <span className="text-xs px-2 py-1 bg-navy-800/50 rounded text-navy-300">
+              <span className="text-xs px-2 py-1 bg-surface-2 rounded text-ink-2">
                 {question.subject}
               </span>
-              <span className="text-xs px-2 py-1 bg-navy-800/50 rounded text-navy-300">
+              <span className="text-xs px-2 py-1 bg-surface-2 rounded text-ink-2">
                 {question.examYear}
               </span>
             </div>
-            <span className="text-xs px-2 py-1 bg-blue-500/10 rounded text-blue-400">
+            <span className="text-xs px-2 py-1 bg-accent-soft rounded text-accent">
               Tempo: {timer}s
             </span>
           </div>
 
-          <p className="text-white text-lg leading-relaxed mb-6">{question.statement}</p>
+          <p className="text-ink-1 text-lg leading-relaxed mb-6">{question.statement}</p>
           <div className="space-y-3">
             {question.alternatives.map(alt => (
               <button
@@ -241,10 +241,10 @@ export default function RevisaoClientPage() {
                       ? 'bg-green-500/10 border-green-500/50 text-green-400'
                       : alt.id === selectedAlternative
                       ? 'bg-red-500/10 border-red-500/50 text-red-400'
-                      : 'bg-navy-800/50 border-white/5 text-navy-400'
+                      : 'bg-surface-2 border-divider text-ink-2'
                     : alt.id === selectedAlternative
-                    ? 'bg-blue-500/10 border-blue-500/50 text-blue-400'
-                    : 'bg-navy-800/50 border-white/10 text-white hover:border-white/20 hover:bg-navy-800/70'
+                    ? 'bg-accent-soft border-accent/50 text-accent'
+                    : 'bg-surface-2 border text-ink-1 hover:border-strong hover:bg-surface-2/70'
                 }`}
               >
                 <span className="font-bold mr-2">{alt.label})</span>

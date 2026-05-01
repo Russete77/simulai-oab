@@ -2,38 +2,23 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
+import { Loader2 } from 'lucide-react';
 
 export default function ForgotPasswordPage() {
   const router = useRouter();
 
   useEffect(() => {
-    // Redirecionar para login com parâmetro de recuperação de senha
-    router.push('/login?redirect_url=' + encodeURIComponent(window.location.origin + '/dashboard'));
+    router.push(
+      '/login?redirect_url=' + encodeURIComponent(window.location.origin + '/dashboard')
+    );
   }, [router]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-navy-950">
-      {/* Background decorativo */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 -left-48 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-purple-600/5 rounded-full blur-3xl" />
-      </div>
-
-      <div className="w-full max-w-md relative z-10 text-center">
-        <div className="flex justify-center mb-4">
-          <Image
-            src="/logo.png"
-            alt="Simulai OAB - Recuperação de senha"
-            width={192}
-            height={96}
-            priority
-            style={{ width: 'auto', height: 'auto' }}
-            className="h-24"
-          />
-        </div>
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto" />
-        <p className="text-navy-400 mt-4">Redirecionando...</p>
+    <div className="min-h-screen flex items-center justify-center p-4 bg-bg">
+      <div className="w-full max-w-md text-center">
+        <h1 className="text-2xl font-semibold text-ink-1 mb-6">Simulai OAB</h1>
+        <Loader2 className="w-6 h-6 text-accent animate-spin mx-auto" />
+        <p className="text-sm text-ink-2 mt-4">Redirecionando...</p>
       </div>
     </div>
   );

@@ -79,7 +79,7 @@ export default function SmartReviewPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-navy-950">
+      <div className="min-h-screen bg-bg">
         <Header />
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex items-center justify-center min-h-[400px]">
@@ -92,7 +92,7 @@ export default function SmartReviewPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-navy-950">
+      <div className="min-h-screen bg-bg">
         <Header />
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Card variant="glass" className="p-8 text-center">
@@ -110,7 +110,7 @@ export default function SmartReviewPage() {
   const hasRecommendations = data?.recommendations && data.recommendations.length > 0;
 
   return (
-    <div className="min-h-screen bg-navy-950">
+    <div className="min-h-screen bg-bg">
       <Header />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -118,19 +118,19 @@ export default function SmartReviewPage() {
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-3">
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-              <Lightbulb className="w-6 h-6 text-white" />
+              <Lightbulb className="w-6 h-6 text-ink-1" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-white">Revisão Inteligente</h1>
-              <p className="text-navy-600">
+              <h1 className="text-3xl font-bold text-ink-1">Revisão Inteligente</h1>
+              <p className="text-ink-3">
                 Estude onde você mais precisa melhorar
               </p>
             </div>
           </div>
 
           {data?.message && (
-            <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
-              <p className="text-blue-300 flex items-center gap-2">
+            <div className="bg-accent-soft border-accent rounded-lg p-4">
+              <p className="text-accent flex items-center gap-2">
                 <Target className="w-5 h-5" />
                 {data.message}
               </p>
@@ -141,7 +141,7 @@ export default function SmartReviewPage() {
         {/* Recommendations */}
         {hasRecommendations && (
           <div className="mb-8">
-            <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-bold text-ink-1 mb-4 flex items-center gap-2">
               <TrendingDown className="w-6 h-6 text-amber-500" />
               Matérias que precisam de atenção
             </h2>
@@ -154,7 +154,7 @@ export default function SmartReviewPage() {
                   className="p-5 border-red-500/20 bg-red-500/5"
                 >
                   <div className="flex items-start justify-between mb-3">
-                    <h3 className="text-lg font-bold text-white">
+                    <h3 className="text-lg font-bold text-ink-1">
                       {SUBJECT_LABELS[rec.subject]}
                     </h3>
                     <div className="text-2xl font-bold text-red-500">
@@ -194,7 +194,7 @@ export default function SmartReviewPage() {
         {data?.questions && data.questions.length > 0 && (
           <div>
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-bold text-white flex items-center gap-2">
+              <h2 className="text-xl font-bold text-ink-1 flex items-center gap-2">
                 <BookOpen className="w-6 h-6 text-green-500" />
                 Questões Recomendadas ({data.questions.length})
               </h2>
@@ -208,14 +208,14 @@ export default function SmartReviewPage() {
 
             <div className="grid grid-cols-1 gap-3">
               {data.questions.slice(0, 10).map((question, index) => (
-                <Card key={question.id} variant="glass" className="p-4 hover:border-blue-500/30 transition-colors">
+                <Card key={question.id} variant="glass" className="p-4 hover:border-accent transition-colors">
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
                         <span className="text-sm font-semibold text-gray-500">
                           #{index + 1}
                         </span>
-                        <span className="px-2 py-1 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-300">
+                        <span className="px-2 py-1 rounded-full text-xs font-semibold bg-accent-soft text-accent">
                           {SUBJECT_LABELS[question.subject]}
                         </span>
                         <span className="text-xs text-gray-500">
@@ -223,7 +223,7 @@ export default function SmartReviewPage() {
                         </span>
                       </div>
 
-                      <p className="text-white text-sm leading-relaxed line-clamp-2">
+                      <p className="text-ink-1 text-sm leading-relaxed line-clamp-2">
                         {question.statement}
                       </p>
                     </div>

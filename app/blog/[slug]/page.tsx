@@ -68,28 +68,28 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     .slice(0, 3);
 
   return (
-    <div className="min-h-screen bg-navy-950">
+    <div className="min-h-screen bg-bg">
       <Header />
 
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm text-navy-400 mb-8">
-          <Link href="/" className="hover:text-white transition-colors flex items-center gap-1">
+        <nav className="flex items-center gap-2 text-sm text-ink-2 mb-8">
+          <Link href="/" className="hover:text-ink-1 transition-colors flex items-center gap-1">
             <Home className="w-4 h-4" />
             Início
           </Link>
           <span>/</span>
-          <Link href="/blog" className="hover:text-white transition-colors flex items-center gap-1">
+          <Link href="/blog" className="hover:text-ink-1 transition-colors flex items-center gap-1">
             Blog
           </Link>
           <span>/</span>
-          <span className="text-white truncate">{post.title}</span>
+          <span className="text-ink-1 truncate">{post.title}</span>
         </nav>
 
         {/* Back Button */}
         <Link
           href="/blog"
-          className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors mb-8"
+          className="inline-flex items-center gap-2 text-accent hover:text-accent transition-colors mb-8"
         >
           <ArrowLeft className="w-4 h-4" />
           Voltar ao Blog
@@ -99,20 +99,20 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <div className="mb-8">
           {/* Category Badge */}
           <div className="mb-4">
-            <span className="inline-block px-4 py-2 rounded-lg bg-blue-600/20 border border-blue-500/30 text-blue-400 text-sm font-semibold">
+            <span className="inline-block px-4 py-2 rounded-lg bg-accent-soft border-accent text-accent text-sm font-semibold">
               {post.category}
             </span>
           </div>
 
           {/* Title */}
-          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+          <h1 className="text-4xl sm:text-5xl font-bold text-ink-1 mb-4">
             {post.title}
           </h1>
 
           {/* Meta Information */}
-          <div className="flex flex-wrap items-center gap-6 text-navy-300 mb-8">
+          <div className="flex flex-wrap items-center gap-6 text-ink-2 mb-8">
             <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-blue-400" />
+              <Calendar className="w-4 h-4 text-accent" />
               <time dateTime={post.publishedAt}>
                 {new Date(post.publishedAt).toLocaleDateString('pt-BR', {
                   year: 'numeric',
@@ -122,16 +122,16 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </time>
             </div>
             <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4 text-blue-400" />
+              <Clock className="w-4 h-4 text-accent" />
               {post.readingTime} min de leitura
             </div>
             <div className="text-sm">
-              Por <span className="font-semibold text-white">{post.author}</span>
+              Por <span className="font-semibold text-ink-1">{post.author}</span>
             </div>
           </div>
 
           {/* Description */}
-          <p className="text-xl text-navy-300 mb-8 italic">
+          <p className="text-xl text-ink-2 mb-8 italic">
             {post.description}
           </p>
         </div>
@@ -142,7 +142,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <a
               key={tag}
               href={`/blog?tag=${encodeURIComponent(tag)}`}
-              className="px-3 py-1 rounded-lg bg-navy-900/50 border border-navy-800 text-navy-300 text-sm hover:border-blue-500 hover:text-blue-400 transition-colors"
+              className="px-3 py-1 rounded-lg bg-surface border text-ink-2 text-sm hover:border-accent hover:text-accent transition-colors"
             >
               #{tag}
             </a>
@@ -152,7 +152,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         {/* Content */}
         <Card variant="glass" className="mb-12 p-8">
           <div
-            className="prose prose-invert max-w-none text-navy-100"
+            className="prose prose-invert max-w-none text-ink-1"
             dangerouslySetInnerHTML={{ __html: post.content }}
             style={{
               '--tw-prose-body': 'rgb(209, 213, 219)',
@@ -167,13 +167,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </Card>
 
         {/* Share Section */}
-        <div className="mb-12 pb-12 border-b border-navy-800">
+        <div className="mb-12 pb-12 border-b border">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
             <div>
-              <h3 className="text-lg font-semibold text-white mb-2">
+              <h3 className="text-lg font-semibold text-ink-1 mb-2">
                 Compartilhe este artigo
               </h3>
-              <p className="text-navy-300">
+              <p className="text-ink-2">
                 Ajude outros candidatos a se preparar melhor para a OAB
               </p>
             </div>
@@ -184,14 +184,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         {/* Author Info */}
         <Card variant="glass" className="mb-12 p-6">
           <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-full bg-blue-600/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0">
-              <div className="text-blue-400 font-bold">S</div>
+            <div className="w-12 h-12 rounded-full bg-accent-soft border-accent flex items-center justify-center flex-shrink-0">
+              <div className="text-accent font-bold">S</div>
             </div>
             <div>
-              <h4 className="text-lg font-semibold text-white mb-1">
+              <h4 className="text-lg font-semibold text-ink-1 mb-1">
                 {post.author}
               </h4>
-              <p className="text-navy-300 text-sm">
+              <p className="text-ink-2 text-sm">
                 Plataforma de prática e simulados para o Exame da OAB. Criamos conteúdo educativo de qualidade
                 para ajudar candidatos a conquistar sua aprovação.
               </p>
@@ -202,7 +202,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         {/* Related Posts */}
         {relatedPosts.length > 0 && (
           <div>
-            <h3 className="text-2xl font-bold text-white mb-8">
+            <h3 className="text-2xl font-bold text-ink-1 mb-8">
               Artigos Relacionados
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
@@ -210,20 +210,20 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 <Link key={relatedPost.slug} href={`/blog/${relatedPost.slug}`}>
                   <Card
                     variant="glass"
-                    className="h-full flex flex-col hover:border-blue-500/50 transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+                    className="h-full flex flex-col hover:border-accent/50 transition-all duration-300 hover:-translate-y-1 cursor-pointer"
                   >
                     <div className="mb-4">
-                      <span className="inline-block px-3 py-1 rounded-lg bg-blue-600/20 border border-blue-500/30 text-blue-400 text-xs font-semibold">
+                      <span className="inline-block px-3 py-1 rounded-lg bg-accent-soft border-accent text-accent text-xs font-semibold">
                         {relatedPost.category}
                       </span>
                     </div>
-                    <h4 className="text-lg font-bold text-white mb-2 line-clamp-2">
+                    <h4 className="text-lg font-bold text-ink-1 mb-2 line-clamp-2">
                       {relatedPost.title}
                     </h4>
-                    <p className="text-navy-300 text-sm mb-4 line-clamp-2 flex-grow">
+                    <p className="text-ink-2 text-sm mb-4 line-clamp-2 flex-grow">
                       {relatedPost.description}
                     </p>
-                    <div className="flex items-center gap-2 text-blue-400 font-medium hover:text-blue-300 transition-colors mt-auto">
+                    <div className="flex items-center gap-2 text-accent font-medium hover:text-accent transition-colors mt-auto">
                       Ler mais <ArrowRight className="w-4 h-4" />
                     </div>
                   </Card>
@@ -234,12 +234,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         )}
 
         {/* CTA Section */}
-        <Card variant="glass" className="border-2 border-blue-500/30 p-8 sm:p-12">
+        <Card variant="glass" className="border-2 border-accent p-8 sm:p-12">
           <div className="text-center">
-            <h3 className="text-3xl font-bold text-white mb-4">
+            <h3 className="text-3xl font-bold text-ink-1 mb-4">
               Pronto para começar sua preparação?
             </h3>
-            <p className="text-lg text-navy-300 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg text-ink-2 mb-8 max-w-2xl mx-auto">
               Coloque em prática o que aprendeu neste artigo com milhares de questões oficiais da OAB,
               simulados personalizados e análise inteligente de desempenho.
             </p>
@@ -261,21 +261,21 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
         {/* Related Content & CTA */}
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 rounded-2xl p-8 text-center mb-8">
-            <h2 className="text-2xl font-bold text-white mb-3">Pratique com Simulados OAB</h2>
-            <p className="text-navy-300 mb-6">Coloque seus conhecimentos em prática com 5.605 questões oficiais FGV e explicações por IA.</p>
-            <Link href="/simulado-oab-online" className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-500 hover:to-purple-500 transition-all">
+          <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 border-accent rounded-2xl p-8 text-center mb-8">
+            <h2 className="text-2xl font-bold text-ink-1 mb-3">Pratique com Simulados OAB</h2>
+            <p className="text-ink-2 mb-6">Coloque seus conhecimentos em prática com 5.605 questões oficiais FGV e explicações por IA.</p>
+            <Link href="/simulado-oab-online" className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-semibold rounded-xl hover:bg-accent-hover transition-all">
               Começar Simulado Grátis
             </Link>
           </div>
           <div className="grid md:grid-cols-2 gap-4">
-            <Link href="/questoes-oab" className="bg-navy-900/50 border border-white/10 rounded-xl p-4 hover:border-blue-500/50 transition-all">
-              <div className="text-white font-medium">Questões OAB Comentadas</div>
-              <div className="text-sm text-navy-400">5.605 questões organizadas por matéria</div>
+            <Link href="/questoes-oab" className="bg-surface border rounded-xl p-4 hover:border-accent/50 transition-all">
+              <div className="text-ink-1 font-medium">Questões OAB Comentadas</div>
+              <div className="text-sm text-ink-2">5.605 questões organizadas por matéria</div>
             </Link>
-            <Link href="/gabarito" className="bg-navy-900/50 border border-white/10 rounded-xl p-4 hover:border-blue-500/50 transition-all">
-              <div className="text-white font-medium">Gabaritos OAB</div>
-              <div className="text-sm text-navy-400">Todos os exames com respostas comentadas</div>
+            <Link href="/gabarito" className="bg-surface border rounded-xl p-4 hover:border-accent/50 transition-all">
+              <div className="text-ink-1 font-medium">Gabaritos OAB</div>
+              <div className="text-sm text-ink-2">Todos os exames com respostas comentadas</div>
             </Link>
           </div>
         </div>

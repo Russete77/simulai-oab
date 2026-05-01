@@ -41,10 +41,20 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Buscar todos usuários que não são PREMIUM (ou seja, estão se beneficiando do modo gratuito)
+    // Buscar usuários sem subscription paga ativa — são os que se beneficiam do modo gratuito.
+    // Inclui TRIALING/INCOMPLETE/CANCELED e quem ainda não tem nenhuma sub.
     const usuarios = await prisma.user.findMany({
       where: {
-        planType: 'FREE', // Usuários gratuitos que estão aproveitando o modo gratuito
+        OR: [
+          { customer: null },
+          {
+            customer: {
+              subscriptions: {
+                none: { status: 'ACTIVE' },
+              },
+            },
+          },
+        ],
       },
       select: {
         id: true,
@@ -104,17 +114,4 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
-}
-
-// Permitir GET para teste manual (apenas em development)
-export async function GET(request: NextRequest) {
-  if (process.env.NODE_ENV !== 'development') {
-    return NextResponse.json(
-      { error: 'Method not allowed in production' },
-      { status: 405 }
-    );
-  }
-
-  // Em desenvolvimento, permite chamar sem autenticação
-  return POST(request);
 }

@@ -166,7 +166,7 @@ export async function handlePaymentRefunded(payload: AsaasWebhookPayload) {
 
 // ============================================================================
 // SUBSCRIPTION_INACTIVATED / SUBSCRIPTION_DELETED
-// Assinatura cancelada → downgrade para FREE
+// Assinatura cancelada → status CANCELED (gate.ts bloqueia acesso)
 // ============================================================================
 
 export async function handleSubscriptionInactivated(payload: AsaasWebhookPayload) {
@@ -295,19 +295,17 @@ async function activatePremium(
 
 async function deactivatePremium(userId: string, asaasSubscriptionId: string) {
   // P0 FIX: Transação atômica — cancelamento deve ser consistente
+  // Não rebaixa planType (não existe mais FREE). Só atualiza status da Subscription.
+  // O gate.ts vai bloquear acesso porque status != ACTIVE/TRIALING.
+  // planType continua marcando o tier que o user tinha (BASIC/PRO) só pra histórico.
   await prisma.$transaction(async (tx) => {
     await tx.subscription.updateMany({
       where: { asaasSubscriptionId },
       data: { status: 'CANCELED', canceledAt: new Date() },
     });
-
-    await tx.user.update({
-      where: { id: userId },
-      data: { planType: 'FREE' },
-    });
   });
 
-  logger.info('[ASAAS_HANDLER] Premium desativado', { userId, asaasSubscriptionId });
+  logger.info('[ASAAS_HANDLER] Subscription cancelada', { userId, asaasSubscriptionId });
 }
 
 function calculatePeriodEnd(fromDate: string, cycle: string): string {

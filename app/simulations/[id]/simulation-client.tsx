@@ -134,35 +134,35 @@ export default function SimulationClient({ simulation }: SimulationClientProps) 
   }
 
   return (
-    <div className="min-h-screen bg-navy-950">
+    <div className="min-h-screen bg-bg">
       {/* Header */}
-      <div className="border-b border-navy-800 bg-navy-900/50 backdrop-blur-xl sticky top-0 z-10">
+      <div className="border-b border bg-surface sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <button
                 onClick={() => router.push('/simulations')}
-                className="p-2 hover:bg-navy-800 rounded-lg transition-colors"
+                className="p-2 hover:bg-surface-2 rounded-lg transition-colors"
               >
-                <ArrowLeft className="w-5 h-5 text-navy-400" />
+                <ArrowLeft className="w-5 h-5 text-ink-2" />
               </button>
               <div>
-                <h1 className="text-xl font-bold text-white">
+                <h1 className="text-xl font-bold text-ink-1">
                   {SIMULATION_TYPE_LABELS[simulation.type as keyof typeof SIMULATION_TYPE_LABELS] || simulation.type}
                 </h1>
-                <p className="text-sm text-navy-600">
+                <p className="text-sm text-ink-3">
                   Questão {currentQuestionIndex + 1} de {simulation.totalQuestions}
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-4">
               <div className="text-right">
-                <p className="text-sm text-navy-600">Tempo</p>
+                <p className="text-sm text-ink-3">Tempo</p>
                 <p className="font-mono text-cyan-400">{formatTime(timer)}</p>
               </div>
               <div className="text-right">
-                <p className="text-sm text-navy-600">Respondidas</p>
-                <p className="font-bold text-white">{answeredCount}/{simulation.totalQuestions}</p>
+                <p className="text-sm text-ink-3">Respondidas</p>
+                <p className="font-bold text-ink-1">{answeredCount}/{simulation.totalQuestions}</p>
               </div>
             </div>
           </div>
@@ -215,7 +215,7 @@ export default function SimulationClient({ simulation }: SimulationClientProps) 
 
         {/* Question Grid */}
         <Card variant="glass" className="mt-6">
-          <h3 className="text-sm font-semibold text-navy-600 mb-3">Navegação Rápida</h3>
+          <h3 className="text-sm font-semibold text-ink-3 mb-3">Navegação Rápida</h3>
           <div className="grid grid-cols-10 gap-2">
             {simulation.questions.map((sq: any, index: number) => (
               <button
@@ -227,7 +227,7 @@ export default function SimulationClient({ simulation }: SimulationClientProps) 
                     ? 'bg-blue-500 text-white'
                     : answers[sq.question.id]
                     ? 'bg-green-500/20 text-green-500 border-2 border-green-500'
-                    : 'bg-navy-800 text-navy-400 hover:bg-navy-700'
+                    : 'bg-surface-2 text-ink-2 hover:bg-surface-2'
                   }
                 `}
               >

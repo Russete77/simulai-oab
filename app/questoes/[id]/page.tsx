@@ -148,62 +148,62 @@ export default async function QuestionPage(props: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <div className="min-h-screen bg-navy-950">
+      <div className="min-h-screen bg-bg">
         <Header />
 
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-sm text-navy-400 mb-6">
-            <Link href="/" className="hover:text-white transition-colors flex items-center gap-1">
+          <nav className="flex items-center gap-2 text-sm text-ink-2 mb-6">
+            <Link href="/" className="hover:text-ink-1 transition-colors flex items-center gap-1">
               <Home className="w-4 h-4" />
               Início
             </Link>
             <span>/</span>
-            <Link href={`/materias/${subjectSlug}`} className="hover:text-white transition-colors">
+            <Link href={`/materias/${subjectSlug}`} className="hover:text-ink-1 transition-colors">
               {subjectName}
             </Link>
             <span>/</span>
-            <span className="text-white">Questão {question.questionNumber}</span>
+            <span className="text-ink-1">Questão {question.questionNumber}</span>
           </nav>
 
           {/* Metadados */}
           <div className="flex flex-wrap gap-3 mb-6">
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-navy-900/80 backdrop-blur-xl border border-white/10 rounded-lg">
-              <BookOpen className="w-4 h-4 text-blue-400" />
-              <span className="text-sm text-white">{subjectName}</span>
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-surface border rounded-lg">
+              <BookOpen className="w-4 h-4 text-accent" />
+              <span className="text-sm text-ink-1">{subjectName}</span>
             </div>
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-navy-900/80 backdrop-blur-xl border border-white/10 rounded-lg">
-              <Calendar className="w-4 h-4 text-blue-400" />
-              <span className="text-sm text-white">Exame {question.examId}</span>
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-surface border rounded-lg">
+              <Calendar className="w-4 h-4 text-accent" />
+              <span className="text-sm text-ink-1">Exame {question.examId}</span>
             </div>
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-navy-900/80 backdrop-blur-xl border border-white/10 rounded-lg">
-              <Hash className="w-4 h-4 text-blue-400" />
-              <span className="text-sm text-white">Questão {question.questionNumber}</span>
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-surface border rounded-lg">
+              <Hash className="w-4 h-4 text-accent" />
+              <span className="text-sm text-ink-1">Questão {question.questionNumber}</span>
             </div>
           </div>
 
           {/* Questão */}
           <Card variant="glass" className="mb-6">
-            <h1 className="text-xl font-semibold text-white mb-6">
+            <h1 className="text-xl font-semibold text-ink-1 mb-6">
               Questão {question.questionNumber} de {subjectName} — OAB {question.examYear}
             </h1>
-            <p className="text-white/90 leading-relaxed whitespace-pre-wrap">{question.statement}</p>
+            <p className="text-ink-1/90 leading-relaxed whitespace-pre-wrap">{question.statement}</p>
           </Card>
 
           {/* Alternativas */}
           <Card variant="glass" className="mb-6">
-            <h2 className="text-xl font-semibold text-white mb-6">Alternativas</h2>
+            <h2 className="text-xl font-semibold text-ink-1 mb-6">Alternativas</h2>
             <div className="space-y-4">
               {question.alternatives.map((alt) => (
                 <div
                   key={alt.id}
-                  className="p-4 bg-navy-800/50 border border-navy-700 rounded-xl"
+                  className="p-4 bg-surface-2 border rounded-xl"
                 >
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-blue-600/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0">
-                      <span className="text-blue-400 font-semibold">{alt.label}</span>
+                    <div className="w-8 h-8 rounded-lg bg-accent-soft border-accent flex items-center justify-center flex-shrink-0">
+                      <span className="text-accent font-semibold">{alt.label}</span>
                     </div>
-                    <p className="text-white/90 leading-relaxed flex-1">{alt.text}</p>
+                    <p className="text-ink-1/90 leading-relaxed flex-1">{alt.text}</p>
                   </div>
                 </div>
               ))}
@@ -211,15 +211,15 @@ export default async function QuestionPage(props: PageProps) {
           </Card>
 
           {/* Paywall - Resposta bloqueada */}
-          <Card variant="glass" className="border-2 border-blue-500/30">
+          <Card variant="glass" className="border-2 border-accent">
             <div className="text-center py-8">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-blue-600/20 border border-blue-500/30 flex items-center justify-center">
-                <Lock className="w-8 h-8 text-blue-400" />
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-accent-soft border-accent flex items-center justify-center">
+                <Lock className="w-8 h-8 text-accent" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-2">
+              <h3 className="text-2xl font-bold text-ink-1 mb-2">
                 Resposta Correta Bloqueada
               </h3>
-              <p className="text-navy-300 mb-6 max-w-md mx-auto">
+              <p className="text-ink-2 mb-6 max-w-md mx-auto">
                 Crie sua conta gratuita para ver a resposta correta e acessar milhares de questões oficiais da OAB
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -239,12 +239,12 @@ export default async function QuestionPage(props: PageProps) {
           </Card>
 
           {/* CTA Adicional */}
-          <div className="mt-8 bg-gradient-to-r from-blue-600/10 to-purple-600/10 border border-blue-500/20 rounded-2xl p-6 sm:p-8">
+          <div className="mt-8 bg-gradient-to-r from-blue-600/10 to-purple-600/10 border-accent rounded-2xl p-6 sm:p-8">
             <div className="max-w-3xl mx-auto text-center">
-              <h3 className="text-2xl font-bold text-white mb-3">
+              <h3 className="text-2xl font-bold text-ink-1 mb-3">
                 Pratique com +10.000 questões oficiais
               </h3>
-              <p className="text-navy-300 mb-6">
+              <p className="text-ink-2 mb-6">
                 Acesse todas as questões de todos os exames da OAB, com estatísticas detalhadas,
                 explicações com IA e simulados personalizados
               </p>

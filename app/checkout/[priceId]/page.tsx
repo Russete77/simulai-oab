@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useUser } from '@clerk/nextjs';
 import { useRouter, useParams } from 'next/navigation';
 import { Header } from '@/components/layout/header';
-import { Card } from '@/components/ui';
+import { Card, Button, Input, Badge } from '@/components/ui';
 import {
   Loader2,
   CheckCircle2,
@@ -12,16 +12,28 @@ import {
   CreditCard,
   QrCode,
   FileText,
+  Lock,
+  ArrowLeft,
 } from 'lucide-react';
+import { clsx } from 'clsx';
 import { PLANS, type PlanTier, type BillingCycle } from '@/lib/billing/plans';
 
 type BillingMethod = 'PIX' | 'BOLETO' | 'CREDIT_CARD';
+
+const METHOD_META: Record<
+  BillingMethod,
+  { label: string; sublabel: string; icon: typeof QrCode }
+> = {
+  PIX: { label: 'PIX', sublabel: 'Aprovação imediata', icon: QrCode },
+  BOLETO: { label: 'Boleto', sublabel: '1 a 3 dias úteis', icon: FileText },
+  CREDIT_CARD: { label: 'Cartão', sublabel: 'Aprovação imediata', icon: CreditCard },
+};
 
 export default function CheckoutPage() {
   const { user, isSignedIn, isLoaded } = useUser();
   const router = useRouter();
   const params = useParams();
-  const planKey = params.priceId as string; // ex: "BASIC_MONTHLY" ou "PRO_MONTHLY"
+  const planKey = params.priceId as string;
 
   const [billingMethod, setBillingMethod] = useState<BillingMethod>('PIX');
   const [cpfCnpj, setCpfCnpj] = useState('');
@@ -65,6 +77,16 @@ export default function CheckoutPage() {
       .replace(/(\d{3})(\d)/, '$1.$2')
       .replace(/(\d{3})(\d)/, '$1/$2')
       .replace(/(\d{4})(\d{1,2})$/, '$1-$2');
+  };
+
+  const formatCardNumber = (value: string) => {
+    const digits = value.replace(/\D/g, '').slice(0, 16);
+    return digits.replace(/(\d{4})(?=\d)/g, '$1 ');
+  };
+
+  const formatCep = (value: string) => {
+    const digits = value.replace(/\D/g, '').slice(0, 8);
+    return digits.length > 5 ? digits.replace(/(\d{5})(\d)/, '$1-$2') : digits;
   };
 
   const handleSubmit = async () => {
@@ -118,7 +140,6 @@ export default function CheckoutPage() {
         throw new Error(data.error || 'Erro ao criar assinatura');
       }
 
-      // Redirecionar
       if (data.redirectUrl) {
         window.location.href = data.redirectUrl;
       }
@@ -131,26 +152,26 @@ export default function CheckoutPage() {
 
   if (!isLoaded) {
     return (
-      <div className="min-h-screen bg-navy-950 flex items-center justify-center">
-        <Loader2 className="w-12 h-12 text-blue-500 animate-spin" />
+      <div className="min-h-screen bg-bg flex items-center justify-center">
+        <Loader2 className="w-6 h-6 text-ink-3 animate-spin" />
       </div>
     );
   }
 
   if (!planDetails) {
     return (
-      <div className="min-h-screen bg-navy-950">
+      <div className="min-h-screen bg-bg">
         <Header />
-        <div className="max-w-2xl mx-auto px-4 py-12">
-          <Card variant="glass">
-            <div className="text-center py-12">
-              <p className="text-red-500 mb-4">Plano não encontrado</p>
-              <button
-                onClick={() => router.push('/pricing')}
-                className="text-blue-400 hover:text-blue-300"
-              >
+        <div className="container-narrow py-16">
+          <Card>
+            <div className="text-center py-8">
+              <p className="text-ink-1 font-medium mb-1">Plano não encontrado</p>
+              <p className="text-sm text-ink-3 mb-5">
+                O plano selecionado não existe ou foi descontinuado.
+              </p>
+              <Button onClick={() => router.push('/pricing')} variant="secondary" size="sm">
                 Voltar para planos
-              </button>
+              </Button>
             </div>
           </Card>
         </div>
@@ -161,296 +182,317 @@ export default function CheckoutPage() {
   const formatPrice = (v: number) =>
     new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(v);
 
+  const ctaLabel = (() => {
+    const price = formatPrice(planDetails.value);
+    if (billingMethod === 'PIX') return `Pagar ${price} via PIX`;
+    if (billingMethod === 'BOLETO') return `Gerar boleto de ${price}`;
+    return `Pagar ${price} no cartão`;
+  })();
+
   return (
-    <div className="min-h-screen bg-navy-950">
+    <div className="min-h-screen bg-bg">
       <Header />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Resumo do Pedido */}
-          <div className="lg:col-span-1">
-            <Card variant="glass" className="sticky top-24">
-              <h2 className="text-2xl font-bold text-white mb-6">
-                Resumo do Pedido
-              </h2>
+      <div className="container-page py-8 sm:py-12">
+        {/* Top bar */}
+        <div className="mb-8 flex items-center gap-3">
+          <button
+            onClick={() => router.back()}
+            className="inline-flex items-center gap-1.5 text-sm text-ink-3 hover:text-ink-1 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Voltar
+          </button>
+          <span className="text-ink-3 text-sm">/</span>
+          <span className="text-eyebrow">Checkout</span>
+        </div>
 
-              <div className="space-y-4 mb-6">
-                <div>
-                  <p className="text-sm text-gray-400 mb-1">Plano Selecionado</p>
-                  <p className="text-lg font-semibold text-white">
+        <div className="mb-8">
+          <h1 className="text-display mb-2">Finalizar assinatura</h1>
+          <p className="text-ink-2 text-sm">
+            Você está a um passo de liberar seu acesso. Cancele quando quiser.
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-5 gap-6 lg:gap-8 items-start">
+          {/* ====================== ORDER SUMMARY ====================== */}
+          <div className="lg:col-span-2 lg:sticky lg:top-20">
+            <Card padding="none">
+              <div className="px-6 pt-6 pb-5 border-b">
+                <span className="text-eyebrow">Resumo do pedido</span>
+                <div className="mt-3 flex items-baseline justify-between gap-3">
+                  <h2 className="text-xl font-semibold text-ink-1">
                     {planDetails.name}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-400 mb-1">Descrição</p>
-                  <p className="text-white">{planDetails.description}</p>
-                </div>
-                {planDetails.discount > 0 && (
-                  <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-3">
-                    <p className="text-green-500 text-sm font-semibold">
-                      Economize {planDetails.discount}%
-                    </p>
-                  </div>
-                )}
-              </div>
-
-              <div className="border-t border-white/10 pt-6 mb-6">
-                <p className="text-sm font-semibold text-white mb-3">
-                  Incluído no plano:
-                </p>
-                <div className="space-y-2">
-                  {planDetails.features.slice(0, 5).map((feature, idx) => (
-                    <div key={idx} className="flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-gray-300">{feature}</span>
-                    </div>
-                  ))}
-                  {planDetails.features.length > 5 && (
-                    <p className="text-xs text-gray-400 mt-2">
-                      + {planDetails.features.length - 5} benefícios adicionais
-                    </p>
+                  </h2>
+                  {planDetails.discount > 0 && (
+                    <Badge variant="success">−{planDetails.discount}%</Badge>
                   )}
                 </div>
+                <p className="text-sm text-ink-3 mt-1.5 leading-relaxed">
+                  {planDetails.description}
+                </p>
               </div>
 
-              <div className="border-t border-white/10 pt-6">
-                <div className="flex justify-between items-baseline mb-2">
-                  <span className="text-gray-400">Valor mensal</span>
-                  <span className="text-white">{formatPrice(planDetails.monthlyValue)}</span>
-                </div>
-                <div className="flex justify-between items-baseline">
-                  <span className="text-lg font-semibold text-white">Total</span>
-                  <span className="text-2xl font-bold text-white">
+              <div className="px-6 py-5 border-b">
+                <span className="text-eyebrow">Incluído</span>
+                <ul className="mt-3 space-y-2">
+                  {planDetails.features.slice(0, 6).map((feature, idx) => (
+                    <li key={idx} className="flex items-start gap-2.5">
+                      <CheckCircle2 className="w-4 h-4 text-success shrink-0 mt-0.5" />
+                      <span className="text-sm text-ink-2 leading-relaxed">{feature}</span>
+                    </li>
+                  ))}
+                  {planDetails.features.length > 6 && (
+                    <li className="text-xs text-ink-3 pl-6">
+                      + {planDetails.features.length - 6} outros benefícios
+                    </li>
+                  )}
+                </ul>
+              </div>
+
+              <div className="px-6 py-5 border-b space-y-2">
+                <div className="flex justify-between items-baseline text-sm">
+                  <span className="text-ink-3">Subtotal</span>
+                  <span className="text-ink-2 text-mono-tabular">
                     {formatPrice(planDetails.value)}
                   </span>
                 </div>
-                <p className="text-xs text-gray-400 mt-2">
-                  Cobrado mensalmente
-                </p>
+                <div className="flex justify-between items-baseline pt-2 border-t">
+                  <span className="text-sm font-medium text-ink-1">Total hoje</span>
+                  <div className="text-right">
+                    <span className="text-2xl font-semibold text-ink-1 text-mono-tabular">
+                      {formatPrice(planDetails.value)}
+                    </span>
+                    <p className="text-xs text-ink-3 mt-0.5">Cobrado mensalmente</p>
+                  </div>
+                </div>
               </div>
 
-              <div className="mt-6 bg-blue-500/10 border border-blue-500/20 rounded-xl p-4">
-                <div className="flex items-start gap-3">
-                  <Shield className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="text-sm font-semibold text-blue-400 mb-1">
-                      Garantia de 7 dias
-                    </p>
-                    <p className="text-xs text-gray-400">
-                      Se não ficar satisfeito, devolvemos 100% do seu dinheiro
-                    </p>
-                  </div>
+              <div className="px-6 py-5 flex items-start gap-3">
+                <Shield className="w-4 h-4 text-ink-3 shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium text-ink-1">Garantia de 7 dias</p>
+                  <p className="text-xs text-ink-3 mt-0.5 leading-relaxed">
+                    Se não ficar satisfeito, devolvemos 100% do seu dinheiro.
+                  </p>
                 </div>
               </div>
             </Card>
           </div>
 
-          {/* Formulário de Pagamento */}
-          <div className="lg:col-span-2">
-            <Card variant="glass">
-              <div className="mb-8">
-                <h2 className="text-3xl font-bold text-white mb-2">
-                  Finalizar Pagamento
+          {/* ====================== PAYMENT FORM ====================== */}
+          <div className="lg:col-span-3">
+            <Card padding="none">
+              <div className="px-6 pt-6 pb-5 border-b">
+                <span className="text-eyebrow">Forma de pagamento</span>
+                <h2 className="text-xl font-semibold text-ink-1 mt-2">
+                  Escolha como pagar
                 </h2>
-                <p className="text-gray-400">
-                  Escolha a forma de pagamento e complete sua assinatura
+                <p className="text-sm text-ink-3 mt-1">
+                  Suas informações são processadas com criptografia.
                 </p>
               </div>
 
-              {/* Seletor de método */}
-              <div className="grid grid-cols-3 gap-3 mb-8">
-                <button
-                  onClick={() => setBillingMethod('PIX')}
-                  className={`flex flex-col items-center gap-2 p-4 rounded-xl border transition-all ${
-                    billingMethod === 'PIX'
-                      ? 'border-green-500 bg-green-500/10 text-green-500'
-                      : 'border-white/10 text-gray-400 hover:border-white/20'
-                  }`}
-                >
-                  <QrCode className="w-6 h-6" />
-                  <span className="text-sm font-semibold">PIX</span>
-                  <span className="text-xs opacity-70">Instantâneo</span>
-                </button>
-                <button
-                  onClick={() => setBillingMethod('BOLETO')}
-                  className={`flex flex-col items-center gap-2 p-4 rounded-xl border transition-all ${
-                    billingMethod === 'BOLETO'
-                      ? 'border-yellow-500 bg-yellow-500/10 text-yellow-400'
-                      : 'border-white/10 text-gray-400 hover:border-white/20'
-                  }`}
-                >
-                  <FileText className="w-6 h-6" />
-                  <span className="text-sm font-semibold">Boleto</span>
-                  <span className="text-xs opacity-70">1-3 dias úteis</span>
-                </button>
-                <button
-                  onClick={() => setBillingMethod('CREDIT_CARD')}
-                  className={`flex flex-col items-center gap-2 p-4 rounded-xl border transition-all ${
-                    billingMethod === 'CREDIT_CARD'
-                      ? 'border-blue-500 bg-blue-500/10 text-blue-400'
-                      : 'border-white/10 text-gray-400 hover:border-white/20'
-                  }`}
-                >
-                  <CreditCard className="w-6 h-6" />
-                  <span className="text-sm font-semibold">Cartão</span>
-                  <span className="text-xs opacity-70">Instantâneo</span>
-                </button>
+              {/* Method selector */}
+              <div className="px-6 py-5 border-b">
+                <div className="grid grid-cols-3 gap-2">
+                  {(Object.keys(METHOD_META) as BillingMethod[]).map((method) => {
+                    const meta = METHOD_META[method];
+                    const Icon = meta.icon;
+                    const active = billingMethod === method;
+                    return (
+                      <button
+                        key={method}
+                        onClick={() => setBillingMethod(method)}
+                        type="button"
+                        className={clsx(
+                          'flex flex-col items-center text-center gap-1.5 px-3 py-4 rounded-md border transition-all',
+                          active
+                            ? 'border-accent bg-accent-soft'
+                            : 'border bg-surface hover:bg-surface-2 hover:border-strong'
+                        )}
+                      >
+                        <Icon
+                          className={clsx(
+                            'w-5 h-5',
+                            active ? 'text-accent' : 'text-ink-2'
+                          )}
+                        />
+                        <span
+                          className={clsx(
+                            'text-sm font-medium',
+                            active ? 'text-accent' : 'text-ink-1'
+                          )}
+                        >
+                          {meta.label}
+                        </span>
+                        <span className="text-[11px] text-ink-3">{meta.sublabel}</span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
 
-              {/* CPF/CNPJ (sempre necessário) */}
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  CPF ou CNPJ
-                </label>
-                <input
-                  type="text"
+              {/* Form */}
+              <div className="px-6 py-5 space-y-5">
+                <Input
+                  label="CPF ou CNPJ"
                   value={cpfCnpj}
                   onChange={(e) => setCpfCnpj(formatCpf(e.target.value))}
                   placeholder="000.000.000-00"
-                  className="w-full bg-navy-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
+                  inputMode="numeric"
+                  autoComplete="off"
                 />
-              </div>
 
-              {/* Campos de cartão */}
-              {billingMethod === 'CREDIT_CARD' && (
-                <div className="space-y-4 mb-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Nome no cartão
-                    </label>
-                    <input
-                      type="text"
+                {billingMethod === 'PIX' && (
+                  <div className="bg-surface-2 border rounded-md px-4 py-3 flex items-start gap-3">
+                    <QrCode className="w-4 h-4 text-ink-3 shrink-0 mt-0.5" />
+                    <div className="text-xs text-ink-2 leading-relaxed">
+                      Após confirmar, você verá o QR Code para pagar pelo seu banco.
+                      A liberação é{' '}
+                      <span className="text-ink-1 font-medium">imediata</span>.
+                    </div>
+                  </div>
+                )}
+
+                {billingMethod === 'BOLETO' && (
+                  <div className="bg-surface-2 border rounded-md px-4 py-3 flex items-start gap-3">
+                    <FileText className="w-4 h-4 text-ink-3 shrink-0 mt-0.5" />
+                    <div className="text-xs text-ink-2 leading-relaxed">
+                      O boleto leva de 1 a 3 dias úteis para compensar. Seu acesso é
+                      liberado automaticamente após o pagamento.
+                    </div>
+                  </div>
+                )}
+
+                {billingMethod === 'CREDIT_CARD' && (
+                  <div className="space-y-4 pt-1">
+                    <Input
+                      label="Nome impresso no cartão"
                       value={cardName}
                       onChange={(e) => setCardName(e.target.value)}
-                      placeholder="Como está no cartão"
-                      className="w-full bg-navy-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
+                      placeholder="Como aparece no cartão"
+                      autoComplete="cc-name"
                     />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Número do cartão
-                    </label>
-                    <input
-                      type="text"
+                    <Input
+                      label="Número do cartão"
                       value={cardNumber}
-                      onChange={(e) => setCardNumber(e.target.value.replace(/\D/g, '').slice(0, 16))}
+                      onChange={(e) => setCardNumber(formatCardNumber(e.target.value))}
                       placeholder="0000 0000 0000 0000"
-                      className="w-full bg-navy-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors font-mono"
+                      inputMode="numeric"
+                      autoComplete="cc-number"
+                      className="text-mono-tabular"
+                      leadingIcon={<CreditCard className="w-4 h-4" />}
                     />
-                  </div>
-                  <div className="grid grid-cols-3 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">Mês</label>
-                      <input
-                        type="text"
+                    <div className="grid grid-cols-3 gap-3">
+                      <Input
+                        label="Mês"
                         value={cardExpMonth}
-                        onChange={(e) => setCardExpMonth(e.target.value.replace(/\D/g, '').slice(0, 2))}
+                        onChange={(e) =>
+                          setCardExpMonth(e.target.value.replace(/\D/g, '').slice(0, 2))
+                        }
                         placeholder="MM"
-                        className="w-full bg-navy-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors text-center font-mono"
+                        inputMode="numeric"
+                        autoComplete="cc-exp-month"
+                        className="text-center text-mono-tabular"
                       />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">Ano</label>
-                      <input
-                        type="text"
+                      <Input
+                        label="Ano"
                         value={cardExpYear}
-                        onChange={(e) => setCardExpYear(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                        onChange={(e) =>
+                          setCardExpYear(e.target.value.replace(/\D/g, '').slice(0, 4))
+                        }
                         placeholder="AAAA"
-                        className="w-full bg-navy-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors text-center font-mono"
+                        inputMode="numeric"
+                        autoComplete="cc-exp-year"
+                        className="text-center text-mono-tabular"
                       />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">CVV</label>
-                      <input
-                        type="text"
+                      <Input
+                        label="CVV"
                         value={cardCcv}
-                        onChange={(e) => setCardCcv(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                        onChange={(e) =>
+                          setCardCcv(e.target.value.replace(/\D/g, '').slice(0, 4))
+                        }
                         placeholder="000"
-                        className="w-full bg-navy-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors text-center font-mono"
+                        inputMode="numeric"
+                        autoComplete="cc-csc"
+                        className="text-center text-mono-tabular"
                       />
                     </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">CEP</label>
-                      <input
-                        type="text"
+                    <div className="grid grid-cols-2 gap-3">
+                      <Input
+                        label="CEP"
                         value={cardPostalCode}
-                        onChange={(e) => setCardPostalCode(e.target.value.replace(/\D/g, '').slice(0, 8))}
+                        onChange={(e) => setCardPostalCode(formatCep(e.target.value))}
                         placeholder="00000-000"
-                        className="w-full bg-navy-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors font-mono"
+                        inputMode="numeric"
+                        autoComplete="postal-code"
+                        className="text-mono-tabular"
                       />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">Número</label>
-                      <input
-                        type="text"
+                      <Input
+                        label="Número do endereço"
                         value={cardAddressNumber}
                         onChange={(e) => setCardAddressNumber(e.target.value)}
-                        placeholder="Nº endereço"
-                        className="w-full bg-navy-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
+                        placeholder="Ex: 123"
                       />
                     </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Telefone</label>
-                    <input
-                      type="text"
+                    <Input
+                      label="Telefone"
                       value={cardPhone}
-                      onChange={(e) => setCardPhone(e.target.value.replace(/\D/g, '').slice(0, 11))}
-                      placeholder="11999999999"
-                      className="w-full bg-navy-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors font-mono"
+                      onChange={(e) =>
+                        setCardPhone(e.target.value.replace(/\D/g, '').slice(0, 11))
+                      }
+                      placeholder="(11) 99999-9999"
+                      inputMode="numeric"
+                      autoComplete="tel"
+                      className="text-mono-tabular"
                     />
                   </div>
-                </div>
-              )}
-
-              {/* Erro */}
-              {erro && (
-                <div className="mb-6 bg-red-500/10 border border-red-500/20 rounded-xl p-4">
-                  <p className="text-red-500 text-sm">{erro}</p>
-                </div>
-              )}
-
-              {/* Botão */}
-              <button
-                onClick={handleSubmit}
-                disabled={carregando}
-                className="w-full bg-blue-600 hover:bg-blue-500 disabled:bg-blue-600/50 text-white font-semibold py-4 rounded-xl transition-colors flex items-center justify-center gap-2 text-lg"
-              >
-                {carregando ? (
-                  <>
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                    Processando...
-                  </>
-                ) : (
-                  <>
-                    Pagar {formatPrice(planDetails.value)}
-                    {billingMethod === 'PIX' && ' via PIX'}
-                    {billingMethod === 'BOLETO' && ' via Boleto'}
-                    {billingMethod === 'CREDIT_CARD' && ' no Cartão'}
-                  </>
                 )}
-              </button>
 
-              {/* Métodos aceitos */}
-              <div className="mt-8 pt-8 border-t border-white/10">
-                <p className="text-sm text-gray-400 text-center mb-4">
-                  Pagamento processado com segurança via Asaas
+                {erro && (
+                  <div className="bg-danger-soft border border-danger rounded-md px-4 py-3">
+                    <p className="text-danger text-sm">{erro}</p>
+                  </div>
+                )}
+
+                <Button
+                  onClick={handleSubmit}
+                  disabled={carregando}
+                  fullWidth
+                  size="lg"
+                >
+                  {carregando ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Processando...
+                    </>
+                  ) : (
+                    <>
+                      <Lock className="w-4 h-4" />
+                      {ctaLabel}
+                    </>
+                  )}
+                </Button>
+
+                <p className="text-center text-xs text-ink-3">
+                  Ao confirmar, você concorda com nossos{' '}
+                  <a href="/termos" className="underline hover:text-ink-1">
+                    Termos
+                  </a>{' '}
+                  e{' '}
+                  <a href="/privacidade" className="underline hover:text-ink-1">
+                    Política de Privacidade
+                  </a>
+                  .
                 </p>
-                <div className="flex items-center justify-center gap-6 flex-wrap">
-                  <div className="flex items-center gap-2 text-gray-400">
-                    <QrCode className="w-5 h-5" />
-                    <span className="text-sm">PIX</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-gray-400">
-                    <FileText className="w-5 h-5" />
-                    <span className="text-sm">Boleto</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-gray-400">
-                    <CreditCard className="w-5 h-5" />
-                    <span className="text-sm">Cartões</span>
-                  </div>
+              </div>
+
+              {/* Footer */}
+              <div className="px-6 py-4 border-t bg-surface-2 rounded-b-lg">
+                <div className="flex items-center justify-center gap-2 text-xs text-ink-3">
+                  <Lock className="w-3.5 h-3.5" />
+                  <span>Pagamento processado com segurança via Asaas</span>
                 </div>
               </div>
             </Card>

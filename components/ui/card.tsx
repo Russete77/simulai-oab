@@ -2,32 +2,44 @@ import { HTMLAttributes } from 'react';
 import { clsx } from 'clsx';
 
 export interface CardProps extends HTMLAttributes<HTMLDivElement> {
-  variant?: 'glass' | 'premium' | 'solid';
+  variant?: 'default' | 'elevated' | 'flat' | 'highlighted' | 'glass' | 'premium' | 'solid';
+  interactive?: boolean;
+  padding?: 'none' | 'sm' | 'md' | 'lg';
   children?: React.ReactNode;
 }
 
-export function Card({ variant = 'glass', className, children, ...props }: CardProps) {
-  const variants = {
-    glass: 'bg-navy-900/80 backdrop-blur-xl border border-white/10 shadow-lg hover:border-white/15',
-    premium: 'relative p-[2px] bg-gradient-to-r from-blue-500 to-purple-500',
-    solid: 'bg-navy-900 border border-navy-800',
-  };
+const variants = {
+  default: 'bg-surface border',
+  elevated: 'bg-surface border shadow-md',
+  flat: 'bg-transparent',
+  highlighted: 'bg-surface border-2 border-accent',
+  glass: 'bg-surface border',
+  premium: 'bg-surface border-2 border-accent',
+  solid: 'bg-surface border',
+} as const;
 
-  if (variant === 'premium') {
-    return (
-      <div className={clsx(variants.premium, 'rounded-2xl', className)} {...props}>
-        <div className="bg-navy-900 rounded-2xl p-6 h-full">
-          {children}
-        </div>
-      </div>
-    );
-  }
+const paddings = {
+  none: '',
+  sm: 'p-4',
+  md: 'p-6',
+  lg: 'p-8',
+} as const;
 
+export function Card({
+  variant = 'default',
+  interactive = false,
+  padding = 'md',
+  className,
+  children,
+  ...props
+}: CardProps) {
   return (
     <div
       className={clsx(
-        'rounded-2xl p-6 transition-all duration-300',
+        'rounded-lg transition-all duration-200',
         variants[variant],
+        paddings[padding],
+        interactive && 'hover:shadow-md hover:border-strong cursor-pointer',
         className
       )}
       {...props}
@@ -47,7 +59,7 @@ export function CardHeader({ className, children, ...props }: HTMLAttributes<HTM
 
 export function CardTitle({ className, children, ...props }: HTMLAttributes<HTMLHeadingElement>) {
   return (
-    <h3 className={clsx('text-2xl font-bold font-heading text-white', className)} {...props}>
+    <h3 className={clsx('text-lg font-semibold text-ink-1', className)} {...props}>
       {children}
     </h3>
   );
@@ -55,7 +67,7 @@ export function CardTitle({ className, children, ...props }: HTMLAttributes<HTML
 
 export function CardDescription({ className, children, ...props }: HTMLAttributes<HTMLParagraphElement>) {
   return (
-    <p className={clsx('text-navy-600 mt-2', className)} {...props}>
+    <p className={clsx('text-sm text-ink-2 mt-1', className)} {...props}>
       {children}
     </p>
   );
@@ -63,7 +75,15 @@ export function CardDescription({ className, children, ...props }: HTMLAttribute
 
 export function CardContent({ className, children, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={clsx('', className)} {...props}>
+    <div className={className} {...props}>
+      {children}
+    </div>
+  );
+}
+
+export function CardFooter({ className, children, ...props }: HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div className={clsx('mt-6 pt-4 border-t flex items-center', className)} {...props}>
       {children}
     </div>
   );

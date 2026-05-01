@@ -114,10 +114,10 @@ export default function ReviewPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-navy-950 flex items-center justify-center">
+      <div className="min-h-screen bg-bg flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-navy-600">Carregando questões...</p>
+          <div className="w-16 h-16 border-4 border-accent border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-ink-3">Carregando questões...</p>
         </div>
       </div>
     );
@@ -125,13 +125,13 @@ export default function ReviewPage() {
 
   if (questions.length === 0) {
     return (
-      <div className="min-h-screen bg-navy-950">
-        <div className="border-b border-navy-800 bg-navy-900/50 backdrop-blur-xl">
+      <div className="min-h-screen bg-bg">
+        <div className="border-b border bg-surface">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex items-center gap-4">
               <Link href="/dashboard">
-                <button className="p-2 hover:bg-navy-800 rounded-lg transition-colors">
-                  <ArrowLeft className="w-5 h-5 text-navy-400" />
+                <button className="p-2 hover:bg-surface-2 rounded-lg transition-colors">
+                  <ArrowLeft className="w-5 h-5 text-ink-2" />
                 </button>
               </Link>
               <h1 className="text-2xl font-bold font-heading bg-gradient-primary bg-clip-text text-transparent">
@@ -143,11 +143,11 @@ export default function ReviewPage() {
 
         <div className="flex items-center justify-center min-h-[80vh]">
           <Card variant="glass" className="text-center p-8 max-w-md">
-            <BookOpen className="w-16 h-16 text-navy-600 mx-auto mb-4" />
-            <h2 className="text-xl font-bold text-white mb-2">
+            <BookOpen className="w-16 h-16 text-ink-3 mx-auto mb-4" />
+            <h2 className="text-xl font-bold text-ink-1 mb-2">
               Nenhuma questão errada ainda
             </h2>
-            <p className="text-navy-400 mb-6">
+            <p className="text-ink-2 mb-6">
               Continue praticando para começar a revisar seus erros!
             </p>
             <Link href="/practice">
@@ -166,9 +166,9 @@ export default function ReviewPage() {
 
   if (!currentQuestion) {
     return (
-      <div className="min-h-screen bg-navy-950 flex items-center justify-center">
+      <div className="min-h-screen bg-bg flex items-center justify-center">
         <Card variant="glass" className="text-center p-8">
-          <p className="text-white mb-4">Nenhuma questão encontrada com esse filtro</p>
+          <p className="text-ink-1 mb-4">Nenhuma questão encontrada com esse filtro</p>
           <Button variant="primary" onClick={() => setSelectedSubject('all')}>
             Ver Todas
           </Button>
@@ -180,22 +180,22 @@ export default function ReviewPage() {
   const correctAlternativeId = currentQuestion.alternatives.find(a => a.isCorrect)?.id;
 
   return (
-    <div className="min-h-screen bg-navy-950">
+    <div className="min-h-screen bg-bg">
       {/* Header */}
-      <div className="border-b border-navy-800 bg-navy-900/50 backdrop-blur-xl sticky top-0 z-10">
+      <div className="border-b border bg-surface sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link href="/dashboard">
-                <button className="p-2 hover:bg-navy-800 rounded-lg transition-colors">
-                  <ArrowLeft className="w-5 h-5 text-navy-400" />
+                <button className="p-2 hover:bg-surface-2 rounded-lg transition-colors">
+                  <ArrowLeft className="w-5 h-5 text-ink-2" />
                 </button>
               </Link>
               <div>
                 <h1 className="text-2xl font-bold font-heading bg-gradient-primary bg-clip-text text-transparent">
                   Revisão de Erros
                 </h1>
-                <p className="text-navy-400 text-sm">
+                <p className="text-ink-2 text-sm">
                   {currentIndex + 1} de {filteredQuestions.length} questões
                 </p>
               </div>
@@ -203,11 +203,11 @@ export default function ReviewPage() {
 
             {/* Subject Filter */}
             <div className="flex items-center gap-2">
-              <Filter className="w-4 h-4 text-navy-400" />
+              <Filter className="w-4 h-4 text-ink-2" />
               <select
                 value={selectedSubject}
                 onChange={(e) => setSelectedSubject(e.target.value)}
-                className="bg-navy-800 border border-navy-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500"
+                className="bg-surface-2 border rounded-lg px-3 py-2 text-ink-1 text-sm focus:outline-none focus:border-accent"
               >
                 <option value="all">Todas as Matérias</option>
                 {subjects.map((subject) => (
@@ -278,7 +278,7 @@ export default function ReviewPage() {
                     ? 'bg-blue-500'
                     : index < currentIndex
                     ? 'bg-green-500/30'
-                    : 'bg-navy-700'
+                    : 'bg-surface-2'
                 }`}
               />
             ))}

@@ -1,17 +1,27 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
-import { UserButton } from '@clerk/nextjs';
-import { useUser } from '@clerk/nextjs';
-import { Button } from '@/components/ui';
+import { UserButton, useUser } from '@clerk/nextjs';
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { ArrowLeft, Menu, X } from 'lucide-react';
+import { Button } from '@/components/ui';
+import { Logo } from '@/components/layout/logo';
+import { NotificationBell } from '@/components/notifications/notification-bell';
+import { ThemeToggle } from '@/components/theme/theme-toggle';
+import { clsx } from 'clsx';
 
 interface HeaderProps {
   showLogout?: boolean;
 }
+
+const NAV_ITEMS_LOGGED = [
+  { href: '/dashboard', label: 'Dashboard' },
+  { href: '/practice', label: 'Praticar' },
+  { href: '/revisao-inteligente', label: 'Revisão' },
+  { href: '/plano-estudos', label: 'Plano' },
+  { href: '/leaderboard', label: 'Ranking' },
+];
 
 export function Header({ showLogout = true }: HeaderProps) {
   const { isSignedIn, isLoaded } = useUser();
@@ -23,59 +33,28 @@ export function Header({ showLogout = true }: HeaderProps) {
 
   useEffect(() => {
     setMounted(true);
-    // Detectar se está rodando como PWA
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
     setIsPWA(isStandalone);
   }, []);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname]);
 
   const canGoBack = pathname !== '/' && pathname !== '/dashboard';
+  const isActive = (href: string) =>
+    pathname === href || pathname.startsWith(href + '/');
 
-  const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/');
-
-  // Renderizar conteúdo consistente até mounted
+  // Skeleton inicial pra evitar layout shift
   if (!mounted || !isLoaded) {
     return (
-      <header
-        role="banner"
-        className="border-b border-navy-800 bg-navy-900/50 backdrop-blur-xl sticky top-0 z-50"
-      >
-        <nav
-          role="navigation"
-          aria-label="Navegação principal"
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4"
-        >
-          <div className="flex justify-between items-center">
-            <Link
-              href="/"
-              className="flex items-center"
-              aria-label="Ir para página inicial"
-            >
-              <Image
-                src="/logo.png"
-                alt="Simulai OAB - Página inicial"
-                width={112}
-                height={56}
-                style={{ width: 'auto', height: 'auto' }}
-                className="h-14 hover:opacity-80 transition-opacity"
-              />
-            </Link>
-
-            <div className="flex items-center gap-6">
-              <Link
-                href="/pricing"
-                className="text-navy-300 hover:text-white transition-colors font-medium"
-              >
-                Assinar
-              </Link>
-              <div className="w-20 h-10" /> {/* Placeholder para evitar shift */}
-            </div>
-          </div>
-        </nav>
+      <header className="sticky top-0 z-50 border-b bg-surface-overlay backdrop-blur-md">
+        <div className="container-page h-14 flex items-center justify-between">
+          <Link href="/" className="flex items-center" aria-label="Início">
+            <Logo width={96} height={32} className="h-8" priority />
+          </Link>
+          <div className="w-9 h-9" aria-hidden />
+        </div>
       </header>
     );
   }
@@ -83,287 +62,159 @@ export function Header({ showLogout = true }: HeaderProps) {
   return (
     <header
       role="banner"
-      className="border-b border-navy-800 bg-navy-900/50 backdrop-blur-xl sticky top-0 z-50"
+      className="sticky top-0 z-50 border-b bg-surface-overlay backdrop-blur-md"
     >
       <nav
         role="navigation"
         aria-label="Navegação principal"
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4"
+        className="container-page h-14 flex items-center justify-between gap-4"
       >
-        <div className="flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            {/* Botão de voltar para PWA */}
-            {isPWA && canGoBack && (
-              <button
-                onClick={() => router.back()}
-                className="p-2 hover:bg-navy-800 rounded-lg transition-colors"
-                aria-label="Voltar"
-              >
-                <ArrowLeft className="w-5 h-5 text-navy-400" />
-              </button>
-            )}
-            <Link
-              href={isSignedIn ? "/dashboard" : "/"}
-              className="flex items-center"
-              aria-label="Ir para página inicial"
-            >
-              <Image
-                src="/logo.png"
-                alt="Simulai OAB - Página inicial"
-                width={112}
-                height={56}
-                style={{ width: 'auto', height: 'auto' }}
-                className="h-14 hover:opacity-80 transition-opacity"
-              />
-            </Link>
-          </div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-6">
-            {/* Menu de navegação */}
-            {isSignedIn ? (
-              <>
-                <Link
-                  href="/dashboard"
-                  className={`transition-colors font-medium pb-1 border-b-2 ${
-                    isActive('/dashboard')
-                      ? 'text-white border-blue-500'
-                      : 'text-navy-300 hover:text-white border-transparent'
-                  }`}
-                >
-                  Dashboard
-                </Link>
-                <Link
-                  href="/practice"
-                  className={`transition-colors font-medium pb-1 border-b-2 ${
-                    isActive('/practice')
-                      ? 'text-white border-blue-500'
-                      : 'text-navy-300 hover:text-white border-transparent'
-                  }`}
-                >
-                  Praticar
-                </Link>
-                <Link
-                  href="/revisao-inteligente"
-                  className={`transition-colors font-medium pb-1 border-b-2 ${
-                    isActive('/revisao-inteligente')
-                      ? 'text-white border-blue-500'
-                      : 'text-navy-300 hover:text-white border-transparent'
-                  }`}
-                >
-                  Revisão
-                </Link>
-                <Link
-                  href="/plano-estudos"
-                  className={`transition-colors font-medium pb-1 border-b-2 ${
-                    isActive('/plano-estudos')
-                      ? 'text-white border-blue-500'
-                      : 'text-navy-300 hover:text-white border-transparent'
-                  }`}
-                >
-                  Plano
-                </Link>
-                <Link
-                  href="/leaderboard"
-                  className={`transition-colors font-medium pb-1 border-b-2 ${
-                    isActive('/leaderboard')
-                      ? 'text-white border-blue-500'
-                      : 'text-navy-300 hover:text-white border-transparent'
-                  }`}
-                >
-                  Ranking
-                </Link>
-                <Link
-                  href="/pricing"
-                  className={`transition-colors font-medium pb-1 border-b-2 ${
-                    isActive('/pricing')
-                      ? 'text-white border-blue-500'
-                      : 'text-navy-300 hover:text-white border-transparent'
-                  }`}
-                >
-                  Assinar
-                </Link>
-              </>
-            ) : (
-              <>
-                <Link
-                  href="/pricing"
-                  className={`transition-colors font-medium pb-1 border-b-2 ${
-                    isActive('/pricing')
-                      ? 'text-white border-blue-500'
-                      : 'text-navy-300 hover:text-white border-transparent'
-                  }`}
-                >
-                  Assinar
-                </Link>
-                <Link href="/login">
-                  <Button variant="ghost" size="sm">
-                    Entrar
-                  </Button>
-                </Link>
-                <Link href="/register">
-                  <Button variant="primary" size="sm">
-                    Começar Grátis
-                  </Button>
-                </Link>
-              </>
-            )}
-
-            {/* User Button para usuários logados */}
-            {showLogout && isSignedIn && (
-              <div role="navigation" aria-label="Menu do usuário">
-                <UserButton
-                  appearance={{
-                    elements: {
-                      avatarBox: "w-10 h-10 ring-2 ring-navy-700 hover:ring-blue-500 transition-all",
-                      userButtonPopoverCard: "bg-navy-900/95 backdrop-blur-xl border border-navy-800 shadow-2xl",
-                      userButtonPopoverActionButton: "!text-white hover:bg-navy-800/50 transition-colors",
-                      userButtonPopoverActionButtonText: "!text-white font-medium",
-                      userButtonPopoverActionButtonIcon: "text-navy-400",
-                      userButtonPopoverFooter: "hidden",
-                      userButtonPopoverMain: "bg-navy-900/95",
-                      userPreviewMainIdentifier: "!text-white font-semibold",
-                      userPreviewSecondaryIdentifier: "!text-white",
-                      userButtonPopoverActions: "border-t border-navy-800",
-                    }
-                  }}
-                />
-              </div>
-            )}
-          </div>
-
-          {/* Mobile Menu Button & User Button */}
-          <div className="flex md:hidden items-center gap-4">
-            {showLogout && isSignedIn && (
-              <div role="navigation" aria-label="Menu do usuário">
-                <UserButton
-                  appearance={{
-                    elements: {
-                      avatarBox: "w-10 h-10 ring-2 ring-navy-700 hover:ring-blue-500 transition-all",
-                      userButtonPopoverCard: "bg-navy-900/95 backdrop-blur-xl border border-navy-800 shadow-2xl",
-                      userButtonPopoverActionButton: "!text-white hover:bg-navy-800/50 transition-colors",
-                      userButtonPopoverActionButtonText: "!text-white font-medium",
-                      userButtonPopoverActionButtonIcon: "text-navy-400",
-                      userButtonPopoverFooter: "hidden",
-                      userButtonPopoverMain: "bg-navy-900/95",
-                      userPreviewMainIdentifier: "!text-white font-semibold",
-                      userPreviewSecondaryIdentifier: "!text-white",
-                      userButtonPopoverActions: "border-t border-navy-800",
-                    }
-                  }}
-                />
-              </div>
-            )}
+        {/* Left: logo + back btn */}
+        <div className="flex items-center gap-3 min-w-0">
+          {isPWA && canGoBack && (
             <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 hover:bg-navy-800 rounded-lg transition-colors"
-              aria-label="Abrir menu"
-              aria-expanded={mobileMenuOpen}
+              onClick={() => router.back()}
+              className="p-1.5 rounded-md text-ink-2 hover:text-ink-1 hover:bg-surface-2 transition-colors"
+              aria-label="Voltar"
             >
-              {mobileMenuOpen ? (
-                <X className="w-6 h-6 text-white" />
-              ) : (
-                <Menu className="w-6 h-6 text-white" />
-              )}
+              <ArrowLeft className="w-4 h-4" />
             </button>
-          </div>
+          )}
+          <Link
+            href={isSignedIn ? '/dashboard' : '/'}
+            className="flex items-center gap-2"
+            aria-label="Simulai OAB — início"
+          >
+            <Logo width={96} height={32} className="h-8" priority />
+          </Link>
         </div>
 
-        {/* Mobile Navigation Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 border-t border-navy-800 pt-4">
-            <div className="flex flex-col gap-3">
-              {isSignedIn ? (
-                <>
-                  <Link
-                    href="/dashboard"
-                    className={`px-3 py-2 rounded-lg transition-colors font-medium ${
-                      isActive('/dashboard')
-                        ? 'bg-blue-600/20 text-white'
-                        : 'text-navy-300 hover:bg-navy-800 hover:text-white'
-                    }`}
-                  >
-                    Dashboard
-                  </Link>
-                  <Link
-                    href="/practice"
-                    className={`px-3 py-2 rounded-lg transition-colors font-medium ${
-                      isActive('/practice')
-                        ? 'bg-blue-600/20 text-white'
-                        : 'text-navy-300 hover:bg-navy-800 hover:text-white'
-                    }`}
-                  >
-                    Praticar
-                  </Link>
-                  <Link
-                    href="/revisao-inteligente"
-                    className={`px-3 py-2 rounded-lg transition-colors font-medium ${
-                      isActive('/revisao-inteligente')
-                        ? 'bg-blue-600/20 text-white'
-                        : 'text-navy-300 hover:bg-navy-800 hover:text-white'
-                    }`}
-                  >
-                    Revisão Inteligente
-                  </Link>
-                  <Link
-                    href="/plano-estudos"
-                    className={`px-3 py-2 rounded-lg transition-colors font-medium ${
-                      isActive('/plano-estudos')
-                        ? 'bg-blue-600/20 text-white'
-                        : 'text-navy-300 hover:bg-navy-800 hover:text-white'
-                    }`}
-                  >
-                    Plano de Estudos
-                  </Link>
-                  <Link
-                    href="/leaderboard"
-                    className={`px-3 py-2 rounded-lg transition-colors font-medium ${
-                      isActive('/leaderboard')
-                        ? 'bg-blue-600/20 text-white'
-                        : 'text-navy-300 hover:bg-navy-800 hover:text-white'
-                    }`}
-                  >
-                    Ranking
-                  </Link>
-                  <Link
-                    href="/pricing"
-                    className={`px-3 py-2 rounded-lg transition-colors font-medium ${
-                      isActive('/pricing')
-                        ? 'bg-blue-600/20 text-white'
-                        : 'text-navy-300 hover:bg-navy-800 hover:text-white'
-                    }`}
-                  >
-                    Assinar
-                  </Link>
-                </>
-              ) : (
-                <>
-                  <Link
-                    href="/pricing"
-                    className={`px-3 py-2 rounded-lg transition-colors font-medium ${
-                      isActive('/pricing')
-                        ? 'bg-blue-600/20 text-white'
-                        : 'text-navy-300 hover:bg-navy-800 hover:text-white'
-                    }`}
-                  >
-                    Assinar
-                  </Link>
-                  <Link href="/login">
-                    <Button variant="ghost" size="sm" className="w-full justify-start">
-                      Entrar
-                    </Button>
-                  </Link>
-                  <Link href="/register">
-                    <Button variant="primary" size="sm" className="w-full justify-start">
-                      Começar Grátis
-                    </Button>
-                  </Link>
-                </>
-              )}
-            </div>
+        {/* Middle: desktop nav (logged in only) */}
+        {isSignedIn && (
+          <div className="hidden md:flex items-center gap-1">
+            {NAV_ITEMS_LOGGED.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                className={clsx(
+                  'px-2.5 py-1.5 rounded-md text-sm transition-colors',
+                  isActive(href)
+                    ? 'text-ink-1 bg-surface-2'
+                    : 'text-ink-2 hover:text-ink-1 hover:bg-surface-2'
+                )}
+              >
+                {label}
+              </Link>
+            ))}
           </div>
         )}
+
+        {/* Right: actions */}
+        <div className="flex items-center gap-1">
+          {/* CTA pra logado: ver assinatura */}
+          {isSignedIn ? (
+            <>
+              <Link
+                href="/pricing"
+                className="hidden md:inline-flex px-2.5 py-1.5 rounded-md text-sm text-ink-2 hover:text-ink-1 hover:bg-surface-2 transition-colors"
+              >
+                Planos
+              </Link>
+              <ThemeToggle />
+              {showLogout && <NotificationBell />}
+              {showLogout && (
+                <div role="navigation" aria-label="Menu do usuário" className="ml-1">
+                  <UserButton
+                    appearance={{
+                      elements: {
+                        avatarBox:
+                          'w-8 h-8 ring-1 ring-strong hover:ring-accent transition-all',
+                        userButtonPopoverCard:
+                          'bg-surface border shadow-popover',
+                        userButtonPopoverActionButton:
+                          '!text-ink-1 hover:!bg-surface-2 transition-colors',
+                        userButtonPopoverActionButtonText:
+                          '!text-ink-1 font-medium',
+                        userButtonPopoverActionButtonIcon: '!text-ink-3',
+                        userButtonPopoverFooter: 'hidden',
+                        userButtonPopoverMain: 'bg-surface',
+                        userPreviewMainIdentifier: '!text-ink-1 font-medium',
+                        userPreviewSecondaryIdentifier: '!text-ink-2',
+                        userButtonPopoverActions: 'border-t',
+                      },
+                    }}
+                  />
+                </div>
+              )}
+
+              {/* Mobile menu button */}
+              <button
+                onClick={() => setMobileMenuOpen((v) => !v)}
+                className="md:hidden p-2 rounded-md text-ink-2 hover:text-ink-1 hover:bg-surface-2 transition-colors"
+                aria-label={mobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
+                aria-expanded={mobileMenuOpen}
+              >
+                {mobileMenuOpen ? (
+                  <X className="w-5 h-5" />
+                ) : (
+                  <Menu className="w-5 h-5" />
+                )}
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/pricing"
+                className="hidden sm:inline-flex px-2.5 py-1.5 rounded-md text-sm text-ink-2 hover:text-ink-1 hover:bg-surface-2 transition-colors"
+              >
+                Planos
+              </Link>
+              <ThemeToggle />
+              <Link href="/login" className="hidden sm:inline-flex">
+                <Button variant="ghost" size="sm">
+                  Entrar
+                </Button>
+              </Link>
+              <Link href="/register" className="ml-1">
+                <Button size="sm">Criar conta</Button>
+              </Link>
+            </>
+          )}
+        </div>
       </nav>
+
+      {/* Mobile drawer */}
+      {mobileMenuOpen && isSignedIn && (
+        <div className="md:hidden border-t bg-surface animate-fade-in">
+          <div className="container-page py-3 space-y-1">
+            {NAV_ITEMS_LOGGED.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                className={clsx(
+                  'block px-3 py-2.5 rounded-md text-sm transition-colors',
+                  isActive(href)
+                    ? 'text-ink-1 bg-surface-2'
+                    : 'text-ink-2 hover:text-ink-1 hover:bg-surface-2'
+                )}
+              >
+                {label}
+              </Link>
+            ))}
+            <Link
+              href="/pricing"
+              className={clsx(
+                'block px-3 py-2.5 rounded-md text-sm transition-colors',
+                isActive('/pricing')
+                  ? 'text-ink-1 bg-surface-2'
+                  : 'text-ink-2 hover:text-ink-1 hover:bg-surface-2'
+              )}
+            >
+              Planos
+            </Link>
+          </div>
+        </div>
+      )}
     </header>
   );
 }

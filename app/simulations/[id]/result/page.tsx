@@ -156,14 +156,14 @@ export default async function SimulationResultPage({ params }: { params: Promise
   };
 
   return (
-    <div className="min-h-screen bg-navy-950">
+    <div className="min-h-screen bg-bg">
       {/* Header */}
-      <div className="border-b border-navy-800 bg-navy-900/50 backdrop-blur-xl">
+      <div className="border-b border bg-surface">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center gap-4">
             <Link href="/simulations">
-              <button className="p-2 hover:bg-navy-800 rounded-lg transition-colors">
-                <ArrowLeft className="w-5 h-5 text-navy-400" />
+              <button className="p-2 hover:bg-surface-2 rounded-lg transition-colors">
+                <ArrowLeft className="w-5 h-5 text-ink-2" />
               </button>
             </Link>
             <h1 className="text-2xl font-bold font-heading bg-gradient-primary bg-clip-text text-transparent">
@@ -177,13 +177,13 @@ export default async function SimulationResultPage({ params }: { params: Promise
         {/* Score Card */}
         <Card variant="premium" className="mb-8 text-center">
           <Trophy className="w-16 h-16 text-amber-500 mx-auto mb-4" />
-          <h2 className="text-5xl font-bold text-white mb-2">{score.toFixed(1)}%</h2>
-          <p className="text-navy-600 mb-4">
+          <h2 className="text-5xl font-bold text-ink-1 mb-2">{score.toFixed(1)}%</h2>
+          <p className="text-ink-3 mb-4">
             {correctAnswers} de {totalQuestions} questões corretas
           </p>
           <div className={`inline-block px-4 py-2 rounded-lg ${
             score >= 75 ? 'bg-green-500/20 text-green-500' :
-            score >= 50 ? 'bg-blue-500/20 text-blue-400' :
+            score >= 50 ? 'bg-accent-soft text-accent' :
             'bg-red-500/20 text-red-500'
           }`}>
             {score >= 75 ? 'Excelente!' : score >= 50 ? 'Bom desempenho' : 'Continue praticando'}
@@ -194,12 +194,12 @@ export default async function SimulationResultPage({ params }: { params: Promise
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <Card variant="glass">
             <div className="flex items-center gap-4">
-              <div className="p-3 bg-blue-500/20 rounded-xl">
-                <Target className="w-6 h-6 text-blue-400" />
+              <div className="p-3 bg-accent-soft rounded-xl">
+                <Target className="w-6 h-6 text-accent" />
               </div>
               <div>
-                <p className="text-navy-600 text-sm">Taxa de Acerto</p>
-                <p className="text-2xl font-bold text-white">{score.toFixed(1)}%</p>
+                <p className="text-ink-3 text-sm">Taxa de Acerto</p>
+                <p className="text-2xl font-bold text-ink-1">{score.toFixed(1)}%</p>
               </div>
             </div>
           </Card>
@@ -210,8 +210,8 @@ export default async function SimulationResultPage({ params }: { params: Promise
                 <Clock className="w-6 h-6 text-purple-400" />
               </div>
               <div>
-                <p className="text-navy-600 text-sm">Tempo Total</p>
-                <p className="text-2xl font-bold text-white">{formatTime(timeSpent)}</p>
+                <p className="text-ink-3 text-sm">Tempo Total</p>
+                <p className="text-2xl font-bold text-ink-1">{formatTime(timeSpent)}</p>
               </div>
             </div>
           </Card>
@@ -222,8 +222,8 @@ export default async function SimulationResultPage({ params }: { params: Promise
                 <TrendingUp className="w-6 h-6 text-cyan-400" />
               </div>
               <div>
-                <p className="text-navy-600 text-sm">Tempo Médio</p>
-                <p className="text-2xl font-bold text-white">
+                <p className="text-ink-3 text-sm">Tempo Médio</p>
+                <p className="text-2xl font-bold text-ink-1">
                   {Math.round(timeSpent / totalQuestions)}s
                 </p>
               </div>
@@ -233,13 +233,13 @@ export default async function SimulationResultPage({ params }: { params: Promise
 
         {/* Performance by Subject */}
         <Card variant="glass" className="mb-8">
-          <h3 className="text-xl font-bold text-white mb-6">Desempenho por Matéria</h3>
+          <h3 className="text-xl font-bold text-ink-1 mb-6">Desempenho por Matéria</h3>
           <div className="space-y-4">
             {bySubject.map((subject) => (
               <div key={subject.subject}>
                 <div className="flex justify-between mb-2">
-                  <span className="text-white">{SUBJECT_LABELS[subject.subject] || subject.subject}</span>
-                  <span className="text-navy-600">{subject.correct}/{subject.total}</span>
+                  <span className="text-ink-1">{SUBJECT_LABELS[subject.subject] || subject.subject}</span>
+                  <span className="text-ink-3">{subject.correct}/{subject.total}</span>
                 </div>
                 <Progress
                   value={subject.accuracy}
@@ -256,8 +256,8 @@ export default async function SimulationResultPage({ params }: { params: Promise
             <div className="flex items-start gap-4">
               <AlertCircle className="w-6 h-6 text-amber-400 mt-1" />
               <div className="flex-1">
-                <h3 className="text-xl font-bold text-white mb-2">Áreas para Melhorar</h3>
-                <p className="text-navy-600 mb-4">
+                <h3 className="text-xl font-bold text-ink-1 mb-2">Áreas para Melhorar</h3>
+                <p className="text-ink-3 mb-4">
                   Concentre seus estudos nas seguintes matérias:
                 </p>
                 <div className="flex flex-wrap gap-2">

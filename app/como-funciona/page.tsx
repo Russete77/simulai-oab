@@ -34,20 +34,20 @@ export default function ComoFuncionaPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
 
-      <div className="min-h-screen bg-navy-950">
+      <div className="min-h-screen bg-bg">
         <Header />
 
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <nav className="flex items-center gap-2 text-sm text-navy-400 mb-8">
-            <Link href="/" className="hover:text-white transition-colors">Início</Link>
+          <nav className="flex items-center gap-2 text-sm text-ink-2 mb-8">
+            <Link href="/" className="hover:text-ink-1 transition-colors">Início</Link>
             <span>/</span>
-            <span className="text-white">Como Funciona</span>
+            <span className="text-ink-1">Como Funciona</span>
           </nav>
 
-          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6 text-center">
+          <h1 className="text-4xl sm:text-5xl font-bold text-ink-1 mb-6 text-center">
             Como Funciona o Simulai OAB
           </h1>
-          <p className="text-xl text-navy-300 text-center max-w-3xl mx-auto mb-16">
+          <p className="text-xl text-ink-2 text-center max-w-3xl mx-auto mb-16">
             A plataforma mais inteligente para passar no Exame da OAB. Conheça cada recurso e entenda por que o Simulai é diferente de tudo que existe.
           </p>
 
@@ -61,12 +61,12 @@ export default function ComoFuncionaPage() {
               { step: 5, title: 'Acompanhe sua evolução', desc: 'Dashboard de performance por matéria, predição de aprovação, ranking entre estudantes e 20+ conquistas para desbloquear.', icon: BarChart3 },
             ].map((item) => (
               <div key={item.step} className="flex gap-6 items-start">
-                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-blue-600/20 border border-blue-500/30 flex items-center justify-center">
-                  <span className="text-blue-400 font-bold text-lg">{item.step}</span>
+                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-accent-soft border-accent flex items-center justify-center">
+                  <span className="text-accent font-bold text-lg">{item.step}</span>
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-white mb-2">{item.title}</h2>
-                  <p className="text-navy-300 text-lg leading-relaxed">{item.desc}</p>
+                  <h2 className="text-2xl font-bold text-ink-1 mb-2">{item.title}</h2>
+                  <p className="text-ink-2 text-lg leading-relaxed">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -74,7 +74,7 @@ export default function ComoFuncionaPage() {
 
           {/* Features Grid */}
           <section className="mb-16">
-            <h2 className="text-3xl font-bold text-white mb-8 text-center">Recursos do Simulai OAB</h2>
+            <h2 className="text-3xl font-bold text-ink-1 mb-8 text-center">Recursos do Simulai OAB</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
                 { icon: Brain, title: 'IA Integrada', desc: 'Explicações detalhadas e chat inteligente com professor virtual 24/7' },
@@ -84,24 +84,24 @@ export default function ComoFuncionaPage() {
                 { icon: Clock, title: 'Cronômetro Real', desc: '4 horas para 80 questões, igual à prova real da OAB' },
                 { icon: Star, title: 'Questões Oficiais', desc: '5.605 questões FGV de 2010 a 2025, atualizadas a cada exame' },
               ].map((feature, i) => (
-                <div key={i} className="bg-navy-900/50 border border-white/10 rounded-xl p-6">
-                  <feature.icon className="w-8 h-8 text-blue-400 mb-3" />
-                  <h3 className="text-lg font-semibold text-white mb-2">{feature.title}</h3>
-                  <p className="text-navy-400 text-sm">{feature.desc}</p>
+                <div key={i} className="bg-surface border rounded-xl p-6">
+                  <feature.icon className="w-8 h-8 text-accent mb-3" />
+                  <h3 className="text-lg font-semibold text-ink-1 mb-2">{feature.title}</h3>
+                  <p className="text-ink-2 text-sm">{feature.desc}</p>
                 </div>
               ))}
             </div>
           </section>
 
           {/* CTA */}
-          <section className="text-center bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 rounded-2xl p-12">
-            <h2 className="text-3xl font-bold text-white mb-4">Pronto para Começar?</h2>
-            <p className="text-navy-300 text-lg mb-8">Crie sua conta grátis e faça seu primeiro simulado agora.</p>
+          <section className="text-center bg-gradient-to-r from-blue-600/20 to-purple-600/20 border-accent rounded-2xl p-12">
+            <h2 className="text-3xl font-bold text-ink-1 mb-4">Pronto para Começar?</h2>
+            <p className="text-ink-2 text-lg mb-8">Crie sua conta grátis e faça seu primeiro simulado agora.</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/register" className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-500 hover:to-purple-500 transition-all text-lg">
+              <Link href="/register" className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-white font-semibold rounded-xl hover:bg-accent-hover transition-all text-lg">
                 <Play className="w-5 h-5" /> Criar Conta Grátis
               </Link>
-              <Link href="/simulado-oab-online" className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 transition-all text-lg">
+              <Link href="/simulado-oab-online" className="inline-flex items-center gap-2 px-8 py-4 bg-surface-2 text-ink-1 font-semibold rounded-xl hover:bg-surface-2 transition-all text-lg">
                 Ver Simulados <ArrowRight className="w-5 h-5" />
               </Link>
             </div>

@@ -30,7 +30,7 @@ export default function BlogPage() {
   const allPosts = getAllBlogPosts();
 
   return (
-    <div className="min-h-screen bg-navy-950">
+    <div className="min-h-screen bg-bg">
       <Header />
       <BlogPageClient posts={allPosts} />
     </div>

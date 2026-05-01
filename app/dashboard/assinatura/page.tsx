@@ -145,9 +145,9 @@ export default function AssinaturaPage() {
     }
     if (plan?.startsWith('BASIC')) {
       return (
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20">
-          <TrendingUp className="w-4 h-4 text-blue-400" />
-          <span className="text-sm font-semibold text-blue-400">Essencial</span>
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-soft border-accent">
+          <TrendingUp className="w-4 h-4 text-accent" />
+          <span className="text-sm font-semibold text-accent">Essencial</span>
         </div>
       );
     }
@@ -160,11 +160,11 @@ export default function AssinaturaPage() {
 
   if (!isLoaded || carregando) {
     return (
-      <div className="min-h-screen bg-navy-950">
+      <div className="min-h-screen bg-bg">
         <Header />
         <div className="max-w-7xl mx-auto px-4 py-12 flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
-            <Loader2 className="w-12 h-12 text-blue-500 animate-spin mx-auto mb-4" />
+            <Loader2 className="w-12 h-12 text-accent animate-spin mx-auto mb-4" />
             <p className="text-gray-400">Carregando informações...</p>
           </div>
         </div>
@@ -173,12 +173,12 @@ export default function AssinaturaPage() {
   }
 
   return (
-    <div className="min-h-screen bg-navy-950">
+    <div className="min-h-screen bg-bg">
       <Header />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">
+          <h1 className="text-4xl font-bold text-ink-1 mb-2">
             Minha Assinatura
           </h1>
           <p className="text-gray-400">
@@ -198,7 +198,7 @@ export default function AssinaturaPage() {
           <Card variant="glass">
             <div className="text-center py-12">
               <p className="text-gray-400 mb-2">
-                Seu plano atual: <span className="text-white font-semibold">{assinatura?.planType || 'FREE'}</span>
+                Seu plano atual: <span className="text-ink-1 font-semibold">{assinatura?.planType || 'Sem plano ativo'}</span>
               </p>
               <p className="text-gray-400 mb-6">
                 Faça upgrade para acessar mais questões, simulados e recursos com IA.
@@ -215,7 +215,7 @@ export default function AssinaturaPage() {
               <Card variant="glass">
                 <div className="flex items-start justify-between mb-6">
                   <div>
-                    <h2 className="text-2xl font-bold text-white mb-2">
+                    <h2 className="text-2xl font-bold text-ink-1 mb-2">
                       Status da Assinatura
                     </h2>
                     <div className="flex items-center gap-3 flex-wrap">
@@ -231,7 +231,7 @@ export default function AssinaturaPage() {
                       <Calendar className="w-4 h-4" />
                       <span className="text-sm">Próxima Cobrança</span>
                     </div>
-                    <p className="text-xl font-semibold text-white">
+                    <p className="text-xl font-semibold text-ink-1">
                       {assinatura.currentPeriodEnd
                         ? formatarData(assinatura.currentPeriodEnd)
                         : '—'}
@@ -243,7 +243,7 @@ export default function AssinaturaPage() {
                       <CreditCard className="w-4 h-4" />
                       <span className="text-sm">Valor</span>
                     </div>
-                    <p className="text-xl font-semibold text-white">
+                    <p className="text-xl font-semibold text-ink-1">
                       {formatarValor(assinatura.value)}
                     </p>
                   </div>
@@ -252,7 +252,7 @@ export default function AssinaturaPage() {
                     <div className="flex items-center gap-2 text-gray-400 mb-2">
                       <span className="text-sm">Ciclo</span>
                     </div>
-                    <p className="text-xl font-semibold text-white">
+                    <p className="text-xl font-semibold text-ink-1">
                       {getCycleName(assinatura.cycle)}
                     </p>
                   </div>
@@ -283,7 +283,7 @@ export default function AssinaturaPage() {
             {/* Ações */}
             <div className="space-y-6">
               <Card variant="glass">
-                <h3 className="text-lg font-bold text-white mb-4">Ações</h3>
+                <h3 className="text-lg font-bold text-ink-1 mb-4">Ações</h3>
                 <div className="space-y-3">
                   <Link href="/pricing">
                     <Button variant="primary" className="w-full">
@@ -336,7 +336,7 @@ export default function AssinaturaPage() {
               </Card>
 
               <Card variant="glass">
-                <h3 className="text-lg font-bold text-white mb-4">
+                <h3 className="text-lg font-bold text-ink-1 mb-4">
                   Precisa de Ajuda?
                 </h3>
                 <p className="text-sm text-gray-400 mb-4">

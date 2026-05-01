@@ -92,7 +92,7 @@ describe('Asaas Webhook Handlers', () => {
         email: 'test@example.com',
         name: 'Test User',
         asaasCustomerId: 'cus_456',
-        user: { id: 'user_123', planType: 'FREE' },
+        user: { id: 'user_123', planType: 'BASIC' },
       } as any;
 
       vi.mocked(prisma.customer.findFirst).mockResolvedValueOnce(mockCustomer);
@@ -184,7 +184,7 @@ describe('Asaas Webhook Handlers', () => {
         id: 'user_124',
         email: 'fallback@example.com',
         clerkId: 'clerk_124',
-        planType: 'FREE',
+        planType: 'BASIC',
         createdAt: new Date(),
         updatedAt: new Date(),
       } as any);
@@ -421,7 +421,7 @@ describe('Asaas Webhook Handlers', () => {
         id: 'user_300',
         email: 'cancel@example.com',
         clerkId: 'clerk_300',
-        planType: 'FREE',
+        planType: 'BASIC',
         createdAt: new Date(),
         updatedAt: new Date(),
       } as any);
@@ -432,7 +432,7 @@ describe('Asaas Webhook Handlers', () => {
         where: { asaasSubscriptionId: 'sub_800' },
         data: { status: 'CANCELED', canceledAt: expect.any(Date) },
       });
-      expect(prisma.user.update).toHaveBeenCalled();
+      // Não muda mais planType ao cancelar (removido FREE) — gate.ts bloqueia via Subscription.status
       const emailService = getServicoEmail();
       expect(emailService.enviarAssinaturaCancelada).toHaveBeenCalled();
     });
@@ -542,7 +542,7 @@ describe('Asaas Webhook Handlers', () => {
         email: 'idem@example.com',
         name: 'Idem User',
         asaasCustomerId: 'cus_idem_1',
-        user: { id: 'user_idem_1', planType: 'FREE' },
+        user: { id: 'user_idem_1', planType: 'BASIC' },
       } as any;
 
       vi.mocked(prisma.customer.findFirst).mockResolvedValue(mockCustomer);
@@ -606,7 +606,7 @@ describe('Asaas Webhook Handlers', () => {
         email: 'email-error@example.com',
         name: 'Email Error User',
         asaasCustomerId: 'cus_email_err',
-        user: { id: 'user_email_err', planType: 'FREE' },
+        user: { id: 'user_email_err', planType: 'BASIC' },
       } as any;
 
       vi.mocked(prisma.customer.findFirst).mockResolvedValueOnce(mockCustomer);

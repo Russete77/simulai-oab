@@ -134,11 +134,11 @@ export function FreeAccessBanner() {
                   className={`hidden sm:flex items-center justify-center w-12 h-12 rounded-xl ${colors.badge} border backdrop-blur-sm flex-shrink-0`}
                 >
                   {isLastDay ? (
-                    <Zap className="w-6 h-6 text-white" />
+                    <Zap className="w-6 h-6 text-ink-1" />
                   ) : isUrgent ? (
-                    <Clock className="w-6 h-6 text-white" />
+                    <Clock className="w-6 h-6 text-ink-1" />
                   ) : (
-                    <Gift className="w-6 h-6 text-white" />
+                    <Gift className="w-6 h-6 text-ink-1" />
                   )}
                 </motion.div>
 
@@ -177,7 +177,7 @@ export function FreeAccessBanner() {
                     initial={{ y: 10, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.15 }}
-                    className="text-sm md:text-base font-medium text-white/95 leading-snug"
+                    className="text-sm md:text-base font-medium text-ink-1/95 leading-snug"
                   >
                     {data.daysLeft !== null ? (
                       <>
@@ -196,7 +196,7 @@ export function FreeAccessBanner() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.2 }}
-                      className="text-xs text-white/80 mt-1 flex items-center gap-1"
+                      className="text-xs text-ink-1/80 mt-1 flex items-center gap-1"
                     >
                       <Sparkles className="w-3 h-3" />
                       Garanta o Premium com desconto antes que termine!
@@ -225,7 +225,7 @@ export function FreeAccessBanner() {
                   onClick={handleDismiss}
                   whileHover={{ scale: 1.1, rotate: 90 }}
                   whileTap={{ scale: 0.9 }}
-                  className="p-2 hover:bg-white/20 rounded-lg transition-colors backdrop-blur-sm"
+                  className="p-2 hover:bg-surface-2 rounded-lg transition-colors backdrop-blur-sm"
                   aria-label="Fechar banner"
                 >
                   <X className="w-5 h-5" />

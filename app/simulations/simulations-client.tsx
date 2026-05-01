@@ -145,17 +145,17 @@ export default function SimulationsClient() {
   ];
 
   return (
-    <div className="min-h-screen bg-navy-950">
+    <div className="min-h-screen bg-bg">
       <Header />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Info Banner */}
-        <div className="mb-8 bg-blue-500/10 border border-blue-500/20 rounded-xl p-4">
+        <div className="mb-8 bg-accent-soft border-accent rounded-xl p-4">
           <div className="flex items-start gap-3">
-            <BookMarked className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
+            <BookMarked className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
             <div>
-              <p className="text-blue-400 font-medium">Escolha seu tipo de simulado</p>
-              <p className="text-sm text-navy-400 mt-1">
+              <p className="text-accent font-medium">Escolha seu tipo de simulado</p>
+              <p className="text-sm text-ink-2 mt-1">
                 Cada simulado é gerado com questões reais dos exames anteriores da OAB
               </p>
             </div>
@@ -165,31 +165,31 @@ export default function SimulationsClient() {
         {/* Simulation Types Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {simulationTypes.map((sim) => (
-            <Card key={sim.type} variant="glass" className="group hover:border-white/20">
+            <Card key={sim.type} variant="glass" className="group hover:border-strong">
               <div className="flex items-start gap-4 mb-4">
                 <div className={`p-3 rounded-xl bg-${sim.color}-500/20 text-${sim.color}-400`}>
                   {sim.icon}
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold text-white mb-1">
+                  <h3 className="text-xl font-bold text-ink-1 mb-1">
                     {SIMULATION_TYPE_LABELS[sim.type]}
                   </h3>
-                  <p className="text-navy-400 text-sm">
+                  <p className="text-ink-2 text-sm">
                     {SIMULATION_TYPE_DESCRIPTIONS[sim.type]}
                   </p>
                 </div>
               </div>
 
               <div className="flex gap-4 mb-4">
-                <div className="flex-1 bg-navy-800/50 rounded-lg p-3">
-                  <p className="text-navy-400 text-xs mb-1">Questões</p>
-                  <p className="text-white font-semibold">
+                <div className="flex-1 bg-surface-2 rounded-lg p-3">
+                  <p className="text-ink-2 text-xs mb-1">Questões</p>
+                  <p className="text-ink-1 font-semibold">
                     {SIMULATION_TYPE_QUESTIONS[sim.type]}
                   </p>
                 </div>
-                <div className="flex-1 bg-navy-800/50 rounded-lg p-3">
-                  <p className="text-navy-400 text-xs mb-1">Tempo</p>
-                  <p className="text-white font-semibold">
+                <div className="flex-1 bg-surface-2 rounded-lg p-3">
+                  <p className="text-ink-2 text-xs mb-1">Tempo</p>
+                  <p className="text-ink-1 font-semibold">
                     {SIMULATION_TYPE_TIME[sim.type]}
                   </p>
                 </div>

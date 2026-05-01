@@ -11,15 +11,15 @@ import { Target, Clock, Flame, TrendingUp } from 'lucide-react';
 
 const PerformanceChart = nextDynamic(() => import('@/components/analytics/performance-chart').then(mod => ({ default: mod.PerformanceChart })), {
   ssr: false,
-  loading: () => <div className="h-64 bg-navy-800/30 rounded-xl animate-pulse" />,
+  loading: () => <div className="h-64 bg-surface-2 rounded-xl animate-pulse" />,
 });
 const SubjectChart = nextDynamic(() => import('@/components/analytics/subject-chart').then(mod => ({ default: mod.SubjectChart })), {
   ssr: false,
-  loading: () => <div className="h-64 bg-navy-800/30 rounded-xl animate-pulse" />,
+  loading: () => <div className="h-64 bg-surface-2 rounded-xl animate-pulse" />,
 });
 const ActivityChart = nextDynamic(() => import('@/components/analytics/activity-chart').then(mod => ({ default: mod.ActivityChart })), {
   ssr: false,
-  loading: () => <div className="h-64 bg-navy-800/30 rounded-xl animate-pulse" />,
+  loading: () => <div className="h-64 bg-surface-2 rounded-xl animate-pulse" />,
 });
 
 interface AnalyticsData {
@@ -93,10 +93,10 @@ export default function AnalyticsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-navy-950 flex items-center justify-center">
+      <div className="min-h-screen bg-bg flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-navy-600">Carregando análises...</p>
+          <div className="w-16 h-16 border-4 border-accent border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-ink-3">Carregando análises...</p>
         </div>
       </div>
     );
@@ -104,9 +104,9 @@ export default function AnalyticsPage() {
 
   if (error || !data) {
     return (
-      <div className="min-h-screen bg-navy-950 flex items-center justify-center">
+      <div className="min-h-screen bg-bg flex items-center justify-center">
         <Card variant="glass" className="text-center p-8">
-          <p className="text-white mb-4">Erro ao carregar análises</p>
+          <p className="text-ink-1 mb-4">Erro ao carregar análises</p>
           <Button variant="primary" onClick={() => loadAnalytics()}>
             Tentar Novamente
           </Button>
@@ -116,7 +116,7 @@ export default function AnalyticsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-navy-950">
+    <div className="min-h-screen bg-bg">
       <Header />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -169,24 +169,24 @@ export default function AnalyticsPage() {
 
         {/* Detailed Subject Stats */}
         <Card variant="glass" className="p-6">
-          <h3 className="text-xl font-semibold text-white mb-6">
+          <h3 className="text-xl font-semibold text-ink-1 mb-6">
             Estatísticas Detalhadas por Matéria
           </h3>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-navy-700">
-                  <th className="text-left text-navy-400 font-medium pb-3 px-4">Matéria</th>
-                  <th className="text-center text-navy-400 font-medium pb-3 px-4">Total</th>
-                  <th className="text-center text-navy-400 font-medium pb-3 px-4">Corretas</th>
-                  <th className="text-center text-navy-400 font-medium pb-3 px-4">Taxa</th>
+                <tr className="border-b border">
+                  <th className="text-left text-ink-2 font-medium pb-3 px-4">Matéria</th>
+                  <th className="text-center text-ink-2 font-medium pb-3 px-4">Total</th>
+                  <th className="text-center text-ink-2 font-medium pb-3 px-4">Corretas</th>
+                  <th className="text-center text-ink-2 font-medium pb-3 px-4">Taxa</th>
                 </tr>
               </thead>
               <tbody>
                 {data.subjectPerformance.map((subject, index) => (
-                  <tr key={index} className="border-b border-navy-800/50">
-                    <td className="text-white py-3 px-4">{subject.subjectLabel}</td>
-                    <td className="text-center text-navy-300 py-3 px-4">{subject.total}</td>
+                  <tr key={index} className="border-b border/50">
+                    <td className="text-ink-1 py-3 px-4">{subject.subjectLabel}</td>
+                    <td className="text-center text-ink-2 py-3 px-4">{subject.total}</td>
                     <td className="text-center text-green-500 py-3 px-4">{subject.correct}</td>
                     <td className="text-center py-3 px-4">
                       <span

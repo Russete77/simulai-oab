@@ -7,7 +7,7 @@ import { Header } from '@/components/layout/header';
 import { QuestionCard } from '@/components/question-card';
 import { QuestionExplanation } from '@/components/question-explanation';
 import { QuestionChat } from '@/components/question-chat';
-import { ArrowLeft, ArrowRight, BarChart3, CheckCircle, BookOpen, Filter } from 'lucide-react';
+import { ArrowLeft, ArrowRight, BarChart3, CheckCircle, XCircle, BookOpen, Filter } from 'lucide-react';
 import Link from 'next/link';
 import { AnswerQuestionResponse } from '@/types/api';
 import { Subject } from '@prisma/client';
@@ -269,10 +269,10 @@ export default function PracticeClient() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-navy-950 flex items-center justify-center">
+      <div className="min-h-screen bg-bg flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-navy-400">Carregando questão...</p>
+          <div className="w-16 h-16 border-4 border-accent border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-ink-2">Carregando questão...</p>
         </div>
       </div>
     );
@@ -280,9 +280,9 @@ export default function PracticeClient() {
 
   if (!question) {
     return (
-      <div className="min-h-screen bg-navy-950 flex items-center justify-center">
+      <div className="min-h-screen bg-bg flex items-center justify-center">
         <Card variant="glass" className="text-center p-8">
-          <p className="text-white mb-4">Nenhuma questão disponível</p>
+          <p className="text-ink-1 mb-4">Nenhuma questão disponível</p>
           <Link href="/dashboard">
             <Button variant="primary">Voltar ao Dashboard</Button>
           </Link>
@@ -292,7 +292,7 @@ export default function PracticeClient() {
   }
 
   return (
-    <div className="min-h-screen bg-navy-950">
+    <div className="min-h-screen bg-bg">
       <Header />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -301,13 +301,13 @@ export default function PracticeClient() {
           <div className="mb-6">
             <div className="flex items-center gap-3 mb-3">
               <div className="flex items-center gap-2">
-                <Filter className="w-5 h-5 text-blue-400" />
-                <span className="text-white font-semibold">Filtrar por Matéria:</span>
+                <Filter className="w-5 h-5 text-accent" />
+                <span className="text-ink-1 font-semibold">Filtrar por Matéria:</span>
               </div>
               {selectedSubject !== 'all' && (
                 <button
                   onClick={() => handleSubjectChange('all')}
-                  className="text-sm text-blue-400 hover:text-blue-300 underline"
+                  className="text-sm text-accent hover:text-accent underline"
                 >
                   Limpar filtro
                 </button>
@@ -319,8 +319,8 @@ export default function PracticeClient() {
                 onClick={() => setShowFilters(!showFilters)}
                 className={`w-full md:w-auto px-4 py-3 rounded-xl border-2 transition-all flex items-center justify-between gap-3 ${
                   selectedSubject !== 'all'
-                    ? 'bg-blue-500/10 border-blue-500/50 text-blue-400'
-                    : 'bg-navy-800/50 border-white/10 text-white hover:border-white/20'
+                    ? 'bg-accent-soft border-accent/50 text-accent'
+                    : 'bg-surface-2 border text-ink-1 hover:border-strong'
                 }`}
               >
                 <div className="flex items-center gap-2">
@@ -341,11 +341,11 @@ export default function PracticeClient() {
 
               {/* Dropdown de Matérias */}
               {showFilters && (
-                <div className="absolute z-10 mt-2 w-full md:w-96 bg-navy-900 border border-white/10 rounded-xl shadow-2xl max-h-96 overflow-y-auto">
+                <div className="absolute z-10 mt-2 w-full md:w-96 bg-surface border rounded-xl shadow-2xl max-h-96 overflow-y-auto">
                   <button
                     onClick={() => handleSubjectChange('all')}
-                    className={`w-full px-4 py-3 text-left hover:bg-white/5 transition-colors border-b border-white/5 ${
-                      selectedSubject === 'all' ? 'bg-blue-500/10 text-blue-400' : 'text-white'
+                    className={`w-full px-4 py-3 text-left hover:bg-surface-2 transition-colors border-b border-divider ${
+                      selectedSubject === 'all' ? 'bg-accent-soft text-accent' : 'text-ink-1'
                     }`}
                   >
                     <div className="flex items-center justify-between">
@@ -360,8 +360,8 @@ export default function PracticeClient() {
                       <button
                         key={key}
                         onClick={() => handleSubjectChange(key as Subject)}
-                        className={`w-full px-4 py-3 text-left hover:bg-white/5 transition-colors border-b border-white/5 last:border-b-0 ${
-                          selectedSubject === key ? 'bg-blue-500/10 text-blue-400' : 'text-white'
+                        className={`w-full px-4 py-3 text-left hover:bg-surface-2 transition-colors border-b border-divider last:border-b-0 ${
+                          selectedSubject === key ? 'bg-accent-soft text-accent' : 'text-ink-1'
                         }`}
                       >
                         <div className="flex items-center justify-between">
@@ -376,7 +376,7 @@ export default function PracticeClient() {
 
             {/* Badge atual */}
             {selectedSubject !== 'all' && (
-              <div className="mt-3 inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 text-blue-400 px-3 py-1.5 rounded-lg text-sm">
+              <div className="mt-3 inline-flex items-center gap-2 bg-accent-soft border-accent text-accent px-3 py-1.5 rounded-lg text-sm">
                 <span>Filtrando:</span>
                 <span className="font-semibold">{SUBJECT_LABELS[selectedSubject]}</span>
               </div>
@@ -386,34 +386,33 @@ export default function PracticeClient() {
 
         {/* Recommended Mode Indicator */}
         {isRecommendedMode && recommendedQuestions.length > 0 && (
-          <div className="mb-6 bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20 rounded-lg p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center">
-                  <span className="text-xl">🎯</span>
+          <Card className="mb-6">
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="w-9 h-9 rounded-md bg-accent-soft text-accent flex items-center justify-center shrink-0">
+                  🎯
                 </div>
-                <div>
-                  <h3 className="text-white font-bold">Modo Revisão Inteligente</h3>
-                  <p className="text-sm text-gray-400">
-                    Questão {currentRecommendedIndex + 1} de {recommendedQuestions.length} recomendadas
+                <div className="min-w-0">
+                  <h3 className="text-sm font-semibold text-ink-1">Modo Revisão Inteligente</h3>
+                  <p className="text-xs text-ink-3">
+                    Questão {currentRecommendedIndex + 1} de {recommendedQuestions.length}
                   </p>
                 </div>
               </div>
-              <div className="text-right">
-                <div className="text-2xl font-bold text-amber-500">
+              <div className="text-right shrink-0">
+                <div className="text-xl font-semibold text-ink-1 text-mono-tabular">
                   {Math.round(((currentRecommendedIndex + 1) / recommendedQuestions.length) * 100)}%
                 </div>
-                <div className="text-xs text-gray-500">Progresso</div>
+                <div className="text-[10px] text-ink-3 uppercase tracking-wider">Progresso</div>
               </div>
             </div>
-            {/* Progress bar */}
-            <div className="mt-3 w-full bg-gray-700 rounded-full h-2">
+            <div className="mt-3 w-full bg-surface-2 rounded-full h-1.5 overflow-hidden">
               <div
-                className="bg-gradient-to-r from-amber-500 to-orange-500 h-2 rounded-full transition-all duration-500"
+                className="bg-accent h-1.5 rounded-full transition-all duration-500"
                 style={{ width: `${((currentRecommendedIndex + 1) / recommendedQuestions.length) * 100}%` }}
               />
             </div>
-          </div>
+          </Card>
         )}
 
         {/* Question Card */}
@@ -428,36 +427,39 @@ export default function PracticeClient() {
 
         {/* Result Section */}
         {showResult && result && (
-          <Card variant="glass" className="mt-6">
-            <div className="flex items-start gap-4">
+          <Card className="mt-4">
+            <div className="flex items-center gap-2 mb-3">
               {result.isCorrect ? (
-                <CheckCircle className="w-8 h-8 text-green-500 flex-shrink-0" />
+                <>
+                  <CheckCircle className="w-5 h-5 text-success" />
+                  <h3 className="text-base font-semibold text-success">Resposta correta</h3>
+                </>
               ) : (
-                <div className="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0">
-                  <span className="text-red-500 text-xl">✗</span>
-                </div>
+                <>
+                  <XCircle className="w-5 h-5 text-danger" />
+                  <h3 className="text-base font-semibold text-danger">Resposta incorreta</h3>
+                </>
               )}
-              <div className="flex-1">
-                <h3 className={`text-xl font-bold mb-2 ${result.isCorrect ? 'text-green-500' : 'text-red-500'}`}>
-                  {result.isCorrect ? 'Resposta Correta!' : 'Resposta Incorreta'}
-                </h3>
-                {result.explanation && (
-                  <p className="text-white/80 mb-4">{result.explanation}</p>
-                )}
-                <div className="grid grid-cols-3 gap-4 mt-4">
-                  <div className="bg-navy-800/50 rounded-lg p-3">
-                    <p className="text-navy-400 text-sm">Taxa de Acerto</p>
-                    <p className="text-white font-bold text-lg">{result.statistics.successRate}%</p>
-                  </div>
-                  <div className="bg-navy-800/50 rounded-lg p-3">
-                    <p className="text-navy-400 text-sm">Tempo Médio</p>
-                    <p className="text-white font-bold text-lg">{Math.floor(result.statistics.averageTime / 60)}:{String(result.statistics.averageTime % 60).padStart(2, '0')}</p>
-                  </div>
-                  <div className="bg-navy-800/50 rounded-lg p-3">
-                    <p className="text-navy-400 text-sm">Seu Tempo</p>
-                    <p className="text-white font-bold text-lg">{Math.floor(result.statistics.yourTime / 60)}:{String(result.statistics.yourTime % 60).padStart(2, '0')}</p>
-                  </div>
-                </div>
+            </div>
+            {result.explanation && (
+              <p className="text-sm text-ink-2 leading-relaxed mb-4">{result.explanation}</p>
+            )}
+            <div className="grid grid-cols-3 gap-3 pt-4 border-t">
+              <div>
+                <p className="text-xs text-ink-3 uppercase tracking-wider">Taxa de acerto</p>
+                <p className="text-lg font-semibold text-ink-1 text-mono-tabular mt-0.5">{result.statistics.successRate}%</p>
+              </div>
+              <div>
+                <p className="text-xs text-ink-3 uppercase tracking-wider">Tempo médio</p>
+                <p className="text-lg font-semibold text-ink-1 text-mono-tabular mt-0.5">
+                  {Math.floor(result.statistics.averageTime / 60)}:{String(result.statistics.averageTime % 60).padStart(2, '0')}
+                </p>
+              </div>
+              <div>
+                <p className="text-xs text-ink-3 uppercase tracking-wider">Seu tempo</p>
+                <p className="text-lg font-semibold text-ink-1 text-mono-tabular mt-0.5">
+                  {Math.floor(result.statistics.yourTime / 60)}:{String(result.statistics.yourTime % 60).padStart(2, '0')}
+                </p>
               </div>
             </div>
           </Card>
@@ -505,7 +507,8 @@ export default function PracticeClient() {
               {isRecommendedMode && currentRecommendedIndex < recommendedQuestions.length - 1 ? (
                 <Button
                   variant="primary"
-                  className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-amber-600 to-orange-600"
+                  fullWidth
+                  className="flex items-center justify-center gap-2"
                   onClick={() => loadNextQuestion(true)}
                 >
                   <span>Próxima Recomendada ({currentRecommendedIndex + 2}/{recommendedQuestions.length})</span>
@@ -513,27 +516,28 @@ export default function PracticeClient() {
                 </Button>
               ) : isRecommendedMode && currentRecommendedIndex === recommendedQuestions.length - 1 ? (
                 <div className="w-full">
-                  <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4 mb-4 text-center">
-                    <div className="text-4xl mb-2">🎉</div>
-                    <h3 className="text-xl font-bold text-green-500 mb-2">
-                      Parabéns! Você completou todas as questões recomendadas!
+                  <Card className="mb-4 text-center">
+                    <div className="text-3xl mb-2">🎉</div>
+                    <h3 className="text-base font-semibold text-ink-1 mb-1">
+                      Você completou todas as questões recomendadas
                     </h3>
-                    <p className="text-gray-400 text-sm">
+                    <p className="text-sm text-ink-2">
                       Continue praticando com questões aleatórias ou volte ao Smart Review.
                     </p>
-                  </div>
+                  </Card>
                   <div className="flex gap-3">
                     <Link href="/smart-review" className="flex-1">
-                      <Button variant="outline" className="w-full">
+                      <Button variant="secondary" fullWidth>
                         Voltar ao Smart Review
                       </Button>
                     </Link>
                     <Button
                       variant="primary"
-                      className="flex-1 flex items-center justify-center gap-2"
+                      fullWidth
+                      className="flex items-center justify-center gap-2"
                       onClick={() => loadNextQuestion(true)}
                     >
-                      <span>Continuar Praticando</span>
+                      <span>Continuar praticando</span>
                       <ArrowRight className="w-4 h-4" />
                     </Button>
                   </div>

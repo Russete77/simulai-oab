@@ -100,67 +100,78 @@ enum PaymentMethod {
 // ============================================================================
 
 model User {
-  id            String   @id @default(cuid())
-  email         String   @unique
-  name          String?
-  clerkId       String?  @unique
-  planType      PlanType @default(FREE)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  clerkId   String?  @unique
+  planType  PlanType @default(BASIC)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // Controle de limites de uso (reset diário/mensal)
-  dailyQuestionsCount       Int      @default(0)
-  dailyQuestionsResetAt     DateTime?
-  monthlySimulationsCount   Int      @default(0)
-  monthlySimulationsResetAt DateTime?
-  dailyAiExplanationsCount  Int      @default(0)
+  dailyQuestionsCount        Int       @default(0)
+  dailyQuestionsResetAt      DateTime?
+  monthlySimulationsCount    Int       @default(0)
+  monthlySimulationsResetAt  DateTime?
+  dailyAiExplanationsCount   Int       @default(0)
   dailyAiExplanationsResetAt DateTime?
-  dailyAiChatsCount         Int      @default(0)
-  dailyAiChatsResetAt       DateTime?
+  dailyAiChatsCount          Int       @default(0)
+  dailyAiChatsResetAt        DateTime?
+
+  // Métricas agregadas (denormalizadas p/ admin dashboards sem scan caro)
+  lastActiveAt        DateTime? // último heartbeat confirmado no app
+  totalSessionMinutes Int       @default(0)
+  totalLogins         Int       @default(0)
 
   // Relations
-  answers       UserAnswer[]
-  simulations   Simulation[]
-  profile       UserProfile?
-  achievements  UserAchievement[]
-  studyPlans    StudyPlan[]
-  chatSessions  UserQuestionChat[]
-  customer           Customer?
-  reviewCards        ReviewCard[]
-  pushSubscriptions  PushSubscription[]
+  answers                UserAnswer[]
+  simulations            Simulation[]
+  profile                UserProfile?
+  achievements           UserAchievement[]
+  studyPlans             StudyPlan[]
+  chatSessions           UserQuestionChat[]
+  customer               Customer?
+  reviewCards            ReviewCard[]
+  pushSubscriptions      PushSubscription[]
+  sessions               UserSession[]
+  emailCampaigns         EmailCampaign[]
+  notifications          Notification[]
+  notificationPreference NotificationPreference?
 
   @@index([email])
   @@index([clerkId])
+  @@index([lastActiveAt])
+  @@index([planType])
 }
 
 model UserProfile {
-  id                String   @id @default(cuid())
-  userId            String   @unique
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   // Gamification
-  totalPoints       Int      @default(0)
-  level             Int      @default(1)
-  streak            Int      @default(0)
-  lastStudyDate     DateTime?
+  totalPoints   Int       @default(0)
+  level         Int       @default(1)
+  streak        Int       @default(0)
+  lastStudyDate DateTime?
 
   // Stats
-  totalQuestions    Int      @default(0)
-  correctAnswers    Int      @default(0)
-  averageTime       Float?
+  totalQuestions Int    @default(0)
+  correctAnswers Int    @default(0)
+  averageTime    Float?
 
   // Study preferences
-  dailyGoal         Int      @default(20)
+  dailyGoal         Int       @default(20)
   preferredSubjects Subject[]
 
   // Onboarding tracking
-  onboardingCompleted      Boolean   @default(false)
-  onboardingStep           Int       @default(0)  // 0=not started, 1-3=steps, 4=completed
-  onboardingStartedAt      DateTime?
-  onboardingCompletedAt    DateTime?
+  onboardingCompleted   Boolean   @default(false)
+  onboardingStep        Int       @default(0) // 0=not started, 1-3=steps, 4=completed
+  onboardingStartedAt   DateTime?
+  onboardingCompletedAt DateTime?
 
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 // ============================================================================
@@ -168,42 +179,42 @@ model UserProfile {
 // ============================================================================
 
 model Question {
-  id              String      @id @default(cuid())
-  examId          String      // "2023-01"
-  examYear        Int
-  examPhase       Int         // 1 ou 2
-  questionNumber  Int         // 1-100
-  subject         Subject
-  statement       String      @db.Text
+  id             String  @id @default(cuid())
+  examId         String // "2023-01"
+  examYear       Int
+  examPhase      Int // 1 ou 2
+  questionNumber Int // 1-100
+  subject        Subject
+  statement      String  @db.Text
 
   // P3 FIX: explanation DEPRECIADO — usar QuestionExplanation como source of truth
   // Mantido por retrocompatibilidade (fallback se QuestionExplanation não existir)
-  explanation     String?     @db.Text
+  explanation String? @db.Text
 
   // Anulação
-  nullified       Boolean     @default(false)
-  nullifiedAt     DateTime?   // P3 FIX: Quando foi anulada
-  nullifiedBy     String?     // P3 FIX: "FGV" | "ADMIN" — quem anulou
+  nullified   Boolean   @default(false)
+  nullifiedAt DateTime? // P3 FIX: Quando foi anulada
+  nullifiedBy String? // P3 FIX: "FGV" | "ADMIN" — quem anulou
 
   // Metadados calculados
-  difficulty      Difficulty?
-  averageTime     Float?
-  successRate     Float?
+  difficulty  Difficulty?
+  averageTime Float?
+  successRate Float?
 
   // Features NLP
   keywords        String[]
   legalReferences Json?
 
   // Relations
-  alternatives    Alternative[]
-  userAnswers     UserAnswer[]
+  alternatives        Alternative[]
+  userAnswers         UserAnswer[]
   simulationQuestions SimulationQuestion[]
-  aiExplanation   QuestionExplanation?
-  chatSessions    UserQuestionChat[]
-  reviewCards     ReviewCard[]
+  aiExplanation       QuestionExplanation?
+  chatSessions        UserQuestionChat[]
+  reviewCards         ReviewCard[]
 
-  createdAt       DateTime    @default(now())
-  updatedAt       DateTime    @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([examId, questionNumber])
   @@index([examId])
@@ -212,13 +223,13 @@ model Question {
 }
 
 model Alternative {
-  id          String   @id @default(cuid())
-  questionId  String
-  label       String   // A, B, C, D
-  text        String   @db.Text
-  isCorrect   Boolean
+  id         String  @id @default(cuid())
+  questionId String
+  label      String // A, B, C, D
+  text       String  @db.Text
+  isCorrect  Boolean
 
-  question    Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  question    Question     @relation(fields: [questionId], references: [id], onDelete: Cascade)
   userAnswers UserAnswer[]
 
   @@unique([questionId, label])
@@ -230,22 +241,22 @@ model Alternative {
 // ============================================================================
 
 model UserAnswer {
-  id            String    @id @default(cuid())
+  id            String  @id @default(cuid())
   userId        String
   questionId    String
   alternativeId String
   simulationId  String?
 
-  isCorrect     Boolean
-  timeSpent     Int       // segundos
-  confidence    Int?      // 1-5
+  isCorrect  Boolean
+  timeSpent  Int // segundos
+  confidence Int? // 1-5
 
-  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  question      Question  @relation(fields: [questionId], references: [id], onDelete: Cascade)
-  alternative   Alternative @relation(fields: [alternativeId], references: [id], onDelete: Cascade)
-  simulation    Simulation? @relation(fields: [simulationId], references: [id], onDelete: Cascade)
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question    Question    @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  alternative Alternative @relation(fields: [alternativeId], references: [id], onDelete: Cascade)
+  simulation  Simulation? @relation(fields: [simulationId], references: [id], onDelete: Cascade)
 
-  createdAt     DateTime  @default(now())
+  createdAt DateTime @default(now())
 
   @@index([userId])
   @@index([questionId])
@@ -261,27 +272,27 @@ model UserAnswer {
 // ============================================================================
 
 model Simulation {
-  id              String           @id @default(cuid())
-  userId          String
-  type            SimulationType
-  status          SimulationStatus @default(IN_PROGRESS)
+  id     String           @id @default(cuid())
+  userId String
+  type   SimulationType
+  status SimulationStatus @default(IN_PROGRESS)
 
-  totalQuestions  Int
-  score           Float?
-  timeSpent       Int?             // segundos totais
+  totalQuestions Int
+  score          Float?
+  timeSpent      Int? // segundos totais
 
   // Configuração
-  subjects        Subject[]
+  subjects         Subject[]
   targetDifficulty Difficulty?
 
-  user            User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-  questions       SimulationQuestion[]
-  answers         UserAnswer[]
+  user      User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  questions SimulationQuestion[]
+  answers   UserAnswer[]
 
-  startedAt       DateTime         @default(now())
-  completedAt     DateTime?
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
+  startedAt   DateTime  @default(now())
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
   @@index([userId, status])
   @@index([createdAt])
@@ -289,13 +300,13 @@ model Simulation {
 }
 
 model SimulationQuestion {
-  id            String     @id @default(cuid())
-  simulationId  String
-  questionId    String
-  order         Int
+  id           String @id @default(cuid())
+  simulationId String
+  questionId   String
+  order        Int
 
-  simulation    Simulation @relation(fields: [simulationId], references: [id], onDelete: Cascade)
-  question      Question   @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  simulation Simulation @relation(fields: [simulationId], references: [id], onDelete: Cascade)
+  question   Question   @relation(fields: [questionId], references: [id], onDelete: Cascade)
 
   @@unique([simulationId, questionId])
   @@index([simulationId])
@@ -306,27 +317,27 @@ model SimulationQuestion {
 // ============================================================================
 
 model Achievement {
-  id          String   @id @default(cuid())
-  key         String   @unique  // "FIRST_CORRECT", "STREAK_7", etc
+  id          String @id @default(cuid())
+  key         String @unique // "FIRST_CORRECT", "STREAK_7", etc
   name        String
   description String
   icon        String
   points      Int
 
-  users       UserAchievement[]
+  users UserAchievement[]
 
-  createdAt   DateTime @default(now())
+  createdAt DateTime @default(now())
 }
 
 model UserAchievement {
-  id            String      @id @default(cuid())
+  id            String @id @default(cuid())
   userId        String
   achievementId String
 
-  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  achievement   Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  achievement Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
 
-  unlockedAt    DateTime    @default(now())
+  unlockedAt DateTime @default(now())
 
   @@unique([userId, achievementId])
   @@index([userId])
@@ -337,21 +348,21 @@ model UserAchievement {
 // ============================================================================
 
 model StudyPlan {
-  id              String   @id @default(cuid())
-  userId          String
-  name            String
-  description     String?
+  id          String  @id @default(cuid())
+  userId      String
+  name        String
+  description String?
 
-  targetExamDate  DateTime?
-  weeklyGoal      Int      // questões por semana
-  focusSubjects   Subject[]
+  targetExamDate DateTime?
+  weeklyGoal     Int // questões por semana
+  focusSubjects  Subject[]
 
-  isActive        Boolean  @default(true)
+  isActive Boolean @default(true)
 
-  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([userId, isActive])
 }
@@ -361,28 +372,28 @@ model StudyPlan {
 // ============================================================================
 
 model ReviewCard {
-  id            String   @id @default(cuid())
-  userId        String
-  questionId    String
+  id         String @id @default(cuid())
+  userId     String
+  questionId String
 
   // SRS Algorithm fields (SM-2 inspired)
-  easeFactor    Float    @default(2.5)  // Difficulty factor (1.3 - 5.0)
-  interval      Int      @default(1)     // Days until next review
-  repetitions   Int      @default(0)     // Number of successful reviews
+  easeFactor  Float @default(2.5) // Difficulty factor (1.3 - 5.0)
+  interval    Int   @default(1) // Days until next review
+  repetitions Int   @default(0) // Number of successful reviews
 
   // Scheduling
-  nextReviewAt  DateTime @default(now()) // When to show this card
-  lastReviewAt  DateTime?
+  nextReviewAt DateTime  @default(now()) // When to show this card
+  lastReviewAt DateTime?
 
   // Stats
-  totalReviews  Int      @default(0)
-  correctReviews Int     @default(0)
+  totalReviews   Int @default(0)
+  correctReviews Int @default(0)
 
-  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  question      Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
 
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([userId, questionId])
   @@index([userId, nextReviewAt])
@@ -394,13 +405,13 @@ model ReviewCard {
 // ============================================================================
 
 model PushSubscription {
-  id        String   @id @default(cuid())
-  userId    String
-  endpoint  String   @unique
-  p256dh    String
-  auth      String
+  id       String @id @default(cuid())
+  userId   String
+  endpoint String @unique
+  p256dh   String
+  auth     String
 
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -413,51 +424,51 @@ model PushSubscription {
 // ============================================================================
 
 model QuestionExplanation {
-  id              String   @id @default(cuid())
-  questionId      String   @unique
+  id         String @id @default(cuid())
+  questionId String @unique
 
   // Explicação gerada pela IA
-  explanation     String   @db.Text
-  detailedAnswer  String?  @db.Text
+  explanation    String  @db.Text
+  detailedAnswer String? @db.Text
 
   // Referências legais identificadas pela IA
   legalReferences Json?
 
   // Metadados
-  generatedBy     String   // "openai", "manual"
-  model           String?  // "gpt-4o-mini"
-  qualityScore    Float?   // 0-1 (baseado em feedback dos usuários)
-  usageCount      Int      @default(0)
+  generatedBy  String // "openai", "manual"
+  model        String? // "gpt-4o-mini"
+  qualityScore Float? // 0-1 (baseado em feedback dos usuários)
+  usageCount   Int     @default(0)
 
   // Relação
-  question        Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
 
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([questionId])
 }
 
 model UserQuestionChat {
-  id          String   @id @default(cuid())
-  userId      String
-  questionId  String
+  id         String @id @default(cuid())
+  userId     String
+  questionId String
 
   // Conversa (array de mensagens)
   // P3 FIX: Schema documentado + validação Zod em runtime (ver lib/validations/chat.ts)
   // Formato: [{role: "user"|"assistant", content: string, timestamp: string}]
-  messages    Json
+  messages Json
 
   // Metadados
   messageCount Int     @default(0)
   lastMessage  String? @db.Text
 
   // Relações
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  question    Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([userId, questionId])
   @@index([userId])
@@ -469,69 +480,69 @@ model UserQuestionChat {
 // ============================================================================
 
 model Customer {
-  id                String   @id @default(cuid())
-  userId            String   @unique
-  asaasCustomerId   String?  @unique  // ID do cliente no Asaas (cus_XXXXX)
-  gateway           String   @default("asaas") // Gateway de pagamento
+  id              String  @id @default(cuid())
+  userId          String  @unique
+  asaasCustomerId String? @unique // ID do cliente no Asaas (cus_XXXXX)
+  gateway         String  @default("asaas") // Gateway de pagamento
 
   // Dados do cliente
-  name              String
-  email             String
-  phone             String?
-  cpfCnpj           String?  // CPF/CNPJ para billing Asaas (obrigatório)
+  name    String
+  email   String
+  phone   String?
+  cpfCnpj String? // CPF/CNPJ para billing Asaas (obrigatório)
 
   // Relações
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  subscriptions     Subscription[]
-  payments          Payment[]
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subscriptions Subscription[]
+  payments      Payment[]
 
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([userId])
   @@index([asaasCustomerId])
 }
 
 model Subscription {
-  id                    String             @id @default(cuid())
-  customerId            String
-  asaasSubscriptionId   String?            @unique  // ID da assinatura no Asaas (sub_XXXXX)
-  gateway               String             @default("asaas") // Gateway de pagamento
+  id                  String  @id @default(cuid())
+  customerId          String
+  asaasSubscriptionId String? @unique // ID da assinatura no Asaas (sub_XXXXX)
+  gateway             String  @default("asaas") // Gateway de pagamento
 
   // Plano (String para compatibilidade com dados existentes, validação no app)
-  plan                  String             // "BASIC_MONTHLY" ou "PRO_MONTHLY"
-  status                SubscriptionStatus @default(ACTIVE)
+  plan   String // "BASIC_MONTHLY" ou "PRO_MONTHLY"
+  status SubscriptionStatus @default(ACTIVE)
 
   // Valores
-  value                 Float              // Valor por período
-  discount              Float?             // Desconto aplicado
+  value    Float // Valor por período
+  discount Float? // Desconto aplicado
 
   // Configuração
-  cycle                 String             // "MONTHLY" (único ciclo suportado)
+  cycle String // "MONTHLY" (único ciclo suportado)
 
   // Períodos
-  currentPeriodStart    DateTime?
-  currentPeriodEnd      DateTime?
-  cancelAtPeriodEnd     Boolean            @default(false)
+  currentPeriodStart DateTime?
+  currentPeriodEnd   DateTime?
+  cancelAtPeriodEnd  Boolean   @default(false)
 
   // Trial
-  trialStart            DateTime?
-  trialEnd              DateTime?
+  trialStart DateTime?
+  trialEnd   DateTime?
 
   // Datas
-  startDate             DateTime           @default(now())
-  endDate               DateTime?
-  canceledAt            DateTime?
+  startDate  DateTime  @default(now())
+  endDate    DateTime?
+  canceledAt DateTime?
 
   // Relacionamentos
-  customer              Customer           @relation(fields: [customerId], references: [id], onDelete: Cascade)
-  payments              Payment[]
+  customer Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  payments Payment[]
 
   // Metadados
-  metadata              Json?              // Dados extras (cupom, origem, etc)
+  metadata Json? // Dados extras (cupom, origem, etc)
 
-  createdAt             DateTime           @default(now())
-  updatedAt             DateTime           @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([customerId])
   @@index([status])
@@ -540,47 +551,47 @@ model Subscription {
 }
 
 model Payment {
-  id                      String        @id @default(cuid())
-  customerId              String
-  subscriptionId          String?
+  id             String  @id @default(cuid())
+  customerId     String
+  subscriptionId String?
 
   // ID externo do pagamento no gateway
-  externalPaymentId       String        @unique  // ID do pagamento no Asaas (pay_XXXXX)
+  externalPaymentId String @unique // ID do pagamento no Asaas (pay_XXXXX)
 
   // Valores
-  value                   Float
-  netValue                Float?        // Valor líquido (após taxas)
+  value    Float
+  netValue Float? // Valor líquido (após taxas)
 
   // Status e método
-  status                  PaymentStatus
-  paymentMethod           PaymentMethod
+  status        PaymentStatus
+  paymentMethod PaymentMethod
 
   // Dados de pagamento
-  dueDate                 DateTime
-  paymentDate             DateTime?
-  confirmedDate           DateTime?
+  dueDate       DateTime
+  paymentDate   DateTime?
+  confirmedDate DateTime?
 
   // URLs
-  receiptUrl              String?       // URL do recibo
-  invoiceUrl              String?       // URL da fatura
+  receiptUrl String? // URL do recibo
+  invoiceUrl String? // URL da fatura
 
   // Cartão
-  creditCardBrand         String?
-  creditCardLast4         String?
+  creditCardBrand String?
+  creditCardLast4 String?
 
   // Relacionamentos
-  customer                Customer      @relation(fields: [customerId], references: [id], onDelete: Cascade)
-  subscription            Subscription? @relation(fields: [subscriptionId], references: [id], onDelete: SetNull)
+  customer     Customer      @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  subscription Subscription? @relation(fields: [subscriptionId], references: [id], onDelete: SetNull)
 
   // Webhooks recebidos
-  webhookEvents           Json?
+  webhookEvents Json?
 
   // Metadados
-  description             String?
-  externalReference       String?
+  description       String?
+  externalReference String?
 
-  createdAt               DateTime      @default(now())
-  updatedAt               DateTime      @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([customerId])
   @@index([subscriptionId])
@@ -590,15 +601,15 @@ model Payment {
 }
 
 model WebhookLog {
-  id          String   @id @default(cuid())
-  eventType   String   @default("unknown") // "PAYMENT_RECEIVED", "ai_usage", etc.
-  eventId     String?  // ID único do evento (para idempotência)
-  source      String   @default("asaas") // "asaas" | "system"
-  payload     Json     // Payload completo do webhook
-  processed   Boolean  @default(false)
-  error       String?  @db.Text
+  id        String  @id @default(cuid())
+  eventType String  @default("unknown") // "PAYMENT_RECEIVED", "ai_usage", etc.
+  eventId   String? // ID único do evento (para idempotência)
+  source    String  @default("asaas") // "asaas" | "system"
+  payload   Json // Payload completo do webhook
+  processed Boolean @default(false)
+  error     String? @db.Text
 
-  createdAt   DateTime @default(now())
+  createdAt   DateTime  @default(now())
   processedAt DateTime?
 
   @@index([eventType])
@@ -607,4 +618,266 @@ model WebhookLog {
   @@index([processed])
   @@index([createdAt])
   @@index([processed, createdAt])
+}
+
+// ============================================================================
+// TRACKING DE SESSÕES (heartbeat próprio, complementa Clerk)
+// Clerk dá login/device/IP; esta tabela registra TEMPO ATIVO real na aba.
+// ============================================================================
+
+model UserSession {
+  id              String   @id @default(cuid())
+  userId          String
+  clerkSessionId  String? // cruzar com Clerk SessionWithActivities
+  startedAt       DateTime @default(now())
+  lastHeartbeatAt DateTime @default(now())
+  durationSec     Int      @default(0) // derivado: last - started, cap por idle
+  pageViews       Int      @default(0)
+  entryPath       String? // primeira rota
+  exitPath        String? // última rota
+  userAgent       String?
+  ipAddress       String?
+  country         String?
+  city            String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([userId, startedAt])
+  @@index([startedAt])
+  @@index([lastHeartbeatAt])
+}
+
+// ============================================================================
+// CAMPANHAS DE EMAIL (inativos e outros)
+// ============================================================================
+
+enum CampaignType {
+  INACTIVE_D3
+  INACTIVE_D7
+  INACTIVE_D14
+  WELCOME
+  PAYMENT_CONFIRMED
+  PAYMENT_FAILED
+  SUBSCRIPTION_CANCELED
+  CUSTOM
+}
+
+enum CampaignStatus {
+  QUEUED
+  SENT
+  OPENED
+  CLICKED
+  BOUNCED
+  FAILED
+  UNSUBSCRIBED
+}
+
+model EmailCampaign {
+  id        String         @id @default(cuid())
+  userId    String
+  type      CampaignType
+  status    CampaignStatus @default(QUEUED)
+  subject   String
+  resendId  String?        @unique // id do envio no Resend (pra pollar status)
+  metadata  Json? // utmParams, variant A/B, etc.
+  sentAt    DateTime?
+  openedAt  DateTime?
+  clickedAt DateTime?
+  error     String?        @db.Text
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([userId, type])
+  @@index([type, sentAt])
+  @@index([status])
+  @@index([resendId])
+}
+
+// ============================================================================
+// NOTIFICAÇÕES IN-APP + CAMPANHAS MULTICANAL
+// Sistema próprio (não 3rd-party) que coordena push + email + in-app + vibrate.
+// ============================================================================
+
+enum NotificationType {
+  INFO
+  ALERT
+  ACHIEVEMENT
+  REMINDER
+  PAYMENT_RECOVERY
+  PROMO
+  CAMPAIGN
+  SYSTEM
+}
+
+enum NotificationPriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+enum NotificationChannel {
+  IN_APP
+  PUSH
+  EMAIL
+}
+
+enum NotificationCampaignStatus {
+  DRAFT
+  SCHEDULED
+  SENDING
+  SENT
+  FAILED
+  CANCELED
+}
+
+/// Caixa de entrada por usuário. Toda notificação enviada vira uma row aqui,
+/// independente do canal (push/email/in-app). Permite UI de "central de notificações".
+model Notification {
+  id       String               @id @default(cuid())
+  userId   String
+  type     NotificationType
+  priority NotificationPriority @default(NORMAL)
+
+  // Conteúdo
+  title       String
+  body        String  @db.Text
+  iconUrl     String?
+  imageUrl    String?
+  actionUrl   String? // URL pra onde clique leva
+  actionLabel String? // texto do botão
+
+  // Status do user
+  readAt      DateTime?
+  dismissedAt DateTime?
+
+  // Tracking de entrega multicanal
+  channels        NotificationChannel[] // canais alvo configurados
+  inAppDelivered  Boolean   @default(true) // sempre disponível na inbox
+  pushSent        Boolean   @default(false)
+  pushSentAt      DateTime?
+  pushError       String?
+  emailSent       Boolean   @default(false)
+  emailSentAt     DateTime?
+  emailCampaignId String? // FK pra EmailCampaign quando aplicável
+  vibrate         Boolean   @default(false) // pediu vibração no client
+
+  // Origem
+  campaignId String?
+  campaign   NotificationCampaign? @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+
+  metadata  Json?
+  expiresAt DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@index([userId, readAt])
+  @@index([userId, createdAt])
+  @@index([campaignId])
+  @@index([type])
+}
+
+/// Template de campanha criado pelo admin. Resolve audiência via filter JSON
+/// e dispara em batch pra todos os matching users.
+model NotificationCampaign {
+  id          String  @id @default(cuid())
+  name        String  @unique
+  description String? @db.Text
+
+  // Conteúdo do template (suporta {{userName}} etc)
+  type             NotificationType
+  priority         NotificationPriority  @default(NORMAL)
+  channels         NotificationChannel[] // ['IN_APP','PUSH','EMAIL']
+  vibrate          Boolean               @default(false)
+  titleTemplate    String
+  bodyTemplate     String                @db.Text
+  iconUrl          String?
+  imageUrl         String?
+  actionUrl        String?
+  actionLabel      String?
+  emailSubjectTemplate String?
+  emailHtmlTemplate    String? @db.Text
+
+  // Targeting
+  audienceFilter Json // { subscriptionStatus: 'NO_SUB', daysSinceSignup: 7, ... }
+
+  // Schedule + state
+  status        NotificationCampaignStatus @default(DRAFT)
+  scheduledFor  DateTime?
+  sentAt        DateTime?
+  cancelledAt   DateTime?
+
+  // Stats agregadas (atualizadas no dispatch + leitura)
+  totalTargeted Int @default(0)
+  totalSent     Int @default(0)
+  totalRead     Int @default(0)
+  totalClicked  Int @default(0)
+  totalFailed   Int @default(0)
+
+  // Recurrence (pra recovery campaigns)
+  recurring   Boolean @default(false)
+  recurringKey String? @unique // ex: "RECOVERY_D7" — cron usa pra evitar dispatch dup
+
+  createdBy String // adminEmail
+
+  notifications Notification[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@index([scheduledFor])
+  @@index([createdBy])
+}
+
+/// Preferencias do user sobre canais (opt-in/out por tipo).
+/// Default tudo on. In-app sempre fica visivel; user opt-out so de push/email.
+model NotificationPreference {
+  id     String @id @default(cuid())
+  userId String @unique
+
+  pushEnabled  Boolean @default(true)
+  emailEnabled Boolean @default(true)
+
+  promoEnabled       Boolean @default(true)
+  reminderEnabled    Boolean @default(true)
+  achievementEnabled Boolean @default(true)
+  recoveryEnabled    Boolean @default(true)
+
+  quietHoursStart Int?
+  quietHoursEnd   Int?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ============================================================================
+// AUDIT LOG — ações administrativas para rastreabilidade
+// ============================================================================
+
+model AdminAudit {
+  id         String  @id @default(cuid())
+  adminEmail String
+  action     String
+  targetType String?
+  targetId   String?
+  metadata   Json?
+  ipAddress  String?
+  userAgent  String?
+
+  createdAt DateTime @default(now())
+
+  @@index([adminEmail])
+  @@index([action])
+  @@index([createdAt])
+  @@index([targetType, targetId])
 }

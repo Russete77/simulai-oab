@@ -10,7 +10,7 @@ export default function NotFound() {
           404
         </div>
 
-        <h1 className="text-2xl sm:text-3xl font-bold text-white mb-4">
+        <h1 className="text-2xl sm:text-3xl font-bold text-ink-1 mb-4">
           Página não encontrada
         </h1>
 
@@ -22,52 +22,52 @@ export default function NotFound() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
           <Link
             href="/"
-            className="flex items-center gap-3 p-4 bg-white/5 border border-white/10 rounded-xl hover:border-blue-500/50 transition-colors text-left"
+            className="flex items-center gap-3 p-4 bg-surface-2 border rounded-xl hover:border-accent/50 transition-colors text-left"
           >
-            <div className="w-10 h-10 bg-blue-500/15 rounded-lg flex items-center justify-center flex-shrink-0">
-              <Home className="w-5 h-5 text-blue-400" />
+            <div className="w-10 h-10 bg-accent-soft rounded-lg flex items-center justify-center flex-shrink-0">
+              <Home className="w-5 h-5 text-accent" />
             </div>
             <div>
-              <div className="text-white font-medium text-sm">Página inicial</div>
+              <div className="text-ink-1 font-medium text-sm">Página inicial</div>
               <div className="text-gray-500 text-xs">Voltar ao início</div>
             </div>
           </Link>
 
           <Link
             href="/practice"
-            className="flex items-center gap-3 p-4 bg-white/5 border border-white/10 rounded-xl hover:border-blue-500/50 transition-colors text-left"
+            className="flex items-center gap-3 p-4 bg-surface-2 border rounded-xl hover:border-accent/50 transition-colors text-left"
           >
             <div className="w-10 h-10 bg-purple-500/15 rounded-lg flex items-center justify-center flex-shrink-0">
               <BookOpen className="w-5 h-5 text-purple-400" />
             </div>
             <div>
-              <div className="text-white font-medium text-sm">Praticar questões</div>
+              <div className="text-ink-1 font-medium text-sm">Praticar questões</div>
               <div className="text-gray-500 text-xs">5.605 questões oficiais</div>
             </div>
           </Link>
 
           <Link
             href="/simulations"
-            className="flex items-center gap-3 p-4 bg-white/5 border border-white/10 rounded-xl hover:border-blue-500/50 transition-colors text-left"
+            className="flex items-center gap-3 p-4 bg-surface-2 border rounded-xl hover:border-accent/50 transition-colors text-left"
           >
             <div className="w-10 h-10 bg-green-500/15 rounded-lg flex items-center justify-center flex-shrink-0">
               <FileText className="w-5 h-5 text-green-400" />
             </div>
             <div>
-              <div className="text-white font-medium text-sm">Simulados</div>
+              <div className="text-ink-1 font-medium text-sm">Simulados</div>
               <div className="text-gray-500 text-xs">5 modos de estudo</div>
             </div>
           </Link>
 
           <Link
             href="/blog"
-            className="flex items-center gap-3 p-4 bg-white/5 border border-white/10 rounded-xl hover:border-blue-500/50 transition-colors text-left"
+            className="flex items-center gap-3 p-4 bg-surface-2 border rounded-xl hover:border-accent/50 transition-colors text-left"
           >
             <div className="w-10 h-10 bg-amber-500/15 rounded-lg flex items-center justify-center flex-shrink-0">
               <Search className="w-5 h-5 text-amber-400" />
             </div>
             <div>
-              <div className="text-white font-medium text-sm">Blog</div>
+              <div className="text-ink-1 font-medium text-sm">Blog</div>
               <div className="text-gray-500 text-xs">Dicas e estratégias OAB</div>
             </div>
           </Link>

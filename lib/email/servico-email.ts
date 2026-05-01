@@ -467,7 +467,9 @@ export class ServicoEmail {
       return false;
     }
   }
+
 }
+
 
 // Singleton
 let servicoEmailInstance: ServicoEmail | null = null;

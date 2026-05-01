@@ -13,7 +13,7 @@ import { asaas } from '@/lib/asaas/client';
 import { ASAAS_PLANS, type AsaasPlanKey } from '@/lib/asaas/checkout';
 import type { AsaasPayment } from '@/lib/asaas/types';
 
-type PlanTier = 'FREE' | 'BASIC' | 'PRO' | 'PREMIUM';
+type PlanTier = 'BASIC' | 'PRO' | 'PREMIUM';
 
 export interface ReconcileResult {
   totalFromAsaas: number;
@@ -140,7 +140,7 @@ export async function reconcileAsaasPayments(): Promise<ReconcileResult> {
         });
 
         const rank = (t: PlanTier): number =>
-          ({ FREE: 0, BASIC: 1, PRO: 2, PREMIUM: 2 } as const)[t];
+          ({ BASIC: 1, PRO: 2, PREMIUM: 2 } as const)[t];
         if (rank(planConfig.tier) > rank(user.planType as PlanTier)) {
           await tx.user.update({
             where: { id: userId! },

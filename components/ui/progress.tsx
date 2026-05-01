@@ -29,14 +29,14 @@ export function Progress({
     <div className={clsx('relative', className)} {...props}>
       {(label || showPercentage) && (
         <div className="flex justify-between mb-2">
-          {label && <span className="text-sm text-white/70">{label}</span>}
+          {label && <span className="text-sm text-ink-1/70">{label}</span>}
           {showPercentage && (
-            <span className="text-sm font-bold text-blue-400">{value}%</span>
+            <span className="text-sm font-bold text-accent">{value}%</span>
           )}
         </div>
       )}
 
-      <div className="relative h-2 bg-navy-800 rounded-full overflow-hidden">
+      <div className="relative h-2 bg-surface-2 rounded-full overflow-hidden">
         <div
           className={clsx(
             'absolute h-full bg-gradient-to-r rounded-full transition-all duration-500',

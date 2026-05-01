@@ -1,9 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import { Card } from '@/components/ui';
-import { Timer, CheckCircle, XCircle } from 'lucide-react';
+import { Timer, CheckCircle2, XCircle } from 'lucide-react';
 import { clsx } from 'clsx';
+import { Card, Badge } from '@/components/ui';
 
 interface Alternative {
   id: string;
@@ -65,103 +64,78 @@ export function QuestionCard({
   };
 
   return (
-    <div className="bg-navy-900/70 backdrop-blur-xl border border-white/5 rounded-2xl overflow-hidden shadow-lg">
+    <Card padding="none">
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600/10 to-purple-600/10 p-5 border-b border-white/5">
-        <div className="flex justify-between items-center gap-4">
-          <div className="flex gap-2 flex-wrap">
-            <span className="px-3 py-1.5 bg-blue-500/10 text-blue-300 border border-blue-500/20 rounded-lg text-xs font-medium tracking-wide">
-              {SUBJECT_LABELS[question.subject] || question.subject}
-            </span>
-            {question.examYear && question.examPhase && (
-              <span className="px-3 py-1.5 bg-purple-500/10 text-purple-300 border border-purple-500/20 rounded-lg text-xs font-medium">
-                OAB {question.examYear}/{question.examPhase}
-              </span>
-            )}
-            {question.questionNumber && (
-              <span className="px-3 py-1.5 bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 rounded-lg text-xs font-medium">
-                Questão {question.questionNumber}
-              </span>
-            )}
-          </div>
-          {timer !== undefined && (
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-navy-800/50 rounded-lg">
-              <Timer className="w-4 h-4 text-cyan-400" />
-              <span className="font-mono text-sm text-cyan-400">{formatTime(timer)}</span>
-            </div>
+      <div className="flex items-start justify-between gap-3 px-6 py-4 border-b">
+        <div className="flex flex-wrap gap-1.5">
+          <Badge variant="accent">
+            {SUBJECT_LABELS[question.subject] || question.subject}
+          </Badge>
+          {question.examYear && question.examPhase && (
+            <Badge variant="default">
+              OAB {question.examYear}/{question.examPhase}
+            </Badge>
+          )}
+          {question.questionNumber && (
+            <Badge variant="default">Q{question.questionNumber}</Badge>
           )}
         </div>
+        {timer !== undefined && (
+          <div className="flex items-center gap-1.5 text-xs text-ink-3 text-mono-tabular shrink-0">
+            <Timer className="w-3.5 h-3.5" />
+            <span>{formatTime(timer)}</span>
+          </div>
+        )}
       </div>
 
-      {/* Question */}
-      <div className="p-8">
-        <p className="text-white/95 leading-[1.8] mb-8 text-[15px] font-['Plus_Jakarta_Sans']">
+      {/* Statement */}
+      <div className="px-6 py-6">
+        <p className="text-ink-1 leading-relaxed whitespace-pre-wrap mb-6 text-[15px]">
           {question.statement}
         </p>
 
         {/* Alternatives */}
-        <div className="space-y-2.5">
-          {question.alternatives.map((alternative) => {
-            const isSelected = selectedAlternative === alternative.id;
-            const isCorrect = showResult && correctAlternativeId === alternative.id;
+        <div className="space-y-2">
+          {question.alternatives.map((alt) => {
+            const isSelected = selectedAlternative === alt.id;
+            const isCorrect = showResult && correctAlternativeId === alt.id;
             const isWrong = showResult && isSelected && !isCorrect;
 
             return (
               <button
-                key={alternative.id}
-                onClick={() => !showResult && onSelectAlternative(alternative.id)}
+                key={alt.id}
+                onClick={() => !showResult && onSelectAlternative(alt.id)}
                 disabled={showResult}
                 className={clsx(
-                  'w-full group relative rounded-2xl p-4 text-left transition-all duration-200',
-                  !showResult && [
-                    'bg-navy-800/30 border-2 border-navy-700/50',
-                    'hover:border-blue-500/50 hover:bg-blue-500/10',
-                    isSelected && '!border-blue-500 !bg-blue-600/50 shadow-lg shadow-blue-500/20',
-                  ],
-                  showResult && [
-                    isCorrect && 'bg-green-500/20 border-2 border-green-500',
-                    isWrong && 'bg-red-500/20 border-2 border-red-500',
-                    !isCorrect && !isWrong && 'bg-navy-800/20 border-2 border-navy-700/30',
-                  ]
+                  'w-full p-4 rounded-md text-left transition-all duration-150 border',
+                  !showResult && 'cursor-pointer hover:bg-surface-2 hover:border-strong',
+                  showResult && 'cursor-default',
+                  isCorrect && 'border-success bg-success-soft',
+                  isWrong && 'border-danger bg-danger-soft',
+                  !isCorrect && !isWrong && isSelected && 'border-accent bg-accent-soft',
+                  !isSelected && !isCorrect && !isWrong && 'bg-surface'
                 )}
               >
-                <div className="flex items-start gap-4">
-                  <span
+                <div className="flex items-start gap-3">
+                  <div
                     className={clsx(
-                      'flex items-center justify-center w-9 h-9 rounded-xl font-semibold text-sm transition-all',
-                      !showResult && [
-                        'bg-navy-700/50 text-white/60',
-                        'group-hover:bg-blue-500/30 group-hover:text-blue-200',
-                        isSelected && '!bg-blue-500 !text-white shadow-md shadow-blue-500/30',
-                      ],
-                      showResult && [
-                        isCorrect && 'bg-green-500 text-white',
-                        isWrong && 'bg-red-500 text-white',
-                        !isCorrect && !isWrong && 'bg-navy-700/30 text-white/40',
-                      ]
+                      'w-7 h-7 rounded-md font-semibold text-sm flex items-center justify-center shrink-0',
+                      isCorrect && 'bg-success text-white',
+                      isWrong && 'bg-danger text-white',
+                      !isCorrect && !isWrong && isSelected && 'bg-accent text-accent-fg',
+                      !isSelected && !isCorrect && !isWrong && 'bg-surface-2 text-ink-2'
                     )}
                   >
-                    {alternative.label}
+                    {alt.label}
+                  </div>
+                  <span className="flex-1 text-ink-1 leading-relaxed text-sm">
+                    {alt.text}
                   </span>
-                  <span className={clsx(
-                    'flex-1 transition-colors leading-[1.7] text-[14.5px] font-["Plus_Jakarta_Sans"]',
-                    !showResult && [
-                      'text-white/85 group-hover:text-white/95',
-                      isSelected && '!text-white font-medium'
-                    ],
-                    showResult && [
-                      isCorrect && 'text-green-50',
-                      isWrong && 'text-red-50',
-                      !isCorrect && !isWrong && 'text-white/40',
-                    ]
-                  )}>
-                    {alternative.text}
-                  </span>
-                  {showResult && isCorrect && (
-                    <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                  {isCorrect && (
+                    <CheckCircle2 className="w-5 h-5 text-success shrink-0 mt-0.5" />
                   )}
-                  {showResult && isWrong && (
-                    <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                  {isWrong && (
+                    <XCircle className="w-5 h-5 text-danger shrink-0 mt-0.5" />
                   )}
                 </div>
               </button>
@@ -169,6 +143,6 @@ export function QuestionCard({
           })}
         </div>
       </div>
-    </div>
+    </Card>
   );
 }

@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 
 const SimulationSubjectChart = dynamic(() => import('@/components/simulation/simulation-subject-chart').then(mod => ({ default: mod.SimulationSubjectChart })), {
   ssr: false,
-  loading: () => <div className="h-64 bg-navy-800/30 rounded-xl animate-pulse" />,
+  loading: () => <div className="h-64 bg-surface-2 rounded-xl animate-pulse" />,
 });
 
 interface SimulationAnalytics {
@@ -86,17 +86,17 @@ export default function SimulationReportPage({
 
   const getPerformanceMessage = (rate: number) => {
     if (rate >= 75) return { text: 'Excelente! Você está pronto!', color: 'text-green-500' };
-    if (rate >= 60) return { text: 'Bom desempenho! Continue praticando.', color: 'text-blue-400' };
+    if (rate >= 60) return { text: 'Bom desempenho! Continue praticando.', color: 'text-accent' };
     if (rate >= 50) return { text: 'Precisa melhorar. Foque nos erros.', color: 'text-yellow-400' };
     return { text: 'Continue estudando. Você consegue!', color: 'text-red-500' };
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-navy-950 flex items-center justify-center">
+      <div className="min-h-screen bg-bg flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-navy-600">Gerando relatório...</p>
+          <div className="w-16 h-16 border-4 border-accent border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-ink-3">Gerando relatório...</p>
         </div>
       </div>
     );
@@ -104,9 +104,9 @@ export default function SimulationReportPage({
 
   if (!data) {
     return (
-      <div className="min-h-screen bg-navy-950 flex items-center justify-center">
+      <div className="min-h-screen bg-bg flex items-center justify-center">
         <Card variant="glass" className="text-center p-8">
-          <p className="text-white mb-4">Erro ao carregar relatório</p>
+          <p className="text-ink-1 mb-4">Erro ao carregar relatório</p>
           <Button variant="primary" onClick={() => router.refresh()}>
             Tentar Novamente
           </Button>
@@ -118,15 +118,15 @@ export default function SimulationReportPage({
   const performanceMsg = getPerformanceMessage(data.simulation.successRate);
 
   return (
-    <div className="min-h-screen bg-navy-950">
+    <div className="min-h-screen bg-bg">
       {/* Header */}
-      <div className="border-b border-navy-800 bg-navy-900/50 backdrop-blur-xl sticky top-0 z-10">
+      <div className="border-b border bg-surface sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link href="/simulations">
-                <button className="p-2 hover:bg-navy-800 rounded-lg transition-colors">
-                  <ArrowLeft className="w-5 h-5 text-navy-400" />
+                <button className="p-2 hover:bg-surface-2 rounded-lg transition-colors">
+                  <ArrowLeft className="w-5 h-5 text-ink-2" />
                 </button>
               </Link>
               <h1 className="text-2xl font-bold font-heading bg-gradient-primary bg-clip-text text-transparent">
@@ -143,8 +143,8 @@ export default function SimulationReportPage({
           <div className="text-center">
             <div className="inline-flex items-center justify-center w-32 h-32 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 mb-6">
               <div className="text-center">
-                <p className="text-5xl font-bold text-white">{data.simulation.score}</p>
-                <p className="text-sm text-white/80">pontos</p>
+                <p className="text-5xl font-bold text-ink-1">{data.simulation.score}</p>
+                <p className="text-sm text-ink-1/80">pontos</p>
               </div>
             </div>
 
@@ -152,21 +152,21 @@ export default function SimulationReportPage({
               {performanceMsg.text}
             </h2>
 
-            <div className="flex items-center justify-center gap-8 mt-6 text-white/80">
+            <div className="flex items-center justify-center gap-8 mt-6 text-ink-1/80">
               <div>
-                <p className="text-navy-400 text-sm">Acertos</p>
+                <p className="text-ink-2 text-sm">Acertos</p>
                 <p className="text-2xl font-bold text-green-500">
                   {data.simulation.correctAnswers}/{data.simulation.totalQuestions}
                 </p>
               </div>
               <div>
-                <p className="text-navy-400 text-sm">Taxa de Acerto</p>
-                <p className="text-2xl font-bold text-blue-400">
+                <p className="text-ink-2 text-sm">Taxa de Acerto</p>
+                <p className="text-2xl font-bold text-accent">
                   {data.simulation.successRate.toFixed(1)}%
                 </p>
               </div>
               <div>
-                <p className="text-navy-400 text-sm">Duração</p>
+                <p className="text-ink-2 text-sm">Duração</p>
                 <p className="text-2xl font-bold text-purple-400">
                   {formatDuration(data.simulation.duration)}
                 </p>
@@ -185,7 +185,7 @@ export default function SimulationReportPage({
           <Card variant="glass" className="p-6 mb-6">
             <div className="flex items-center gap-3 mb-6">
               <AlertCircle className="w-6 h-6 text-red-500" />
-              <h3 className="text-xl font-semibold text-white">
+              <h3 className="text-xl font-semibold text-ink-1">
                 Questões Erradas ({data.wrongAnswers.length})
               </h3>
             </div>
@@ -194,25 +194,25 @@ export default function SimulationReportPage({
               {data.wrongAnswers.map((wrong, index) => (
                 <div
                   key={index}
-                  className="bg-navy-800/30 border border-red-500/20 rounded-xl p-4"
+                  className="bg-surface-2 border border-red-500/20 rounded-xl p-4"
                 >
                   <div className="flex items-start justify-between gap-4 mb-3">
                     <span className="px-3 py-1 bg-red-500/10 text-red-500 border border-red-500/20 rounded-lg text-xs font-medium">
                       {wrong.subjectLabel}
                     </span>
                   </div>
-                  <p className="text-white/90 mb-3 leading-relaxed">
+                  <p className="text-ink-1/90 mb-3 leading-relaxed">
                     {wrong.statement}
                   </p>
                   <div className="flex gap-6 text-sm">
                     <div>
-                      <span className="text-navy-400">Sua resposta: </span>
+                      <span className="text-ink-2">Sua resposta: </span>
                       <span className="text-red-500 font-medium">
                         {wrong.userAnswer || 'Não respondida'}
                       </span>
                     </div>
                     <div>
-                      <span className="text-navy-400">Correta: </span>
+                      <span className="text-ink-2">Correta: </span>
                       <span className="text-green-500 font-medium">
                         {wrong.correctAnswer}
                       </span>

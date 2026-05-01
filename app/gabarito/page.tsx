@@ -101,20 +101,20 @@ export default async function GabaritosIndexPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
 
-      <div className="min-h-screen bg-navy-950">
+      <div className="min-h-screen bg-bg">
         <Header />
 
         <main id="main-content" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" className="mb-6">
             <ol className="flex items-center gap-2 text-sm text-gray-400">
-              <li><Link href="/" className="hover:text-white transition"><Home className="w-4 h-4" /></Link></li>
+              <li><Link href="/" className="hover:text-ink-1 transition"><Home className="w-4 h-4" /></Link></li>
               <li><ChevronRight className="w-3 h-3" /></li>
-              <li className="text-white font-medium">Gabaritos</li>
+              <li className="text-ink-1 font-medium">Gabaritos</li>
             </ol>
           </nav>
 
-          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-3">
+          <h1 className="text-3xl sm:text-4xl font-bold text-ink-1 mb-3">
             Gabaritos OAB — Todos os Exames
           </h1>
           <p className="text-lg text-gray-400 mb-10">
@@ -133,13 +133,13 @@ export default async function GabaritosIndexPage() {
                 <Link
                   key={exam.examId}
                   href={`/gabarito/${slug}`}
-                  className="group bg-white/5 border border-white/10 rounded-xl p-5 hover:bg-white/[0.08] hover:border-blue-500/30 transition"
+                  className="group bg-surface-2 border rounded-xl p-5 hover:bg-surface-2 hover:border-accent transition"
                 >
                   <div className="flex items-start justify-between mb-3">
-                    <FileText className="w-6 h-6 text-blue-400" />
+                    <FileText className="w-6 h-6 text-accent" />
                     <span className="text-xs text-gray-500">{exam.examYear}</span>
                   </div>
-                  <h2 className="text-lg font-bold text-white group-hover:text-blue-400 transition mb-1">
+                  <h2 className="text-lg font-bold text-ink-1 group-hover:text-accent transition mb-1">
                     Gabarito {label}
                   </h2>
                   <p className="text-sm text-gray-400">

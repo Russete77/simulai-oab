@@ -16,7 +16,10 @@
       "Bash(npx next build:*)",
       "Bash(npm uninstall:*)",
       "Bash(git add:*)",
-      "Bash(npx stripe:*)"
+      "Bash(npx stripe:*)",
+      "Bash(npx vite:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx prisma:*)"
     ],
     "deny": [],
     "ask": []

@@ -1,69 +1,66 @@
 'use client';
 
-import { InputHTMLAttributes, forwardRef, useState } from 'react';
+import { InputHTMLAttributes, forwardRef, useId } from 'react';
 import { clsx } from 'clsx';
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
+  hint?: string;
   error?: string;
+  leadingIcon?: React.ReactNode;
+  trailingIcon?: React.ReactNode;
 }
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, error, className, ...props }, ref) => {
-    const [isFocused, setIsFocused] = useState(false);
-    const [hasValue, setHasValue] = useState(false);
+export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
+  { label, hint, error, leadingIcon, trailingIcon, className, id, ...props },
+  ref
+) {
+  const generatedId = useId();
+  const inputId = id ?? generatedId;
+  const errorId = error ? inputId + '-error' : undefined;
+  const hintId = hint ? inputId + '-hint' : undefined;
 
-    const handleFocus = () => setIsFocused(true);
-    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-      setIsFocused(false);
-      setHasValue(e.target.value !== '');
-      props.onBlur?.(e);
-    };
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setHasValue(e.target.value !== '');
-      props.onChange?.(e);
-    };
-
-    return (
-      <div className="relative w-full">
+  return (
+    <div className="w-full">
+      {label ? (
+        <label htmlFor={inputId} className="block mb-1.5 text-sm font-medium text-ink-1">
+          {label}
+        </label>
+      ) : null}
+      <div className="relative">
+        {leadingIcon ? (
+          <div className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-3 pointer-events-none">
+            {leadingIcon}
+          </div>
+        ) : null}
         <input
           ref={ref}
+          id={inputId}
+          aria-invalid={!!error}
+          aria-describedby={[errorId, hintId].filter(Boolean).join(' ') || undefined}
           className={clsx(
-            'peer w-full bg-navy-800/50 border-2 rounded-xl px-4 text-white transition-all duration-200',
-            'focus:border-blue-500 focus:outline-none',
-            'placeholder-transparent',
-            error ? 'border-red-500' : 'border-navy-700',
-            label ? 'pt-6 pb-2' : 'py-3',
+            'w-full h-10 bg-surface text-ink-1 placeholder:text-ink-3',
+            'border rounded-md transition-all duration-150',
+            'focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent',
+            'disabled:opacity-50 disabled:cursor-not-allowed',
+            leadingIcon ? 'pl-10' : 'pl-3',
+            trailingIcon ? 'pr-10' : 'pr-3',
+            error ? 'border-danger focus:border-danger focus:ring-danger/20' : '',
             className
           )}
-          placeholder={label || props.placeholder}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          onChange={handleChange}
           {...props}
         />
-
-        {label && (
-          <label
-            className={clsx(
-              'absolute left-4 transition-all duration-200 pointer-events-none',
-              'text-navy-600',
-              (isFocused || hasValue || props.value)
-                ? 'top-2 text-xs text-blue-400'
-                : 'top-4 text-base'
-            )}
-          >
-            {label}
-          </label>
-        )}
-
-        {error && (
-          <p className="mt-1 text-sm text-red-500">{error}</p>
-        )}
+        {trailingIcon ? (
+          <div className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-3 pointer-events-none">
+            {trailingIcon}
+          </div>
+        ) : null}
       </div>
-    );
-  }
-);
-
-Input.displayName = 'Input';
+      {error ? (
+        <p id={errorId} className="mt-1.5 text-xs text-danger">{error}</p>
+      ) : hint ? (
+        <p id={hintId} className="mt-1.5 text-xs text-ink-3">{hint}</p>
+      ) : null}
+    </div>
+  );
+});

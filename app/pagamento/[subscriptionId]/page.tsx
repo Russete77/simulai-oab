@@ -91,15 +91,15 @@ export default function PagamentoPage() {
 
   if (!isLoaded || carregando) {
     return (
-      <div className="min-h-screen bg-navy-950 flex items-center justify-center">
-        <Loader2 className="w-12 h-12 text-blue-500 animate-spin" />
+      <div className="min-h-screen bg-bg flex items-center justify-center">
+        <Loader2 className="w-12 h-12 text-accent animate-spin" />
       </div>
     );
   }
 
   if (erro) {
     return (
-      <div className="min-h-screen bg-navy-950">
+      <div className="min-h-screen bg-bg">
         <Header />
         <div className="max-w-2xl mx-auto px-4 py-12">
           <Card variant="glass">
@@ -107,7 +107,7 @@ export default function PagamentoPage() {
               <p className="text-red-500 mb-4">{erro}</p>
               <button
                 onClick={() => router.push('/pricing')}
-                className="text-blue-400 hover:text-blue-300"
+                className="text-accent hover:text-accent"
               >
                 Voltar para planos
               </button>
@@ -122,13 +122,13 @@ export default function PagamentoPage() {
     new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(v);
 
   return (
-    <div className="min-h-screen bg-navy-950">
+    <div className="min-h-screen bg-bg">
       <Header />
 
       <div className="max-w-2xl mx-auto px-4 py-12">
         <Card variant="glass">
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-white mb-2">
+            <h1 className="text-2xl font-bold text-ink-1 mb-2">
               {data?.billingType === 'PIX' ? 'Pagamento via PIX' : 'Pagamento via Boleto'}
             </h1>
             <p className="text-gray-400">
@@ -160,7 +160,7 @@ export default function PagamentoPage() {
                     type="text"
                     readOnly
                     value={data.pixQrCode.payload}
-                    className="flex-1 bg-navy-800 border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono truncate"
+                    className="flex-1 bg-surface-2 border rounded-xl px-4 py-3 text-ink-1 text-sm font-mono truncate"
                   />
                   <button
                     onClick={copiarPix}
@@ -235,7 +235,7 @@ export default function PagamentoPage() {
             <button
               onClick={verificarPagamento}
               disabled={verificando}
-              className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm"
+              className="inline-flex items-center gap-2 text-gray-400 hover:text-ink-1 transition-colors text-sm"
             >
               <RefreshCw className={`w-4 h-4 ${verificando ? 'animate-spin' : ''}`} />
               {verificando ? 'Verificando...' : 'Verificar pagamento'}

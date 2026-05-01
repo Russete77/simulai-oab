@@ -1,9 +1,9 @@
 export default function DashboardLoading() {
   return (
-    <div className="min-h-screen bg-navy-950 flex items-center justify-center">
+    <div className="min-h-screen bg-bg flex items-center justify-center">
       <div className="text-center">
-        <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-        <p className="text-navy-400">Carregando dashboard...</p>
+        <div className="w-16 h-16 border-4 border-accent border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+        <p className="text-ink-2">Carregando dashboard...</p>
       </div>
     </div>
   );

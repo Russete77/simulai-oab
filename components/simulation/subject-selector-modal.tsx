@@ -103,32 +103,32 @@ export default function SubjectSelectorModal({
       />
 
       {/* Modal */}
-      <div className="relative bg-navy-900 border border-white/10 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+      <div className="relative bg-surface border rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-white/10">
+        <div className="flex items-center justify-between p-6 border-b border">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-green-500/20 rounded-xl flex items-center justify-center">
               <BookOpen className="w-5 h-5 text-green-500" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-white">Escolha as Matérias</h2>
-              <p className="text-navy-400 text-sm mt-1">
+              <h2 className="text-2xl font-bold text-ink-1">Escolha as Matérias</h2>
+              <p className="text-ink-2 text-sm mt-1">
                 Selecione as matérias para o seu simulado personalizado
               </p>
             </div>
           </div>
           <button
             onClick={handleCancel}
-            className="p-2 hover:bg-white/5 rounded-lg transition-colors"
+            className="p-2 hover:bg-surface-2 rounded-lg transition-colors"
           >
-            <X className="w-5 h-5 text-navy-400" />
+            <X className="w-5 h-5 text-ink-2" />
           </button>
         </div>
 
         {/* Selected Count */}
         {selectedSubjects.length > 0 && (
-          <div className="px-6 py-3 bg-blue-500/10 border-b border-blue-500/20">
-            <p className="text-blue-400 text-sm font-medium">
+          <div className="px-6 py-3 bg-accent-soft border-b border-accent">
+            <p className="text-accent text-sm font-medium">
               {selectedSubjects.length} {selectedSubjects.length === 1 ? 'matéria selecionada' : 'matérias selecionadas'}
             </p>
           </div>
@@ -150,7 +150,7 @@ export default function SubjectSelectorModal({
                     ${
                       isSelected
                         ? 'bg-green-500/10 border-green-500/50 shadow-lg shadow-green-500/20 text-green-500'
-                        : 'bg-navy-800/50 border-white/10 hover:border-white/20 hover:bg-navy-800'
+                        : 'bg-surface-2 border hover:border-strong hover:bg-surface-2'
                     }
                   `}
                 >
@@ -158,12 +158,12 @@ export default function SubjectSelectorModal({
                     <div className="flex-1 min-w-0">
                       <h3
                         className={`font-semibold text-sm mb-1 ${
-                          isSelected ? 'text-green-500' : 'text-white'
+                          isSelected ? 'text-green-500' : 'text-ink-1'
                         }`}
                       >
                         {SUBJECT_LABELS[subject]}
                       </h3>
-                      <p className="text-xs text-navy-400">
+                      <p className="text-xs text-ink-2">
                         {questionCount} questões
                       </p>
                     </div>
@@ -175,11 +175,11 @@ export default function SubjectSelectorModal({
                         ${
                           isSelected
                             ? 'bg-green-500 border-green-500'
-                            : 'border-white/20'
+                            : 'border-strong'
                         }
                       `}
                     >
-                      {isSelected && <Check className="w-3 h-3 text-white" />}
+                      {isSelected && <Check className="w-3 h-3 text-ink-1" />}
                     </div>
                   </div>
                 </button>
@@ -189,7 +189,7 @@ export default function SubjectSelectorModal({
         </div>
 
         {/* Footer */}
-        <div className="p-6 border-t border-white/10 bg-navy-900/50">
+        <div className="p-6 border-t border bg-surface">
           <div className="flex gap-3">
             <Button
               variant="ghost"

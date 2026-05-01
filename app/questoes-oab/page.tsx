@@ -107,26 +107,26 @@ export default async function QuestoesOabPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
 
-      <div className="min-h-screen bg-navy-950">
+      <div className="min-h-screen bg-bg">
         <Header />
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <nav className="flex items-center gap-2 text-sm text-navy-400 mb-8">
-            <Link href="/" className="hover:text-white transition-colors">Início</Link>
+          <nav className="flex items-center gap-2 text-sm text-ink-2 mb-8">
+            <Link href="/" className="hover:text-ink-1 transition-colors">Início</Link>
             <span>/</span>
-            <span className="text-white">Questões OAB</span>
+            <span className="text-ink-1">Questões OAB</span>
           </nav>
 
           <div className="text-center mb-12">
-            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+            <h1 className="text-4xl sm:text-5xl font-bold text-ink-1 mb-6">
               Questões OAB Comentadas — {totalQuestions.toLocaleString('pt-BR')} Questões Oficiais FGV
             </h1>
-            <p className="text-xl text-navy-300 max-w-3xl mx-auto">
+            <p className="text-xl text-ink-2 max-w-3xl mx-auto">
               Resolva questões oficiais da OAB/FGV de 2010 a 2025 com gabarito comentado e explicações por Inteligência Artificial. Organize seus estudos por matéria e acompanhe sua evolução.
             </p>
           </div>
 
-          <h2 className="text-2xl font-bold text-white mb-6">Questões por Matéria</h2>
+          <h2 className="text-2xl font-bold text-ink-1 mb-6">Questões por Matéria</h2>
           <div className="grid md:grid-cols-2 gap-4 mb-12">
             {subjects.map((subject) => {
               const dbKey = SUBJECT_DB_MAP[subject.slug];
@@ -135,16 +135,16 @@ export default async function QuestoesOabPage() {
                 <Link
                   key={subject.slug}
                   href={`/materias/${subject.slug}`}
-                  className="flex items-center justify-between bg-navy-900/50 border border-white/10 rounded-xl p-4 hover:border-blue-500/50 transition-all group"
+                  className="flex items-center justify-between bg-surface border rounded-xl p-4 hover:border-accent/50 transition-all group"
                 >
                   <div className="flex items-center gap-3">
                     <span className="text-2xl">{subject.emoji}</span>
                     <div>
-                      <div className="text-white font-medium group-hover:text-blue-400 transition-colors">{subject.name}</div>
-                      <div className="text-sm text-navy-400">{count} questões disponíveis</div>
+                      <div className="text-ink-1 font-medium group-hover:text-accent transition-colors">{subject.name}</div>
+                      <div className="text-sm text-ink-2">{count} questões disponíveis</div>
                     </div>
                   </div>
-                  <ArrowRight className="w-5 h-5 text-navy-400 group-hover:text-blue-400 transition-colors" />
+                  <ArrowRight className="w-5 h-5 text-ink-2 group-hover:text-accent transition-colors" />
                 </Link>
               );
             })}
@@ -152,15 +152,15 @@ export default async function QuestoesOabPage() {
 
           {/* Conteúdo SEO */}
           <section className="mb-12">
-            <h2 className="text-2xl font-bold text-white mb-4">Como Estudar com Questões OAB</h2>
-            <div className="bg-navy-900/50 border border-white/10 rounded-xl p-8 prose prose-invert max-w-none">
-              <p className="text-navy-200 text-lg leading-relaxed mb-4">
+            <h2 className="text-2xl font-bold text-ink-1 mb-4">Como Estudar com Questões OAB</h2>
+            <div className="bg-surface border rounded-xl p-8 prose prose-invert max-w-none">
+              <p className="text-ink-1 text-lg leading-relaxed mb-4">
                 Resolver questões é a estratégia mais eficaz para aprovação no Exame da OAB. A banca FGV tem um padrão consistente de cobrança que pode ser identificado praticando com questões de exames anteriores. O Simulai OAB reúne todas as {totalQuestions.toLocaleString('pt-BR')} questões oficiais já aplicadas pela FGV, organizadas por matéria, ano e dificuldade.
               </p>
-              <p className="text-navy-200 text-lg leading-relaxed mb-4">
+              <p className="text-ink-1 text-lg leading-relaxed mb-4">
                 Cada questão no Simulai pode ser resolvida com cronômetro, simulando as condições reais da prova. Após responder, você recebe o gabarito oficial e, no plano Pro, uma explicação detalhada gerada por IA que inclui a fundamentação legal, a doutrina aplicável e a jurisprudência relevante. É como ter um professor particular disponível 24 horas por dia.
               </p>
-              <p className="text-navy-200 text-lg leading-relaxed">
+              <p className="text-ink-1 text-lg leading-relaxed">
                 Para maximizar seus estudos, recomendamos: comece pelas matérias com maior peso na prova (Ética, Constitucional, Civil e Penal), pratique pelo menos 20 questões por dia, e use o modo Revisão de Erros para focar nos seus pontos fracos. O dashboard de performance do Simulai mostra exatamente onde você precisa melhorar.
               </p>
             </div>
@@ -168,26 +168,26 @@ export default async function QuestoesOabPage() {
 
           {/* Links internos */}
           <section className="grid md:grid-cols-3 gap-6 mb-12">
-            <Link href="/simulado-oab-online" className="bg-navy-900/50 border border-white/10 rounded-xl p-6 hover:border-blue-500/50 transition-all group">
-              <Target className="w-8 h-8 text-blue-400 mb-3" />
-              <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-blue-400 transition-colors">Simulados OAB</h3>
-              <p className="text-navy-400 text-sm">Faça simulados completos com cronômetro real</p>
+            <Link href="/simulado-oab-online" className="bg-surface border rounded-xl p-6 hover:border-accent/50 transition-all group">
+              <Target className="w-8 h-8 text-accent mb-3" />
+              <h3 className="text-lg font-semibold text-ink-1 mb-2 group-hover:text-accent transition-colors">Simulados OAB</h3>
+              <p className="text-ink-2 text-sm">Faça simulados completos com cronômetro real</p>
             </Link>
-            <Link href="/gabarito" className="bg-navy-900/50 border border-white/10 rounded-xl p-6 hover:border-blue-500/50 transition-all group">
+            <Link href="/gabarito" className="bg-surface border rounded-xl p-6 hover:border-accent/50 transition-all group">
               <BookOpen className="w-8 h-8 text-green-400 mb-3" />
-              <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-green-400 transition-colors">Gabaritos OAB</h3>
-              <p className="text-navy-400 text-sm">Confira gabaritos de todos os exames</p>
+              <h3 className="text-lg font-semibold text-ink-1 mb-2 group-hover:text-green-400 transition-colors">Gabaritos OAB</h3>
+              <p className="text-ink-2 text-sm">Confira gabaritos de todos os exames</p>
             </Link>
-            <Link href="/blog" className="bg-navy-900/50 border border-white/10 rounded-xl p-6 hover:border-blue-500/50 transition-all group">
+            <Link href="/blog" className="bg-surface border rounded-xl p-6 hover:border-accent/50 transition-all group">
               <Brain className="w-8 h-8 text-purple-400 mb-3" />
-              <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-purple-400 transition-colors">Blog OAB</h3>
-              <p className="text-navy-400 text-sm">Dicas e estratégias de estudo</p>
+              <h3 className="text-lg font-semibold text-ink-1 mb-2 group-hover:text-purple-400 transition-colors">Blog OAB</h3>
+              <p className="text-ink-2 text-sm">Dicas e estratégias de estudo</p>
             </Link>
           </section>
 
           {/* FAQ */}
           <section>
-            <h2 className="text-2xl font-bold text-white mb-6">Perguntas Frequentes sobre Questões OAB</h2>
+            <h2 className="text-2xl font-bold text-ink-1 mb-6">Perguntas Frequentes sobre Questões OAB</h2>
             <div className="space-y-4">
               {[
                 { q: 'Quantas questões OAB tem no banco do Simulai?', a: `São ${totalQuestions.toLocaleString('pt-BR')} questões oficiais da FGV, cobrindo todos os exames de 2010 a 2025 em 17 matérias.` },
@@ -195,12 +195,12 @@ export default async function QuestoesOabPage() {
                 { q: 'Posso filtrar questões por matéria?', a: 'Sim! Acesse qualquer uma das 17 matérias, filtre por ano do exame e veja estatísticas de dificuldade.' },
                 { q: 'As questões são atualizadas?', a: 'Sim! O banco é atualizado automaticamente a cada novo exame da OAB aplicado pela FGV.' },
               ].map((faq, i) => (
-                <details key={i} className="bg-navy-900/50 border border-white/10 rounded-xl p-4 group">
-                  <summary className="text-white font-medium cursor-pointer list-none flex items-center justify-between">
+                <details key={i} className="bg-surface border rounded-xl p-4 group">
+                  <summary className="text-ink-1 font-medium cursor-pointer list-none flex items-center justify-between">
                     {faq.q}
-                    <ArrowRight className="w-4 h-4 text-navy-400 transform group-open:rotate-90 transition-transform" />
+                    <ArrowRight className="w-4 h-4 text-ink-2 transform group-open:rotate-90 transition-transform" />
                   </summary>
-                  <p className="text-navy-300 mt-3 leading-relaxed">{faq.a}</p>
+                  <p className="text-ink-2 mt-3 leading-relaxed">{faq.a}</p>
                 </details>
               ))}
             </div>

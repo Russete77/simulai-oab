@@ -171,22 +171,22 @@ export default async function SimuladoPage({ params }: PageProps) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
 
-      <div className="min-h-screen bg-navy-950">
+      <div className="min-h-screen bg-bg">
         <Header />
 
         <main id="main-content" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" className="mb-6">
             <ol className="flex items-center gap-2 text-sm text-gray-400">
-              <li><Link href="/" className="hover:text-white transition"><Home className="w-4 h-4" /></Link></li>
+              <li><Link href="/" className="hover:text-ink-1 transition"><Home className="w-4 h-4" /></Link></li>
               <li><ChevronRight className="w-3 h-3" /></li>
-              <li><Link href="/simulations" className="hover:text-white transition">Simulados</Link></li>
+              <li><Link href="/simulations" className="hover:text-ink-1 transition">Simulados</Link></li>
               <li><ChevronRight className="w-3 h-3" /></li>
-              <li className="text-white font-medium">{parsed.label}</li>
+              <li className="text-ink-1 font-medium">{parsed.label}</li>
             </ol>
           </nav>
 
-          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-3">
+          <h1 className="text-3xl sm:text-4xl font-bold text-ink-1 mb-3">
             Simulado {parsed.label} — Prova Completa
           </h1>
           <p className="text-lg text-gray-400 mb-8">
@@ -195,38 +195,38 @@ export default async function SimuladoPage({ params }: PageProps) {
 
           {/* Stats cards */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
-            <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-center">
-              <BookOpen className="w-5 h-5 text-blue-400 mx-auto mb-2" />
-              <p className="text-2xl font-bold text-white">{questions.length}</p>
+            <div className="bg-surface-2 border rounded-xl p-4 text-center">
+              <BookOpen className="w-5 h-5 text-accent mx-auto mb-2" />
+              <p className="text-2xl font-bold text-ink-1">{questions.length}</p>
               <p className="text-xs text-gray-400">Questões</p>
             </div>
-            <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-center">
+            <div className="bg-surface-2 border rounded-xl p-4 text-center">
               <Clock className="w-5 h-5 text-purple-400 mx-auto mb-2" />
-              <p className="text-2xl font-bold text-white">{Math.floor(estimatedMinutes / 60)}h{estimatedMinutes % 60 > 0 ? `${estimatedMinutes % 60}min` : ''}</p>
+              <p className="text-2xl font-bold text-ink-1">{Math.floor(estimatedMinutes / 60)}h{estimatedMinutes % 60 > 0 ? `${estimatedMinutes % 60}min` : ''}</p>
               <p className="text-xs text-gray-400">Duração estimada</p>
             </div>
-            <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-center">
+            <div className="bg-surface-2 border rounded-xl p-4 text-center">
               <Target className="w-5 h-5 text-green-500 mx-auto mb-2" />
-              <p className="text-2xl font-bold text-white">{Math.ceil(questions.length * 0.5)}</p>
+              <p className="text-2xl font-bold text-ink-1">{Math.ceil(questions.length * 0.5)}</p>
               <p className="text-xs text-gray-400">Mín. p/ aprovar (50%)</p>
             </div>
-            <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-center">
+            <div className="bg-surface-2 border rounded-xl p-4 text-center">
               <BarChart3 className="w-5 h-5 text-yellow-400 mx-auto mb-2" />
-              <p className="text-2xl font-bold text-white">{Object.keys(subjectStats).length}</p>
+              <p className="text-2xl font-bold text-ink-1">{Object.keys(subjectStats).length}</p>
               <p className="text-xs text-gray-400">Matérias</p>
             </div>
           </div>
 
           {/* Distribuição por matéria */}
           <section className="mb-10">
-            <h2 className="text-xl font-bold text-white mb-4">Distribuição por matéria</h2>
+            <h2 className="text-xl font-bold text-ink-1 mb-4">Distribuição por matéria</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
               {Object.entries(subjectStats)
                 .sort((a, b) => b[1] - a[1])
                 .map(([subject, count]) => (
-                  <div key={subject} className="bg-white/5 border border-white/10 rounded-lg p-3 flex items-center justify-between">
+                  <div key={subject} className="bg-surface-2 border rounded-lg p-3 flex items-center justify-between">
                     <span className="text-sm text-gray-300">{SUBJECT_NAMES[subject] || subject}</span>
-                    <span className="text-sm font-bold text-white">{count}</span>
+                    <span className="text-sm font-bold text-ink-1">{count}</span>
                   </div>
                 ))}
             </div>
@@ -234,8 +234,8 @@ export default async function SimuladoPage({ params }: PageProps) {
 
           {/* CTA principal */}
           <section className="text-center">
-            <div className="bg-gradient-to-br from-blue-600/10 to-purple-600/10 border border-white/10 rounded-2xl p-10">
-              <h2 className="text-2xl font-bold text-white mb-3">
+            <div className="bg-gradient-to-br from-blue-600/10 to-purple-600/10 border rounded-2xl p-10">
+              <h2 className="text-2xl font-bold text-ink-1 mb-3">
                 Pronto para testar seus conhecimentos?
               </h2>
               <p className="text-gray-400 mb-6 max-w-lg mx-auto">
@@ -256,7 +256,7 @@ export default async function SimuladoPage({ params }: PageProps) {
           <section className="mt-8 text-center">
             <Link
               href={`/gabarito/${slug}`}
-              className="text-blue-400 hover:text-blue-300 text-sm font-medium transition"
+              className="text-accent hover:text-accent text-sm font-medium transition"
             >
               Ver gabarito do {parsed.label} →
             </Link>

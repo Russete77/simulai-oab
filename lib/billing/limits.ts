@@ -27,11 +27,12 @@ export interface PlanLimits {
 }
 
 export const PLAN_LIMITS: Record<PlanType, PlanLimits> = {
-  // FREE — R$ 0 — Extremamente limitado para incentivar upgrade
+  // FREE = legado — não vendemos mais, mas o enum continua para compat com dados antigos.
+  // Tudo zerado: usuários FREE NÃO têm acesso (gate.ts bloqueia antes de checar limits).
   FREE: {
-    dailyQuestions: 5,
-    questionBankSize: 100,
-    monthlySimulations: 1,
+    dailyQuestions: 0,
+    questionBankSize: 0,
+    monthlySimulations: 0,
     dailyAiExplanations: 0,
     dailyAiChats: 0,
     canUseAdaptiveSimulations: false,
@@ -42,6 +43,8 @@ export const PLAN_LIMITS: Record<PlanType, PlanLimits> = {
   },
 
   // BASIC = Essencial — R$ 19,99/mês — Tudo liberado, SEM IA
+  // Acesso depende de Subscription.status (TRIALING/ACTIVE liberam, INCOMPLETE bloqueia).
+  // Ver gate.ts pra checagem real de acesso.
   BASIC: {
     dailyQuestions: Infinity,
     questionBankSize: 5605,

@@ -13,16 +13,16 @@ export function ExplanationCards({ explanation, isCorrect }: ExplanationCardsPro
   return (
     <div className="space-y-4">
       {/* Resumo Rápido */}
-      <Card variant="glass" className="p-5 border-blue-500/20 bg-blue-500/5">
+      <Card variant="glass" className="p-5 border-accent bg-accent-soft">
         <div className="flex items-start gap-3">
-          <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center flex-shrink-0">
-            <BookOpen className="w-5 h-5 text-blue-400" />
+          <div className="w-10 h-10 rounded-lg bg-accent-soft flex items-center justify-center flex-shrink-0">
+            <BookOpen className="w-5 h-5 text-accent" />
           </div>
           <div className="flex-1">
-            <h4 className="text-sm font-semibold text-blue-300 uppercase tracking-wide mb-2">
+            <h4 className="text-sm font-semibold text-accent uppercase tracking-wide mb-2">
               Resumo Rápido
             </h4>
-            <p className="text-white/90 text-[15px] leading-relaxed">
+            <p className="text-ink-1/90 text-[15px] leading-relaxed">
               {explanation.resumo}
             </p>
           </div>
@@ -39,7 +39,7 @@ export function ExplanationCards({ explanation, isCorrect }: ExplanationCardsPro
             <h4 className="text-sm font-semibold text-green-300 uppercase tracking-wide mb-2">
               Por Que Está Correta
             </h4>
-            <p className="text-white/90 text-[15px] leading-relaxed mb-3">
+            <p className="text-ink-1/90 text-[15px] leading-relaxed mb-3">
               {explanation.correta.motivo}
             </p>
             {explanation.correta.baseLegal && (
@@ -70,7 +70,7 @@ export function ExplanationCards({ explanation, isCorrect }: ExplanationCardsPro
                     <span className="text-red-500 font-semibold text-sm mt-0.5 flex-shrink-0">
                       {item.alternativa})
                     </span>
-                    <p className="text-white/90 text-[15px] leading-relaxed flex-1">
+                    <p className="text-ink-1/90 text-[15px] leading-relaxed flex-1">
                       {item.motivo}
                     </p>
                   </div>
@@ -92,7 +92,7 @@ export function ExplanationCards({ explanation, isCorrect }: ExplanationCardsPro
               <h4 className="text-sm font-semibold text-amber-300 uppercase tracking-wide mb-2">
                 Dica de Memorização
               </h4>
-              <p className="text-white/90 text-[15px] leading-relaxed">
+              <p className="text-ink-1/90 text-[15px] leading-relaxed">
                 {explanation.dica}
               </p>
             </div>
@@ -115,7 +115,7 @@ export function ExplanationCards({ explanation, isCorrect }: ExplanationCardsPro
                 {explanation.pegadinhas.map((pegadinha, index) => (
                   <li key={index} className="flex items-start gap-2">
                     <span className="text-purple-400 mt-1 flex-shrink-0">⚠</span>
-                    <span className="text-white/90 text-[15px] leading-relaxed">
+                    <span className="text-ink-1/90 text-[15px] leading-relaxed">
                       {pegadinha}
                     </span>
                   </li>

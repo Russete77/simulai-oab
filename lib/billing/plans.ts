@@ -2,14 +2,16 @@
  * Configuração dos planos de assinatura
  *
  * IMPORTANTE: Todos os planos são RECORRÊNCIA MENSAL via Asaas.
- * Sem trimestral, sem anual. Simples e direto.
+ * Sem trimestral, sem anual, sem trial. Payment-only.
  *
- * FREE     → R$ 0     → Funcionalidades básicas, sem IA
  * ESSENCIAL → R$ 19,99 → Tudo liberado, sem IA
- * PRO      → R$ 89,99 → Tudo + IA integrada + Chat IA
+ * PRO       → R$ 89,99 → Tudo + IA integrada + Chat IA
+ *
+ * Usuários novos nascem sem Subscription. gate.ts bloqueia tudo até pagar.
+ * Recovery campaigns disparam por push/email pra trazer de volta.
  */
 
-export type PlanTier = 'FREE' | 'BASIC' | 'PRO' | 'PREMIUM';
+export type PlanTier = 'BASIC' | 'PRO' | 'PREMIUM';
 
 // Apenas MONTHLY — sem trimestral/anual
 export type BillingCycle = 'MONTHLY';
@@ -25,23 +27,6 @@ export interface PlanConfig {
 }
 
 export const PLANS: Record<PlanTier, Record<BillingCycle, PlanConfig>> = {
-  FREE: {
-    MONTHLY: {
-      name: 'Gratuito',
-      description: 'Apenas para experimentar',
-      monthlyValue: 0,
-      value: 0,
-      discount: 0,
-      cycle: 'MONTHLY',
-      features: [
-        '5 questões por dia',
-        '1 simulado por mês',
-        '100 questões no banco',
-        'Analytics básico',
-      ],
-    },
-  },
-
   // BASIC = Essencial (R$ 19,99/mês) — SEM IA
   BASIC: {
     MONTHLY: {
@@ -126,7 +111,6 @@ export function getPlanConfig(tier: PlanTier, cycle: BillingCycle = 'MONTHLY'): 
  * Obter nome do plano para o banco
  */
 export function getPlanKey(tier: PlanTier): string {
-  if (tier === 'FREE') return 'FREE';
   return `${tier}_MONTHLY`;
 }
 
@@ -134,10 +118,6 @@ export function getPlanKey(tier: PlanTier): string {
  * Parsear plano do banco
  */
 export function parsePlanKey(planKey: string): { tier: PlanTier; cycle: BillingCycle } {
-  if (planKey === 'FREE') {
-    return { tier: 'FREE', cycle: 'MONTHLY' };
-  }
-
   const [tier] = planKey.split('_') as [PlanTier];
   return { tier, cycle: 'MONTHLY' };
 }

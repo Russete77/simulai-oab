@@ -52,15 +52,15 @@ export function PushNotificationBanner() {
   }
 
   return (
-    <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/20 rounded-xl p-4 mb-6 animate-in fade-in slide-in-from-top-2">
+    <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 border-accent rounded-xl p-4 mb-6 animate-in fade-in slide-in-from-top-2">
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-3 flex-1 min-w-0">
-          <div className="p-2 bg-blue-500/10 rounded-lg shrink-0">
-            <Bell className="w-5 h-5 text-blue-400" />
+          <div className="p-2 bg-accent-soft rounded-lg shrink-0">
+            <Bell className="w-5 h-5 text-accent" />
           </div>
           <div className="min-w-0">
-            <p className="text-white font-medium text-sm">Ative as notificações</p>
-            <p className="text-navy-400 text-xs truncate">
+            <p className="text-ink-1 font-medium text-sm">Ative as notificações</p>
+            <p className="text-ink-2 text-xs truncate">
               Receba lembretes de estudo e revisão diária
             </p>
           </div>
@@ -77,7 +77,7 @@ export function PushNotificationBanner() {
           </Button>
           <button
             onClick={handleDismiss}
-            className="p-1 text-navy-400 hover:text-white transition-colors"
+            className="p-1 text-ink-2 hover:text-ink-1 transition-colors"
             aria-label="Dispensar"
           >
             <X className="w-4 h-4" />
@@ -107,12 +107,12 @@ export function PushNotificationToggle() {
 
   if (permission === 'unsupported') {
     return (
-      <div className="flex items-center justify-between p-4 bg-navy-800/50 rounded-xl border border-white/5">
+      <div className="flex items-center justify-between p-4 bg-surface-2 rounded-xl border-divider">
         <div className="flex items-center gap-3">
-          <BellOff className="w-5 h-5 text-navy-500" />
+          <BellOff className="w-5 h-5 text-ink-3" />
           <div>
-            <p className="text-white font-medium text-sm">Notificações Push</p>
-            <p className="text-navy-500 text-xs">Seu navegador não suporta notificações push</p>
+            <p className="text-ink-1 font-medium text-sm">Notificações Push</p>
+            <p className="text-ink-3 text-xs">Seu navegador não suporta notificações push</p>
           </div>
         </div>
       </div>
@@ -121,11 +121,11 @@ export function PushNotificationToggle() {
 
   if (permission === 'denied') {
     return (
-      <div className="flex items-center justify-between p-4 bg-navy-800/50 rounded-xl border border-white/5">
+      <div className="flex items-center justify-between p-4 bg-surface-2 rounded-xl border-divider">
         <div className="flex items-center gap-3">
           <BellOff className="w-5 h-5 text-red-400" />
           <div>
-            <p className="text-white font-medium text-sm">Notificações Push</p>
+            <p className="text-ink-1 font-medium text-sm">Notificações Push</p>
             <p className="text-red-400 text-xs">Bloqueadas — altere nas configurações do navegador</p>
           </div>
         </div>
@@ -134,16 +134,16 @@ export function PushNotificationToggle() {
   }
 
   return (
-    <div className="flex items-center justify-between p-4 bg-navy-800/50 rounded-xl border border-white/5">
+    <div className="flex items-center justify-between p-4 bg-surface-2 rounded-xl border-divider">
       <div className="flex items-center gap-3">
         {isSubscribed ? (
-          <Bell className="w-5 h-5 text-blue-400" />
+          <Bell className="w-5 h-5 text-accent" />
         ) : (
-          <BellOff className="w-5 h-5 text-navy-400" />
+          <BellOff className="w-5 h-5 text-ink-2" />
         )}
         <div>
-          <p className="text-white font-medium text-sm">Notificações Push</p>
-          <p className="text-navy-400 text-xs">
+          <p className="text-ink-1 font-medium text-sm">Notificações Push</p>
+          <p className="text-ink-2 text-xs">
             {isSubscribed
               ? 'Lembretes de estudo e revisão ativados'
               : 'Receba lembretes de estudo e revisão diária'}
@@ -155,7 +155,7 @@ export function PushNotificationToggle() {
         onClick={handleToggle}
         disabled={isLoading || toggling}
         className={`relative w-12 h-6 rounded-full transition-colors ${
-          isSubscribed ? 'bg-blue-500' : 'bg-navy-700'
+          isSubscribed ? 'bg-blue-500' : 'bg-surface-2'
         } ${isLoading || toggling ? 'opacity-50' : ''}`}
         aria-label={isSubscribed ? 'Desativar notificações' : 'Ativar notificações'}
       >

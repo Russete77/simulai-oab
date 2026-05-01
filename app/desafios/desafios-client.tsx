@@ -156,14 +156,14 @@ export function DesafiosClient() {
   };
 
   return (
-    <div className="min-h-screen bg-navy-950">
+    <div className="min-h-screen bg-bg">
       <Header />
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">Desafios Semanais</h1>
-          <p className="text-navy-600">
+          <h1 className="text-4xl font-bold text-ink-1 mb-2">Desafios Semanais</h1>
+          <p className="text-ink-3">
             Ganhe pontos XP completando desafios e desbloqueando recompensas
           </p>
         </div>
@@ -174,18 +174,18 @@ export function DesafiosClient() {
             <Card variant="glass">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-navy-600 text-sm">Semana Atual</p>
-                  <p className="text-white text-2xl font-bold">{currentWeek}</p>
+                  <p className="text-ink-3 text-sm">Semana Atual</p>
+                  <p className="text-ink-1 text-2xl font-bold">{currentWeek}</p>
                 </div>
-                <Clock className="w-8 h-8 text-blue-400 opacity-50" />
+                <Clock className="w-8 h-8 text-accent opacity-50" />
               </div>
             </Card>
 
             <Card variant="glass">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-navy-600 text-sm">XP Ganho</p>
-                  <p className="text-white text-2xl font-bold">
+                  <p className="text-ink-3 text-sm">XP Ganho</p>
+                  <p className="text-ink-1 text-2xl font-bold">
                     {totalXpEarned} / {totalXpAvailable}
                   </p>
                 </div>
@@ -196,8 +196,8 @@ export function DesafiosClient() {
             <Card variant="glass">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-navy-600 text-sm">Progresso</p>
-                  <p className="text-white text-2xl font-bold">
+                  <p className="text-ink-3 text-sm">Progresso</p>
+                  <p className="text-ink-1 text-2xl font-bold">
                     {totalXpAvailable > 0
                       ? Math.round((totalXpEarned / totalXpAvailable) * 100)
                       : 0}
@@ -214,8 +214,8 @@ export function DesafiosClient() {
         {!loading && (
           <Card variant="glass" className="mb-8">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-white">Progresso Semanal</h3>
-              <span className="text-navy-600 text-sm">
+              <h3 className="text-lg font-semibold text-ink-1">Progresso Semanal</h3>
+              <span className="text-ink-3 text-sm">
                 {totalXpEarned} XP de {totalXpAvailable}
               </span>
             </div>
@@ -259,7 +259,7 @@ export function DesafiosClient() {
                       className={`p-3 rounded-lg ${
                         isCompleted
                           ? 'bg-emerald-500/20 text-emerald-400'
-                          : 'bg-blue-500/20 text-blue-400'
+                          : 'bg-accent-soft text-accent'
                       }`}
                     >
                       {challenge.icon}
@@ -273,25 +273,25 @@ export function DesafiosClient() {
                     </span>
                   </div>
 
-                  <h3 className="text-lg font-bold text-white mb-2">{challenge.title}</h3>
-                  <p className="text-navy-600 text-sm mb-6">{challenge.description}</p>
+                  <h3 className="text-lg font-bold text-ink-1 mb-2">{challenge.title}</h3>
+                  <p className="text-ink-3 text-sm mb-6">{challenge.description}</p>
 
                   {/* Progress */}
                   <div className="mb-6">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm text-navy-400">
+                      <span className="text-sm text-ink-2">
                         {challenge.current} / {challenge.target}
                       </span>
-                      <span className="text-sm font-semibold text-blue-400">
+                      <span className="text-sm font-semibold text-accent">
                         {Math.round(progress)}%
                       </span>
                     </div>
-                    <div className="w-full bg-navy-800 rounded-full h-2 overflow-hidden">
+                    <div className="w-full bg-surface-2 rounded-full h-2 overflow-hidden">
                       <div
                         className={`h-full rounded-full transition-all duration-300 ${
                           isCompleted
                             ? 'bg-gradient-to-r from-emerald-600 to-teal-600'
-                            : 'bg-gradient-to-r from-blue-600 to-cyan-600'
+                            : 'bg-accent'
                         }`}
                         style={{ width: `${Math.min(progress, 100)}%` }}
                       ></div>
@@ -299,8 +299,8 @@ export function DesafiosClient() {
                   </div>
 
                   {/* Reward */}
-                  <div className="flex items-center justify-between pt-4 border-t border-white/10">
-                    <span className="text-navy-400 text-sm">Recompensa</span>
+                  <div className="flex items-center justify-between pt-4 border-t border">
+                    <span className="text-ink-2 text-sm">Recompensa</span>
                     <div className="flex items-center gap-2">
                       <Award className="w-4 h-4 text-amber-400" />
                       <span className="font-bold text-amber-400">+{challenge.reward} XP</span>
@@ -315,14 +315,14 @@ export function DesafiosClient() {
         {/* Empty State */}
         {!loading && challenges.length === 0 && (
           <Card variant="glass" className="text-center py-12">
-            <p className="text-navy-600">Nenhum desafio disponível no momento.</p>
+            <p className="text-ink-3">Nenhum desafio disponível no momento.</p>
           </Card>
         )}
 
         {/* Tips */}
         <Card variant="glass" className="mt-8 border-emerald-500/20 bg-emerald-500/5">
-          <h3 className="text-lg font-semibold text-white mb-3">💡 Dica</h3>
-          <p className="text-navy-600">
+          <h3 className="text-lg font-semibold text-ink-1 mb-3">💡 Dica</h3>
+          <p className="text-ink-3">
             Os desafios mudam a cada semana. Complete-os para ganhar pontos XP e melhorar seu nível
             no ranking global. Quanto mais desafios você completar, mais rápido será seu progresso!
           </p>

@@ -41,14 +41,14 @@ export function StatsCard({
   // Color classes for icon background
   const iconColorClasses = {
     default: {
-      blue: 'bg-blue-500/20 text-blue-400 group-hover:bg-blue-500/30',
+      blue: 'bg-accent-soft text-accent group-hover:bg-accent-soft',
       green: 'bg-green-500/20 text-green-500 group-hover:bg-green-500/30',
       purple: 'bg-purple-500/20 text-purple-400 group-hover:bg-purple-500/30',
       cyan: 'bg-cyan-500/20 text-cyan-400 group-hover:bg-cyan-500/30',
       amber: 'bg-amber-500/20 text-amber-500 group-hover:bg-amber-500/30',
     },
     compact: {
-      blue: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+      blue: 'bg-accent-soft text-accent border-accent',
       green: 'bg-green-500/10 text-green-500 border-green-500/20',
       purple: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
       cyan: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
@@ -83,10 +83,10 @@ export function StatsCard({
       <Card variant="glass" className={clsx('p-6', className)} {...props}>
         <div className="flex items-start justify-between">
           <div className="flex-1">
-            <p className="text-navy-400 text-sm font-medium mb-2">{displayLabel}</p>
-            <p className="text-3xl font-bold text-white mb-1">{value}</p>
+            <p className="text-ink-2 text-sm font-medium mb-2">{displayLabel}</p>
+            <p className="text-3xl font-bold text-ink-1 mb-1">{value}</p>
             {subtitle && (
-              <p className="text-navy-500 text-sm">{subtitle}</p>
+              <p className="text-ink-3 text-sm">{subtitle}</p>
             )}
           </div>
           {icon && (
@@ -111,7 +111,7 @@ export function StatsCard({
         glowColors[color]
       )} />
 
-      <div className="relative bg-navy-900/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all">
+      <div className="relative bg-surface border rounded-2xl p-6 hover:border-strong transition-all">
         <div className="flex items-start justify-between mb-4">
           {icon && (
             <div className={clsx('p-3 rounded-xl transition-colors', iconColorClasses.default[color])}>
@@ -130,14 +130,14 @@ export function StatsCard({
         </div>
 
         <div>
-          <p className="text-3xl font-bold text-white mb-1">
+          <p className="text-3xl font-bold text-ink-1 mb-1">
             {value}
           </p>
-          <p className="text-sm text-navy-600">
+          <p className="text-sm text-ink-3">
             {displayLabel}
           </p>
           {subtitle && (
-            <p className="text-navy-500 text-sm mt-1">{subtitle}</p>
+            <p className="text-ink-3 text-sm mt-1">{subtitle}</p>
           )}
         </div>
       </div>

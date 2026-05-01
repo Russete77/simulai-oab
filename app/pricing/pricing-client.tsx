@@ -2,278 +2,186 @@
 
 import { useState } from 'react';
 import { useUser } from '@clerk/nextjs';
-import { Header } from '@/components/layout/header';
-import { Card, Button } from '@/components/ui';
-import { Check, Loader2, Sparkles, X } from 'lucide-react';
 import Link from 'next/link';
+import { Header } from '@/components/layout/header';
+import { Card, Badge } from '@/components/ui';
+import { Check, Loader2, Sparkles, ShieldCheck } from 'lucide-react';
 import { PLANS } from '@/lib/billing/plans';
+
+const ESSENCIAL_FEATURES = [
+  'Questões ilimitadas',
+  'Simulados ilimitados',
+  '5.605 questões oficiais (banco completo)',
+  'Analytics avançado por matéria',
+  'Revisão de erros completa',
+  'Simulados adaptativos',
+  'Flashcards e desafios semanais',
+  'Acesso offline (PWA)',
+];
+
+const PRO_FEATURES = [
+  'Tudo do plano Essencial',
+  'Explicações por IA ilimitadas',
+  'Chat com IA ilimitado',
+  'Revisão de erros com IA',
+  'Coaching virtual com IA',
+  'Relatórios em PDF',
+  'Analytics completo + Predições',
+  'Suporte prioritário',
+  'Badge exclusivo Pro',
+];
+
+function fmt(value: number) {
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  }).format(value);
+}
 
 export function PricingClient() {
   const { isSignedIn } = useUser();
   const [loading, setLoading] = useState<string | null>(null);
 
-  const handleSubscribe = async (planKey: string) => {
+  const handleSubscribe = (planKey: string) => {
     if (!isSignedIn) {
-      window.location.href = '/register';
+      window.location.href = `/register?next=/checkout/${planKey}`;
       return;
     }
     setLoading(planKey);
     window.location.href = `/checkout/${planKey}`;
   };
 
-  const formatPrice = (value: number) => {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-    }).format(value);
-  };
-
   return (
-    <div className="min-h-screen bg-navy-950">
+    <div className="min-h-screen bg-bg">
       <Header />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <div className="container-page py-12 sm:py-16">
         {/* Header */}
-        <div className="text-center mb-8 sm:mb-12">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4">
+        <header className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-soft border border-accent/30 mb-5">
+            <ShieldCheck className="w-3.5 h-3.5 text-accent" />
+            <span className="text-xs font-medium text-accent">
+              Garantia 7 dias · Cancele quando quiser
+            </span>
+          </div>
+          <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-ink-1 mb-4">
             Escolha seu plano
           </h1>
-          <p className="text-base sm:text-lg md:text-xl text-navy-400 mb-2 px-4">
-            Todos os planos com recorrência mensal. Cancele quando quiser.
+          <p className="text-lg text-ink-2">
+            Mensalidade direta. Sem fidelidade, sem taxas escondidas.
           </p>
-          <p className="text-sm text-navy-500">
-            Sem fidelidade, sem taxas escondidas, sem surpresas.
+          <p className="text-sm text-ink-3 mt-2">
+            Não gostou? Devolvemos 100% do dinheiro nos primeiros 7 dias.
           </p>
-        </div>
+        </header>
 
-        {/* Plans Grid - 3 columns */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto items-stretch">
-
-          {/* FREE Plan */}
-          <Card variant="glass" className="flex flex-col h-full">
+        {/* Plans */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto items-stretch">
+          {/* ESSENCIAL */}
+          <Card className="flex flex-col">
             <div className="mb-6">
-              <h3 className="text-2xl font-bold text-white mb-2">Gratuito</h3>
-              <div className="text-4xl font-bold text-white mb-2">
-                {formatPrice(0)}
-              </div>
-              <p className="text-navy-400">para sempre</p>
-            </div>
-            <div className="space-y-3 mb-6 flex-1">
-              <div className="flex items-start gap-3">
-                <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-300 text-sm">5 questões por dia</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-300 text-sm">1 simulado por mês</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-300 text-sm">100 questões no banco</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-300 text-sm">Analytics básico</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <X className="w-5 h-5 text-red-400/50 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-500 text-sm">Sem explicações com IA</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <X className="w-5 h-5 text-red-400/50 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-500 text-sm">Sem chat com IA</span>
-              </div>
-            </div>
-            {isSignedIn ? (
-              <Button variant="outline" size="lg" disabled className="w-full mt-auto">
-                Plano Atual
-              </Button>
-            ) : (
-              <Link href="/register" className="mt-auto">
-                <Button variant="outline" size="lg" className="w-full">
-                  Começar Grátis
-                </Button>
-              </Link>
-            )}
-          </Card>
-
-          {/* ESSENCIAL Plan (BASIC) */}
-          <Card variant="glass" className="border-2 border-blue-500 relative flex flex-col h-full">
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-4 py-1 rounded-full text-sm font-semibold whitespace-nowrap">
-              Mais Popular
+              <h3 className="text-xl font-semibold text-ink-1">Essencial</h3>
+              <p className="text-sm text-ink-2 mt-1">
+                Tudo que você precisa pra estudar com seriedade
+              </p>
             </div>
             <div className="mb-6">
-              <h3 className="text-2xl font-bold text-white mb-2">
-                Essencial
-              </h3>
-              <div className="flex items-baseline mb-2">
-                <span className="text-4xl font-bold text-white">
-                  {formatPrice(PLANS.BASIC.MONTHLY.monthlyValue)}
-                </span>
-                <span className="text-gray-400 ml-2">/mês</span>
-              </div>
-              <p className="text-navy-300">Tudo que você precisa para estudar</p>
+              <span className="text-4xl font-semibold tracking-tight text-ink-1">
+                {fmt(PLANS.BASIC.MONTHLY.monthlyValue)}
+              </span>
+              <span className="text-sm text-ink-3 ml-1">/mês</span>
             </div>
-            <div className="space-y-3 mb-6 flex-1">
-              <div className="flex items-start gap-3">
-                <Check className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-200 text-sm font-medium">Questões ilimitadas</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <Check className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-200 text-sm font-medium">Simulados ilimitados</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <Check className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-200 text-sm">5.605 questões (banco completo)</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <Check className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-200 text-sm">Analytics avançado por matéria</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <Check className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-200 text-sm">Revisão de erros completa</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <Check className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-200 text-sm">Simulados adaptativos</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <Check className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-200 text-sm">Flashcards + Desafios semanais</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <Check className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-200 text-sm">Acesso offline (PWA)</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <X className="w-5 h-5 text-red-400/50 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-500 text-sm">Sem explicações com IA</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <X className="w-5 h-5 text-red-400/50 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-500 text-sm">Sem chat com IA</span>
-              </div>
-            </div>
-            <Button
-              variant="primary"
-              size="lg"
-              className="w-full mt-auto"
+            <ul className="space-y-2.5 mb-8 text-sm text-ink-2 flex-1">
+              {ESSENCIAL_FEATURES.map((f) => (
+                <li key={f} className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-success mt-0.5 shrink-0" />
+                  <span>{f}</span>
+                </li>
+              ))}
+            </ul>
+            <button
+              type="button"
               onClick={() => handleSubscribe('BASIC_MONTHLY')}
               disabled={loading === 'BASIC_MONTHLY'}
+              className="w-full inline-flex items-center justify-center gap-2 h-11 px-4 rounded-md border bg-surface text-ink-1 text-sm font-medium hover:bg-surface-2 transition-all disabled:opacity-50"
             >
               {loading === 'BASIC_MONTHLY' ? (
                 <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  <Loader2 className="w-4 h-4 animate-spin" />
                   Processando...
                 </>
               ) : (
                 'Assinar Essencial'
               )}
-            </Button>
+            </button>
           </Card>
 
-          {/* PRO Plan */}
-          <Card variant="premium" className="relative flex flex-col h-full">
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-1 whitespace-nowrap">
-              <Sparkles className="w-4 h-4" />
-              Com IA
+          {/* PRO */}
+          <Card variant="highlighted" className="flex flex-col relative">
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+              <Badge variant="accent" className="shadow-sm">
+                <Sparkles className="w-3 h-3" />
+                Com IA
+              </Badge>
             </div>
             <div className="mb-6">
-              <h3 className="text-2xl font-bold text-white mb-2">
-                Pro
-              </h3>
-              <div className="flex items-baseline mb-2">
-                <span className="text-4xl font-bold text-white">
-                  {formatPrice(PLANS.PRO.MONTHLY.monthlyValue)}
-                </span>
-                <span className="text-gray-400 ml-2">/mês</span>
-              </div>
-              <p className="text-navy-300">Estudo turbinado com inteligência artificial</p>
+              <h3 className="text-xl font-semibold text-ink-1">Pro</h3>
+              <p className="text-sm text-ink-2 mt-1">
+                Estudo turbinado com inteligência artificial
+              </p>
             </div>
-            <div className="space-y-3 mb-6 flex-1">
-              <div className="flex items-start gap-3">
-                <Check className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-200 text-sm font-medium">Tudo do plano Essencial</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <Check className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-200 text-sm font-medium">Explicações por IA ilimitadas</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <Check className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-200 text-sm font-medium">Chat com IA ilimitado</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <Check className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-200 text-sm">Revisão de erros com IA</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <Check className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-200 text-sm">Coaching virtual com IA</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <Check className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-200 text-sm">Relatórios em PDF</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <Check className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-200 text-sm">Analytics completo + Predições</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <Check className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-200 text-sm">Suporte prioritário</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <Check className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-200 text-sm">Badge exclusivo Pro</span>
-              </div>
+            <div className="mb-6">
+              <span className="text-4xl font-semibold tracking-tight text-ink-1">
+                {fmt(PLANS.PRO.MONTHLY.monthlyValue)}
+              </span>
+              <span className="text-sm text-ink-3 ml-1">/mês</span>
             </div>
-            <Button
-              variant="primary"
-              size="lg"
-              className="w-full mt-auto bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500"
+            <ul className="space-y-2.5 mb-8 text-sm text-ink-2 flex-1">
+              {PRO_FEATURES.map((f) => (
+                <li key={f} className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-success mt-0.5 shrink-0" />
+                  <span>{f}</span>
+                </li>
+              ))}
+            </ul>
+            <button
+              type="button"
               onClick={() => handleSubscribe('PRO_MONTHLY')}
               disabled={loading === 'PRO_MONTHLY'}
+              className="w-full inline-flex items-center justify-center gap-2 h-11 px-4 rounded-md bg-accent text-accent-fg text-sm font-medium hover:bg-accent-hover shadow-sm transition-all disabled:opacity-50"
             >
               {loading === 'PRO_MONTHLY' ? (
                 <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  <Loader2 className="w-4 h-4 animate-spin" />
                   Processando...
                 </>
               ) : (
                 'Assinar Pro'
               )}
-            </Button>
+            </button>
           </Card>
         </div>
 
-        {/* Comparison callout */}
-        <div className="mt-10 max-w-3xl mx-auto">
-          <div className="bg-gradient-to-r from-purple-600/10 to-blue-600/10 border border-purple-500/20 rounded-xl p-6 text-center">
-            <p className="text-white font-semibold text-lg mb-2">
+        {/* Compare callout */}
+        <div className="max-w-2xl mx-auto mt-12">
+          <Card className="text-center">
+            <h3 className="text-base font-semibold text-ink-1 mb-2">
               Qual a diferença entre Essencial e Pro?
+            </h3>
+            <p className="text-sm text-ink-2 leading-relaxed">
+              O Essencial dá acesso a tudo: questões, simulados, analytics, flashcards.
+              O Pro adiciona IA: explicações detalhadas de cada questão,
+              chat pra tirar dúvidas em tempo real, e revisão com IA.
             </p>
-            <p className="text-navy-300 text-sm">
-              O Essencial dá acesso a tudo: questões ilimitadas, simulados, analytics, flashcards.
-              O Pro adiciona a inteligência artificial: explicações detalhadas de cada questão,
-              chat para tirar dúvidas em tempo real, e revisão de erros com IA.
-            </p>
-          </div>
+          </Card>
         </div>
 
         {/* Guarantee */}
-        <div className="mt-8 max-w-4xl mx-auto px-4">
-          <div className="bg-navy-900/50 backdrop-blur-xl border border-white/10 rounded-2xl p-6 sm:p-8 text-center">
-            <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">
-              Garantia de 7 dias
-            </h3>
-            <p className="text-sm sm:text-base text-gray-400 leading-relaxed">
-              Experimente qualquer plano sem riscos. Se não ficar satisfeito, devolvemos seu dinheiro
-              nos primeiros 7 dias. Sem perguntas.
-            </p>
-          </div>
+        <div className="max-w-2xl mx-auto mt-6 text-center">
+          <p className="text-sm text-ink-3">
+            <ShieldCheck className="w-3.5 h-3.5 inline mr-1.5 -mt-0.5" />
+            Garantia de 7 dias com devolução total. Cancele a qualquer momento.
+          </p>
         </div>
       </div>
     </div>

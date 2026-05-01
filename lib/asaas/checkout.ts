@@ -8,7 +8,7 @@
  *    - Asaas gera automaticamente a cobrança todo mês
  * 3. Webhook PAYMENT_CONFIRMED → ativa o plano
  * 4. Webhook PAYMENT_RECEIVED → confirma recebimento (crédito 30d após confirmed)
- * 5. Webhook SUBSCRIPTION_INACTIVATED → downgrade para FREE
+ * 5. Webhook SUBSCRIPTION_INACTIVATED → Subscription.status = CANCELED (gate bloqueia)
  *
  * Referência: https://docs.asaas.com/docs/criando-uma-assinatura
  */

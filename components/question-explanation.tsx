@@ -21,13 +21,13 @@ export function QuestionExplanation({
     return (
       <Card variant="glass" className="mt-6">
         <div className="text-center py-8 px-4">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-500/10 mb-4">
-            <Sparkles className="w-8 h-8 text-blue-400" />
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent-soft mb-4">
+            <Sparkles className="w-8 h-8 text-accent" />
           </div>
-          <h3 className="text-lg font-semibold text-white mb-2">
+          <h3 className="text-lg font-semibold text-ink-1 mb-2">
             Quer entender melhor?
           </h3>
-          <p className="text-navy-400 mb-6 max-w-md mx-auto">
+          <p className="text-ink-2 mb-6 max-w-md mx-auto">
             Nossa IA vai gerar uma explicação detalhada sobre essa questão,
             incluindo legislação relevante e dicas de memorização
           </p>
@@ -46,12 +46,12 @@ export function QuestionExplanation({
       <Card variant="glass" className="mt-6 p-6">
         <div className="flex items-center gap-4">
           <div className="relative">
-            <div className="animate-spin rounded-full h-10 w-10 border-4 border-blue-500/20 border-t-blue-500"></div>
-            <Sparkles className="w-5 h-5 text-blue-400 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+            <div className="animate-spin rounded-full h-10 w-10 border-4 border-accent border-t-blue-500"></div>
+            <Sparkles className="w-5 h-5 text-accent absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
           </div>
           <div>
-            <p className="text-white font-medium">Gerando explicação...</p>
-            <p className="text-navy-400 text-sm">Nossa IA está analisando a questão</p>
+            <p className="text-ink-1 font-medium">Gerando explicação...</p>
+            <p className="text-ink-2 text-sm">Nossa IA está analisando a questão</p>
           </div>
         </div>
       </Card>
@@ -92,14 +92,14 @@ export function QuestionExplanation({
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-blue-400" />
+            <div className="w-10 h-10 rounded-full bg-accent-soft flex items-center justify-center">
+              <Sparkles className="w-5 h-5 text-accent" />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-white">
+              <h3 className="text-lg font-semibold text-ink-1">
                 Explicação Detalhada
               </h3>
-              <p className="text-navy-400 text-sm">
+              <p className="text-ink-2 text-sm">
                 Gerada por IA especializada em Direito
               </p>
             </div>

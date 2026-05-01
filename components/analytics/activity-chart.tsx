@@ -33,12 +33,12 @@ function ActivityChartBase({ data }: ActivityChartProps) {
 
   return (
     <Card variant="glass" className="p-6">
-      <h3 className="text-xl font-semibold text-white mb-6">
+      <h3 className="text-xl font-semibold text-ink-1 mb-6">
         Atividade Recente (7 dias)
       </h3>
 
       {chartData.length === 0 ? (
-        <div className="h-64 flex items-center justify-center text-navy-400">
+        <div className="h-64 flex items-center justify-center text-ink-2">
           Sem atividade recente
         </div>
       ) : (

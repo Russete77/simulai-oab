@@ -34,7 +34,7 @@ function SimulationSubjectChartBase({ data }: SimulationSubjectChartProps) {
 
   return (
     <Card variant="glass" className="p-6">
-      <h3 className="text-xl font-semibold text-white mb-6">
+      <h3 className="text-xl font-semibold text-ink-1 mb-6">
         Performance por Matéria
       </h3>
 

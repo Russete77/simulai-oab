@@ -76,10 +76,10 @@ export function WrongQuestionsReview({ wrongAnswers }: WrongQuestionsReviewProps
   return (
     <Card variant="glass">
       <div className="mb-6">
-        <h3 className="text-xl font-bold text-white mb-2">
+        <h3 className="text-xl font-bold text-ink-1 mb-2">
           Questões Erradas ({wrongAnswers.length})
         </h3>
-        <p className="text-navy-400 text-sm">
+        <p className="text-ink-2 text-sm">
           Revise suas respostas incorretas e tire dúvidas com a IA
         </p>
       </div>
@@ -96,11 +96,11 @@ export function WrongQuestionsReview({ wrongAnswers }: WrongQuestionsReviewProps
           return (
             <div
               key={answer.id}
-              className="border border-navy-700 rounded-xl overflow-hidden bg-navy-900/30"
+              className="border rounded-xl overflow-hidden bg-surface"
             >
               {/* Question Header */}
               <div
-                className="p-4 cursor-pointer hover:bg-navy-800/30 transition-colors"
+                className="p-4 cursor-pointer hover:bg-surface-2 transition-colors"
                 onClick={() => toggleQuestion(answer.questionId)}
               >
                 <div className="flex items-start justify-between gap-4">
@@ -109,19 +109,19 @@ export function WrongQuestionsReview({ wrongAnswers }: WrongQuestionsReviewProps
                       <span className="px-2 py-1 bg-red-500/20 text-red-500 text-xs rounded">
                         Questão {index + 1}
                       </span>
-                      <span className="px-2 py-1 bg-navy-700 text-navy-300 text-xs rounded">
+                      <span className="px-2 py-1 bg-surface-2 text-ink-2 text-xs rounded">
                         {SUBJECT_LABELS[answer.question.subject]}
                       </span>
                     </div>
-                    <p className="text-white text-sm line-clamp-2">
+                    <p className="text-ink-1 text-sm line-clamp-2">
                       {answer.question.statement}
                     </p>
                   </div>
-                  <button className="p-2 hover:bg-navy-700 rounded-lg transition-colors">
+                  <button className="p-2 hover:bg-surface-2 rounded-lg transition-colors">
                     {isExpanded ? (
-                      <ChevronUp className="w-5 h-5 text-navy-400" />
+                      <ChevronUp className="w-5 h-5 text-ink-2" />
                     ) : (
-                      <ChevronDown className="w-5 h-5 text-navy-400" />
+                      <ChevronDown className="w-5 h-5 text-ink-2" />
                     )}
                   </button>
                 </div>
@@ -129,11 +129,11 @@ export function WrongQuestionsReview({ wrongAnswers }: WrongQuestionsReviewProps
 
               {/* Question Details */}
               {isExpanded && (
-                <div className="border-t border-navy-700">
+                <div className="border-t border">
                   <div className="p-4 space-y-4">
                     {/* Statement */}
                     <div>
-                      <p className="text-white leading-relaxed">
+                      <p className="text-ink-1 leading-relaxed">
                         {answer.question.statement}
                       </p>
                     </div>
@@ -152,7 +152,7 @@ export function WrongQuestionsReview({ wrongAnswers }: WrongQuestionsReviewProps
                                 ? 'bg-green-500/10 border-green-500/50'
                                 : isSelected
                                 ? 'bg-red-500/10 border-red-500/50'
-                                : 'bg-navy-800/30 border-navy-700'
+                                : 'bg-surface-2 border'
                             }`}
                           >
                             <div className="flex items-start gap-3">
@@ -166,10 +166,10 @@ export function WrongQuestionsReview({ wrongAnswers }: WrongQuestionsReviewProps
                                 )}
                               </div>
                               <div className="flex-1">
-                                <span className="font-semibold text-white mr-2">
+                                <span className="font-semibold text-ink-1 mr-2">
                                   {alt.letter})
                                 </span>
-                                <span className={isCorrect ? 'text-green-300' : isSelected ? 'text-red-300' : 'text-navy-300'}>
+                                <span className={isCorrect ? 'text-green-300' : isSelected ? 'text-red-300' : 'text-ink-2'}>
                                   {alt.text}
                                 </span>
                               </div>
@@ -180,11 +180,11 @@ export function WrongQuestionsReview({ wrongAnswers }: WrongQuestionsReviewProps
                     </div>
 
                     {/* Answer Summary */}
-                    <div className="flex items-start gap-3 p-3 bg-navy-800/50 rounded-lg">
+                    <div className="flex items-start gap-3 p-3 bg-surface-2 rounded-lg">
                       <div className="flex-1 space-y-1">
                         <div className="flex items-center gap-2">
                           <XCircle className="w-4 h-4 text-red-500" />
-                          <span className="text-sm text-navy-300">
+                          <span className="text-sm text-ink-2">
                             Sua resposta:{' '}
                             <span className="text-red-500 font-semibold">
                               {selectedAlternative?.letter})
@@ -193,7 +193,7 @@ export function WrongQuestionsReview({ wrongAnswers }: WrongQuestionsReviewProps
                         </div>
                         <div className="flex items-center gap-2">
                           <CheckCircle className="w-4 h-4 text-green-500" />
-                          <span className="text-sm text-navy-300">
+                          <span className="text-sm text-ink-2">
                             Resposta correta:{' '}
                             <span className="text-green-500 font-semibold">
                               {correctAlternative?.letter})
@@ -206,17 +206,17 @@ export function WrongQuestionsReview({ wrongAnswers }: WrongQuestionsReviewProps
                     {/* AI Chat Toggle */}
                     <button
                       onClick={() => toggleChat(answer.questionId)}
-                      className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/50 rounded-lg transition-colors"
+                      className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-accent-soft hover:bg-accent-soft border-accent/50 rounded-lg transition-colors"
                     >
-                      <MessageCircle className="w-5 h-5 text-blue-400" />
-                      <span className="text-blue-400 font-medium">
+                      <MessageCircle className="w-5 h-5 text-accent" />
+                      <span className="text-accent font-medium">
                         {isChatOpen ? 'Fechar Chat com IA' : 'Tirar Dúvida com IA'}
                       </span>
                     </button>
 
                     {/* AI Chat */}
                     {isChatOpen && (
-                      <div className="border-t border-navy-700 pt-4">
+                      <div className="border-t border pt-4">
                         <QuestionChat questionId={answer.questionId} onClose={() => setChatOpen(null)} />
                       </div>
                     )}

@@ -239,29 +239,29 @@ export default async function SubjectPage(props: PageProps) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdCourse) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
-    <div className="min-h-screen bg-navy-950">
+    <div className="min-h-screen bg-bg">
       <Header />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm text-navy-400 mb-6">
-          <Link href="/" className="hover:text-white transition-colors flex items-center gap-1">
+        <nav className="flex items-center gap-2 text-sm text-ink-2 mb-6">
+          <Link href="/" className="hover:text-ink-1 transition-colors flex items-center gap-1">
             <Home className="w-4 h-4" />
             Início
           </Link>
           <span>/</span>
-          <span className="text-white">{data.name}</span>
+          <span className="text-ink-1">{data.name}</span>
         </nav>
 
         {/* Header da matéria */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center">
-              <BookOpen className="w-6 h-6 text-blue-400" />
+            <div className="w-12 h-12 rounded-xl bg-accent-soft border-accent flex items-center justify-center">
+              <BookOpen className="w-6 h-6 text-accent" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-white">{data.name}</h1>
-              <p className="text-navy-300">{data.description}</p>
+              <h1 className="text-3xl font-bold text-ink-1">{data.name}</h1>
+              <p className="text-ink-2">{data.description}</p>
             </div>
           </div>
         </div>
@@ -270,12 +270,12 @@ export default async function SubjectPage(props: PageProps) {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
           <Card variant="glass">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-blue-600/20 border border-blue-500/30 flex items-center justify-center">
-                <BookOpen className="w-5 h-5 text-blue-400" />
+              <div className="w-10 h-10 rounded-lg bg-accent-soft border-accent flex items-center justify-center">
+                <BookOpen className="w-5 h-5 text-accent" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-white">{data.totalQuestions}</p>
-                <p className="text-sm text-navy-400">Questões Totais</p>
+                <p className="text-2xl font-bold text-ink-1">{data.totalQuestions}</p>
+                <p className="text-sm text-ink-2">Questões Totais</p>
               </div>
             </div>
           </Card>
@@ -286,10 +286,10 @@ export default async function SubjectPage(props: PageProps) {
                 <TrendingUp className="w-5 h-5 text-green-500" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-white">
+                <p className="text-2xl font-bold text-ink-1">
                   {data.avgSuccessRate > 0 ? `${data.avgSuccessRate.toFixed(0)}%` : 'N/A'}
                 </p>
-                <p className="text-sm text-navy-400">Taxa de Acerto</p>
+                <p className="text-sm text-ink-2">Taxa de Acerto</p>
               </div>
             </div>
           </Card>
@@ -300,8 +300,8 @@ export default async function SubjectPage(props: PageProps) {
                 <Target className="w-5 h-5 text-purple-400" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-white">{data.questions.length}</p>
-                <p className="text-sm text-navy-400">Visualização</p>
+                <p className="text-2xl font-bold text-ink-1">{data.questions.length}</p>
+                <p className="text-sm text-ink-2">Visualização</p>
               </div>
             </div>
           </Card>
@@ -309,26 +309,26 @@ export default async function SubjectPage(props: PageProps) {
 
         {/* Lista de questões (preview) */}
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-white mb-6">Questões Recentes</h2>
+          <h2 className="text-2xl font-bold text-ink-1 mb-6">Questões Recentes</h2>
           <div className="space-y-4">
             {data.questions.map((question) => (
               <Link key={question.id} href={`/questoes/${question.id}`}>
-                <Card variant="glass" className="hover:border-blue-500/50 transition-all cursor-pointer">
+                <Card variant="glass" className="hover:border-accent/50 transition-all cursor-pointer">
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-3">
-                        <span className="px-3 py-1 bg-blue-600/20 border border-blue-500/30 rounded-lg text-sm text-blue-400 font-medium">
+                        <span className="px-3 py-1 bg-accent-soft border-accent rounded-lg text-sm text-accent font-medium">
                           {question.examId}
                         </span>
-                        <span className="text-sm text-navy-400">
+                        <span className="text-sm text-ink-2">
                           Questão {question.questionNumber}
                         </span>
                       </div>
-                      <p className="text-white/90 leading-relaxed line-clamp-3">
+                      <p className="text-ink-1/90 leading-relaxed line-clamp-3">
                         {question.statement}
                       </p>
                     </div>
-                    <ArrowRight className="w-5 h-5 text-navy-400 flex-shrink-0 mt-1" />
+                    <ArrowRight className="w-5 h-5 text-ink-2 flex-shrink-0 mt-1" />
                   </div>
                 </Card>
               </Link>
@@ -337,12 +337,12 @@ export default async function SubjectPage(props: PageProps) {
         </div>
 
         {/* CTA para criar conta */}
-        <Card variant="glass" className="border-2 border-blue-500/30">
+        <Card variant="glass" className="border-2 border-accent">
           <div className="text-center py-8">
-            <h3 className="text-2xl font-bold text-white mb-2">
+            <h3 className="text-2xl font-bold text-ink-1 mb-2">
               Veja todas as {data.totalQuestions} questões
             </h3>
-            <p className="text-navy-300 mb-6 max-w-md mx-auto">
+            <p className="text-ink-2 mb-6 max-w-md mx-auto">
               Crie sua conta gratuita e acesse todas as questões de {data.name} com respostas,
               explicações detalhadas e estatísticas de desempenho
             </p>
@@ -363,12 +363,12 @@ export default async function SubjectPage(props: PageProps) {
         </Card>
 
         {/* CTA Adicional */}
-        <div className="mt-8 bg-gradient-to-r from-blue-600/10 to-purple-600/10 border border-blue-500/20 rounded-2xl p-6 sm:p-8">
+        <div className="mt-8 bg-gradient-to-r from-blue-600/10 to-purple-600/10 border-accent rounded-2xl p-6 sm:p-8">
           <div className="max-w-3xl mx-auto text-center">
-            <h3 className="text-2xl font-bold text-white mb-3">
+            <h3 className="text-2xl font-bold text-ink-1 mb-3">
               Estude de forma inteligente
             </h3>
-            <p className="text-navy-300 mb-6">
+            <p className="text-ink-2 mb-6">
               Simulados personalizados, revisão espaçada, estatísticas detalhadas e explicações
               com inteligência artificial para você aprovar de primeira
             </p>
@@ -389,10 +389,10 @@ export default async function SubjectPage(props: PageProps) {
 
         {/* FAQ visível (duplica JSON-LD para UX + SEO) */}
         <section className="mt-12 mb-8">
-          <h2 className="text-2xl font-bold text-white mb-6">Perguntas frequentes sobre {data.name} na OAB</h2>
+          <h2 className="text-2xl font-bold text-ink-1 mb-6">Perguntas frequentes sobre {data.name} na OAB</h2>
           <div className="space-y-4">
-            <details className="bg-white/5 border border-white/10 rounded-xl p-5 group" open>
-              <summary className="text-white font-medium cursor-pointer list-none flex items-center justify-between">
+            <details className="bg-surface-2 border rounded-xl p-5 group" open>
+              <summary className="text-ink-1 font-medium cursor-pointer list-none flex items-center justify-between">
                 Quantas questões de {data.name} caem na OAB?
                 <span className="text-gray-500 group-open:rotate-180 transition-transform">▾</span>
               </summary>
@@ -400,8 +400,8 @@ export default async function SubjectPage(props: PageProps) {
                 O Simulai OAB possui {data.totalQuestions} questões oficiais de {data.name} cobradas em provas da OAB de 2010 até o exame mais recente. A distribuição varia por exame, mas {data.name} é uma matéria recorrente na 1ª fase.
               </p>
             </details>
-            <details className="bg-white/5 border border-white/10 rounded-xl p-5 group">
-              <summary className="text-white font-medium cursor-pointer list-none flex items-center justify-between">
+            <details className="bg-surface-2 border rounded-xl p-5 group">
+              <summary className="text-ink-1 font-medium cursor-pointer list-none flex items-center justify-between">
                 Como estudar {data.name} para a OAB?
                 <span className="text-gray-500 group-open:rotate-180 transition-transform">▾</span>
               </summary>
@@ -409,8 +409,8 @@ export default async function SubjectPage(props: PageProps) {
                 Pratique com questões reais da FGV organizadas por matéria. O Simulai OAB oferece explicações detalhadas com IA para cada questão, ajudando a entender a lógica da banca e os temas mais cobrados em {data.name}.
               </p>
             </details>
-            <details className="bg-white/5 border border-white/10 rounded-xl p-5 group">
-              <summary className="text-white font-medium cursor-pointer list-none flex items-center justify-between">
+            <details className="bg-surface-2 border rounded-xl p-5 group">
+              <summary className="text-ink-1 font-medium cursor-pointer list-none flex items-center justify-between">
                 Qual a taxa de acerto média em {data.name}?
                 <span className="text-gray-500 group-open:rotate-180 transition-transform">▾</span>
               </summary>
@@ -423,7 +423,7 @@ export default async function SubjectPage(props: PageProps) {
 
         {/* Internal links — Matérias relacionadas */}
         <section className="mt-8 mb-8">
-          <h2 className="text-lg font-semibold text-white mb-4">Estude também</h2>
+          <h2 className="text-lg font-semibold text-ink-1 mb-4">Estude também</h2>
           <div className="flex flex-wrap gap-2">
             {Object.entries(SUBJECT_NAMES)
               .filter(([slug]) => slug !== params.slug)
@@ -432,7 +432,7 @@ export default async function SubjectPage(props: PageProps) {
                 <Link
                   key={slug}
                   href={`/materias/${slug}`}
-                  className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-sm text-gray-300 hover:text-white hover:border-blue-500/30 transition"
+                  className="px-3 py-1.5 bg-surface-2 border rounded-lg text-sm text-gray-300 hover:text-ink-1 hover:border-accent transition"
                 >
                   {name}
                 </Link>

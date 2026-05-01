@@ -87,16 +87,16 @@ export function OnboardingTutorial({
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <Card className="max-w-2xl w-full bg-gradient-to-br from-gray-900 to-gray-800 border-2 border-blue-500/30 shadow-2xl">
+      <Card className="max-w-2xl w-full bg-gradient-to-br from-gray-900 to-gray-800 border-2 border-accent shadow-2xl">
         <div className="p-6 sm:p-8">
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center text-2xl">
+              <div className="w-12 h-12 rounded-full bg-accent-soft flex items-center justify-center text-2xl">
                 {currentStepData.icon}
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-white">
+                <h2 className="text-2xl font-bold text-ink-1">
                   Bem-vindo ao Simulai OAB
                 </h2>
                 <p className="text-sm text-gray-400">
@@ -106,7 +106,7 @@ export function OnboardingTutorial({
             </div>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-gray-400 hover:text-ink-1 transition-colors"
             >
               <X className="w-6 h-6" />
             </button>
@@ -119,7 +119,7 @@ export function OnboardingTutorial({
 
           {/* Current Step Content */}
           <div className="mb-8">
-            <h3 className="text-xl font-semibold text-white mb-3 flex items-center gap-2">
+            <h3 className="text-xl font-semibold text-ink-1 mb-3 flex items-center gap-2">
               <span className="text-3xl">{currentStepData.icon}</span>
               {currentStepData.title}
             </h3>
@@ -137,7 +137,7 @@ export function OnboardingTutorial({
                   s.id < step
                     ? "bg-green-500/10 border-green-500/30 text-green-500"
                     : s.id === step
-                    ? "bg-blue-500/10 border-blue-500/50 ring-2 ring-blue-500/30"
+                    ? "bg-accent-soft border-accent/50 ring-2 ring-blue-500/30"
                     : "bg-gray-800/50 border-gray-700/50"
                 }`}
               >
@@ -149,7 +149,7 @@ export function OnboardingTutorial({
                   )}
                   <span
                     className={`text-sm font-medium ${
-                      s.id <= step ? "text-white" : "text-gray-500"
+                      s.id <= step ? "text-ink-1" : "text-gray-500"
                     }`}
                   >
                     Passo {s.id}
@@ -170,7 +170,7 @@ export function OnboardingTutorial({
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
             <button
               onClick={onSkip}
-              className="text-gray-400 hover:text-white transition-colors text-sm"
+              className="text-gray-400 hover:text-ink-1 transition-colors text-sm"
             >
               Pular tutorial
             </button>
@@ -187,7 +187,7 @@ export function OnboardingTutorial({
               )}
               <Button
                 onClick={handleAction}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500"
+                className="bg-accent hover:bg-accent-hover"
               >
                 {currentStepData.action}
               </Button>

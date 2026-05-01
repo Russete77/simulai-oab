@@ -51,7 +51,7 @@ export function LoadingWithText({
   return (
     <div className="flex items-center justify-center gap-3" role="status">
       <LoadingSpinner size={size} label={text} />
-      <p className="text-white font-medium">{text}...</p>
+      <p className="text-ink-1 font-medium">{text}...</p>
     </div>
   );
 }
@@ -62,11 +62,11 @@ export function LoadingWithText({
 export function LoadingOverlay({ text = 'Carregando' }: { text?: string }) {
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-navy-950/80 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-bg/80 backdrop-blur-sm"
       role="status"
       aria-live="polite"
     >
-      <div className="bg-navy-900/90 backdrop-blur-xl border border-navy-800 rounded-2xl p-8 shadow-2xl">
+      <div className="bg-surface backdrop-blur-md border rounded-2xl p-8 shadow-2xl">
         <LoadingWithText text={text} size="lg" />
       </div>
     </div>

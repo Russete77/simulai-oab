@@ -119,10 +119,10 @@ export default function PublicProfilePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-navy-950">
+      <div className="min-h-screen bg-bg">
         <Header />
         <div className="flex items-center justify-center h-64">
-          <Loader2 className="w-12 h-12 text-blue-500 animate-spin" />
+          <Loader2 className="w-12 h-12 text-accent animate-spin" />
         </div>
       </div>
     );
@@ -130,15 +130,15 @@ export default function PublicProfilePage() {
 
   if (error || !profile) {
     return (
-      <div className="min-h-screen bg-navy-950">
+      <div className="min-h-screen bg-bg">
         <Header />
         <div className="max-w-2xl mx-auto px-4 py-12">
           <Card variant="glass" className="p-8 text-center">
             <div className="p-4 bg-red-500/10 rounded-2xl w-fit mx-auto mb-4">
               <User className="w-12 h-12 text-red-400" />
             </div>
-            <h2 className="text-2xl font-bold text-white mb-2">Perfil não encontrado</h2>
-            <p className="text-navy-400 mb-6">{error || 'O perfil que você procura não existe.'}</p>
+            <h2 className="text-2xl font-bold text-ink-1 mb-2">Perfil não encontrado</h2>
+            <p className="text-ink-2 mb-6">{error || 'O perfil que você procura não existe.'}</p>
             <Link href="/">
               <Button variant="primary">
                 <span className="flex items-center gap-2">
@@ -167,14 +167,14 @@ export default function PublicProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-navy-950">
+    <div className="min-h-screen bg-bg">
       <Header />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <div className="mb-8">
           <Link href="/">
-            <button className="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors mb-6">
+            <button className="flex items-center gap-2 text-accent hover:text-accent transition-colors mb-6">
               <ArrowLeft className="w-4 h-4" />
               Voltar
             </button>
@@ -185,18 +185,18 @@ export default function PublicProfilePage() {
         <Card variant="glass" className="p-8 mb-8">
           <div className="flex items-start justify-between mb-6">
             <div className="flex items-center gap-6">
-              <div className="p-4 bg-blue-500/10 rounded-2xl">
-                <User className="w-16 h-16 text-blue-400" />
+              <div className="p-4 bg-accent-soft rounded-2xl">
+                <User className="w-16 h-16 text-accent" />
               </div>
               <div>
                 <div className="flex items-center gap-3 mb-2">
-                  <h1 className="text-3xl font-bold text-white">{profile.name}</h1>
-                  <div className="flex items-center gap-1 px-3 py-1 bg-blue-500/10 rounded-full border border-blue-500/20">
+                  <h1 className="text-3xl font-bold text-ink-1">{profile.name}</h1>
+                  <div className="flex items-center gap-1 px-3 py-1 bg-accent-soft rounded-full border-accent">
                     <Star className="w-4 h-4 text-yellow-400" />
-                    <span className="text-sm font-semibold text-blue-400">Nível {profile.stats.level}</span>
+                    <span className="text-sm font-semibold text-accent">Nível {profile.stats.level}</span>
                   </div>
                 </div>
-                <p className="text-navy-400 text-sm">
+                <p className="text-ink-2 text-sm">
                   Membro desde {formatDate(profile.memberSince)}
                 </p>
               </div>
@@ -206,8 +206,8 @@ export default function PublicProfilePage() {
               <div className="flex items-center justify-end gap-2 mb-2">
                 {getRankBadge()}
                 <div>
-                  <p className="text-3xl font-bold text-white">#{profile.stats.rank}</p>
-                  <p className="text-sm text-navy-400">Ranking</p>
+                  <p className="text-3xl font-bold text-ink-1">#{profile.stats.rank}</p>
+                  <p className="text-sm text-ink-2">Ranking</p>
                 </div>
               </div>
               <Button
@@ -239,62 +239,62 @@ export default function PublicProfilePage() {
           {/* Points */}
           <Card variant="glass" className="p-6">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-navy-400 text-sm font-medium">Pontos</span>
+              <span className="text-ink-2 text-sm font-medium">Pontos</span>
               <Trophy className="w-5 h-5 text-yellow-400" />
             </div>
-            <p className="text-3xl font-bold text-white">{profile.stats.totalPoints.toLocaleString()}</p>
+            <p className="text-3xl font-bold text-ink-1">{profile.stats.totalPoints.toLocaleString()}</p>
           </Card>
 
           {/* Level */}
           <Card variant="glass" className="p-6">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-navy-400 text-sm font-medium">Nível</span>
-              <Star className="w-5 h-5 text-blue-400" />
+              <span className="text-ink-2 text-sm font-medium">Nível</span>
+              <Star className="w-5 h-5 text-accent" />
             </div>
-            <p className="text-3xl font-bold text-white">{profile.stats.level}</p>
+            <p className="text-3xl font-bold text-ink-1">{profile.stats.level}</p>
           </Card>
 
           {/* Streak */}
           <Card variant="glass" className="p-6">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-navy-400 text-sm font-medium">Sequência</span>
+              <span className="text-ink-2 text-sm font-medium">Sequência</span>
               <Flame className="w-5 h-5 text-red-400" />
             </div>
-            <p className="text-3xl font-bold text-white">{profile.stats.streak}</p>
+            <p className="text-3xl font-bold text-ink-1">{profile.stats.streak}</p>
           </Card>
 
           {/* Questions */}
           <Card variant="glass" className="p-6">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-navy-400 text-sm font-medium">Questões</span>
+              <span className="text-ink-2 text-sm font-medium">Questões</span>
               <Target className="w-5 h-5 text-green-400" />
             </div>
-            <p className="text-3xl font-bold text-white">{profile.stats.totalQuestions}</p>
+            <p className="text-3xl font-bold text-ink-1">{profile.stats.totalQuestions}</p>
           </Card>
 
           {/* Accuracy */}
           <Card variant="glass" className="p-6">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-navy-400 text-sm font-medium">Acurácia</span>
+              <span className="text-ink-2 text-sm font-medium">Acurácia</span>
               <CheckCircle2 className="w-5 h-5 text-emerald-400" />
             </div>
-            <p className="text-3xl font-bold text-white">{profile.stats.accuracy}%</p>
+            <p className="text-3xl font-bold text-ink-1">{profile.stats.accuracy}%</p>
           </Card>
 
           {/* Rank */}
           <Card variant="glass" className="p-6">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-navy-400 text-sm font-medium">Posição</span>
+              <span className="text-ink-2 text-sm font-medium">Posição</span>
               <Crown className="w-5 h-5 text-purple-400" />
             </div>
-            <p className="text-3xl font-bold text-white">#{profile.stats.rank}</p>
+            <p className="text-3xl font-bold text-ink-1">#{profile.stats.rank}</p>
           </Card>
         </div>
 
         {/* Achievements */}
         {profile.achievements.length > 0 && (
           <Card variant="glass" className="p-8">
-            <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+            <h2 className="text-2xl font-bold text-ink-1 mb-6 flex items-center gap-2">
               <Trophy className="w-6 h-6 text-yellow-400" />
               Conquistas ({profile.achievements.length})
             </h2>
@@ -303,18 +303,18 @@ export default function PublicProfilePage() {
               {profile.achievements.map(achievement => (
                 <div
                   key={achievement.id}
-                  className="p-4 bg-navy-800/50 rounded-xl border border-white/5 hover:border-white/10 transition-all hover:bg-navy-800/70 text-center group"
+                  className="p-4 bg-surface-2 rounded-xl border-divider hover:border transition-all hover:bg-surface-2/70 text-center group"
                   title={achievement.description}
                 >
                   <div className="text-4xl mb-2">{achievement.icon}</div>
-                  <p className="text-xs font-semibold text-white line-clamp-2 group-hover:line-clamp-none transition-all mb-2">
+                  <p className="text-xs font-semibold text-ink-1 line-clamp-2 group-hover:line-clamp-none transition-all mb-2">
                     {achievement.name}
                   </p>
                   <div className="flex items-center justify-center gap-1">
                     <Star className="w-3 h-3 text-yellow-400" />
-                    <span className="text-xs text-navy-400">{achievement.points}</span>
+                    <span className="text-xs text-ink-2">{achievement.points}</span>
                   </div>
-                  <p className="text-xs text-navy-500 mt-2">
+                  <p className="text-xs text-ink-3 mt-2">
                     {formatDate(achievement.unlockedAt)}
                   </p>
                 </div>
