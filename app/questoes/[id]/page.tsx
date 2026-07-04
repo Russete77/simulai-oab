@@ -1,7 +1,10 @@
 
 
-export const revalidate = 3600; // Cache por 1 hora
+// Questões de provas passadas são imutáveis — 7 dias de cache corta o egress
+// do Supabase (5.605 páginas revalidando a cada 1h sob crawl estouravam o free tier)
+export const revalidate = 604800;
 
+import { cache } from 'react';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
@@ -58,7 +61,11 @@ const SUBJECT_SLUGS: Record<string, string> = {
   GENERAL: 'geral',
 };
 
-async function getQuestion(id: string) {
+// Dedup por render: generateMetadata e a página buscam a mesma questão —
+// sem cache() são 2 queries idênticas por página gerada.
+const getQuestion = cache(getQuestionUncached);
+
+async function getQuestionUncached(id: string) {
   const question = await prisma.question.findUnique({
     where: { id },
     include: {
@@ -81,7 +88,7 @@ export async function generateStaticParams() {
     where: { nullified: false, examYear: { gte: currentYear - 3 } },
     select: { id: true },
     orderBy: { examYear: 'desc' },
-    take: 3000,
+    take: 200, // só o exame mais recente pré-gerado; resto vira ISR on-demand (economiza build + egress)
   });
   return recentQuestions.map((q) => ({ id: q.id }));
 }

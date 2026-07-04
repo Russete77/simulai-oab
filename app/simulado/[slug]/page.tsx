@@ -1,6 +1,7 @@
 
 
-export const revalidate = 3600;
+// Gabaritos de provas passadas são imutáveis — 7 dias de cache
+export const revalidate = 604800;
 
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';

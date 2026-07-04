@@ -1,6 +1,7 @@
 
 
-export const revalidate = 3600; // Cache por 1 hora
+// Stats por matéria podem atrasar 1 dia — egress do Supabase é o recurso escasso
+export const revalidate = 86400;
 
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
