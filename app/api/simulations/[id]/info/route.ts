@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
-import { requirePaidUser, handlePaymentRequired } from "@/lib/auth";
+import { requirePaidUserOrDiagnostic, handlePaymentRequired } from "@/lib/auth";
 
 /**
  * GET /api/simulations/[id]/info
@@ -11,7 +11,7 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const user = await requirePaidUser();
+    const { user } = await requirePaidUserOrDiagnostic();
     const { id: simulationId } = await params;
 
     // Buscar simulação com informações mínimas

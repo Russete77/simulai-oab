@@ -5,6 +5,7 @@ import { ArrowLeft, Trophy, Target, Clock, TrendingUp, AlertCircle } from "lucid
 import Link from "next/link";
 import { prisma } from "@/lib/db/prisma";
 import { WrongQuestionsReview } from "@/components/simulation/wrong-questions-review";
+import { DiagnosticUpsell } from "@/components/diagnostic/diagnostic-upsell";
 
 export default async function SimulationResultPage({ params }: { params: Promise<{ id: string }> }) {
   const user = await getCurrentUser();
@@ -274,6 +275,11 @@ export default async function SimulationResultPage({ params }: { params: Promise
             </div>
           </Card>
         )}
+
+        {/* Conversão: só aparece para usuário sem assinatura ativa */}
+        <div className="mb-8">
+          <DiagnosticUpsell />
+        </div>
 
         {/* Wrong Questions Review with AI Chat */}
         {wrongAnswers.length > 0 && (

@@ -18,6 +18,7 @@ import {
 import Link from 'next/link';
 import { OnboardingWrapper } from '@/components/onboarding/onboarding-wrapper';
 import { OABCountdown } from '@/components/countdown/oab-countdown';
+import { ReadinessCard } from '@/components/readiness/readiness-card';
 import { PushNotificationBanner } from '@/components/notifications/push-notification-banner';
 
 export const dynamic = 'force-dynamic';
@@ -103,9 +104,10 @@ export default async function DashboardPage() {
 
         <PushNotificationBanner />
 
-        {/* Countdown */}
-        <div className="mb-10">
+        {/* Countdown + Chance de passar */}
+        <div className="mb-10 grid gap-4 lg:grid-cols-2">
           <OABCountdown />
+          <ReadinessCard />
         </div>
 
         {/* Stats */}

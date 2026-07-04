@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
-import { requirePaidUser, handlePaymentRequired } from "@/lib/auth";
+import { requirePaidUserOrDiagnostic, handlePaymentRequired } from "@/lib/auth";
+import { OAB_EXAM_DISTRIBUTION } from "@/lib/constants/exam";
 import { CreateSimulationSchema } from "@/lib/validations/simulation";
 import { SimulationType, Prisma } from "@prisma/client";
 import { checkRateLimit, simulationRateLimit } from "@/lib/rate-limit";
@@ -191,24 +192,8 @@ function shuffleWithDiversity(
 const SIMULATION_CONFIGS = {
   FULL_EXAM: {
     questionCount: 80,
-    distribution: {
-      ETHICS: 8,
-      CONSTITUTIONAL: 7,
-      CIVIL: 7,
-      CIVIL_PROCEDURE: 6,
-      CRIMINAL: 6,
-      CRIMINAL_PROCEDURE: 6,
-      LABOUR: 6,
-      LABOUR_PROCEDURE: 5,
-      ADMINISTRATIVE: 5,
-      TAXES: 5,
-      BUSINESS: 5,
-      CONSUMER: 5,
-      ENVIRONMENTAL: 4,
-      CHILDREN: 3,
-      INTERNATIONAL: 2,
-      HUMAN_RIGHTS: 0,
-    },
+    // Fonte única: lib/constants/exam.ts (compartilhada com o Readiness Score)
+    distribution: OAB_EXAM_DISTRIBUTION,
   },
   ADAPTIVE: { questionCount: 40 },
   QUICK_PRACTICE: { questionCount: 20 },
@@ -218,11 +203,29 @@ const SIMULATION_CONFIGS = {
 
 export async function POST(request: NextRequest) {
   try {
-    const user = await requirePaidUser();
+    const { user, diagnostic } = await requirePaidUserOrDiagnostic();
     const body = await request.json();
 
-    // Verificar limite mensal de simulados
-    const limitCheck = await checkSimulationLimit(user.id);
+    // Fluxo diagnóstico: 1 simulado grátis por usuário sem plano
+    if (diagnostic) {
+      const existing = await prisma.simulation.count({ where: { userId: user.id } });
+      if (existing >= 1) {
+        return NextResponse.json(
+          {
+            error: "Diagnóstico já utilizado",
+            message:
+              "Você já fez seu simulado diagnóstico grátis. Assine um plano para simulados ilimitados!",
+            upgrade: true,
+          },
+          { status: 402 }
+        );
+      }
+    }
+
+    // Verificar limite mensal de simulados (não se aplica ao diagnóstico grátis)
+    const limitCheck = diagnostic
+      ? { allowed: true, limit: 1, current: 0, resetAt: null }
+      : await checkSimulationLimit(user.id);
     if (!limitCheck.allowed) {
       logger.warn("Monthly simulation limit exceeded", {
         userId: user.id,
@@ -261,6 +264,12 @@ export async function POST(request: NextRequest) {
       );
     }
     const data = parsed.data;
+
+    // Diagnóstico é sempre o formato rápido de 20 questões
+    if (diagnostic) {
+      data.type = SimulationType.QUICK_PRACTICE;
+      data.questionCount = 20;
+    }
 
     logger.info("🚀🚀🚀 VERSÃO NOVA COM WEIGHTED ALGORITHM 🚀🚀🚀 Creating simulation", {
       userId: user.id,

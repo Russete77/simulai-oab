@@ -112,9 +112,9 @@ export default function Home() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 sm:items-center mb-5">
-                <Link href="/register">
+                <Link href="/diagnostico">
                   <button className="inline-flex w-full sm:w-auto items-center justify-center gap-2 h-12 px-6 rounded-md bg-accent text-accent-fg font-medium shadow-sm hover:bg-accent-hover transition-all">
-                    Começar agora · R$ 19,90/mês
+                    Descubra grátis sua chance de passar
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </Link>
@@ -122,7 +122,7 @@ export default function Home() {
                   href="/pricing"
                   className="text-sm text-ink-2 hover:text-ink-1 transition-colors px-1 py-1.5"
                 >
-                  ou ver os 2 planos →
+                  ou assinar direto · a partir de R$ 19,90/mês →
                 </Link>
               </div>
 
@@ -173,7 +173,7 @@ export default function Home() {
             <div className="space-y-5 max-w-2xl text-ink-2 leading-relaxed text-[17px]">
               <p>
                 Você assiste 80 horas de videoaula sobre Civil. Faz 12 questões.
-                Erra metade. Marca pra "revisar depois" e esquece. Na semana que
+                Erra metade. Marca pra &ldquo;revisar depois&rdquo; e esquece. Na semana que
                 vem o ciclo recomeça com Constitucional — e o Civil já evaporou.
               </p>
               <p>
@@ -282,7 +282,7 @@ export default function Home() {
                 </h3>
                 <p className="text-ink-2 leading-relaxed mb-5">
                   Sistema de repetição espaçada (SRS) traz de volta o que você
-                  errou — em 1 dia, 3 dias, 1 semana. Não é "revisar depois". É
+                  errou — em 1 dia, 3 dias, 1 semana. Não é &ldquo;revisar depois&rdquo;. É
                   o algoritmo decidindo quando vai render mais.
                 </p>
                 <ul className="space-y-2 text-sm text-ink-2">

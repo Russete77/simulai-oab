@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { requirePaidUser, handlePaymentRequired } from "@/lib/auth";
+import { requirePaidUserOrDiagnostic, handlePaymentRequired } from "@/lib/auth";
 import { generateExplanation } from "@/lib/ai/explanation-service";
 import { prisma } from "@/lib/db/prisma";
 import { checkRateLimit, aiRateLimit } from "@/lib/rate-limit";
@@ -12,29 +12,61 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const user = await requirePaidUser();
+    const { user, diagnostic } = await requirePaidUserOrDiagnostic();
     const { id } = await params;
 
-    // Verificar limite diário de explicações IA
-    const limitCheck = await checkAiExplanationLimit(user.id);
-    if (!limitCheck.allowed) {
-      logger.warn("AI explanation limit exceeded", {
-        userId: user.id,
-        questionId: id,
-        limit: limitCheck.limit,
-        current: limitCheck.current
-      });
-      return NextResponse.json(
-        {
-          error: "Limite diário de explicações IA atingido",
+    // Degustação: usuário do diagnóstico tem direito a 3 explicações IA/dia.
+    // É o momento "uau" do funil — ele prova a IA antes do paywall.
+    const DIAGNOSTIC_FREE_EXPLANATIONS = 3;
+
+    if (diagnostic) {
+      const sameDay =
+        user.dailyAiExplanationsResetAt &&
+        new Date(user.dailyAiExplanationsResetAt).toDateString() === new Date().toDateString();
+      const current = sameDay ? user.dailyAiExplanationsCount : 0;
+
+      if (current >= DIAGNOSTIC_FREE_EXPLANATIONS) {
+        return NextResponse.json(
+          {
+            error: "Suas explicações grátis acabaram",
+            limit: DIAGNOSTIC_FREE_EXPLANATIONS,
+            current,
+            upgrade: true,
+            message:
+              "Você usou suas 3 explicações grátis do diagnóstico. Assine o PRO para explicações ilimitadas com IA!",
+          },
+          { status: 429 }
+        );
+      }
+
+      if (!sameDay) {
+        await prisma.user.update({
+          where: { id: user.id },
+          data: { dailyAiExplanationsCount: 0, dailyAiExplanationsResetAt: new Date() },
+        });
+      }
+    } else {
+      // Verificar limite diário de explicações IA
+      const limitCheck = await checkAiExplanationLimit(user.id);
+      if (!limitCheck.allowed) {
+        logger.warn("AI explanation limit exceeded", {
+          userId: user.id,
+          questionId: id,
           limit: limitCheck.limit,
-          current: limitCheck.current,
-          resetAt: limitCheck.resetAt,
-          planType: user.planType,
-          message: `Você atingiu o limite de ${limitCheck.limit} explicações por dia do plano ${user.planType}. Faça upgrade para continuar!`
-        },
-        { status: 429 }
-      );
+          current: limitCheck.current
+        });
+        return NextResponse.json(
+          {
+            error: "Limite diário de explicações IA atingido",
+            limit: limitCheck.limit,
+            current: limitCheck.current,
+            resetAt: limitCheck.resetAt,
+            planType: user.planType,
+            message: `Você atingiu o limite de ${limitCheck.limit} explicações por dia do plano ${user.planType}. Faça upgrade para continuar!`
+          },
+          { status: 429 }
+        );
+      }
     }
 
     // Rate limiting para IA

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
-import { requirePaidUser, handlePaymentRequired } from "@/lib/auth";
+import { requirePaidUserOrDiagnostic, handlePaymentRequired } from "@/lib/auth";
 import { AnswerQuestionSchema } from "@/lib/validations/question";
 import { calculatePoints, updateStreak, calculateLevel } from "@/lib/gamification/points";
 import { checkAchievements, getUserStats } from "@/lib/gamification/achievements";
@@ -13,7 +13,7 @@ import { ensureReviewCard } from "@/lib/srs/service";
 
 export async function POST(request: NextRequest) {
   try {
-    const user = await requirePaidUser();
+    const { user, diagnostic } = await requirePaidUserOrDiagnostic();
     const body = await request.json();
 
     // Rate limiting para respostas
@@ -78,6 +78,27 @@ export async function POST(request: NextRequest) {
         select: { id: true },
       });
       correctAlternativeId = correctAlt?.id || data.alternativeId;
+    }
+
+    // Diagnóstico: só pode responder dentro do próprio simulado diagnóstico
+    if (diagnostic) {
+      if (!data.simulationId) {
+        return NextResponse.json(
+          {
+            error: "Prática livre é exclusiva para assinantes",
+            message: "Assine um plano para praticar questões ilimitadas!",
+            upgrade: true,
+          },
+          { status: 402 }
+        );
+      }
+      const ownsSimulation = await prisma.simulation.findFirst({
+        where: { id: data.simulationId, userId: user.id },
+        select: { id: true },
+      });
+      if (!ownsSimulation) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
+      }
     }
 
     // OTIMIZAÇÃO: Registrar resposta SEM awaitar (fire-and-forget para simulados)

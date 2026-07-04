@@ -9,6 +9,7 @@ const isPublicRoute = createRouteMatcher([
   '/terms',
   '/privacy',
   '/pricing',
+  '/diagnostico',          // Funil: simulado diagnóstico grátis
   '/api/webhooks(.*)',
   // ===== PÁGINAS PÚBLICAS PARA SEO =====
   // Todas as páginas que devem ser indexadas pelo Google

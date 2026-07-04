@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { requirePaidUser, handlePaymentRequired } from "@/lib/auth";
+import { requirePaidUserOrDiagnostic, handlePaymentRequired } from "@/lib/auth";
 import { getSimulationAnalytics } from "@/lib/analytics/analytics-service";
 import { prisma } from "@/lib/db/prisma";
 
@@ -8,7 +8,7 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const user = await requirePaidUser();
+    const { user } = await requirePaidUserOrDiagnostic();
     const { id } = await params;
 
     // Verify simulation belongs to user

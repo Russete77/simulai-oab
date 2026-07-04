@@ -139,6 +139,42 @@ export async function requirePaidUser() {
 }
 
 /**
+ * Auth + paywall COM exceção de diagnóstico: usuário sem plano ativo pode
+ * fazer UM simulado diagnóstico grátis (funil de conversão). A elegibilidade
+ * é derivada do próprio dado: quem tem no máximo 1 simulado é (ou está
+ * fazendo) o diagnóstico. Quem já tem histórico maior é ex-assinante — bloqueia.
+ *
+ * Use nas rotas do fluxo de simulado + readiness. Conteúdo pago irrestrito
+ * (prática livre, review, chat IA) continua com requirePaidUser.
+ */
+export async function requirePaidUserOrDiagnostic(): Promise<{
+  user: NonNullable<Awaited<ReturnType<typeof getCurrentUser>>>;
+  diagnostic: boolean;
+}> {
+  const user = await requireAuth();
+  const gate = await requirePaidPlan(user.id);
+
+  if (gate.allowed) {
+    return { user, diagnostic: false };
+  }
+
+  const simulationCount = await prisma.simulation.count({
+    where: { userId: user.id },
+  });
+
+  if (simulationCount <= 1) {
+    return { user, diagnostic: true };
+  }
+
+  logger.warn('Diagnostic gate blocked request', {
+    userId: user.id,
+    reason: gate.reason,
+    simulationCount,
+  });
+  throw new PaymentRequiredError(gate);
+}
+
+/**
  * Catch handler pra rotas: se o erro for PaymentRequiredError, devolve 402.
  * Se não for, re-throw pra manter o comportamento existente.
  *

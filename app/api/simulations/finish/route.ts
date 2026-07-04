@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
-import { requirePaidUser, handlePaymentRequired } from "@/lib/auth";
+import { requirePaidUserOrDiagnostic, handlePaymentRequired } from "@/lib/auth";
 import { FinishSimulationSchema } from "@/lib/validations/simulation";
 import type { SimulationReportResponse } from "@/types/api";
 
 export async function POST(request: NextRequest) {
   try {
-    const user = await requirePaidUser();
+    const { user } = await requirePaidUserOrDiagnostic();
     const body = await request.json();
 
     // Validar dados
