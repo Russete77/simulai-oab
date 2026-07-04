@@ -15,6 +15,7 @@
     "db:generate": "prisma generate",
     "postinstall": "prisma generate",
     "import:dataset": "tsx scripts/import-dataset.ts",
+    "ai:explanations": "tsx scripts/generate-explanations-batch.ts",
     "webhook:logs": "tsx scripts/check-webhook-logs.ts",
     "webhook:failed": "tsx scripts/check-failed-webhooks.ts"
   },
