@@ -39,15 +39,22 @@ const CONFIDENCE_LABEL: Record<Readiness['confidence'], string> = {
 
 export function ReadinessCard() {
   const [data, setData] = useState<Readiness | null>(null);
-  const [state, setState] = useState<'loading' | 'ready' | 'empty' | 'error'>('loading');
+  const [state, setState] = useState<'loading' | 'ready' | 'empty' | 'locked' | 'error'>(
+    'loading'
+  );
 
   useEffect(() => {
     fetch('/api/analytics/readiness')
       .then((r) => {
+        if (r.status === 402) {
+          setState('locked');
+          return null;
+        }
         if (!r.ok) throw new Error(String(r.status));
         return r.json();
       })
-      .then((d: Readiness) => {
+      .then((d: Readiness | null) => {
+        if (!d) return;
         if (d.answersConsidered === 0) {
           setState('empty');
         } else {
@@ -70,6 +77,30 @@ export function ReadinessCard() {
 
   if (state === 'error') {
     return null;
+  }
+
+  // Sem assinatura ativa (ex-assinante ou pendente): o card vira o argumento
+  // de reativação em vez de sumir do dashboard.
+  if (state === 'locked') {
+    return (
+      <Card className="border-accent/40">
+        <div className="flex items-center gap-2 mb-3">
+          <Gauge className="w-4 h-4 text-accent" />
+          <h2 className="text-lg font-semibold text-ink-1">Chance de passar</h2>
+        </div>
+        <p className="text-sm text-ink-2 mb-2">
+          Sua nota projetada na 1ª fase está calculada e esperando por você — junto
+          com suas matérias fracas e o plano para fechar o gap até a aprovação.
+        </p>
+        <p className="text-sm text-ink-2 mb-5">
+          Reative seu plano para desbloquear seu Readiness Score, simulados
+          ilimitados e a IA explicando cada erro.
+        </p>
+        <Link href="/pricing">
+          <Button fullWidth>Desbloquear minha chance de passar</Button>
+        </Link>
+      </Card>
+    );
   }
 
   if (state === 'empty' || !data) {
