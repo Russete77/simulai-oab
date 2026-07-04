@@ -16,6 +16,7 @@ const ESSENCIAL_FEATURES = [
   'Revisão de erros completa',
   'Simulados adaptativos',
   'Flashcards e desafios semanais',
+  '3 explicações de IA por dia',
   'Acesso offline (PWA)',
 ];
 

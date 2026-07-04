@@ -42,14 +42,16 @@ export const PLAN_LIMITS: Record<PlanType, PlanLimits> = {
     hasPrioritySupport: false,
   },
 
-  // BASIC = Essencial — R$ 19,99/mês — Tudo liberado, SEM IA
+  // BASIC = Essencial — R$ 19,99/mês — Tudo liberado + degustação de IA
+  // 3 explicações/dia: o aluno prova o diferencial do PRO todo dia e sente
+  // falta do ilimitado — alavanca de upgrade (o custo é ~US$0,001/dia/usuário).
   // Acesso depende de Subscription.status (TRIALING/ACTIVE liberam, INCOMPLETE bloqueia).
   // Ver gate.ts pra checagem real de acesso.
   BASIC: {
     dailyQuestions: Infinity,
     questionBankSize: 5605,
     monthlySimulations: Infinity,
-    dailyAiExplanations: 0,
+    dailyAiExplanations: 3,
     dailyAiChats: 0,
     canUseAdaptiveSimulations: true,
     canExportPdf: false,

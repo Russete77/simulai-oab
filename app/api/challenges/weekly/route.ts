@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requirePaidUser, handlePaymentRequired } from '@/lib/auth';
+import { prisma } from '@/lib/db/prisma';
 
 /**
  * GET /api/challenges/weekly
@@ -85,19 +86,54 @@ export async function GET(request: NextRequest) {
       selectedChallenges.push(allChallenges[index]);
     }
 
-    // Get user progress (from UserProfile and UserAnswer queries)
-    // For now, return mock progress - in production, this would query the database
+    // Progresso REAL da semana corrente (segunda 00:00 até agora)
+    const weekStart = new Date(now);
+    const dow = (weekStart.getDay() + 6) % 7; // 0 = segunda
+    weekStart.setDate(weekStart.getDate() - dow);
+    weekStart.setHours(0, 0, 0, 0);
+
+    const [weekAnswers, weekSimulations] = await Promise.all([
+      prisma.userAnswer.findMany({
+        where: { userId: user.id, createdAt: { gte: weekStart } },
+        select: {
+          isCorrect: true,
+          createdAt: true,
+          question: { select: { subject: true } },
+        },
+        orderBy: { createdAt: 'asc' },
+      }),
+      prisma.simulation.count({
+        where: {
+          userId: user.id,
+          status: 'COMPLETED',
+          completedAt: { gte: weekStart },
+        },
+      }),
+    ]);
+
+    const weekCorrect = weekAnswers.filter((a) => a.isCorrect).length;
+    const weekSubjects = new Set(weekAnswers.map((a) => String(a.question.subject))).size;
+    const weekDaysStudied = new Set(
+      weekAnswers.map((a) => new Date(a.createdAt).toDateString())
+    ).size;
+
+    // Maior sequência de acertos consecutivos na semana
+    let bestCorrectStreak = 0;
+    let running = 0;
+    for (const a of weekAnswers) {
+      running = a.isCorrect ? running + 1 : 0;
+      if (running > bestCorrectStreak) bestCorrectStreak = running;
+    }
+
     const userProgress = {
-      questionsAnswered: user.profile?.totalQuestions || 0,
-      correctAnswers: user.profile?.correctAnswers || 0,
-      currentStreak: user.profile?.streak || 0,
-      subjectsStudied: user.profile?.preferredSubjects?.length || 0,
-      simulationsCompleted: 0, // Would be queried from Simulation table
-      daysSinceLastAnswer: 0, // Would be calculated from lastStudyDate
-      weeklyAccuracy: user.profile?.totalQuestions
-        ? Math.round(
-            ((user.profile?.correctAnswers || 0) / (user.profile?.totalQuestions || 1)) * 100
-          )
+      questionsAnswered: weekAnswers.length,
+      correctAnswers: weekCorrect,
+      currentStreak: bestCorrectStreak,
+      subjectsStudied: weekSubjects,
+      simulationsCompleted: weekSimulations,
+      daysStudiedThisWeek: weekDaysStudied,
+      weeklyAccuracy: weekAnswers.length
+        ? Math.round((weekCorrect / weekAnswers.length) * 100)
         : 0,
     };
 
@@ -119,7 +155,7 @@ export async function GET(request: NextRequest) {
           current = userProgress.simulationsCompleted;
           break;
         case 'daily_streak':
-          current = userProgress.daysSinceLastAnswer;
+          current = userProgress.daysStudiedThisWeek;
           break;
         case 'accuracy':
           current = userProgress.weeklyAccuracy;
@@ -137,15 +173,14 @@ export async function GET(request: NextRequest) {
       };
     });
 
-    // Calculate week end date
-    const daysToFriday = 5 - now.getDay();
-    const nextFriday = new Date(now);
-    nextFriday.setDate(now.getDate() + (daysToFriday >= 0 ? daysToFriday : 7 + daysToFriday));
-    nextFriday.setHours(23, 59, 59, 999);
+    // Prazo: domingo 23:59 da semana corrente (semana começa segunda)
+    const weekEnd = new Date(weekStart);
+    weekEnd.setDate(weekEnd.getDate() + 6);
+    weekEnd.setHours(23, 59, 59, 999);
 
     return NextResponse.json({
       weekNumber: weekNumber + 1,
-      deadline: nextFriday.toISOString(),
+      deadline: weekEnd.toISOString(),
       challenges: challengesWithProgress,
       totalXpAvailable: selectedChallenges.reduce((sum, ch) => sum + ch.reward, 0),
       totalXpEarned: challengesWithProgress.reduce((sum, ch) => {
