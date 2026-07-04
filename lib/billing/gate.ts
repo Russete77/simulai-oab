@@ -18,6 +18,22 @@ export interface GateResult {
 
 const ACTIVE_STATUSES: SubscriptionStatus[] = ['ACTIVE'];
 
+/**
+ * Bypass de admin: e-mails em ADMIN_EMAILS (separados por vírgula) têm acesso
+ * total sem assinatura. Para o dono/equipe testarem o produto em produção.
+ * Vazio/ausente = nenhum bypass.
+ */
+function isAdminEmail(email: string | null | undefined): boolean {
+  if (!email) return false;
+  const list = process.env.ADMIN_EMAILS;
+  if (!list) return false;
+  return list
+    .split(',')
+    .map((e) => e.trim().toLowerCase())
+    .filter(Boolean)
+    .includes(email.toLowerCase());
+}
+
 export async function requirePaidPlan(userId: string | null | undefined): Promise<GateResult> {
   if (!userId) {
     return { allowed: false, reason: 'no_user', planType: null, subscriptionStatus: null };
@@ -31,6 +47,7 @@ export async function requirePaidPlan(userId: string | null | undefined): Promis
     where: { id: userId },
     select: {
       planType: true,
+      email: true,
       customer: {
         select: {
           subscriptions: {
@@ -45,6 +62,10 @@ export async function requirePaidPlan(userId: string | null | undefined): Promis
 
   if (!user) {
     return { allowed: false, reason: 'no_user', planType: null, subscriptionStatus: null };
+  }
+
+  if (isAdminEmail(user.email)) {
+    return { allowed: true, reason: 'ok', planType: 'PREMIUM', subscriptionStatus: 'ACTIVE' };
   }
 
   const sub = user.customer?.subscriptions[0];
@@ -84,6 +105,7 @@ export async function requirePaidPlanByClerkId(
     where: { clerkId },
     select: {
       planType: true,
+      email: true,
       customer: {
         select: {
           subscriptions: {
@@ -98,6 +120,10 @@ export async function requirePaidPlanByClerkId(
 
   if (!user) {
     return { allowed: false, reason: 'no_user', planType: null, subscriptionStatus: null };
+  }
+
+  if (isAdminEmail(user.email)) {
+    return { allowed: true, reason: 'ok', planType: 'PREMIUM', subscriptionStatus: 'ACTIVE' };
   }
 
   const sub = user.customer?.subscriptions[0];
