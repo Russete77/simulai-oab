@@ -93,10 +93,21 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // Se for simulado, apenas registrar e retornar rápido
+    // Se for simulado, registrar e retornar rápido (gamificação fica pro finish)
     if (data.simulationId) {
       // Aguardar apenas o registro da resposta
       await answerPromise;
+
+      // SRS: erros e acertos do simulado também alimentam a fila de revisão
+      // (fire-and-forget, mesmo padrão do modo prática)
+      ensureReviewCard(user.id, data.questionId, isCorrect).catch(err =>
+        logger.error('SRS card creation error (simulation)', {
+          error: err instanceof Error ? err.message : 'Unknown error',
+          userId: user.id,
+          questionId: data.questionId,
+          simulationId: data.simulationId
+        })
+      );
 
       logger.debug("Simulation answer recorded", {
         simulationId: data.simulationId,
