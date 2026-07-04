@@ -23,29 +23,37 @@ export const metadata: Metadata = {
 };
 
 // Ranking público (sem dados do usuário logado). Não expõe e-mail no HTML.
+const EMPTY_LEADERBOARD: LeaderboardData = {
+  leaderboard: [],
+  currentUserRank: null,
+  stats: { totalUsers: 0, averagePoints: 0, topScore: 0 },
+};
+
 async function getPublicLeaderboard(limit: number): Promise<LeaderboardData> {
-  const [topUsers, totalUsers, averagePointsResult] = await Promise.all([
-    prisma.userProfile.findMany({
-      select: {
-        id: true,
-        userId: true,
-        totalPoints: true,
-        streak: true,
-        level: true,
-        totalQuestions: true,
-        correctAnswers: true,
-        user: { select: { name: true } },
-      },
-      orderBy: [
-        { totalPoints: 'desc' },
-        { level: 'desc' },
-        { streak: 'desc' },
-      ],
-      take: limit,
-    }),
-    prisma.userProfile.count(),
-    prisma.userProfile.aggregate({ _avg: { totalPoints: true } }),
-  ]);
+  // Queries sequenciais (não Promise.all): no build da Vercel o pool tem
+  // connection_limit=1 e queries paralelas estouram o pool (P2024).
+  const topUsers = await prisma.userProfile.findMany({
+    select: {
+      id: true,
+      userId: true,
+      totalPoints: true,
+      streak: true,
+      level: true,
+      totalQuestions: true,
+      correctAnswers: true,
+      user: { select: { name: true } },
+    },
+    orderBy: [
+      { totalPoints: 'desc' },
+      { level: 'desc' },
+      { streak: 'desc' },
+    ],
+    take: limit,
+  });
+  const totalUsers = await prisma.userProfile.count();
+  const averagePointsResult = await prisma.userProfile.aggregate({
+    _avg: { totalPoints: true },
+  });
 
   const leaderboard = topUsers.map((profile, index) => ({
     rank: index + 1,
@@ -73,7 +81,15 @@ async function getPublicLeaderboard(limit: number): Promise<LeaderboardData> {
 }
 
 export default async function LeaderboardPage() {
-  const initialData = await getPublicLeaderboard(50);
+  // Prerender não pode derrubar o build se o banco estiver indisponível
+  // (mesmo padrão das páginas de matérias). O ISR revalida com dados em 5min.
+  let initialData: LeaderboardData;
+  try {
+    initialData = await getPublicLeaderboard(50);
+  } catch (error) {
+    console.error('Erro ao buscar leaderboard no prerender:', error);
+    initialData = EMPTY_LEADERBOARD;
+  }
 
   const jsonLd = {
     '@context': 'https://schema.org',
