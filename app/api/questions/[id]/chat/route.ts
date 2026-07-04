@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { requireAuth } from "@/lib/auth";
+import { requirePaidUser, handlePaymentRequired } from "@/lib/auth";
 import { chatAboutQuestion } from "@/lib/ai/explanation-service";
 import { prisma } from "@/lib/db/prisma";
 import { checkAiChatLimit, incrementAiChatCount } from "@/lib/billing/limits";
@@ -10,7 +10,7 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const user = await requireAuth();
+    const user = await requirePaidUser();
     const { id } = await params;
     const body = await request.json();
 
@@ -120,6 +120,9 @@ export async function POST(
       },
     });
   } catch (error) {
+    const paymentResp = handlePaymentRequired(error);
+    if (paymentResp) return paymentResp;
+
     console.error("❌ Erro no chat:", error);
 
     if (error instanceof Error && error.message === "Unauthorized") {

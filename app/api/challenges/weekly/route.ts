@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { requireAuth } from '@/lib/auth';
+import { requirePaidUser, handlePaymentRequired } from '@/lib/auth';
 
 /**
  * GET /api/challenges/weekly
@@ -7,13 +7,13 @@ import { requireAuth } from '@/lib/auth';
  * Challenges are deterministic based on week number
  */
 export async function GET(request: NextRequest) {
-  const user = await requireAuth();
-
-  if (!user) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
   try {
+    const user = await requirePaidUser();
+
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     // Calculate current week number
     const now = new Date();
     const startOfYear = new Date(now.getFullYear(), 0, 1);
@@ -155,6 +155,9 @@ export async function GET(request: NextRequest) {
       }, 0),
     });
   } catch (error) {
+    const paymentResp = handlePaymentRequired(error);
+    if (paymentResp) return paymentResp;
+
     console.error('Error fetching weekly challenges:', error);
     return NextResponse.json({ error: 'Failed to fetch challenges' }, { status: 500 });
   }

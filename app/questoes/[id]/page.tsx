@@ -71,6 +71,21 @@ async function getQuestion(id: string) {
   return question;
 }
 
+// Pré-gera no build (SSG) as questões dos exames mais recentes — o maior volume
+// de tráfego SEO. As demais continuam servidas via ISR on-demand, porque
+// `dynamicParams` é true por padrão. Isso evita milhares de cold-renders quando
+// o Googlebot rastreia URLs de questões antigas, sem estourar o tempo de build.
+export async function generateStaticParams() {
+  const currentYear = new Date().getFullYear();
+  const recentQuestions = await prisma.question.findMany({
+    where: { nullified: false, examYear: { gte: currentYear - 3 } },
+    select: { id: true },
+    orderBy: { examYear: 'desc' },
+    take: 3000,
+  });
+  return recentQuestions.map((q) => ({ id: q.id }));
+}
+
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const params = await props.params;
   const question = await getQuestion(params.id);

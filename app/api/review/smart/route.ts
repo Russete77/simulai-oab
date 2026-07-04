@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { requireAuth } from '@/lib/auth';
+import { requirePaidUser, handlePaymentRequired } from '@/lib/auth';
 import { prisma } from '@/lib/db/prisma';
 
 export async function GET(req: NextRequest) {
   try {
-    const user = await requireAuth();
+    const user = await requirePaidUser();
     const limit = 10;
 
     // 1. Try to get SRS due cards first
@@ -94,6 +94,9 @@ export async function GET(req: NextRequest) {
       },
     });
   } catch (error) {
+    const paymentResp = handlePaymentRequired(error);
+    if (paymentResp) return paymentResp;
+
     console.error('Smart review error:', error);
     return NextResponse.json({ error: 'Erro ao buscar revisão' }, { status: 500 });
   }

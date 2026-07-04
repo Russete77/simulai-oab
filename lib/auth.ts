@@ -1,6 +1,9 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
 import { logger } from "@/lib/logger";
+import { requirePaidPlan, type GateResult } from "@/lib/billing/gate";
+import { createError } from "@/lib/errors";
 
 export async function getCurrentUser() {
   const { userId } = await auth();
@@ -97,6 +100,64 @@ export async function requireAuth() {
   }
 
   return user;
+}
+
+/**
+ * Erro lançado por requirePaidUser quando o usuário está logado mas
+ * não tem subscription ACTIVE. As rotas devem catch e retornar 402.
+ */
+export class PaymentRequiredError extends Error {
+  readonly code = 'PAYMENT_REQUIRED';
+  readonly gate: GateResult;
+  constructor(gate: GateResult) {
+    super('Payment required: subscription not active');
+    this.name = 'PaymentRequiredError';
+    this.gate = gate;
+  }
+}
+
+/**
+ * Auth + paywall. Retorna o user APENAS se tiver subscription ACTIVE
+ * (ou se ENABLE_FREE_ACCESS_MODE=true). Caso contrário lança PaymentRequiredError.
+ *
+ * Use em TODAS as rotas que servem conteúdo pago (questões, simulados, IA, review etc).
+ */
+export async function requirePaidUser() {
+  const user = await requireAuth();
+  const gate = await requirePaidPlan(user.id);
+
+  if (!gate.allowed) {
+    logger.warn('Paid gate blocked request', {
+      userId: user.id,
+      reason: gate.reason,
+      subscriptionStatus: gate.subscriptionStatus,
+    });
+    throw new PaymentRequiredError(gate);
+  }
+
+  return user;
+}
+
+/**
+ * Catch handler pra rotas: se o erro for PaymentRequiredError, devolve 402.
+ * Se não for, re-throw pra manter o comportamento existente.
+ *
+ * Uso:
+ *   try { ... } catch (e) {
+ *     const r = handlePaymentRequired(e);
+ *     if (r) return r;
+ *     // ... outros tratamentos
+ *   }
+ */
+export function handlePaymentRequired(err: unknown): NextResponse | null {
+  if (err instanceof PaymentRequiredError) {
+    const error = createError('PAYMENT_REQUIRED', {
+      reason: err.gate.reason,
+      subscriptionStatus: err.gate.subscriptionStatus,
+    });
+    return NextResponse.json(error.toJSON(), { status: 402 });
+  }
+  return null;
 }
 
 // Helper para obter informações do Clerk

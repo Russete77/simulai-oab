@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { requireAuth } from '@/lib/auth';
+import { requirePaidUser, handlePaymentRequired } from '@/lib/auth';
 
 // In-memory store for challenges (reset on server restart)
 // In production, this should be stored in a database
@@ -25,13 +25,13 @@ const challengeStore = new Map<
  * Create a new friend challenge
  */
 export async function POST(request: NextRequest) {
-  const user = await requireAuth();
-
-  if (!user) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
   try {
+    const user = await requirePaidUser();
+
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const body = await request.json();
     const { code, type } = body;
 
@@ -70,6 +70,9 @@ export async function POST(request: NextRequest) {
       participants: challenge.participants,
     });
   } catch (error) {
+    const paymentResp = handlePaymentRequired(error);
+    if (paymentResp) return paymentResp;
+
     console.error('Error creating challenge:', error);
     return NextResponse.json({ error: 'Failed to create challenge' }, { status: 500 });
   }
@@ -80,13 +83,13 @@ export async function POST(request: NextRequest) {
  * Get challenge details and join if not already a participant
  */
 export async function GET(request: NextRequest) {
-  const user = await requireAuth();
-
-  if (!user) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
   try {
+    const user = await requirePaidUser();
+
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const code = request.nextUrl.searchParams.get('code');
 
     if (!code) {
@@ -122,6 +125,9 @@ export async function GET(request: NextRequest) {
       })),
     });
   } catch (error) {
+    const paymentResp = handlePaymentRequired(error);
+    if (paymentResp) return paymentResp;
+
     console.error('Error fetching challenge:', error);
     return NextResponse.json({ error: 'Failed to fetch challenge' }, { status: 500 });
   }
@@ -132,13 +138,13 @@ export async function GET(request: NextRequest) {
  * Update challenge (mark as completed, submit score)
  */
 export async function PUT(request: NextRequest) {
-  const user = await requireAuth();
-
-  if (!user) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
   try {
+    const user = await requirePaidUser();
+
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const code = request.nextUrl.searchParams.get('code');
 
     if (!code) {
@@ -177,6 +183,9 @@ export async function PUT(request: NextRequest) {
       })),
     });
   } catch (error) {
+    const paymentResp = handlePaymentRequired(error);
+    if (paymentResp) return paymentResp;
+
     console.error('Error updating challenge:', error);
     return NextResponse.json({ error: 'Failed to update challenge' }, { status: 500 });
   }

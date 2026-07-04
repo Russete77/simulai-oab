@@ -3,14 +3,14 @@
  * POST /api/review/srs — Registrar resultado de revisão
  */
 import { NextRequest, NextResponse } from 'next/server';
-import { requireAuth } from '@/lib/auth';
+import { requirePaidUser, handlePaymentRequired } from '@/lib/auth';
 import { getDueReviewCards, recordReview, getSRSStats } from '@/lib/srs/service';
 import { createError } from '@/lib/errors';
 import { logger } from '@/lib/logger';
 
 export async function GET(req: NextRequest) {
   try {
-    const user = await requireAuth();
+    const user = await requirePaidUser();
     const { searchParams } = new URL(req.url);
     const limit = parseInt(searchParams.get('limit') || '10');
     const statsOnly = searchParams.get('stats') === 'true';
@@ -33,6 +33,9 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({ cards, stats });
   } catch (error) {
+    const paymentResp = handlePaymentRequired(error);
+    if (paymentResp) return paymentResp;
+
     logger.error('SRS GET error', {
       error: error instanceof Error ? error.message : 'Unknown error',
     });
@@ -45,7 +48,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const user = await requireAuth();
+    const user = await requirePaidUser();
     const body = await req.json();
     const { questionId, isCorrect, timeSpent } = body;
 
@@ -72,6 +75,9 @@ export async function POST(req: NextRequest) {
       interval: card.interval,
     });
   } catch (error) {
+    const paymentResp = handlePaymentRequired(error);
+    if (paymentResp) return paymentResp;
+
     logger.error('SRS POST error', {
       error: error instanceof Error ? error.message : 'Unknown error',
     });

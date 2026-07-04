@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
-import { requireAuth } from "@/lib/auth";
+import { requirePaidUser, handlePaymentRequired } from "@/lib/auth";
 import { AnswerQuestionSchema } from "@/lib/validations/question";
 import { calculatePoints, updateStreak, calculateLevel } from "@/lib/gamification/points";
 import { checkAchievements, getUserStats } from "@/lib/gamification/achievements";
@@ -13,7 +13,7 @@ import { ensureReviewCard } from "@/lib/srs/service";
 
 export async function POST(request: NextRequest) {
   try {
-    const user = await requireAuth();
+    const user = await requirePaidUser();
     const body = await request.json();
 
     // Rate limiting para respostas
@@ -278,6 +278,9 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(response);
   } catch (error) {
+    const paymentResp = handlePaymentRequired(error);
+    if (paymentResp) return paymentResp;
+
     logger.error("Error answering question", {
       error: error instanceof Error ? error.message : "Unknown error",
       userId: (error as any).userId

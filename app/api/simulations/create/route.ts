@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
-import { requireAuth } from "@/lib/auth";
+import { requirePaidUser, handlePaymentRequired } from "@/lib/auth";
 import { CreateSimulationSchema } from "@/lib/validations/simulation";
 import { SimulationType, Prisma } from "@prisma/client";
 import { checkRateLimit, simulationRateLimit } from "@/lib/rate-limit";
@@ -218,7 +218,7 @@ const SIMULATION_CONFIGS = {
 
 export async function POST(request: NextRequest) {
   try {
-    const user = await requireAuth();
+    const user = await requirePaidUser();
     const body = await request.json();
 
     // Verificar limite mensal de simulados
@@ -500,6 +500,9 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(simulation);
   } catch (error) {
+    const paymentResp = handlePaymentRequired(error);
+    if (paymentResp) return paymentResp;
+
     logger.error("Error creating simulation", {
       error: error instanceof Error ? error.message : "Unknown error",
       stack: error instanceof Error ? error.stack : undefined

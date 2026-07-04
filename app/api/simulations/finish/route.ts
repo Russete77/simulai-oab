@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
-import { requireAuth } from "@/lib/auth";
+import { requirePaidUser, handlePaymentRequired } from "@/lib/auth";
 import { FinishSimulationSchema } from "@/lib/validations/simulation";
 import type { SimulationReportResponse } from "@/types/api";
 
 export async function POST(request: NextRequest) {
   try {
-    const user = await requireAuth();
+    const user = await requirePaidUser();
     const body = await request.json();
 
     // Validar dados
@@ -149,6 +149,9 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(response);
   } catch (error) {
+    const paymentResp = handlePaymentRequired(error);
+    if (paymentResp) return paymentResp;
+
     console.error("Error finishing simulation:", error);
 
     if (error instanceof Error && error.message === "Unauthorized") {

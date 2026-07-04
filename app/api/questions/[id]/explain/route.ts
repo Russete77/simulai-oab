@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { requireAuth } from "@/lib/auth";
+import { requirePaidUser, handlePaymentRequired } from "@/lib/auth";
 import { generateExplanation } from "@/lib/ai/explanation-service";
 import { prisma } from "@/lib/db/prisma";
 import { checkRateLimit, aiRateLimit } from "@/lib/rate-limit";
@@ -12,7 +12,7 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const user = await requireAuth();
+    const user = await requirePaidUser();
     const { id } = await params;
 
     // Verificar limite diário de explicações IA
@@ -138,6 +138,9 @@ export async function POST(
       },
     });
   } catch (error) {
+    const paymentResp = handlePaymentRequired(error);
+    if (paymentResp) return paymentResp;
+
     logger.error("Error generating explanation", {
       error: error instanceof Error ? error.message : "Unknown error",
       questionId: await params.then(p => p.id),

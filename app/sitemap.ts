@@ -8,10 +8,35 @@
  */
 
 import { MetadataRoute } from 'next';
+import { unstable_cache } from 'next/cache';
 import { prisma } from '@/lib/db/prisma';
 import { getAllBlogPosts } from '@/content/blog';
 
 const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://simulaioab.com';
+
+// As duas queries pesadas (groupBy de exames e findMany de ~6.000 questões)
+// são cacheadas por 24h. Sem isso, cada hit do crawler em /sitemap.xml puxava
+// todas as linhas do banco. Revalida diariamente para refletir novas questões.
+const getExamsForSitemap = unstable_cache(
+  async () =>
+    prisma.question.groupBy({
+      by: ['examId'],
+      where: { nullified: false },
+    }),
+  ['sitemap-exams'],
+  { revalidate: 86400, tags: ['sitemap'] }
+);
+
+const getQuestionsForSitemap = unstable_cache(
+  async () =>
+    prisma.question.findMany({
+      select: { id: true, updatedAt: true },
+      where: { nullified: false },
+      orderBy: { examYear: 'desc' },
+    }),
+  ['sitemap-questions'],
+  { revalidate: 86400, tags: ['sitemap'] }
+);
 
 // Matérias disponíveis
 const subjects = [
@@ -54,10 +79,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // ==========================================
   // 3. Gabaritos e simulados por exame
   // ==========================================
-  const exams = await prisma.question.groupBy({
-    by: ['examId'],
-    where: { nullified: false },
-  });
+  const exams = await getExamsForSitemap();
 
   const gabaritoPages: MetadataRoute.Sitemap = exams.map((exam) => ({
     url: `${baseUrl}/gabarito/${exam.examId}`,
@@ -87,15 +109,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // ==========================================
   // 5. Questões individuais (volume alto, prioridade média)
   // ==========================================
-  const questions = await prisma.question.findMany({
-    select: { id: true, updatedAt: true },
-    where: { nullified: false },
-    orderBy: { examYear: 'desc' },
-  });
+  const questions = await getQuestionsForSitemap();
 
   const questionPages: MetadataRoute.Sitemap = questions.map((q) => ({
     url: `${baseUrl}/questoes/${q.id}`,
-    lastModified: q.updatedAt,
+    lastModified: new Date(q.updatedAt),
     changeFrequency: 'monthly' as const,
     priority: 0.6,
   }));

@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { requireAuth } from "@/lib/auth";
+import { requirePaidUser, handlePaymentRequired } from "@/lib/auth";
 import { prisma } from "@/lib/db/prisma";
 
 export async function GET(request: NextRequest) {
   try {
-    const user = await requireAuth();
+    const user = await requirePaidUser();
 
     // Buscar questões que o usuário errou
     const wrongAnswers = await prisma.userAnswer.findMany({
@@ -61,6 +61,9 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
+    const paymentResp = handlePaymentRequired(error);
+    if (paymentResp) return paymentResp;
+
     console.error("Error fetching wrong questions:", error);
     return NextResponse.json(
       { error: "Failed to fetch wrong questions" },

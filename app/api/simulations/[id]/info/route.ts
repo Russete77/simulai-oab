@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
-import { requireAuth } from "@/lib/auth";
+import { requirePaidUser, handlePaymentRequired } from "@/lib/auth";
 
 /**
  * GET /api/simulations/[id]/info
@@ -11,7 +11,7 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const user = await requireAuth();
+    const user = await requirePaidUser();
     const { id: simulationId } = await params;
 
     // Buscar simulação com informações mínimas
@@ -66,6 +66,9 @@ export async function GET(
       answeredQuestions: answers,
     });
   } catch (error) {
+    const paymentResp = handlePaymentRequired(error);
+    if (paymentResp) return paymentResp;
+
     console.error("[API] Error fetching simulation info:", error);
     return NextResponse.json(
       { error: "Internal server error" },

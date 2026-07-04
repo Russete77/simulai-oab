@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
+import { getAdminOrNull } from "@/lib/admin/auth";
 import { ImportDatasetSchema } from "@/lib/validations/question";
 import type { QuestionDataset } from "@/types/dataset";
 import { SUBJECT_MAP } from "@/types/dataset";
@@ -9,9 +10,11 @@ const HUGGINGFACE_API_URL =
 
 export async function POST(request: NextRequest) {
   try {
-    // Verificar autenticação admin ANTES de processar body (fail-close)
-    const apiKey = request.headers.get("x-admin-key");
-    if (!process.env.ADMIN_API_KEY || apiKey !== process.env.ADMIN_API_KEY) {
+    // Verificar autenticação admin ANTES de processar body (fail-close).
+    // Mesmo modelo do resto do /admin: sessão Clerk + ADMIN_EMAILS, em vez de
+    // uma API key estática de longa duração.
+    const admin = await getAdminOrNull();
+    if (!admin) {
       return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
     }
 

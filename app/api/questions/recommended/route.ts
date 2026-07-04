@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { requireAuth } from "@/lib/auth";
+import { requirePaidUser, handlePaymentRequired } from "@/lib/auth";
 import { prisma } from "@/lib/db/prisma";
 import { Subject } from "@prisma/client";
 import { logger } from "@/lib/logger";
@@ -18,7 +18,7 @@ interface SubjectPerformance {
  */
 export async function GET(request: NextRequest) {
   try {
-    const user = await requireAuth();
+    const user = await requirePaidUser();
 
     logger.info("Fetching recommended questions", { userId: user.id });
 
@@ -105,6 +105,9 @@ export async function GET(request: NextRequest) {
       message: "Foque nestas matérias para melhorar seu desempenho!",
     });
   } catch (error) {
+    const paymentResp = handlePaymentRequired(error);
+    if (paymentResp) return paymentResp;
+
     logger.error("Error fetching recommended questions", {
       error: error instanceof Error ? error.message : "Unknown error",
     });

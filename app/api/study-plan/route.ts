@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { requireAuth } from '@/lib/auth';
+import { requirePaidUser, handlePaymentRequired } from '@/lib/auth';
 import { prisma } from '@/lib/db/prisma';
 import { Subject } from '@prisma/client';
 
@@ -26,7 +26,7 @@ const SUBJECT_LABELS: Record<Subject, string> = {
 
 export async function GET(req: NextRequest) {
   try {
-    const user = await requireAuth();
+    const user = await requirePaidUser();
 
     const plan = await prisma.studyPlan.findFirst({
       where: { userId: user.id, isActive: true },
@@ -57,6 +57,9 @@ export async function GET(req: NextRequest) {
       },
     });
   } catch (error) {
+    const paymentResp = handlePaymentRequired(error);
+    if (paymentResp) return paymentResp;
+
     console.error('Study plan GET error:', error);
     return NextResponse.json({ error: 'Erro ao buscar plano' }, { status: 500 });
   }
@@ -64,7 +67,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const user = await requireAuth();
+    const user = await requirePaidUser();
     const body = await req.json();
     const { targetExamDate } = body;
 
@@ -159,6 +162,9 @@ export async function POST(req: NextRequest) {
       analysis: subjectAnalysis,
     });
   } catch (error) {
+    const paymentResp = handlePaymentRequired(error);
+    if (paymentResp) return paymentResp;
+
     console.error('Study plan POST error:', error);
     return NextResponse.json({ error: 'Erro ao criar plano' }, { status: 500 });
   }

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
-import { requireAuth } from "@/lib/auth";
+import { requirePaidUser, handlePaymentRequired } from "@/lib/auth";
 import { GetNextQuestionSchema } from "@/lib/validations/question";
 import { Prisma } from "@prisma/client";
 
@@ -62,7 +62,7 @@ function selectWeightedQuestion(
 export async function GET(request: NextRequest) {
   try {
     console.log("🔍 [API] Buscando próxima questão...");
-    const user = await requireAuth();
+    const user = await requirePaidUser();
     console.log("✅ [API] Usuário autenticado:", user.id);
 
     const searchParams = request.nextUrl.searchParams;
@@ -190,6 +190,9 @@ export async function GET(request: NextRequest) {
       alternatives,
     });
   } catch (error) {
+    const paymentResp = handlePaymentRequired(error);
+    if (paymentResp) return paymentResp;
+
     console.error("❌ [API] Erro ao buscar questão:", error);
 
     if (error instanceof Error && error.message === "Unauthorized") {

@@ -41,6 +41,12 @@ export const ERROR_CODES = {
     userMessage: 'Você não tem permissão para acessar este recurso.',
     httpStatus: 403,
   },
+  PAYMENT_REQUIRED: {
+    code: 'PAYMENT_REQUIRED',
+    userMessage:
+      'Sua assinatura não está ativa. Assine um plano para continuar usando.',
+    httpStatus: 402,
+  },
 
   // Questões
   QUESTION_NOT_FOUND: {
