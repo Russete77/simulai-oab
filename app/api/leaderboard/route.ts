@@ -26,7 +26,6 @@ export async function GET(request: NextRequest) {
         user: {
           select: {
             name: true,
-            email: true,
           },
         },
       },
@@ -44,7 +43,6 @@ export async function GET(request: NextRequest) {
       id: profile.id,
       userId: profile.userId,
       name: profile.user.name || "Usuário",
-      email: profile.user.email,
       totalPoints: profile.totalPoints,
       level: profile.level,
       streak: profile.streak,
@@ -70,7 +68,6 @@ export async function GET(request: NextRequest) {
           user: {
             select: {
               name: true,
-              email: true,
             },
           },
         },
@@ -103,7 +100,6 @@ export async function GET(request: NextRequest) {
           id: currentUserProfile.id,
           userId: currentUserProfile.userId,
           name: currentUserProfile.user.name || "Usuário",
-          email: currentUserProfile.user.email,
           totalPoints: currentUserProfile.totalPoints,
           level: currentUserProfile.level,
           streak: currentUserProfile.streak,

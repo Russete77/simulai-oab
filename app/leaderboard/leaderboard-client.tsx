@@ -10,7 +10,6 @@ export interface LeaderboardUser {
   id: string;
   userId: string;
   name: string;
-  email: string;
   totalPoints: number;
   level: number;
   streak: number;
