@@ -17,7 +17,7 @@ interface PaywallOverlayProps {
 }
 
 const PRO_BENEFITS = [
-  'Simulados ilimitados (5.605 questões FGV oficiais)',
+  'Simulados ilimitados (5.875 questões FGV oficiais)',
   'Explicações por IA em toda questão',
   'Chat com IA — professor virtual 24/7',
   'Revisão inteligente dos erros com IA',

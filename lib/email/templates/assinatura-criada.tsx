@@ -73,7 +73,7 @@ export function AssinaturaCriadaEmail({
 
             <ul style={list}>
               <li style={listItem}>
-                📚 Praticar com 5.605 questões oficiais (2010-2025)
+                📚 Praticar com 5.875 questões oficiais (2010-2026)
               </li>
               <li style={listItem}>
                 🤖 Usar IA ilimitada para explicações e dúvidas

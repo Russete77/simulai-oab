@@ -78,7 +78,7 @@ export default function QuestaoDoDiaPage() {
               <div>
                 <h3 className="text-sm font-semibold text-ink-1">Questão diferente todo dia</h3>
                 <p className="text-sm text-ink-2 mt-1">
-                  Selecionada aleatoriamente do banco oficial de 5.605 questões.
+                  Selecionada aleatoriamente do banco oficial de 5.875 questões.
                 </p>
               </div>
             </div>

@@ -11,7 +11,7 @@ import { PLANS } from '@/lib/billing/plans';
 const ESSENCIAL_FEATURES = [
   'Questões ilimitadas',
   'Simulados ilimitados',
-  '5.605 questões oficiais (banco completo)',
+  '5.875 questões oficiais (banco completo)',
   'Analytics avançado por matéria',
   'Revisão de erros completa',
   'Simulados adaptativos',

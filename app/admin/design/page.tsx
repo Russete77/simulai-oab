@@ -94,7 +94,7 @@ export default function DesignSystemPage() {
             </div>
             <div>
               <p className="text-eyebrow mb-1">Heading 1 — 36</p>
-              <h1>5.605 questões. Uma plataforma.</h1>
+              <h1>5.875 questões. Uma plataforma.</h1>
             </div>
             <div>
               <p className="text-eyebrow mb-1">Heading 2 — 28</p>
@@ -107,7 +107,7 @@ export default function DesignSystemPage() {
             <div>
               <p className="text-eyebrow mb-1">Body — 15</p>
               <p className="max-w-2xl text-ink-1">
-                Plataforma com 5.605 questões oficiais da OAB, simulados adaptativos,
+                Plataforma com 5.875 questões oficiais da OAB, simulados adaptativos,
                 analytics de performance e (no Pro) explicações por IA. Sem distração,
                 sem complicação — só o necessário pra passar.
               </p>
@@ -333,7 +333,7 @@ export default function DesignSystemPage() {
                 <span className="text-sm text-ink-3 ml-1">/mês</span>
               </div>
               <ul className="space-y-2 mb-8 text-sm text-ink-2">
-                {['5.605 questões oficiais', 'Simulados ilimitados', 'Analytics avançado', 'Flashcards e revisão'].map(
+                {['5.875 questões oficiais', 'Simulados ilimitados', 'Analytics avançado', 'Flashcards e revisão'].map(
                   (i) => (
                     <li key={i} className="flex items-start gap-2">
                       <Check className="w-4 h-4 text-success mt-0.5 shrink-0" />
@@ -386,7 +386,7 @@ export default function DesignSystemPage() {
             <ul>
               {[
                 {
-                  title: '5.605 questões disponíveis',
+                  title: '5.875 questões disponíveis',
                   body: 'O banco completo agora está com você. Comece pelo simulado.',
                   badge: 'novo',
                   badgeVariant: 'accent' as const,

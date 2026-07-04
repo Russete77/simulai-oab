@@ -258,7 +258,7 @@ export class ServicoEmail {
                   ✨ O que você pode fazer:
                 </p>
                 <ul style="color: #CBD5E1; font-size: 14px; line-height: 24px; margin: 0; padding-left: 20px;">
-                  <li>📝 <strong>5.605 questões oficiais</strong> da OAB (2010-2025)</li>
+                  <li>📝 <strong>5.875 questões oficiais</strong> da OAB (2010-2026)</li>
                   <li>🤖 <strong>Explicações IA</strong> especializadas em Direito</li>
                   <li>🎯 <strong>Simulados completos</strong> com correção automática</li>
                   <li>📊 <strong>Analytics detalhado</strong> do seu progresso</li>
@@ -413,7 +413,7 @@ export class ServicoEmail {
                   ✨ Você aproveitou:
                 </p>
                 <ul style="color: #CBD5E1; font-size: 14px; line-height: 28px; margin: 0; padding-left: 20px;">
-                  <li><strong>Simulados ilimitados</strong> com 5.605 questões oficiais</li>
+                  <li><strong>Simulados ilimitados</strong> com 5.875 questões oficiais</li>
                   <li><strong>Explicações IA</strong> sem limites</li>
                   <li><strong>Analytics avançado</strong> do seu desempenho</li>
                   <li><strong>Relatórios detalhados</strong> por matéria</li>

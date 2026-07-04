@@ -56,7 +56,7 @@ export function InativosD7Email({
                 🎯 Revisão inteligente dos <strong>seus</strong> erros
               </li>
               <li style={listItem}>📊 Predição de aprovação e analytics completo</li>
-              <li style={listItem}>⚡ Simulados adaptativos ilimitados (5.605 questões)</li>
+              <li style={listItem}>⚡ Simulados adaptativos ilimitados (5.875 questões)</li>
             </ul>
 
             <Section style={priceBox}>

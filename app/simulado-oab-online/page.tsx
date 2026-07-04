@@ -7,8 +7,8 @@ import { Play, BookOpen, Brain, BarChart3, Clock, Target, ArrowRight, CheckCircl
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: 'Simulado OAB Online Grátis 2026 — 5.605 Questões Oficiais com IA | Simulai',
-  description: 'Faça simulados OAB online grátis com 5.605 questões oficiais FGV (2010-2025). Explicações por IA, cronômetro real, 5 modos de estudo, predição de aprovação e gamificação. A plataforma mais completa para passar na OAB.',
+  title: 'Simulado OAB Online Grátis 2026 — 5.875 Questões Oficiais com IA | Simulai',
+  description: 'Faça simulados OAB online grátis com 5.875 questões oficiais FGV (2010-2026). Explicações por IA, cronômetro real, 5 modos de estudo, predição de aprovação e gamificação. A plataforma mais completa para passar na OAB.',
   keywords: [
     'simulado OAB', 'simulado OAB online', 'simulado OAB grátis', 'simulado OAB 2026',
     'questões OAB', 'prova OAB', 'exame OAB simulado', 'teste OAB online',
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'Simulado OAB Online Grátis 2026 — Simulai OAB',
-    description: 'Faça simulados com 5.605 questões oficiais FGV. IA explica cada questão. Comece grátis!',
+    description: 'Faça simulados com 5.875 questões oficiais FGV. IA explica cada questão. Comece grátis!',
     url: 'https://simulaioab.com/simulado-oab-online',
     type: 'website',
   },
@@ -50,7 +50,7 @@ async function getPageData() {
     return { totalQuestions, examIds };
   } catch (error) {
     console.error('Erro ao buscar dados para simulado-oab-online:', error);
-    return { totalQuestions: 5605, examIds: [] as string[] };
+    return { totalQuestions: 5875, examIds: [] as string[] };
   }
 }
 
@@ -86,7 +86,7 @@ export default async function SimuladoOabOnlinePage() {
       {
         '@type': 'Question',
         name: 'Quantas questões OAB tem no Simulai?',
-        acceptedAnswer: { '@type': 'Answer', text: `São ${totalQuestions} questões oficiais da FGV, cobrindo todos os ${examIds.length} exames da OAB de 2010 a 2025, em 17 matérias. O banco é atualizado automaticamente a cada novo exame.` },
+        acceptedAnswer: { '@type': 'Answer', text: `São ${totalQuestions} questões oficiais da FGV, cobrindo todos os ${examIds.length} exames da OAB de 2010 a 2026, em 17 matérias. O banco é atualizado automaticamente a cada novo exame.` },
       },
       {
         '@type': 'Question',
@@ -143,7 +143,7 @@ export default async function SimuladoOabOnlinePage() {
               Simulado OAB Online Grátis — {totalQuestions.toLocaleString('pt-BR')} Questões Oficiais
             </h1>
             <p className="text-xl text-ink-2 max-w-3xl mx-auto mb-8">
-              A plataforma mais completa de simulados para o Exame da OAB. Questões oficiais FGV de 2010 a 2025 com explicações por Inteligência Artificial, cronômetro real e predição de aprovação.
+              A plataforma mais completa de simulados para o Exame da OAB. Questões oficiais FGV de 2010 a 2026 com explicações por Inteligência Artificial, cronômetro real e predição de aprovação.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
@@ -292,7 +292,7 @@ export default async function SimuladoOabOnlinePage() {
               {[
                 { q: 'Como funciona o simulado OAB online do Simulai?', a: `O Simulai oferece simulados com ${totalQuestions.toLocaleString('pt-BR')} questões oficiais da FGV. Escolha entre 5 modos de estudo, responda com cronômetro real e receba explicações detalhadas por IA para cada questão.` },
                 { q: 'O simulado OAB do Simulai é grátis?', a: 'Sim! O plano gratuito permite fazer simulados e resolver questões diárias. Para acesso ilimitado com IA integrada, existem planos a partir de R$ 19,99/mês.' },
-                { q: 'Quantas questões OAB tem no banco?', a: `São ${totalQuestions.toLocaleString('pt-BR')} questões oficiais da FGV, de ${examIds.length}+ exames (2010-2025), em 17 matérias.` },
+                { q: 'Quantas questões OAB tem no banco?', a: `São ${totalQuestions.toLocaleString('pt-BR')} questões oficiais da FGV, de ${examIds.length}+ exames (2010-2026), em 17 matérias.` },
                 { q: 'O simulado tem gabarito comentado?', a: 'Sim! Cada questão tem gabarito oficial. No plano Pro, a IA gera explicações detalhadas com fundamentação legal e jurisprudência.' },
                 { q: 'Funciona no celular?', a: 'Sim! O Simulai é um PWA — funciona como app nativo no celular sem precisar baixar da loja.' },
                 { q: 'Qual a diferença do Simulai para outros simulados?', a: 'O Simulai é o único com IA integrada para explicações em tempo real, maior banco de questões do mercado, 5 modos de estudo, gamificação completa e predição de aprovação.' },

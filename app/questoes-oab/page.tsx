@@ -7,8 +7,8 @@ import { BookOpen, ArrowRight, Target, Brain, BarChart3 } from 'lucide-react';
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: 'Questões OAB Comentadas — 5.605 Questões Oficiais FGV com Gabarito e IA | Simulai',
-  description: 'Resolva questões OAB comentadas com gabarito oficial e explicação por IA. 5.605 questões oficiais FGV de 2010 a 2025, organizadas por matéria, ano e dificuldade. Grátis!',
+  title: 'Questões OAB Comentadas — 5.875 Questões Oficiais FGV com Gabarito e IA | Simulai',
+  description: 'Resolva questões OAB comentadas com gabarito oficial e explicação por IA. 5.875 questões oficiais FGV de 2010 a 2026, organizadas por matéria, ano e dificuldade. Grátis!',
   keywords: [
     'questões OAB', 'questões OAB comentadas', 'questões OAB com gabarito',
     'questões OAB FGV', 'questões OAB 2026', 'questões OAB por matéria',
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'Questões OAB Comentadas com IA — Simulai OAB',
-    description: 'Resolva 5.605 questões OAB oficiais com explicações por IA. Grátis!',
+    description: 'Resolva 5.875 questões OAB oficiais com explicações por IA. Grátis!',
     url: 'https://simulaioab.com/questoes-oab',
     type: 'website',
   },
@@ -45,7 +45,7 @@ const subjects = [
 ];
 
 export default async function QuestoesOabPage() {
-  let totalQuestions = 5605;
+  let totalQuestions = 5875;
   let countMap: Record<string, number> = {};
   try {
     totalQuestions = await prisma.question.count({ where: { nullified: false } });
@@ -87,7 +87,7 @@ export default async function QuestoesOabPage() {
       {
         '@type': 'Question',
         name: 'Quantas questões OAB tem no Simulai?',
-        acceptedAnswer: { '@type': 'Answer', text: `O Simulai tem ${totalQuestions} questões oficiais da FGV, cobrindo todos os exames de 2010 a 2025 em 17 matérias.` },
+        acceptedAnswer: { '@type': 'Answer', text: `O Simulai tem ${totalQuestions} questões oficiais da FGV, cobrindo todos os exames de 2010 a 2026 em 17 matérias.` },
       },
       {
         '@type': 'Question',
@@ -122,7 +122,7 @@ export default async function QuestoesOabPage() {
               Questões OAB Comentadas — {totalQuestions.toLocaleString('pt-BR')} Questões Oficiais FGV
             </h1>
             <p className="text-xl text-ink-2 max-w-3xl mx-auto">
-              Resolva questões oficiais da OAB/FGV de 2010 a 2025 com gabarito comentado e explicações por Inteligência Artificial. Organize seus estudos por matéria e acompanhe sua evolução.
+              Resolva questões oficiais da OAB/FGV de 2010 a 2026 com gabarito comentado e explicações por Inteligência Artificial. Organize seus estudos por matéria e acompanhe sua evolução.
             </p>
           </div>
 
@@ -190,7 +190,7 @@ export default async function QuestoesOabPage() {
             <h2 className="text-2xl font-bold text-ink-1 mb-6">Perguntas Frequentes sobre Questões OAB</h2>
             <div className="space-y-4">
               {[
-                { q: 'Quantas questões OAB tem no banco do Simulai?', a: `São ${totalQuestions.toLocaleString('pt-BR')} questões oficiais da FGV, cobrindo todos os exames de 2010 a 2025 em 17 matérias.` },
+                { q: 'Quantas questões OAB tem no banco do Simulai?', a: `São ${totalQuestions.toLocaleString('pt-BR')} questões oficiais da FGV, cobrindo todos os exames de 2010 a 2026 em 17 matérias.` },
                 { q: 'As questões são comentadas?', a: 'Sim! Todas possuem gabarito oficial. No plano Pro, a IA gera explicações com fundamentação legal para cada questão.' },
                 { q: 'Posso filtrar questões por matéria?', a: 'Sim! Acesse qualquer uma das 17 matérias, filtre por ano do exame e veja estatísticas de dificuldade.' },
                 { q: 'As questões são atualizadas?', a: 'Sim! O banco é atualizado automaticamente a cada novo exame da OAB aplicado pela FGV.' },

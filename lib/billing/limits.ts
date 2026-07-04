@@ -49,7 +49,7 @@ export const PLAN_LIMITS: Record<PlanType, PlanLimits> = {
   // Ver gate.ts pra checagem real de acesso.
   BASIC: {
     dailyQuestions: Infinity,
-    questionBankSize: 5605,
+    questionBankSize: 5875,
     monthlySimulations: Infinity,
     dailyAiExplanations: 3,
     dailyAiChats: 0,
@@ -63,7 +63,7 @@ export const PLAN_LIMITS: Record<PlanType, PlanLimits> = {
   // PRO — R$ 89,99/mês — Tudo + IA ilimitada + Chat IA
   PRO: {
     dailyQuestions: Infinity,
-    questionBankSize: 5605,
+    questionBankSize: 5875,
     monthlySimulations: Infinity,
     dailyAiExplanations: Infinity,
     dailyAiChats: Infinity,
@@ -77,7 +77,7 @@ export const PLAN_LIMITS: Record<PlanType, PlanLimits> = {
   // PREMIUM = alias do PRO (compatibilidade com assinaturas existentes)
   PREMIUM: {
     dailyQuestions: Infinity,
-    questionBankSize: 5605,
+    questionBankSize: 5875,
     monthlySimulations: Infinity,
     dailyAiExplanations: Infinity,
     dailyAiChats: Infinity,

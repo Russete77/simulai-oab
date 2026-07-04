@@ -39,7 +39,7 @@ export const PLANS: Record<PlanTier, Record<BillingCycle, PlanConfig>> = {
       features: [
         'Questões ilimitadas',
         'Simulados ilimitados',
-        '5.605 questões (banco completo)',
+        '5.875 questões (banco completo)',
         'Analytics avançado por matéria',
         'Revisão de erros completa',
         'Simulados adaptativos',

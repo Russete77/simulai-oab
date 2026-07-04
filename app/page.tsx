@@ -11,7 +11,7 @@ export default function Home() {
     name: 'Simulai OAB',
     url: 'https://simulaioab.com',
     description:
-      'Plataforma de simulados para o Exame da OAB com IA integrada. 5.605 questões oficiais de 2010 a 2025.',
+      'Plataforma de simulados para o Exame da OAB com IA integrada. 5.875 questões oficiais de 2010 a 2026.',
     applicationCategory: 'EducationalApplication',
     operatingSystem: 'Web',
     offers: [
@@ -33,7 +33,7 @@ export default function Home() {
         name: 'Quanto custa o Simulai OAB?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Plano Essencial R$ 19,90/mês com acesso a todas as 5.605 questões, simulados ilimitados e analytics. Plano Pro R$ 89,90/mês inclui IA integrada com explicações detalhadas e chat. Garantia de 7 dias.',
+          text: 'Plano Essencial R$ 19,90/mês com acesso a todas as 5.875 questões, simulados ilimitados e analytics. Plano Pro R$ 89,90/mês inclui IA integrada com explicações detalhadas e chat. Garantia de 7 dias.',
         },
       },
       {
@@ -41,7 +41,7 @@ export default function Home() {
         name: 'Quantas questões o Simulai OAB tem?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: '5.605 questões oficiais da OAB/FGV cobrindo todos os exames de 2010 a 2025, em 17 matérias. Atualizado a cada novo exame.',
+          text: '5.875 questões oficiais da OAB/FGV cobrindo todos os exames de 2010 a 2026, em 17 matérias. Atualizado a cada novo exame.',
         },
       },
       {
@@ -106,7 +106,7 @@ export default function Home() {
               </h1>
 
               <p className="text-base sm:text-lg text-ink-2 max-w-xl leading-relaxed mb-8">
-                5.605 questões oficiais da FGV. Algoritmo que aprende seus pontos
+                5.875 questões oficiais da FGV. Algoritmo que aprende seus pontos
                 fracos. IA que <em className="not-italic text-ink-1 font-medium">ensina</em>,
                 não que entrega a resposta. Mensal, sem fidelidade.
               </p>
@@ -141,8 +141,8 @@ export default function Home() {
           <div className="mt-20 pt-10 border-t">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-8 gap-x-6">
               {[
-                { num: '5.605', label: 'Questões oficiais' },
-                { num: '15 anos', label: 'Histórico FGV (2010–25)' },
+                { num: '5.875', label: 'Questões oficiais' },
+                { num: '16 anos', label: 'Histórico FGV (2010–26)' },
                 { num: '17', label: 'Matérias cobertas' },
                 { num: '24/7', label: 'IA explicando' },
               ].map((s, i) => (
@@ -214,14 +214,14 @@ export default function Home() {
                   <span className="text-ink-3">Não inventamos questão.</span>
                 </h3>
                 <p className="text-ink-2 leading-relaxed mb-5">
-                  Toda questão veio direto do exame oficial da FGV. De 2010 a 2025.
+                  Toda questão veio direto do exame oficial da FGV. De 2010 a 2026.
                   Com gabarito da banca, taxa de acerto histórica e classificação
                   por matéria, edital e tema.
                 </p>
                 <ul className="space-y-2 text-sm text-ink-2">
                   <li className="flex items-start gap-2.5">
                     <Check className="w-4 h-4 text-success shrink-0 mt-0.5" />
-                    <span>5.605 questões — 18 exames de 1ª fase</span>
+                    <span>5.875 questões — 18 exames de 1ª fase</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <Check className="w-4 h-4 text-success shrink-0 mt-0.5" />
@@ -371,7 +371,7 @@ export default function Home() {
               </div>
               <ul className="space-y-2.5 mb-8 text-sm text-ink-2 flex-1">
                 {[
-                  '5.605 questões oficiais',
+                  '5.875 questões oficiais',
                   'Simulados ilimitados',
                   'Analytics por matéria',
                   'Flashcards e revisão SRS',
@@ -447,7 +447,7 @@ export default function Home() {
                 },
                 {
                   q: 'Quantas questões tem?',
-                  a: '5.605 questões oficiais da OAB/FGV cobrindo todos os exames de 2010 a 2025. Atualizado a cada novo exame.',
+                  a: '5.875 questões oficiais da OAB/FGV cobrindo todos os exames de 2010 a 2026. Atualizado a cada novo exame.',
                 },
                 {
                   q: 'A IA é confiável pra Direito?',
@@ -685,8 +685,8 @@ function BankVisual() {
   ];
   return (
     <div className="rounded-xl border bg-surface p-6 sm:p-7 shadow-sm">
-      <div className="text-eyebrow mb-1">5.605 questões</div>
-      <div className="text-sm text-ink-2 mb-6">15 anos de FGV, em uma busca.</div>
+      <div className="text-eyebrow mb-1">5.875 questões</div>
+      <div className="text-sm text-ink-2 mb-6">16 anos de FGV, em uma busca.</div>
       <div className="flex items-end gap-2 h-32 mb-3">
         {[34, 56, 72, 60, 88, 76, 92, 80, 96, 84, 100, 88, 96].map((h, i) => (
           <div

@@ -46,7 +46,7 @@ export function InativosD14Email({
             <Section style={urgencyBox}>
               <Text style={urgencyTitle}>Por que voltar agora?</Text>
               <Text style={urgencyBody}>
-                ✓ 5.605 questões FGV oficiais (2010-2025)
+                ✓ 5.875 questões FGV oficiais (2010-2026)
                 <br />
                 ✓ IA corrigindo você em tempo real
                 <br />

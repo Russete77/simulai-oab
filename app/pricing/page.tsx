@@ -37,7 +37,7 @@ export default function PricingPage() {
               {
                 '@type': 'Offer',
                 name: 'Plano Essencial',
-                description: 'Tudo liberado: simulados ilimitados, 5.605 questões, analytics avançado, flashcards + 3 explicações de IA por dia.',
+                description: 'Tudo liberado: simulados ilimitados, 5.875 questões, analytics avançado, flashcards + 3 explicações de IA por dia.',
                 price: '19.90',
                 priceCurrency: 'BRL',
                 billingDuration: 'P1M',

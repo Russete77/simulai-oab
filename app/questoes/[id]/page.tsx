@@ -1,7 +1,7 @@
 
 
 // Questões de provas passadas são imutáveis — 7 dias de cache corta o egress
-// do Supabase (5.605 páginas revalidando a cada 1h sob crawl estouravam o free tier)
+// do Supabase (5.875 páginas revalidando a cada 1h sob crawl estouravam o free tier)
 export const revalidate = 604800;
 
 import { cache } from 'react';

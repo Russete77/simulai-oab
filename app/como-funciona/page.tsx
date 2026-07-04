@@ -5,7 +5,7 @@ import { Brain, BarChart3, Zap, Trophy, BookOpen, MessageSquare, Target, Clock, 
 
 export const metadata: Metadata = {
   title: 'Como Funciona o Simulai OAB — Plataforma de Simulados com IA para OAB',
-  description: 'Conheça o Simulai OAB: plataforma de simulados para o Exame da OAB com 5.605 questões oficiais FGV, explicações por IA, gamificação e predição de aprovação. Saiba como funciona.',
+  description: 'Conheça o Simulai OAB: plataforma de simulados para o Exame da OAB com 5.875 questões oficiais FGV, explicações por IA, gamificação e predição de aprovação. Saiba como funciona.',
   keywords: [
     'simulai OAB', 'como funciona simulado OAB', 'plataforma simulado OAB',
     'app OAB', 'estudar para OAB', 'preparação OAB online',
@@ -56,7 +56,7 @@ export default function ComoFuncionaPage() {
             {[
               { step: 1, title: 'Crie sua conta grátis', desc: 'Cadastro rápido por email ou Google. Sem cartão de crédito. Em segundos você já está fazendo seu primeiro simulado.', icon: Play },
               { step: 2, title: 'Escolha seu modo de estudo', desc: 'Simulado Completo (80q), Adaptativo (40q), Rápido (20q), Revisão de Erros ou Por Matéria. Cada modo atende uma necessidade diferente.', icon: Target },
-              { step: 3, title: 'Resolva questões oficiais FGV', desc: '5.605 questões reais de 2010 a 2025, com cronômetro e navegação idênticos à prova real. Nada de questões inventadas.', icon: BookOpen },
+              { step: 3, title: 'Resolva questões oficiais FGV', desc: '5.875 questões reais de 2010 a 2026, com cronômetro e navegação idênticos à prova real. Nada de questões inventadas.', icon: BookOpen },
               { step: 4, title: 'Receba explicações com IA', desc: 'Após cada questão, a IA explica a resposta com fundamentação legal, doutrina e jurisprudência. Tire dúvidas no chat inteligente 24/7.', icon: Brain },
               { step: 5, title: 'Acompanhe sua evolução', desc: 'Dashboard de performance por matéria, predição de aprovação, ranking entre estudantes e 20+ conquistas para desbloquear.', icon: BarChart3 },
             ].map((item) => (
@@ -82,7 +82,7 @@ export default function ComoFuncionaPage() {
                 { icon: BarChart3, title: 'Analytics', desc: 'Dashboard de performance por matéria com predição de aprovação' },
                 { icon: Smartphone, title: 'PWA Mobile', desc: 'Funciona como app no celular sem baixar da loja. Suporte offline.' },
                 { icon: Clock, title: 'Cronômetro Real', desc: '4 horas para 80 questões, igual à prova real da OAB' },
-                { icon: Star, title: 'Questões Oficiais', desc: '5.605 questões FGV de 2010 a 2025, atualizadas a cada exame' },
+                { icon: Star, title: 'Questões Oficiais', desc: '5.875 questões FGV de 2010 a 2026, atualizadas a cada exame' },
               ].map((feature, i) => (
                 <div key={i} className="bg-surface border rounded-xl p-6">
                   <feature.icon className="w-8 h-8 text-accent mb-3" />

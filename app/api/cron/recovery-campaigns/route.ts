@@ -42,7 +42,7 @@ const RECOVERY_WINDOWS: Array<{
     day: 3,
     campaignKey: 'RECOVERY_D3',
     title: '📚 Sua aprovação na OAB começa hoje',
-    body: 'Já são 3 dias desde seu cadastro. 5.605 questões oficiais te esperam — Essencial por R$ 19,90/mês.',
+    body: 'Já são 3 dias desde seu cadastro. 5.875 questões oficiais te esperam — Essencial por R$ 19,90/mês.',
     emailSubject: '📚 Sua aprovação na OAB começa hoje',
     actionLabel: 'Assinar Essencial',
     vibrate: false,

@@ -42,7 +42,7 @@ export default function NotFound() {
             </div>
             <div>
               <div className="text-ink-1 font-medium text-sm">Praticar questões</div>
-              <div className="text-gray-500 text-xs">5.605 questões oficiais</div>
+              <div className="text-gray-500 text-xs">5.875 questões oficiais</div>
             </div>
           </Link>
 
