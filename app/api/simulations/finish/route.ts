@@ -78,6 +78,39 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    // Se veio de um desafio entre amigos, registra o resultado no desafio.
+    // Sem isso o botão "Começar Simulado" do desafio levava a lugar nenhum
+    // (bug pré-existente) e, mesmo levando, o score nunca voltava pro
+    // ranking do desafio.
+    if (data.challengeCode) {
+      try {
+        const challenge = await prisma.friendChallenge.findUnique({
+          where: { code: data.challengeCode.toUpperCase() },
+        });
+        if (challenge) {
+          const participants = challenge.participants as unknown as Array<{
+            userId: string;
+            name: string;
+            score?: number;
+            completed: boolean;
+          }>;
+          const idx = participants.findIndex((p) => p.userId === user.id);
+          const entry = { userId: user.id, name: user.name || "Anônimo", completed: true, score: Math.round(score) };
+          const updated = idx >= 0
+            ? participants.map((p, i) => (i === idx ? entry : p))
+            : [...participants, entry];
+
+          await prisma.friendChallenge.update({
+            where: { code: challenge.code },
+            data: { participants: updated as unknown as object },
+          });
+        }
+      } catch (challengeError) {
+        // Não bloquear o fim do simulado se o desafio falhar ao atualizar
+        console.error("Erro ao registrar score no desafio:", challengeError);
+      }
+    }
+
     // P1 FIX: Usar Map para lookup O(1) ao invés de .find() O(n) em loop
     const answerMap = new Map(
       answers.map((a) => [a.questionId, a])

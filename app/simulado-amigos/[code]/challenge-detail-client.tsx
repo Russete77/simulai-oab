@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Header } from '@/components/layout/header';
 import { Card, Button } from '@/components/ui';
@@ -35,10 +36,12 @@ interface ChallengeDetailClientProps {
 }
 
 export function ChallengeDetailClient({ code }: ChallengeDetailClientProps) {
+  const router = useRouter();
   const [challenge, setChallenge] = useState<ChallengeData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [starting, setStarting] = useState(false);
 
   useEffect(() => {
     const fetchChallenge = async () => {
@@ -67,6 +70,24 @@ export function ChallengeDetailClient({ code }: ChallengeDetailClientProps) {
     navigator.clipboard.writeText(`${window.location.origin}/simulado-amigos/${code}`);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleStartSimulation = async () => {
+    if (!challenge) return;
+    setStarting(true);
+    try {
+      const res = await fetch('/api/simulations/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: challenge.type }),
+      });
+      if (!res.ok) throw new Error('Falha ao criar simulado');
+      const simulation = await res.json();
+      router.push(`/simulations/${simulation.id}?challengeCode=${challenge.code}`);
+    } catch {
+      setStarting(false);
+      alert('Não deu pra iniciar o simulado agora. Tenta de novo em instantes.');
+    }
   };
 
   const completedCount = challenge?.participants.filter((p) => p.completed).length || 0;
@@ -145,12 +166,11 @@ export function ChallengeDetailClient({ code }: ChallengeDetailClientProps) {
                   variant="primary"
                   size="lg"
                   className="w-full bg-accent flex items-center justify-center gap-2"
-                  onClick={() =>
-                    (window.location.href = `/simulado?challengeCode=${challenge.code}&type=${challenge.type}`)
-                  }
+                  onClick={handleStartSimulation}
+                  disabled={starting}
                 >
                   <Play className="w-5 h-5" />
-                  Começar Simulado
+                  {starting ? 'Criando simulado...' : 'Começar Simulado'}
                 </Button>
               ) : (
                 <Link href={`/register?redirect_url=/simulado-amigos/${challenge.code}`}>

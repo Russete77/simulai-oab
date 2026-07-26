@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Header } from '@/components/layout/header';
 import { Card, Button } from '@/components/ui';
 import {
@@ -45,6 +46,7 @@ interface Challenge {
 }
 
 export function SimuladoAmigosClient() {
+  const router = useRouter();
   const [mode, setMode] = useState<'home' | 'create' | 'join'>('home');
   const [simulationType, setSimulationType] = useState<SimulationType>('QUICK_PRACTICE');
   const [challengeCode, setChallengeCode] = useState<string>('');
@@ -62,6 +64,27 @@ export function SimuladoAmigosClient() {
       code += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     return code;
+  };
+
+  // Cria o simulado de verdade (via /api/simulations/create) e navega pra
+  // ele carregando o challengeCode — antes disso apontava direto pra
+  // `/simulado?challengeCode=...`, uma rota que nunca existiu (404).
+  const startSimulation = async (type: SimulationType, code: string) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch('/api/simulations/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type }),
+      });
+      if (!res.ok) throw new Error('Erro ao iniciar simulado');
+      const simulation = await res.json();
+      router.push(`/simulations/${simulation.id}?challengeCode=${code}`);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Erro ao iniciar simulado');
+      setLoading(false);
+    }
   };
 
   // Handle create challenge
@@ -113,11 +136,9 @@ export function SimuladoAmigosClient() {
       }
 
       const data = await response.json();
-      // Navigate to simulation with challenge code
-      window.location.href = `/simulado?challengeCode=${data.code}&type=${data.type}`;
+      await startSimulation(data.type, data.code);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Erro ao acessar desafio');
-    } finally {
       setLoading(false);
     }
   };
@@ -246,11 +267,10 @@ export function SimuladoAmigosClient() {
                 <Button
                   variant="outline"
                   className="w-full"
-                  onClick={() => {
-                    window.location.href = `/simulado?challengeCode=${challengeCode}&type=${simulationType}`;
-                  }}
+                  disabled={loading}
+                  onClick={() => startSimulation(simulationType, challengeCode)}
                 >
-                  Começar Simulado
+                  {loading ? 'Criando...' : 'Começar Simulado'}
                 </Button>
 
                 <button

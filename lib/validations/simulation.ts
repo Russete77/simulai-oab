@@ -10,4 +10,7 @@ export const CreateSimulationSchema = z.object({
 
 export const FinishSimulationSchema = z.object({
   simulationId: z.string().cuid(),
+  // Presente quando o simulado foi iniciado a partir de um desafio entre
+  // amigos — usado pra registrar o score do participante no desafio.
+  challengeCode: z.string().optional(),
 });

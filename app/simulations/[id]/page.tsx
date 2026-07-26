@@ -3,7 +3,12 @@ import { redirect } from "next/navigation";
 import SimulationClient from "./simulation-client";
 import { prisma } from "@/lib/db/prisma";
 
-export default async function SimulationPage({ params }: { params: Promise<{ id: string }> }) {
+interface SimulationPageProps {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ challengeCode?: string }>;
+}
+
+export default async function SimulationPage({ params, searchParams }: SimulationPageProps) {
   const user = await getCurrentUser();
 
   if (!user) {
@@ -11,6 +16,7 @@ export default async function SimulationPage({ params }: { params: Promise<{ id:
   }
 
   const { id } = await params;
+  const { challengeCode } = await searchParams;
 
   // OTIMIZAÇÃO: Buscar apenas informações básicas + IDs das questões
   // Questões individuais serão carregadas sob demanda no client
@@ -67,5 +73,5 @@ export default async function SimulationPage({ params }: { params: Promise<{ id:
     redirect('/simulations');
   }
 
-  return <SimulationClient simulation={simulation} />;
+  return <SimulationClient simulation={simulation} challengeCode={challengeCode} />;
 }

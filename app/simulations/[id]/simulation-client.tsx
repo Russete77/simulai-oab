@@ -9,9 +9,10 @@ import { SIMULATION_TYPE_LABELS } from '@/lib/constants/simulation-types';
 
 interface SimulationClientProps {
   simulation: any;
+  challengeCode?: string;
 }
 
-export default function SimulationClient({ simulation }: SimulationClientProps) {
+export default function SimulationClient({ simulation, challengeCode }: SimulationClientProps) {
   const router = useRouter();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
@@ -104,6 +105,7 @@ export default function SimulationClient({ simulation }: SimulationClientProps) 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           simulationId: simulation.id,
+          challengeCode,
         }),
       });
 

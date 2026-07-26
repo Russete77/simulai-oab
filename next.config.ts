@@ -9,7 +9,7 @@ const ContentSecurityPolicy = `
   style-src 'self' 'unsafe-inline' https://*.clerk.accounts.com https://*.clerk.accounts.dev https://*.clerk.com;
   img-src 'self' data: https: blob: https://*.clerk.com https://*.clerk.accounts.com https://*.clerk.accounts.dev https://www.google-analytics.com;
   font-src 'self' data:;
-  connect-src 'self' https://*.clerk.accounts.com https://*.clerk.accounts.dev https://*.clerk.com https://clerk.simulaioab.com https://*.clerk.dev https://www.google-analytics.com https://api.openai.com https://challenges.cloudflare.com;
+  connect-src 'self' https://*.clerk.accounts.com https://*.clerk.accounts.dev https://*.clerk.com https://clerk.simulaioab.com https://*.clerk.dev https://www.googletagmanager.com https://www.google-analytics.com https://api.openai.com https://challenges.cloudflare.com;
   frame-src https://*.clerk.accounts.com https://*.clerk.accounts.dev https://*.clerk.com https://*.clerk.dev https://challenges.cloudflare.com;
   media-src 'self';
   object-src 'none';
