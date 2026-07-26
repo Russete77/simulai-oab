@@ -14,12 +14,14 @@ import {
   User,
   TrendingUp,
   ArrowRight,
+  Users,
 } from 'lucide-react';
 import Link from 'next/link';
 import { OnboardingWrapper } from '@/components/onboarding/onboarding-wrapper';
 import { OABCountdown } from '@/components/countdown/oab-countdown';
 import { ReadinessCard } from '@/components/readiness/readiness-card';
 import { PushNotificationBanner } from '@/components/notifications/push-notification-banner';
+import { FriendChallengeAnnouncement } from '@/components/announcements/friend-challenge-announcement';
 
 export const dynamic = 'force-dynamic';
 
@@ -89,6 +91,7 @@ export default async function DashboardPage() {
     <div className="min-h-screen bg-bg">
       <Header />
       <OnboardingWrapper />
+      <FriendChallengeAnnouncement />
 
       <main id="main-content" role="main" className="container-page py-10">
         {/* Welcome */}
@@ -185,6 +188,12 @@ export default async function DashboardPage() {
               icon={User}
               title="Meu perfil"
               body="Veja conquistas, badges e compartilhe seu progresso."
+            />
+            <ActionCard
+              href="/simulado-amigos"
+              icon={Users}
+              title="Desafiar um amigo"
+              body="Crie um link de desafio e compare resultados com quem você convidar."
             />
           </div>
         </section>

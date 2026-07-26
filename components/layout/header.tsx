@@ -21,6 +21,7 @@ const NAV_ITEMS_LOGGED = [
   { href: '/revisao-inteligente', label: 'Revisão' },
   { href: '/plano-estudos', label: 'Plano' },
   { href: '/leaderboard', label: 'Ranking' },
+  { href: '/simulado-amigos', label: 'Desafiar' },
 ];
 
 export function Header({ showLogout = true }: HeaderProps) {
