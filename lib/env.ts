@@ -68,26 +68,24 @@ export type Env = z.infer<typeof envSchema>;
 
 // Validar e exportar
 function validateEnv(): Env {
-  // Em build time, apenas validar sem lançar erro
-  const isBuildTime = process.env.NEXT_PHASE === 'phase-production-build';
-
   try {
     return envSchema.parse(process.env);
   } catch (error) {
+    // NUNCA lança em runtime — isso roda dentro de instrumentation.ts, que é
+    // chamado uma vez por instância de servidor. Se essa chamada lança, a
+    // instância inteira fica inutilizável (TODA rota, não só a que usa a env
+    // var faltante) até o próximo cold start — foi exatamente isso que
+    // derrubou a produção inteira quando essa validação foi ativada. Loga
+    // e segue com o que tiver disponível; validação vira só observabilidade,
+    // não um circuit-breaker.
     if (error instanceof z.ZodError) {
       console.error('❌ Erro de configuração de variáveis de ambiente:\n');
       error.errors.forEach((err) => {
         console.error(`  - ${err.path.join('.')}: ${err.message}`);
       });
-      console.error('\n💡 Verifique seu arquivo .env\n');
-
-      // Em build time, retornar valores default ao invés de falhar
-      if (isBuildTime) {
-        console.warn('⚠️  Continuando build com valores default (configure env vars antes de rodar em produção)\n');
-        return process.env as Env;
-      }
+      console.error('\n💡 Verifique as env vars configuradas (local: .env.local / produção: Vercel)\n');
     }
-    throw new Error('Configuração de ambiente inválida');
+    return process.env as Env;
   }
 }
 
