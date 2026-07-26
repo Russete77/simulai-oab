@@ -48,6 +48,26 @@ enum SimulationType {
   BY_SUBJECT
 }
 
+/// Desafio de simulado entre amigos. Antes vivia num Map em memória (resetava
+/// a cada redeploy/restart) — agora persistido. `participants` fica em JSON
+/// (lista pequena, sem necessidade de tabela própria) em vez de uma tabela
+/// relacional separada, dado o volume baixo esperado dessa feature.
+model FriendChallenge {
+  id          String         @id @default(cuid())
+  code        String         @unique
+  type        SimulationType
+  creatorId   String
+  creatorName String
+  createdAt   DateTime       @default(now())
+
+  /// Array de { userId, name, score?, completed }
+  participants Json
+
+  creator User @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+
+  @@index([creatorId])
+}
+
 enum SimulationStatus {
   IN_PROGRESS
   COMPLETED
@@ -123,6 +143,11 @@ model User {
   totalSessionMinutes Int       @default(0)
   totalLogins         Int       @default(0)
 
+  // Atribuição de aquisição — first-touch UTM capturado no primeiro acesso
+  // (cookie), persistido uma vez após o cadastro. Sem isso não dava pra
+  // saber de onde veio um cadastro se rodasse mídia paga.
+  acquisitionUtm Json?
+
   // Relations
   answers                UserAnswer[]
   simulations            Simulation[]
@@ -137,6 +162,7 @@ model User {
   emailCampaigns         EmailCampaign[]
   notifications          Notification[]
   notificationPreference NotificationPreference?
+  friendChallenges       FriendChallenge[]
 
   @@index([email])
   @@index([clerkId])

@@ -1,9 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { Header } from '@/components/layout/header';
 import { Card, Button } from '@/components/ui';
-import { Trophy, Users, Play, Copy, CheckCircle, Clock } from 'lucide-react';
+import { Trophy, Users, Play, Copy, CheckCircle, Clock, Sparkles } from 'lucide-react';
 import { SimulationType } from '@prisma/client';
 
 const SIMULATION_TYPE_LABELS: Record<SimulationType, string> = {
@@ -26,6 +27,7 @@ interface ChallengeData {
   creatorName: string;
   createdAt: string;
   participants: Participant[];
+  isAuthenticated: boolean;
 }
 
 interface ChallengeDetailClientProps {
@@ -138,17 +140,30 @@ export function ChallengeDetailClient({ code }: ChallengeDetailClientProps) {
                 </div>
               </div>
 
-              <Button
-                variant="primary"
-                size="lg"
-                className="w-full bg-accent flex items-center justify-center gap-2"
-                onClick={() =>
-                  (window.location.href = `/simulado?challengeCode=${challenge.code}&type=${challenge.type}`)
-                }
-              >
-                <Play className="w-5 h-5" />
-                Começar Simulado
-              </Button>
+              {challenge.isAuthenticated ? (
+                <Button
+                  variant="primary"
+                  size="lg"
+                  className="w-full bg-accent flex items-center justify-center gap-2"
+                  onClick={() =>
+                    (window.location.href = `/simulado?challengeCode=${challenge.code}&type=${challenge.type}`)
+                  }
+                >
+                  <Play className="w-5 h-5" />
+                  Começar Simulado
+                </Button>
+              ) : (
+                <Link href={`/register?redirect_url=/simulado-amigos/${challenge.code}`}>
+                  <Button
+                    variant="primary"
+                    size="lg"
+                    className="w-full bg-accent flex items-center justify-center gap-2"
+                  >
+                    <Sparkles className="w-5 h-5" />
+                    Criar conta grátis e participar
+                  </Button>
+                </Link>
+              )}
             </div>
 
             {/* Right Section - Participants */}

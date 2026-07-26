@@ -3,6 +3,9 @@
 import { useState, useEffect } from "react";
 
 const GA_ID = "G-S86LF7WYCL";
+// Meta Pixel — só carrega se configurado (NEXT_PUBLIC_META_PIXEL_ID na Vercel).
+// Sem isso, mídia paga no Meta/Instagram roda sem pixel de conversão.
+const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID;
 
 /**
  * Banner de consentimento de cookies (LGPD)
@@ -17,6 +20,7 @@ export function CookieConsent() {
     if (stored === "accepted") {
       setConsent("accepted");
       loadGA4();
+      loadMetaPixel();
     } else if (stored === "rejected") {
       setConsent("rejected");
     } else {
@@ -42,11 +46,38 @@ export function CookieConsent() {
     gtag("config", GA_ID);
   }
 
+  function loadMetaPixel() {
+    if (typeof window === "undefined" || !META_PIXEL_ID) return;
+    if (document.getElementById("meta-pixel-script")) return;
+
+    const w = window as any;
+    if (!w.fbq) {
+      w.fbq = function (...args: any[]) {
+        (w.fbq.q = w.fbq.q || []).push(args);
+      };
+      w._fbq = w.fbq;
+      w.fbq.push = w.fbq;
+      w.fbq.loaded = true;
+      w.fbq.version = "2.0";
+      w.fbq.queue = [];
+    }
+
+    const script = document.createElement("script");
+    script.id = "meta-pixel-script";
+    script.src = "https://connect.facebook.net/en_US/fbevents.js";
+    script.async = true;
+    document.head.appendChild(script);
+
+    w.fbq("init", META_PIXEL_ID);
+    w.fbq("track", "PageView");
+  }
+
   function handleAccept() {
     localStorage.setItem("cookie_consent", "accepted");
     setConsent("accepted");
     setVisible(false);
     loadGA4();
+    loadMetaPixel();
   }
 
   function handleReject() {

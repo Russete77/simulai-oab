@@ -40,4 +40,8 @@ export const PUBLIC_ROUTES = [
   '/como-funciona', // Página institucional SEO
   '/questoes-oab(.*)', // Hub de questões por matéria
   '/simulados-oab(.*)', // Hub de simulados
+  '/proxima-prova-oab', // Contagem regressiva pública do próximo exame
+  '/api/oab/exam-dates', // Usada pelo countdown público (fetch client-side sem sessão)
+  '/simulado-amigos/(.*)', // Preview público do desafio (não a página de criar, essa continua exigindo login)
+  '/api/challenges/friend', // GET público (preview); POST/PUT verificam sessão dentro da própria rota
 ] as const;

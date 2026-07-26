@@ -39,6 +39,24 @@ const envSchema = z.object({
     .string()
     .min(1, 'SUPABASE_ANON_KEY é obrigatório'),
 
+  // Asaas (billing)
+  ASAAS_API_KEY: z.string().min(1, 'ASAAS_API_KEY é obrigatório'),
+  ASAAS_WEBHOOK_TOKEN: z.string().min(1, 'ASAAS_WEBHOOK_TOKEN é obrigatório'),
+  ASAAS_SANDBOX_URL: z.string().url().optional(),
+
+  // Cron
+  CRON_SECRET: z.string().min(1, 'CRON_SECRET é obrigatório'),
+
+  // Email transacional
+  RESEND_API_KEY: z.string().optional(),
+
+  // Push notifications (VAPID)
+  NEXT_PUBLIC_VAPID_PUBLIC_KEY: z.string().optional(),
+  VAPID_PRIVATE_KEY: z.string().optional(),
+
+  // Admin bypass — vazio/ausente é válido (= nenhum admin)
+  ADMIN_EMAILS: z.string().optional(),
+
   // Node Environment
   NODE_ENV: z
     .enum(['development', 'production', 'test'])

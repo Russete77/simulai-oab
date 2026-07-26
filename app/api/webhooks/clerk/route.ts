@@ -156,6 +156,11 @@ export async function POST(req: Request) {
       eventType,
       error: error?.message ?? String(error),
     })
-    return new Response('Error: Processing failed', { status: 500 })
+    // 200 mesmo em erro de processamento: o Clerk reenvia em qualquer 5xx,
+    // e como o erro já foi logado aqui, deixar o Clerk martelar retries não
+    // ajuda a corrigir nada — só gera uma tempestade de reenvios do mesmo
+    // evento quebrado. 4xx/5xx continuam reservados pra falha de verificação
+    // de assinatura (isso sim deve ser rejeitado, não é erro nosso).
+    return new Response('Error: Processing failed (logged, not retried)', { status: 200 })
   }
 }

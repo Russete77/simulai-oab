@@ -49,7 +49,13 @@ function TimeDisplay({ value, label }: { value: number; label: string }) {
   );
 }
 
-export function OABCountdown() {
+interface OABCountdownProps {
+  /** Permite trocar os CTAs quando usado numa página pública (deslogada) —
+   * /practice e /simulations exigem login e redirecionariam o visitante. */
+  ctas?: { href: string; label: string; variant?: 'primary' | 'secondary' }[];
+}
+
+export function OABCountdown({ ctas }: OABCountdownProps = {}) {
   const [upcomingExam, setUpcomingExam] = useState<ExamDate | null>(null);
   const [countdown, setCountdown] = useState<TimeUnit | null>(null);
   const [loading, setLoading] = useState(true);
@@ -162,12 +168,16 @@ export function OABCountdown() {
 
       {/* CTAs */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <Link href="/practice">
-          <Button fullWidth>Começar a estudar</Button>
-        </Link>
-        <Link href="/simulations">
-          <Button variant="secondary" fullWidth>Fazer simulado</Button>
-        </Link>
+        {(ctas ?? [
+          { href: '/practice', label: 'Começar a estudar', variant: 'primary' },
+          { href: '/simulations', label: 'Fazer simulado', variant: 'secondary' },
+        ]).map((cta) => (
+          <Link key={cta.href} href={cta.href}>
+            <Button variant={cta.variant === 'secondary' ? 'secondary' : 'primary'} fullWidth>
+              {cta.label}
+            </Button>
+          </Link>
+        ))}
       </div>
 
       {/* Phase */}

@@ -18,12 +18,15 @@ interface Props {
   nomeUsuario?: string;
   linkContinuar?: string;
   utmCampaign?: string;
+  /** Dias até a próxima 1ª fase — null se não houver prova futura conhecida. */
+  diasParaProva?: number | null;
 }
 
 export function InativosD3Email({
   nomeUsuario = 'Estudante',
   linkContinuar = 'https://simulaioab.com/dashboard',
   utmCampaign = 'inactive_d3',
+  diasParaProva = null,
 }: Props) {
   const ctaHref = `${linkContinuar}?utm_source=email&utm_medium=lifecycle&utm_campaign=${utmCampaign}`;
 
@@ -38,13 +41,16 @@ export function InativosD3Email({
 
           <Section style={content}>
             <Text style={paragraph}>
-              Faz 3 dias que você não entra no Simulai OAB e a prova está chegando.
-              Cada dia estudando faz diferença.
-            </Text>
-
-            <Text style={paragraph}>
-              <strong>Você sabia?</strong> Estudantes que entram 4+ dias por semana
-              têm <strong>2,3x mais chance</strong> de passar na 1ª fase da OAB.
+              Faz 3 dias que você não entra no Simulai OAB.{' '}
+              {diasParaProva !== null ? (
+                <>
+                  <strong>Faltam {diasParaProva} dias</strong> para a próxima 1ª
+                  fase da OAB — cada dia sem praticar é um dia a menos pra
+                  fechar seu gap até a aprovação.
+                </>
+              ) : (
+                <>A prova está chegando e cada dia estudando faz diferença.</>
+              )}
             </Text>
 
             <Section style={{ textAlign: 'center', marginTop: 32 }}>

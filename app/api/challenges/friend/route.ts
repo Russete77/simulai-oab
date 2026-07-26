@@ -1,36 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { requirePaidUser, handlePaymentRequired } from '@/lib/auth';
+import { getCurrentUser, requireAuth } from '@/lib/auth';
+import { prisma } from '@/lib/db/prisma';
+import { logger } from '@/lib/logger';
 
-// In-memory store for challenges (reset on server restart)
-// In production, this should be stored in a database
-const challengeStore = new Map<
-  string,
-  {
-    code: string;
-    type: string;
-    creatorId: string;
-    creatorName: string;
-    createdAt: string;
-    participants: Array<{
-      userId: string;
-      name: string;
-      score?: number;
-      completed: boolean;
-    }>;
-  }
->();
+interface Participant {
+  userId: string;
+  name: string;
+  score?: number;
+  completed: boolean;
+}
 
 /**
  * POST /api/challenges/friend
- * Create a new friend challenge
+ * Cria um desafio novo. Antes exigia assinatura paga (requirePaidUser) —
+ * agora qualquer usuário logado pode criar, pra não travar o loop viral
+ * atrás de um paywall duplo (login + pagamento).
  */
 export async function POST(request: NextRequest) {
   try {
-    const user = await requirePaidUser();
-
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const user = await requireAuth();
 
     const body = await request.json();
     const { code, type } = body;
@@ -39,78 +27,80 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Code and type are required' }, { status: 400 });
     }
 
-    // Check if code already exists
-    if (challengeStore.has(code)) {
+    const normalizedCode = String(code).toUpperCase();
+
+    const existing = await prisma.friendChallenge.findUnique({ where: { code: normalizedCode } });
+    if (existing) {
       return NextResponse.json({ error: 'Code already exists' }, { status: 409 });
     }
 
-    // Create challenge
-    const challenge = {
-      code,
-      type,
-      creatorId: user.id,
-      creatorName: user.name || 'Anonymous',
-      createdAt: new Date().toISOString(),
-      participants: [
-        {
-          userId: user.id,
-          name: user.name || 'Anonymous',
-          completed: false,
-        },
-      ],
-    };
+    const creatorName = user.name || 'Anônimo';
+    const participants: Participant[] = [
+      { userId: user.id, name: creatorName, completed: false },
+    ];
 
-    challengeStore.set(code, challenge);
+    const challenge = await prisma.friendChallenge.create({
+      data: {
+        code: normalizedCode,
+        type,
+        creatorId: user.id,
+        creatorName,
+        participants: participants as unknown as object,
+      },
+    });
 
     return NextResponse.json({
-      code,
-      type,
+      code: challenge.code,
+      type: challenge.type,
       creatorName: challenge.creatorName,
       createdAt: challenge.createdAt,
-      participants: challenge.participants,
+      participants,
     });
   } catch (error) {
-    const paymentResp = handlePaymentRequired(error);
-    if (paymentResp) return paymentResp;
-
-    console.error('Error creating challenge:', error);
+    if (error instanceof Error && error.message === 'Unauthorized') {
+      return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
+    }
+    logger.error('Error creating challenge', { error: error instanceof Error ? error.message : String(error) });
     return NextResponse.json({ error: 'Failed to create challenge' }, { status: 500 });
   }
 }
 
 /**
  * GET /api/challenges/friend?code=ABC123
- * Get challenge details and join if not already a participant
+ * Visitante ANÔNIMO pode ver o desafio (preview público — é o que faz o
+ * link ser compartilhável de verdade). Só usuário logado é adicionado como
+ * participante ao visualizar.
  */
 export async function GET(request: NextRequest) {
   try {
-    const user = await requirePaidUser();
-
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
     const code = request.nextUrl.searchParams.get('code');
 
     if (!code) {
       return NextResponse.json({ error: 'Code is required' }, { status: 400 });
     }
 
-    const challenge = challengeStore.get(code.toUpperCase());
+    const challenge = await prisma.friendChallenge.findUnique({
+      where: { code: code.toUpperCase() },
+    });
 
     if (!challenge) {
       return NextResponse.json({ error: 'Challenge not found' }, { status: 404 });
     }
 
-    // Add user as participant if not already a participant
-    const isParticipant = challenge.participants.some((p) => p.userId === user.id);
+    let participants = challenge.participants as unknown as Participant[];
 
-    if (!isParticipant) {
-      challenge.participants.push({
-        userId: user.id,
-        name: user.name || 'Anonymous',
-        completed: false,
-      });
+    // Só tenta entrar como participante se houver sessão — visitante anônimo
+    // vê o desafio (preview) sem ser adicionado.
+    const user = await getCurrentUser();
+    if (user) {
+      const isParticipant = participants.some((p) => p.userId === user.id);
+      if (!isParticipant) {
+        participants = [...participants, { userId: user.id, name: user.name || 'Anônimo', completed: false }];
+        await prisma.friendChallenge.update({
+          where: { code: challenge.code },
+          data: { participants: participants as unknown as object },
+        });
+      }
     }
 
     return NextResponse.json({
@@ -118,35 +108,24 @@ export async function GET(request: NextRequest) {
       type: challenge.type,
       creatorName: challenge.creatorName,
       createdAt: challenge.createdAt,
-      participants: challenge.participants.map((p) => ({
-        name: p.name,
-        score: p.score,
-        completed: p.completed,
-      })),
+      isAuthenticated: !!user,
+      participants: participants.map((p) => ({ name: p.name, score: p.score, completed: p.completed })),
     });
   } catch (error) {
-    const paymentResp = handlePaymentRequired(error);
-    if (paymentResp) return paymentResp;
-
-    console.error('Error fetching challenge:', error);
+    logger.error('Error fetching challenge', { error: error instanceof Error ? error.message : String(error) });
     return NextResponse.json({ error: 'Failed to fetch challenge' }, { status: 500 });
   }
 }
 
 /**
  * PUT /api/challenges/friend?code=ABC123
- * Update challenge (mark as completed, submit score)
+ * Submeter score — exige sessão (precisa saber de quem é o resultado).
  */
 export async function PUT(request: NextRequest) {
   try {
-    const user = await requirePaidUser();
-
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const user = await requireAuth();
 
     const code = request.nextUrl.searchParams.get('code');
-
     if (!code) {
       return NextResponse.json({ error: 'Code is required' }, { status: 400 });
     }
@@ -154,14 +133,16 @@ export async function PUT(request: NextRequest) {
     const body = await request.json();
     const { score } = body;
 
-    const challenge = challengeStore.get(code.toUpperCase());
+    const challenge = await prisma.friendChallenge.findUnique({
+      where: { code: code.toUpperCase() },
+    });
 
     if (!challenge) {
       return NextResponse.json({ error: 'Challenge not found' }, { status: 404 });
     }
 
-    // Update participant score
-    const participant = challenge.participants.find((p) => p.userId === user.id);
+    const participants = challenge.participants as unknown as Participant[];
+    const participant = participants.find((p) => p.userId === user.id);
 
     if (!participant) {
       return NextResponse.json({ error: 'Not a participant' }, { status: 403 });
@@ -172,21 +153,22 @@ export async function PUT(request: NextRequest) {
       participant.score = Math.round(score);
     }
 
+    await prisma.friendChallenge.update({
+      where: { code: challenge.code },
+      data: { participants: participants as unknown as object },
+    });
+
     return NextResponse.json({
       code: challenge.code,
       type: challenge.type,
       creatorName: challenge.creatorName,
-      participants: challenge.participants.map((p) => ({
-        name: p.name,
-        score: p.score,
-        completed: p.completed,
-      })),
+      participants: participants.map((p) => ({ name: p.name, score: p.score, completed: p.completed })),
     });
   } catch (error) {
-    const paymentResp = handlePaymentRequired(error);
-    if (paymentResp) return paymentResp;
-
-    console.error('Error updating challenge:', error);
+    if (error instanceof Error && error.message === 'Unauthorized') {
+      return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
+    }
+    logger.error('Error updating challenge', { error: error instanceof Error ? error.message : String(error) });
     return NextResponse.json({ error: 'Failed to update challenge' }, { status: 500 });
   }
 }

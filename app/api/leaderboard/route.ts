@@ -11,7 +11,10 @@ export async function GET(request: NextRequest) {
     const user = await requireAuth();
 
     const { searchParams } = new URL(request.url);
-    const limit = parseInt(searchParams.get("limit") || "100");
+    const requestedLimit = parseInt(searchParams.get("limit") || "100");
+    // Sem clamp aqui, um client mal-intencionado podia pedir ?limit=999999 e
+    // forçar um findMany sem teto no UserProfile inteiro.
+    const limit = Math.min(Math.max(requestedLimit || 100, 1), 100);
 
     // Buscar top usuários ordenados por pontos
     const topUsers = await prisma.userProfile.findMany({

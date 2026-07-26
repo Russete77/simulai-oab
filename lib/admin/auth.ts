@@ -18,7 +18,10 @@ export interface AdminContext {
 }
 
 export function getAdminEmails(): string[] {
-  const raw = process.env.ADMIN_EMAILS || 'erickrussomat@gmail.com';
+  // Sem fallback hardcoded: se ADMIN_EMAILS não estiver configurada num
+  // ambiente (ex: preview), o correto é falhar fechado (ninguém é admin),
+  // não conceder acesso automático a um email fixo no código.
+  const raw = process.env.ADMIN_EMAILS || '';
   return raw
     .split(',')
     .map((e) => e.trim().toLowerCase())

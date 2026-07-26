@@ -100,23 +100,17 @@ export async function getMonthlySpend(): Promise<number> {
   const now = new Date();
 
   try {
-    const logs = await prisma.webhookLog.findMany({
-      where: {
-        eventType: "ai_usage",
-        processedAt: {
-          gte: startOfMonth,
-          lte: now,
-        },
-      },
-      select: {
-        payload: true,
-      },
-    });
+    // SUM direto no Postgres em vez de trazer toda linha do mês pra somar em
+    // JS — o volume de linhas cresce com o uso, isso não.
+    const result = await prisma.$queryRaw<{ total: number | null }[]>`
+      SELECT COALESCE(SUM((payload->>'costUsd')::numeric), 0) as total
+      FROM "WebhookLog"
+      WHERE "eventType" = 'ai_usage'
+        AND "processedAt" >= ${startOfMonth}
+        AND "processedAt" <= ${now}
+    `;
 
-    return logs.reduce((total, log) => {
-      const payload = log.payload as any;
-      return total + (payload?.costUsd || 0);
-    }, 0);
+    return Number(result[0]?.total ?? 0);
   } catch {
     return 0;
   }

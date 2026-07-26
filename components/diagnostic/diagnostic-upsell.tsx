@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Card, Button } from '@/components/ui';
-import { Gauge, Sparkles, ArrowRight } from 'lucide-react';
+import { Gauge, Sparkles, ArrowRight, Share2, Check } from 'lucide-react';
 
 interface Readiness {
   projectedCorrect: number;
@@ -20,6 +20,7 @@ interface Readiness {
 export function DiagnosticUpsell() {
   const [readiness, setReadiness] = useState<Readiness | null>(null);
   const [show, setShow] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     fetch('/api/billing/status')
@@ -36,6 +37,21 @@ export function DiagnosticUpsell() {
   }, []);
 
   if (!show) return null;
+
+  function handleShare() {
+    const url = `${window.location.origin}/diagnostico`;
+    const text = readiness
+      ? `Descobri que tenho ${Math.round(readiness.passProbability * 100)}% de chance de passar na OAB. Faça seu diagnóstico grátis:`
+      : 'Fiz o diagnóstico grátis da OAB e descobri minha chance de passar. Faça o seu:';
+
+    if (navigator.share) {
+      navigator.share({ title: 'Simulai OAB', text, url }).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(`${text} ${url}`);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  }
 
   const gap = readiness
     ? Math.max(0, Math.round((readiness.passingScore - readiness.projectedCorrect) * 10) / 10)
@@ -87,6 +103,19 @@ export function DiagnosticUpsell() {
             <ArrowRight className="w-4 h-4" />
           </Button>
         </Link>
+        <Button variant="ghost" onClick={handleShare} className="shrink-0">
+          {copied ? (
+            <>
+              <Check className="w-4 h-4" />
+              Copiado!
+            </>
+          ) : (
+            <>
+              <Share2 className="w-4 h-4" />
+              Compartilhar
+            </>
+          )}
+        </Button>
       </div>
     </Card>
   );

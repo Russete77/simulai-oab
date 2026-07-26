@@ -14,7 +14,10 @@ import { dispatch } from '@/lib/notifications/dispatcher';
  * Vercel Cron: { "path": "/api/cron/daily-study-reminder", "schedule": "0 11 * * *" }
  */
 
-export const maxDuration = 300;
+// Hobby plan cobra no máximo 60s de função serverless — declarar mais que
+// isso não da mais tempo de execução, só mascara que o job pode ser cortado
+// no meio sem aviso. Volume atual (dezenas de usuários) roda em segundos.
+export const maxDuration = 60;
 
 export async function GET(req: NextRequest) {
   try {

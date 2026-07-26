@@ -22,41 +22,31 @@ function getYearWeight(year: number): number {
 }
 
 /**
- * Seleciona UMA questão usando distribuição PONDERADA por ano
- * Questões mais recentes têm maior probabilidade de serem selecionadas
+ * Escolhe UM ano usando distribuição ponderada por ano (mesma lógica de
+ * antes, só que a partir de contagens por ano em vez de carregar toda
+ * questão candidata pra memória — cada questão de um ano tem o mesmo peso,
+ * então o peso do "balde" do ano é getYearWeight(ano) * quantidade no ano).
  */
-function selectWeightedQuestion(
-  questions: Array<{ id: string; examYear: number }>
-): { id: string; examYear: number } {
-  if (questions.length === 0) {
-    throw new Error("Nenhuma questão disponível");
-  }
-
-  if (questions.length === 1) {
-    return questions[0];
-  }
-
-  // Calcular peso de cada questão
-  const weightedQuestions = questions.map(q => ({
-    question: q,
-    weight: getYearWeight(q.examYear),
+function selectWeightedYear(
+  yearCounts: Array<{ examYear: number; count: number }>
+): number {
+  const weighted = yearCounts.map((y) => ({
+    year: y.examYear,
+    weight: getYearWeight(y.examYear) * y.count,
   }));
 
-  // Calcular peso total
-  const totalWeight = weightedQuestions.reduce((sum, wq) => sum + wq.weight, 0);
-
-  // Selecionar questão baseado em probabilidade ponderada
+  const totalWeight = weighted.reduce((sum, w) => sum + w.weight, 0);
   let random = Math.random() * totalWeight;
-  
-  for (const wq of weightedQuestions) {
-    random -= wq.weight;
+
+  for (const w of weighted) {
+    random -= w.weight;
     if (random <= 0) {
-      return wq.question;
+      return w.year;
     }
   }
 
   // Fallback (não deveria chegar aqui)
-  return weightedQuestions[weightedQuestions.length - 1].question;
+  return weighted[weighted.length - 1].year;
 }
 
 export async function GET(request: NextRequest) {
@@ -134,18 +124,15 @@ export async function GET(request: NextRequest) {
       };
     }
 
-    // Buscar TODAS as questões disponíveis (apenas ID e ano para performance)
-    const availableQuestions = await prisma.question.findMany({
+    // Contagem por ano (agregado — não carrega as questões inteiras pra
+    // memória, evita full scan de até 5.875 linhas a cada requisição)
+    const yearGroups = await prisma.question.groupBy({
+      by: ["examYear"],
       where,
-      select: {
-        id: true,
-        examYear: true,
-      },
+      _count: true,
     });
 
-    console.log("📊 [API] Total de questões encontradas:", availableQuestions.length);
-
-    if (availableQuestions.length === 0) {
+    if (yearGroups.length === 0) {
       console.log("❌ [API] Nenhuma questão disponível");
       return NextResponse.json(
         { error: "Nenhuma questão disponível com os critérios fornecidos" },
@@ -153,18 +140,24 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // SELEÇÃO PONDERADA POR ANO (prioriza questões recentes)
-    const selectedQuestion = selectWeightedQuestion(availableQuestions);
+    const yearCounts = yearGroups.map((g) => ({ examYear: g.examYear, count: g._count }));
+    console.log("📊 [API] Total de questões encontradas:", yearCounts.reduce((s, y) => s + y.count, 0));
 
-    console.log("🎯 [API] Questão selecionada (ano prioritário):", {
-      id: selectedQuestion.id,
-      ano: selectedQuestion.examYear,
-      peso: getYearWeight(selectedQuestion.examYear)
+    // SELEÇÃO PONDERADA POR ANO (prioriza questões recentes)
+    const selectedYear = selectWeightedYear(yearCounts);
+    const countInYear = yearCounts.find((y) => y.examYear === selectedYear)!.count;
+    const randomOffset = Math.floor(Math.random() * countInYear);
+
+    console.log("🎯 [API] Ano selecionado (ponderado):", {
+      ano: selectedYear,
+      peso: getYearWeight(selectedYear),
+      offset: randomOffset,
     });
 
-    // Buscar questão completa com alternativas
-    const question = await prisma.question.findUnique({
-      where: { id: selectedQuestion.id },
+    // Buscar UMA questão aleatória dentro do ano escolhido, já com alternativas
+    const question = await prisma.question.findFirst({
+      where: { ...where, examYear: selectedYear },
+      skip: randomOffset,
       include: {
         alternatives: {
           orderBy: { label: "asc" },

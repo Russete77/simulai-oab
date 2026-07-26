@@ -250,6 +250,12 @@ export default async function SimuladoPage({ params }: PageProps) {
                 Iniciar simulado grátis
               </Link>
               <p className="text-sm text-gray-500 mt-3">Sem cartão de crédito necessário</p>
+              <p className="text-sm text-gray-500 mt-1">
+                Prefere algo mais rápido?{' '}
+                <Link href="/diagnostico" className="text-accent hover:text-accent font-medium">
+                  Faça o diagnóstico grátis de 20 questões
+                </Link>
+              </p>
             </div>
           </section>
 

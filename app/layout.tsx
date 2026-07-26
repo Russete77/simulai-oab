@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Suspense } from "react";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ptBR } from "@clerk/localizations";
@@ -6,6 +7,7 @@ import { Toaster } from "sonner";
 import { FreeAccessBanner } from "@/components/layout/free-access-banner";
 import { CookieConsent } from "@/components/layout/cookie-consent";
 import { SessionHeartbeat } from "@/components/tracking/session-heartbeat";
+import { UtmCapture } from "@/components/tracking/utm-capture";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { ThemeScript } from "@/components/theme/theme-script";
 import { logger } from "@/lib/logger";
@@ -107,6 +109,9 @@ function RootBody({ children }: { children: React.ReactNode }) {
       <ThemeProvider>
         <FreeAccessBanner />
         <SessionHeartbeat />
+        <Suspense fallback={null}>
+          <UtmCapture />
+        </Suspense>
 
         <main id="main-content">{children}</main>
 

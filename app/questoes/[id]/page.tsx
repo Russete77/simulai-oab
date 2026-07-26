@@ -242,12 +242,12 @@ export default async function QuestionPage(props: PageProps) {
                 Resposta Correta Bloqueada
               </h3>
               <p className="text-ink-2 mb-6 max-w-md mx-auto">
-                Crie sua conta gratuita para ver a resposta correta e acessar milhares de questões oficiais da OAB
+                Faça o diagnóstico grátis e descubra sua chance de passar, além de ver a resposta correta e acessar milhares de questões oficiais da OAB
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <Link href="/register">
+                <Link href="/diagnostico">
                   <Button variant="primary" size="lg" className="flex items-center gap-2">
-                    Criar Conta Grátis
+                    Fazer Diagnóstico Grátis
                     <ArrowRight className="w-4 h-4" />
                   </Button>
                 </Link>
@@ -271,9 +271,9 @@ export default async function QuestionPage(props: PageProps) {
                 explicações com IA e simulados personalizados
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <Link href="/register">
+                <Link href="/diagnostico">
                   <Button variant="primary" size="lg">
-                    Começar Gratuitamente
+                    Fazer Diagnóstico Grátis
                   </Button>
                 </Link>
                 <Link href="/pricing">

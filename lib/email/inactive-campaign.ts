@@ -3,8 +3,10 @@
  *
  * Roda 1x/dia via Vercel Cron (ver vercel.json).
  * Lógica:
- *  - Pega todos usuários cujo lastActiveAt (ou createdAt se nunca ativo) está
- *    entre X e X+1 dias atrás.
+ *  - Pega usuários que JÁ foram ativos (têm lastActiveAt) e pararam, com
+ *    lastActiveAt entre X e X+1 dias atrás. Quem nunca ficou ativo desde o
+ *    cadastro é público do cron recovery-campaigns (daysSinceSignup), não
+ *    deste — evita as duas campanhas disparando pro mesmo user no mesmo dia.
  *  - Para cada um, checa se já enviou essa campanha. Se sim, pula.
  *  - Registra em EmailCampaign e dispara via Resend.
  */
@@ -16,6 +18,7 @@ import { prisma } from '@/lib/db/prisma';
 import { InativosD3Email } from './templates/inativos-d3';
 import { InativosD7Email } from './templates/inativos-d7';
 import { InativosD14Email } from './templates/inativos-d14';
+import { getDaysUntilNextFirstPhaseExam } from '@/lib/oab/exam-dates';
 
 // Lazy: só instancia quando for usar (evita crash no build se a env var não estiver setada)
 let _resend: Resend | null = null;
@@ -45,7 +48,10 @@ const CAMPAIGNS: CampaignConfig[] = [
     type: 'INACTIVE_D3',
     daysInactive: 3,
     subject: (name) => `${name}, sentimos sua falta 📚`,
-    render: (name) => render(InativosD3Email({ nomeUsuario: name })),
+    render: (name) => render(InativosD3Email({
+      nomeUsuario: name,
+      diasParaProva: getDaysUntilNextFirstPhaseExam(),
+    })),
   },
   {
     type: 'INACTIVE_D7',
@@ -112,16 +118,12 @@ async function runOneCampaign(cfg: CampaignConfig): Promise<InactiveCampaignResu
           },
         },
       ],
+      // Só quem JÁ foi ativo e parou. Quem nunca ficou ativo (lastActiveAt
+      // null) já é coberto pelo cron recovery-campaigns via daysSinceSignup
+      // — as duas campanhas competindo pelo mesmo público no mesmo D+3/D+7/
+      // D+14 mandava duas mensagens diferentes no mesmo dia pro mesmo user.
       AND: [
-        {
-          OR: [
-            { lastActiveAt: { gte: windowStart, lt: windowEnd } },
-            {
-              lastActiveAt: null,
-              createdAt: { gte: windowStart, lt: windowEnd },
-            },
-          ],
-        },
+        { lastActiveAt: { gte: windowStart, lt: windowEnd } },
       ],
     },
     select: { id: true, email: true, name: true },
