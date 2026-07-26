@@ -6,7 +6,7 @@
     },
     {
       "path": "/api/cron/reconcile-asaas",
-      "schedule": "*/10 * * * *"
+      "schedule": "0 9 * * *"
     },
     {
       "path": "/api/cron/inactive-campaigns",
