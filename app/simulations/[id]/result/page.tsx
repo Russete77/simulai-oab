@@ -6,6 +6,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/db/prisma";
 import { WrongQuestionsReview } from "@/components/simulation/wrong-questions-review";
 import { DiagnosticUpsell } from "@/components/diagnostic/diagnostic-upsell";
+import { PushNotificationBanner } from "@/components/notifications/push-notification-banner";
 
 export default async function SimulationResultPage({ params }: { params: Promise<{ id: string }> }) {
   const user = await getCurrentUser();
@@ -280,6 +281,8 @@ export default async function SimulationResultPage({ params }: { params: Promise
         <div className="mb-8">
           <DiagnosticUpsell />
         </div>
+
+        <PushNotificationBanner />
 
         {/* Wrong Questions Review with AI Chat */}
         {wrongAnswers.length > 0 && (

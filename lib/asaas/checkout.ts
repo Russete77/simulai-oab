@@ -105,13 +105,16 @@ export async function findOrCreateAsaasCustomer(
   }
 
   // 3. Criar novo customer no Asaas (POST /v3/customers)
+  // notificationDisabled: true — o Asaas NÃO deve mandar seus próprios emails de
+  // cobrança/atraso pro cliente. Quem controla a cadência de lembrete e o
+  // cancelamento após o grace period é o nosso webhook (handlePaymentOverdue).
   const newCustomer = await asaas.createCustomer({
     name: data.name,
     email: data.email,
     cpfCnpj: data.cpfCnpj,
     mobilePhone: data.phone,
     externalReference: userId,
-    notificationDisabled: false,
+    notificationDisabled: true,
   });
 
   // 4. Salvar no banco

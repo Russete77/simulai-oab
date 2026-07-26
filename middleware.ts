@@ -11,6 +11,19 @@ const isPublicRoute = createRouteMatcher([
   '/pricing',
   '/diagnostico',          // Funil: simulado diagnóstico grátis
   '/api/webhooks(.*)',
+  // ===== ARQUIVOS ESTÁTICOS PÚBLICOS (public/) =====
+  // O matcher do Next só pula _next/static, _next/image e favicon.ico —
+  // qualquer outro arquivo em public/ passa pelo middleware e, sem isso,
+  // é redirecionado pro /login pra visitante anônimo (quebra o service
+  // worker do PWA e o push, que dependem de sw.js/push-sw.js/manifest.json).
+  '/manifest.json',
+  '/sw.js',
+  '/push-sw.js',
+  '/workbox-(.*)',
+  '/icon-192.png',
+  '/icon-512.png',
+  '/logo.png',
+  '/og-image.png',
   // ===== PÁGINAS PÚBLICAS PARA SEO =====
   // Todas as páginas que devem ser indexadas pelo Google
   '/questoes(.*)',           // Questões individuais (5.605 páginas)
@@ -28,13 +41,15 @@ const isPublicRoute = createRouteMatcher([
 
 export default clerkMiddleware(
   async (auth, req) => {
+    // auth() precisa ser chamado em toda requisição — inclusive rotas públicas —
+    // para que o contexto do Clerk fique disponível a getCurrentUser()/auth() em
+    // Server Components dessas páginas (ex: /diagnostico chama getCurrentUser()).
+    const { userId } = await auth()
+
     // Proteger rotas privadas
-    if (!isPublicRoute(req)) {
-      const { userId } = await auth()
-      if (!userId) {
-        const url = new URL('/login', req.url)
-        return NextResponse.redirect(url)
-      }
+    if (!isPublicRoute(req) && !userId) {
+      const url = new URL('/login', req.url)
+      return NextResponse.redirect(url)
     }
   },
   {
@@ -48,7 +63,6 @@ export default clerkMiddleware(
 
 export const config = {
   matcher: [
-    '/((?!_next|[^?]*\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest|xml|txt)).*)',
-    '/(api|trpc)(.*)',
+    '/((?!_next/static|_next/image|favicon.ico).*)',
   ],
 }

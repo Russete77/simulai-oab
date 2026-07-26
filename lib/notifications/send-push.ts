@@ -66,8 +66,10 @@ export async function sendPushToUser(userId: string, payload: PushPayload): Prom
         );
         sent++;
       } catch (error: any) {
-        // 410 Gone or 404 — subscription expired
-        if (error?.statusCode === 410 || error?.statusCode === 404) {
+        // 410/404 — subscription expirada. 401/403 — subscription não bate mais
+        // com o par de chaves VAPID atual (ex: rotação de chave); nos dois casos
+        // o endpoint nunca mais vai funcionar, então limpamos do banco.
+        if ([410, 404, 401, 403].includes(error?.statusCode)) {
           expired.push(sub.id);
         } else {
           logger.error('Push send error', {

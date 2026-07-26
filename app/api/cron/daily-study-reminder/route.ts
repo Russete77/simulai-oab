@@ -45,10 +45,12 @@ export async function GET(req: NextRequest) {
     // ── 2. Push de revisões vencidas ─────────────────────────────────────
     // Só quem tem push inscrito (evita criar notificação in-app pra base toda
     // no cron) e cards SRS vencidos.
+    // Sem limite artificial de usuários — o volume real (dezenas hoje) não
+    // justifica paginação, e um `take` fixo aqui silenciosamente excluía
+    // usuários assim que a base de inscritos passasse desse número.
     const usersWithPush = await prisma.pushSubscription.findMany({
       select: { userId: true },
       distinct: ['userId'],
-      take: 2000,
     });
     const pushUserIds = usersWithPush.map((u) => u.userId);
 
