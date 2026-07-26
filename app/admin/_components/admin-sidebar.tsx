@@ -14,6 +14,7 @@ import {
   Repeat,
   Bell,
   Palette,
+  Trophy,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -24,6 +25,7 @@ const NAV = [
   { href: '/admin/payments', label: 'Pagamentos', icon: CreditCard },
   { href: '/admin/notifications', label: 'Notificações', icon: Bell },
   { href: '/admin/campaigns', label: 'Emails', icon: Mail },
+  { href: '/admin/challenges', label: 'Desafios', icon: Trophy },
   { href: '/admin/audit', label: 'Audit Log', icon: FileText },
   { href: '/admin/design', label: 'Design', icon: Palette },
 ];
