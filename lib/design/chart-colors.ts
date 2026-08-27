@@ -4,43 +4,49 @@
  * Usar estas constantes ao invés de hex hardcoded nos componentes de gráfico.
  * Valores alinhados com o design system (tailwind.config.ts + globals.css).
  *
+ * v2.0 (jul/2026): background/card/grid/text agora usam var(--...) direto —
+ * SVG (Recharts) resolve CSS custom properties normalmente, então os charts
+ * acompanham o tema light/dark automaticamente sem precisar de duas cópias
+ * hardcoded. As cores de série (primary/secondary/success/...) continuam
+ * hex fixo de propósito — cor de série não deve mudar com o tema.
+ *
  * @see DESIGN_SYSTEM.md seção 4.1
  */
 
 export const CHART_COLORS = {
-  // Backgrounds
-  background: '#0f172a',    // navy-950
-  card: '#1e293b',          // navy-900
-  grid: '#334155',          // navy-800
-  gridStroke: '#475569',    // navy-700
+  // Backgrounds — seguem o tema via CSS var (antes eram hex fixo do navy antigo)
+  background: 'var(--bg)',
+  card: 'var(--surface)',
+  grid: 'var(--border)',
+  gridStroke: 'var(--border-strong)',
 
-  // Text
-  text: '#94a3b8',          // gray-400 (muted)
-  textLight: '#cbd5e1',     // gray-300 (secondary)
+  // Text — idem
+  text: 'var(--text-2)',      // muted
+  textLight: 'var(--text-1)', // principal
 
-  // Accent colors
-  primary: '#3b82f6',       // blue-500
-  secondary: '#8b5cf6',     // purple-500
-  success: '#22c55e',       // green-500
-  error: '#ef4444',         // red-500
-  warning: '#f59e0b',       // amber-500
-  cyan: '#06b6d4',          // cyan-500
-  pink: '#ec4899',          // pink-500
-  indigo: '#6366f1',        // indigo-500
+  // Accent colors — paleta v2.0 (azul Simulai #004AC6), fixos entre temas
+  primary: '#004ac6',       // accent (light) / equivalente à marca
+  secondary: '#7c3aed',     // violet-600, mantido do v1
+  success: '#059669',       // success-legal
+  error: '#ba1a1a',         // error
+  warning: '#d97706',       // warning-caution
+  cyan: '#06b6d4',          // cyan-500, mantido
+  pink: '#ec4899',          // pink-500, mantido
+  indigo: '#6366f1',        // indigo-500, mantido
 
   // Subject colors (matérias OAB) — array rotativo para gráficos
   subjects: [
-    '#3b82f6',  // blue-500
-    '#8b5cf6',  // purple-500
+    '#004ac6',  // primary (era blue-500)
+    '#7c3aed',  // violet-600
     '#06b6d4',  // cyan-500
-    '#22c55e',  // green-500
-    '#f59e0b',  // amber-500
+    '#059669',  // success-legal (era green-500)
+    '#d97706',  // warning-caution (era amber-500)
     '#ec4899',  // pink-500
     '#6366f1',  // indigo-500
     '#f97316',  // orange-500
     '#14b8a6',  // teal-500
     '#a855f7',  // violet-500
-    '#ef4444',  // red-500
+    '#ba1a1a',  // error (era red-500)
     '#84cc16',  // lime-500
     '#0ea5e9',  // sky-500
     '#d946ef',  // fuchsia-500
@@ -58,36 +64,39 @@ export function getSubjectColor(index: number): string {
 }
 
 /**
- * Constantes de status para badges e indicadores
+ * Constantes de status para badges e indicadores.
+ * v2.0: hex alinhado com --success/--warning/--danger/--accent de globals.css
+ * (usando arbitrary values do Tailwind já que essas vars não expõem canais
+ * rgb separados para o modificador de opacidade nativo).
  */
 export const STATUS_COLORS = {
   success: {
-    bg: 'bg-green-500/10',
-    border: 'border-green-500/20',
-    text: 'text-green-500',
-    icon: 'text-green-500',
-    full: 'bg-green-500/10 border-green-500/20 text-green-500',
+    bg: 'bg-[#059669]/10',
+    border: 'border-[#059669]/20',
+    text: 'text-[#059669]',
+    icon: 'text-[#059669]',
+    full: 'bg-[#059669]/10 border-[#059669]/20 text-[#059669]',
   },
   error: {
-    bg: 'bg-red-500/10',
-    border: 'border-red-500/20',
-    text: 'text-red-500',
-    icon: 'text-red-500',
-    full: 'bg-red-500/10 border-red-500/20 text-red-500',
+    bg: 'bg-[#ba1a1a]/10',
+    border: 'border-[#ba1a1a]/20',
+    text: 'text-[#ba1a1a]',
+    icon: 'text-[#ba1a1a]',
+    full: 'bg-[#ba1a1a]/10 border-[#ba1a1a]/20 text-[#ba1a1a]',
   },
   warning: {
-    bg: 'bg-amber-500/10',
-    border: 'border-amber-500/20',
-    text: 'text-amber-500',
-    icon: 'text-amber-500',
-    full: 'bg-amber-500/10 border-amber-500/20 text-amber-500',
+    bg: 'bg-[#d97706]/10',
+    border: 'border-[#d97706]/20',
+    text: 'text-[#d97706]',
+    icon: 'text-[#d97706]',
+    full: 'bg-[#d97706]/10 border-[#d97706]/20 text-[#d97706]',
   },
   info: {
-    bg: 'bg-blue-500/10',
-    border: 'border-blue-500/20',
-    text: 'text-blue-500',
-    icon: 'text-blue-500',
-    full: 'bg-blue-500/10 border-blue-500/20 text-blue-500',
+    bg: 'bg-[#004ac6]/10',
+    border: 'border-[#004ac6]/20',
+    text: 'text-[#004ac6]',
+    icon: 'text-[#004ac6]',
+    full: 'bg-[#004ac6]/10 border-[#004ac6]/20 text-[#004ac6]',
   },
   premium: {
     bg: 'bg-purple-500/10',

@@ -39,29 +39,32 @@ export function StatsCard({
   const displayLabel = label || title || '';
 
   // Color classes for icon background
+  // v2.0: blue/green/amber usam tokens do design system (accent/success/warning) —
+  // acompanham o tema automaticamente. purple/cyan seguem hardcoded (cores
+  // decorativas, fora da paleta semântica core).
   const iconColorClasses = {
     default: {
       blue: 'bg-accent-soft text-accent group-hover:bg-accent-soft',
-      green: 'bg-green-500/20 text-green-500 group-hover:bg-green-500/30',
+      green: 'bg-success-soft text-success group-hover:bg-success-soft',
       purple: 'bg-purple-500/20 text-purple-400 group-hover:bg-purple-500/30',
       cyan: 'bg-cyan-500/20 text-cyan-400 group-hover:bg-cyan-500/30',
-      amber: 'bg-amber-500/20 text-amber-500 group-hover:bg-amber-500/30',
+      amber: 'bg-warning-soft text-warning group-hover:bg-warning-soft',
     },
     compact: {
       blue: 'bg-accent-soft text-accent border-accent',
-      green: 'bg-green-500/10 text-green-500 border-green-500/20',
+      green: 'bg-success-soft text-success border-success',
       purple: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
       cyan: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
-      amber: 'bg-amber-500/10 text-amber-500 border-amber-500/20',
+      amber: 'bg-warning-soft text-warning border-warning',
     },
   };
 
   const glowColors = {
-    blue: 'bg-blue-500',
-    green: 'bg-green-500',
+    blue: 'bg-accent',
+    green: 'bg-success',
     purple: 'bg-purple-500',
     cyan: 'bg-cyan-500',
-    amber: 'bg-amber-500',
+    amber: 'bg-warning',
   };
 
   // Render icon (supports both LucideIcon component and ReactNode)
@@ -121,7 +124,7 @@ export function StatsCard({
           {trend !== undefined && (
             <div className={clsx(
               'flex items-center gap-1 text-sm',
-              trend >= 0 ? 'text-green-500' : 'text-red-500'
+              trend >= 0 ? 'text-success' : 'text-danger'
             )}>
               {trend >= 0 ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
               <span>{trend >= 0 ? '+' : ''}{trend}%</span>
