@@ -506,10 +506,14 @@ model UserQuestionChat {
 // ============================================================================
 
 model Customer {
-  id              String  @id @default(cuid())
-  userId          String  @unique
-  asaasCustomerId String? @unique // ID do cliente no Asaas (cus_XXXXX)
-  gateway         String  @default("asaas") // Gateway de pagamento
+  id     String @id @default(cuid())
+  userId String @unique
+
+  // Um Customer pode ter os dois enquanto durar a migração Asaas → Stripe.
+  // `gateway` diz qual é o ativo.
+  asaasCustomerId  String? @unique // cus_XXXX no Asaas (legado)
+  stripeCustomerId String? @unique // cus_XXXX na Stripe
+  gateway          String  @default("stripe") // "stripe" | "asaas"
 
   // Dados do cliente
   name    String
@@ -527,13 +531,15 @@ model Customer {
 
   @@index([userId])
   @@index([asaasCustomerId])
+  @@index([stripeCustomerId])
 }
 
 model Subscription {
-  id                  String  @id @default(cuid())
-  customerId          String
-  asaasSubscriptionId String? @unique // ID da assinatura no Asaas (sub_XXXXX)
-  gateway             String  @default("asaas") // Gateway de pagamento
+  id                   String  @id @default(cuid())
+  customerId           String
+  asaasSubscriptionId  String? @unique // sub_XXXX no Asaas (legado)
+  stripeSubscriptionId String? @unique // sub_XXXX na Stripe
+  gateway              String  @default("stripe") // "stripe" | "asaas"
 
   // Plano (String para compatibilidade com dados existentes, validação no app)
   plan   String // "BASIC_MONTHLY" ou "PRO_MONTHLY"
@@ -573,6 +579,7 @@ model Subscription {
   @@index([customerId])
   @@index([status])
   @@index([asaasSubscriptionId])
+  @@index([stripeSubscriptionId])
   @@index([currentPeriodEnd])
 }
 

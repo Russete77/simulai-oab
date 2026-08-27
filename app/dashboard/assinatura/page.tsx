@@ -1,357 +1,214 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useUser } from '@clerk/nextjs';
-import { Header } from '@/components/layout/header';
-import { Card, Button } from '@/components/ui';
-import {
-  Loader2,
-  CheckCircle2,
-  XCircle,
-  Calendar,
-  CreditCard,
-  AlertCircle,
-  Crown,
-  TrendingUp,
-} from 'lucide-react';
 import Link from 'next/link';
+import { Header } from '@/components/layout/header';
+import { Card, Button, Badge } from '@/components/ui';
+import { Loader2, CheckCircle2, AlertCircle, ExternalLink } from 'lucide-react';
+import { AssinarButton } from '@/components/billing/assinar-button';
 
-interface AssinaturaData {
-  hasSubscription: boolean;
-  planType: string;
+interface Status {
+  assinante: boolean;
   status: string;
-  plan: string;
-  value: number;
-  cycle: string;
-  currentPeriodEnd: string;
-  cancelAtPeriodEnd: boolean;
-  subscriptionId: string;
+  gateway?: string;
+  valor?: number;
+  renovaEm?: string | null;
+  cancelaNoFimDoPeriodo?: boolean;
+  temPortal?: boolean;
+  precoFormatado: string;
+}
+
+const ROTULO: Record<string, string> = {
+  ACTIVE: 'Ativa',
+  TRIALING: 'Em teste',
+  PAST_DUE: 'Pagamento pendente',
+  CANCELED: 'Cancelada',
+  UNPAID: 'Não paga',
+  INCOMPLETE: 'Aguardando pagamento',
+  INCOMPLETE_EXPIRED: 'Expirada',
+  PAUSED: 'Pausada',
+  sem_assinatura: 'Sem assinatura',
+};
+
+function formatarData(iso?: string | null) {
+  if (!iso) return null;
+  return new Date(iso).toLocaleDateString('pt-BR', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  });
 }
 
 export default function AssinaturaPage() {
   const { isLoaded } = useUser();
-
-  const [assinatura, setAssinatura] = useState<AssinaturaData | null>(null);
+  const [dados, setDados] = useState<Status | null>(null);
   const [carregando, setCarregando] = useState(true);
+  const [abrindoPortal, setAbrindoPortal] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
-  const [cancelando, setCancelando] = useState(false);
-  const [showConfirmCancel, setShowConfirmCancel] = useState(false);
 
-  useEffect(() => {
-    if (isLoaded) {
-      carregarAssinatura();
-    }
-  }, [isLoaded]);
-
-  const carregarAssinatura = async () => {
+  const carregar = useCallback(async () => {
     try {
       setCarregando(true);
       setErro(null);
-
-      const response = await fetch('/api/billing/status');
-      if (!response.ok) throw new Error('Erro ao carregar assinatura');
-
-      const data = await response.json();
-      setAssinatura(data);
-    } catch (err: unknown) {
-      setErro(err instanceof Error ? err.message : 'Erro ao carregar dados');
+      const res = await fetch('/api/billing/status');
+      if (!res.ok) throw new Error('Não foi possível carregar sua assinatura.');
+      setDados(await res.json());
+    } catch (e) {
+      setErro(e instanceof Error ? e.message : 'Erro ao carregar');
     } finally {
       setCarregando(false);
     }
-  };
+  }, []);
 
-  const cancelarAssinatura = async () => {
+  useEffect(() => {
+    if (isLoaded) carregar();
+  }, [isLoaded, carregar]);
+
+  const abrirPortal = async () => {
+    setErro(null);
+    setAbrindoPortal(true);
     try {
-      setCancelando(true);
-
-      const response = await fetch('/api/billing/portal', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'cancel' }),
-      });
-
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Erro ao cancelar');
-      }
-
-      setShowConfirmCancel(false);
-      await carregarAssinatura();
-    } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Erro ao cancelar assinatura');
-    } finally {
-      setCancelando(false);
+      const res = await fetch('/api/billing/portal', { method: 'POST' });
+      const json = await res.json();
+      if (!res.ok || !json.url) throw new Error(json.error || 'Erro ao abrir o portal');
+      window.location.href = json.url;
+    } catch (e) {
+      setErro(e instanceof Error ? e.message : 'Erro ao abrir o portal');
+      setAbrindoPortal(false);
     }
   };
-
-  const formatarData = (data: string) => {
-    return new Date(data).toLocaleDateString('pt-BR', {
-      day: '2-digit',
-      month: 'long',
-      year: 'numeric',
-    });
-  };
-
-  const formatarValor = (valor: number) => {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-    }).format(valor);
-  };
-
-  const getCycleName = (cycle: string) => {
-    // Todos os planos são mensais agora
-    return 'Mensal';
-  };
-
-  const getStatusBadge = (status: string) => {
-    const badges: Record<string, { label: string; className: string; icon: any }> = {
-      ACTIVE: {
-        label: 'Ativa',
-        className: 'bg-green-500/10 border-green-500/20 text-green-500',
-        icon: CheckCircle2,
-      },
-      PAST_DUE: {
-        label: 'Pagamento Atrasado',
-        className: 'bg-yellow-500/10 border-yellow-500/20 text-yellow-400',
-        icon: AlertCircle,
-      },
-      CANCELED: {
-        label: 'Cancelada',
-        className: 'bg-red-500/10 border-red-500/20 text-red-500',
-        icon: XCircle,
-      },
-    };
-
-    const badge = badges[status] || badges.ACTIVE;
-    const Icon = badge.icon;
-
-    return (
-      <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border ${badge.className}`}>
-        <Icon className="w-4 h-4" />
-        <span className="text-sm font-semibold">{badge.label}</span>
-      </div>
-    );
-  };
-
-  const getPlanBadge = (plan: string) => {
-    if (plan?.startsWith('PRO') || plan?.startsWith('PREMIUM')) {
-      return (
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30">
-          <Crown className="w-4 h-4 text-purple-400" />
-          <span className="text-sm font-semibold text-purple-400">Pro</span>
-        </div>
-      );
-    }
-    if (plan?.startsWith('BASIC')) {
-      return (
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-soft border-accent">
-          <TrendingUp className="w-4 h-4 text-accent" />
-          <span className="text-sm font-semibold text-accent">Essencial</span>
-        </div>
-      );
-    }
-    return (
-      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-500/10 border border-gray-500/20">
-        <span className="text-sm font-semibold text-gray-400">Gratuito</span>
-      </div>
-    );
-  };
-
-  if (!isLoaded || carregando) {
-    return (
-      <div className="min-h-screen bg-bg">
-        <Header />
-        <div className="max-w-7xl mx-auto px-4 py-12 flex items-center justify-center min-h-[60vh]">
-          <div className="text-center">
-            <Loader2 className="w-12 h-12 text-accent animate-spin mx-auto mb-4" />
-            <p className="text-gray-400">Carregando informações...</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-bg">
       <Header />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-ink-1 mb-2">
-            Minha Assinatura
+      <main id="main-content" role="main" className="container-page py-10 max-w-2xl">
+        <header className="mb-8">
+          <p className="text-eyebrow mb-2">Conta</p>
+          <h1 className="text-3xl font-semibold tracking-tight text-ink-1">
+            Assinatura
           </h1>
-          <p className="text-gray-400">
-            Gerencie sua assinatura e forma de pagamento
-          </p>
-        </div>
+        </header>
 
-        {erro ? (
-          <Card variant="glass">
-            <div className="text-center py-12">
-              <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
-              <p className="text-red-500 mb-4">{erro}</p>
-              <Button onClick={carregarAssinatura}>Tentar Novamente</Button>
+        {carregando && (
+          <Card>
+            <div className="flex items-center gap-3 text-ink-2 py-6 justify-center">
+              <Loader2 className="w-5 h-5 animate-spin" />
+              Carregando...
             </div>
           </Card>
-        ) : !assinatura?.hasSubscription ? (
-          <Card variant="glass">
-            <div className="text-center py-12">
-              <p className="text-gray-400 mb-2">
-                Seu plano atual: <span className="text-ink-1 font-semibold">{assinatura?.planType || 'Sem plano ativo'}</span>
-              </p>
-              <p className="text-gray-400 mb-6">
-                Faça upgrade para acessar mais questões, simulados e recursos com IA.
-              </p>
-              <Link href="/pricing">
-                <Button variant="primary">Ver Planos</Button>
-              </Link>
+        )}
+
+        {!carregando && erro && (
+          <Card>
+            <div className="flex items-start gap-3 py-2">
+              <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+              <div>
+                <p className="text-ink-1 font-medium mb-1">{erro}</p>
+                <Button variant="ghost" size="sm" onClick={carregar}>
+                  Tentar de novo
+                </Button>
+              </div>
             </div>
           </Card>
-        ) : (
-          <div className="grid lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 space-y-6">
-              {/* Status */}
-              <Card variant="glass">
-                <div className="flex items-start justify-between mb-6">
+        )}
+
+        {!carregando && !erro && dados && (
+          <>
+            {dados.assinante ? (
+              <Card>
+                <div className="flex items-start justify-between gap-4 mb-6">
                   <div>
-                    <h2 className="text-2xl font-bold text-ink-1 mb-2">
-                      Status da Assinatura
-                    </h2>
-                    <div className="flex items-center gap-3 flex-wrap">
-                      {getStatusBadge(assinatura.status)}
-                      {getPlanBadge(assinatura.plan)}
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <CheckCircle2 className="w-5 h-5 text-success" />
+                      <span className="text-lg font-semibold text-ink-1">
+                        Assinatura ativa
+                      </span>
                     </div>
+                    <p className="text-sm text-ink-2">
+                      {dados.precoFormatado} por mês
+                    </p>
                   </div>
+                  <Badge variant="accent">{ROTULO[dados.status] ?? dados.status}</Badge>
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-6">
-                  <div>
-                    <div className="flex items-center gap-2 text-gray-400 mb-2">
-                      <Calendar className="w-4 h-4" />
-                      <span className="text-sm">Próxima Cobrança</span>
-                    </div>
-                    <p className="text-xl font-semibold text-ink-1">
-                      {assinatura.currentPeriodEnd
-                        ? formatarData(assinatura.currentPeriodEnd)
-                        : '—'}
-                    </p>
-                  </div>
+                {dados.renovaEm && (
+                  <p className="text-sm text-ink-2 mb-6">
+                    {dados.cancelaNoFimDoPeriodo ? (
+                      <>
+                        Cancelamento agendado. Você mantém o acesso até{' '}
+                        <strong className="text-ink-1">
+                          {formatarData(dados.renovaEm)}
+                        </strong>
+                        .
+                      </>
+                    ) : (
+                      <>
+                        Próxima cobrança em{' '}
+                        <strong className="text-ink-1">
+                          {formatarData(dados.renovaEm)}
+                        </strong>
+                        .
+                      </>
+                    )}
+                  </p>
+                )}
 
-                  <div>
-                    <div className="flex items-center gap-2 text-gray-400 mb-2">
-                      <CreditCard className="w-4 h-4" />
-                      <span className="text-sm">Valor</span>
-                    </div>
-                    <p className="text-xl font-semibold text-ink-1">
-                      {formatarValor(assinatura.value)}
+                {dados.temPortal ? (
+                  <>
+                    <Button
+                      onClick={abrirPortal}
+                      disabled={abrindoPortal}
+                      variant="secondary"
+                      fullWidth
+                    >
+                      {abrindoPortal ? (
+                        <span className="flex items-center justify-center gap-2">
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          Abrindo...
+                        </span>
+                      ) : (
+                        <span className="flex items-center justify-center gap-2">
+                          Gerenciar assinatura
+                          <ExternalLink className="w-4 h-4" />
+                        </span>
+                      )}
+                    </Button>
+                    <p className="text-xs text-ink-3 text-center mt-3">
+                      Trocar o cartão, baixar faturas ou cancelar
                     </p>
-                  </div>
-
-                  <div>
-                    <div className="flex items-center gap-2 text-gray-400 mb-2">
-                      <span className="text-sm">Ciclo</span>
-                    </div>
-                    <p className="text-xl font-semibold text-ink-1">
-                      {getCycleName(assinatura.cycle)}
+                  </>
+                ) : (
+                  <div className="rounded-md border bg-surface-2 p-4">
+                    <p className="text-sm text-ink-2">
+                      Sua assinatura é de uma cobrança antiga e ainda não passou
+                      para o novo sistema. Para trocar o cartão ou cancelar, fale
+                      com o suporte — a gente resolve no mesmo dia.
                     </p>
-                  </div>
-                </div>
-
-                {assinatura.cancelAtPeriodEnd && (
-                  <div className="mt-6 bg-yellow-500/10 border border-yellow-500/20 rounded-xl p-4">
-                    <div className="flex items-start gap-3">
-                      <AlertCircle className="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5" />
-                      <div>
-                        <p className="text-yellow-400 font-semibold mb-1">
-                          Assinatura será cancelada
-                        </p>
-                        <p className="text-sm text-gray-400">
-                          Sua assinatura será cancelada em{' '}
-                          {assinatura.currentPeriodEnd
-                            ? formatarData(assinatura.currentPeriodEnd)
-                            : 'breve'}
-                          . Você mantém acesso até lá.
-                        </p>
-                      </div>
-                    </div>
                   </div>
                 )}
               </Card>
-            </div>
-
-            {/* Ações */}
-            <div className="space-y-6">
-              <Card variant="glass">
-                <h3 className="text-lg font-bold text-ink-1 mb-4">Ações</h3>
-                <div className="space-y-3">
-                  <Link href="/pricing">
-                    <Button variant="primary" className="w-full">
-                      <TrendingUp className="w-4 h-4 mr-2" />
-                      Fazer Upgrade
-                    </Button>
-                  </Link>
-
-                  {assinatura.status === 'ACTIVE' && !assinatura.cancelAtPeriodEnd && (
-                    <>
-                      {!showConfirmCancel ? (
-                        <Button
-                          variant="outline"
-                          className="w-full text-red-500 border-red-500/20 hover:bg-red-500/10"
-                          onClick={() => setShowConfirmCancel(true)}
-                        >
-                          Cancelar Assinatura
-                        </Button>
-                      ) : (
-                        <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 space-y-3">
-                          <p className="text-sm text-red-500">
-                            Tem certeza? Você perderá acesso aos recursos premium ao fim do período.
-                          </p>
-                          <div className="flex gap-2">
-                            <Button
-                              variant="outline"
-                              className="flex-1 text-red-500 border-red-500/20"
-                              onClick={cancelarAssinatura}
-                              disabled={cancelando}
-                            >
-                              {cancelando ? (
-                                <Loader2 className="w-4 h-4 animate-spin" />
-                              ) : (
-                                'Confirmar'
-                              )}
-                            </Button>
-                            <Button
-                              variant="outline"
-                              className="flex-1"
-                              onClick={() => setShowConfirmCancel(false)}
-                            >
-                              Voltar
-                            </Button>
-                          </div>
-                        </div>
-                      )}
-                    </>
-                  )}
-                </div>
-              </Card>
-
-              <Card variant="glass">
-                <h3 className="text-lg font-bold text-ink-1 mb-4">
-                  Precisa de Ajuda?
-                </h3>
-                <p className="text-sm text-gray-400 mb-4">
-                  Entre em contato com nosso suporte para qualquer dúvida.
+            ) : (
+              <Card>
+                <p className="text-lg font-semibold text-ink-1 mb-1.5">
+                  Você ainda não é assinante
                 </p>
-                <a href="mailto:suporte@simulaioab.com">
-                  <Button variant="outline" className="w-full">
-                    Contatar Suporte
-                  </Button>
-                </a>
+                <p className="text-sm text-ink-2 mb-6">
+                  {dados.precoFormatado} por mês, com tudo liberado. Sem
+                  fidelidade — cancele em 2 cliques.
+                </p>
+                <AssinarButton fullWidth />
+                <p className="text-center mt-4">
+                  <Link href="/pricing" className="text-sm text-ink-2 hover:text-ink-1">
+                    Ver o que está incluído
+                  </Link>
+                </p>
               </Card>
-            </div>
-          </div>
+            )}
+          </>
         )}
-      </div>
+      </main>
     </div>
   );
 }

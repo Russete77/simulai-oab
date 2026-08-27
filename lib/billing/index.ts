@@ -1,7 +1,7 @@
 /**
- * Billing & Plans
- * Exports for easy importing
+ * Billing — acesso e limites de uso.
+ * O plano em si (preço, benefícios) mora em lib/stripe/plan.ts.
  */
 
-export * from './plans';
 export * from './limits';
+export * from './gate';

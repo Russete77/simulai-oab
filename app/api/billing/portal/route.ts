@@ -1,65 +1,44 @@
 /**
- * API para gerenciar assinatura (Asaas Customer Portal)
+ * POST /api/billing/portal
  *
- * POST /api/billing/portal — Cancelar assinatura
- * Body: { action: 'cancel' }
+ * Abre o portal do cliente da Stripe: cancelar, trocar cartão, ver e baixar
+ * faturas, atualizar dados de cobrança — tudo self-service, em pt-BR.
  *
- * Asaas não tem portal self-service, então gerenciamos via API.
- * O front-end exibe os controles diretamente no dashboard.
+ * Antes esta rota implementava um "portal" caseiro que só sabia cancelar,
+ * porque o Asaas não tinha portal nenhum.
  */
 
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
 import { prisma } from '@/lib/db/prisma';
 import { logger } from '@/lib/logger';
-import { cancelAsaasSubscription } from '@/lib/asaas/checkout';
+import { criarPortalSession } from '@/lib/stripe/checkout';
 
 export async function POST(req: NextRequest) {
   try {
     const { userId: clerkId } = await auth();
-
     if (!clerkId) {
       return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
     }
 
-    // Resolver Clerk ID → Database User ID
     const dbUser = await prisma.user.findUnique({
       where: { clerkId },
       select: { id: true },
     });
-
     if (!dbUser) {
       return NextResponse.json({ error: 'Usuário não encontrado' }, { status: 404 });
     }
 
-    const userId = dbUser.id;
+    const baseUrl =
+      process.env.NEXT_PUBLIC_APP_URL || req.headers.get('origin') || '';
 
-    const body = await req.json();
-    const { action } = body as { action: string };
-
-    switch (action) {
-      case 'cancel': {
-        await cancelAsaasSubscription(userId);
-
-        logger.info('[BILLING_PORTAL] Assinatura cancelada pelo usuário', { userId });
-
-        return NextResponse.json({
-          success: true,
-          message: 'Assinatura cancelada. Você mantém acesso até o fim do período pago.',
-        });
-      }
-
-      default:
-        return NextResponse.json(
-          { error: `Ação não suportada: ${action}` },
-          { status: 400 }
-        );
-    }
-  } catch (error: unknown) {
+    const url = await criarPortalSession({ userId: dbUser.id, baseUrl });
+    return NextResponse.json({ url });
+  } catch (error) {
     const message = error instanceof Error ? error.message : 'Erro interno';
     logger.error('[BILLING_PORTAL]', { error: message });
     return NextResponse.json(
-      { error: message },
+      { error: 'Não foi possível abrir o portal de assinatura.' },
       { status: 500 }
     );
   }
