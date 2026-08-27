@@ -6,12 +6,13 @@ import { Card, Button } from '@/components/ui';
 import { Header } from '@/components/layout/header';
 import { QuestionCard } from '@/components/question-card';
 import { QuestionExplanation } from '@/components/question-explanation';
-import { QuestionChat } from '@/components/question-chat';
 import { ArrowLeft, ArrowRight, BarChart3, CheckCircle, XCircle, BookOpen, Filter } from 'lucide-react';
 import Link from 'next/link';
 import { AnswerQuestionResponse } from '@/types/api';
 import { Subject } from '@prisma/client';
 import { AnswerQuestionSchema } from '@/lib/validations/question';
+import { SessionProgress } from '@/components/practice/session-progress';
+import { META_DIARIA } from '@/lib/dashboard/continuar';
 
 // Labels em português para as matérias
 const SUBJECT_LABELS: Record<Subject, string> = {
@@ -43,11 +44,23 @@ export default function PracticeClient() {
   const [result, setResult] = useState<AnswerQuestionResponse | null>(null);
   const [timer, setTimer] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [showChat, setShowChat] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // NOVO: Estado do filtro de matéria
-  const [selectedSubject, setSelectedSubject] = useState<Subject | 'all'>('all');
+  // Histórico da sessão atual: um booleano por questão respondida.
+  // Só vive enquanto a aba está aberta — é o progresso de HOJE, não um
+  // acumulado que precise persistir.
+  const [respostasSessao, setRespostasSessao] = useState<boolean[]>([]);
+
+  // Filtro de matéria — inicia pelo ?subject= da URL.
+  //
+  // Sem isto, os CTAs que prometem uma matéria específica ("Praticar Direito
+  // Constitucional", "Continuar" no dashboard) chegavam aqui e o filtro
+  // continuava em "Todas as Matérias": a pessoa clicava em atacar o ponto
+  // fraco e recebia uma questão de outra matéria.
+  const [selectedSubject, setSelectedSubject] = useState<Subject | 'all'>(() => {
+    const alvo = searchParams.get('subject');
+    return alvo && alvo in SUBJECT_LABELS ? (alvo as Subject) : 'all';
+  });
   const [showFilters, setShowFilters] = useState(false);
 
   // Lista de questões recomendadas (quando modo recommended=true)
@@ -254,6 +267,7 @@ export default function PracticeClient() {
       const data = await response.json();
       setResult(data);
       setShowResult(true);
+      setRespostasSessao((anteriores) => [...anteriores, Boolean(data.isCorrect)]);
     } catch (error) {
       console.error('Error submitting answer:', error);
     } finally {
@@ -415,6 +429,10 @@ export default function PracticeClient() {
           </Card>
         )}
 
+        {/* Progresso da sessão — dá um fim visível ao que antes era
+            fluxo infinito. Ver components/practice/session-progress.tsx. */}
+        {!isRecommendedMode && <SessionProgress respostas={respostasSessao} />}
+
         {/* Question Card */}
         <QuestionCard
           question={question}
@@ -467,18 +485,7 @@ export default function PracticeClient() {
 
         {/* AI Explanation */}
         {showResult && question && (
-          <QuestionExplanation
-            questionId={question.id}
-            onOpenChat={() => setShowChat(true)}
-          />
-        )}
-
-        {/* Chat Modal */}
-        {showChat && question && (
-          <QuestionChat
-            questionId={question.id}
-            onClose={() => setShowChat(false)}
-          />
+          <QuestionExplanation questionId={question.id} />
         )}
 
         {/* Action Buttons */}
@@ -522,15 +529,10 @@ export default function PracticeClient() {
                       Você completou todas as questões recomendadas
                     </h3>
                     <p className="text-sm text-ink-2">
-                      Continue praticando com questões aleatórias ou volte ao Smart Review.
+                      Continue praticando com questões aleatórias.
                     </p>
                   </Card>
                   <div className="flex gap-3">
-                    <Link href="/smart-review" className="flex-1">
-                      <Button variant="secondary" fullWidth>
-                        Voltar ao Smart Review
-                      </Button>
-                    </Link>
                     <Button
                       variant="primary"
                       fullWidth
@@ -541,6 +543,26 @@ export default function PracticeClient() {
                       <ArrowRight className="w-4 h-4" />
                     </Button>
                   </div>
+                </div>
+              ) : respostasSessao.length >= META_DIARIA ? (
+                /* Meta batida: a sessão ganha um fim explícito. Continuar
+                   segue sendo possível, mas parar aqui deixa de parecer
+                   desistência — é o que faz voltar amanhã. */
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Link href="/dashboard" className="flex-1">
+                    <Button variant="primary" fullWidth className="flex items-center justify-center gap-2">
+                      <CheckCircle className="w-4 h-4" />
+                      <span>Terminar por hoje</span>
+                    </Button>
+                  </Link>
+                  <Button
+                    variant="secondary"
+                    className="flex-1 flex items-center justify-center gap-2"
+                    onClick={() => loadNextQuestion(true)}
+                  >
+                    <span>Continuar mesmo assim</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Button>
                 </div>
               ) : (
                 <Button

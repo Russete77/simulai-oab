@@ -238,7 +238,7 @@ export default function SimulationReportPage({
           <Button
             variant="outline"
             className="flex items-center justify-center gap-2"
-            onClick={() => router.push('/review')}
+            onClick={() => router.push(`/simulations/${id}/result`)}
           >
             <BookOpen className="w-4 h-4" />
             Revisar Erros

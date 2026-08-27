@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Card, Button, Badge } from '@/components/ui';
+import { clsx } from 'clsx';
 import { Gauge, TrendingUp, AlertTriangle } from 'lucide-react';
 
 interface WeakSubject {
@@ -23,6 +24,13 @@ interface Readiness {
   answersConsidered: number;
   windowDays: number;
   weakSubjects: WeakSubject[];
+  potential: {
+    projectedCorrect: number;
+    projectedPercent: number;
+    passProbability: number;
+    gainPoints: number;
+    subjects: { subject: string; label: string }[];
+  };
 }
 
 const STATUS_STYLES: Record<Readiness['status'], { bar: string; text: string; label: string }> = {
@@ -125,6 +133,18 @@ export function ReadinessCard() {
   const cutPct = Math.round((data.passingScore / data.totalQuestions) * 100);
   const gap = Math.round((data.passingScore - data.projectedCorrect) * 10) / 10;
 
+  // Projeção: onde a nota chega se as matérias fracas subirem para 60%.
+  // Só mostra quando o ganho é perceptível — abaixo de 2 pontos percentuais
+  // vira ruído e enfraquece o número principal.
+  const potencialPct = Math.min(
+    100,
+    Math.round((data.potential.projectedCorrect / data.totalQuestions) * 100)
+  );
+  const mostrarPotencial = data.potential.gainPoints >= 2 && potencialPct > pct;
+  const materiaFoco = data.potential.subjects[0]?.label;
+  const materiaFocoId =
+    data.potential.subjects[0]?.subject ?? data.weakSubjects[0]?.subject;
+
   return (
     <Card>
       {/* Header */}
@@ -133,10 +153,15 @@ export function ReadinessCard() {
           <Gauge className="w-4 h-4 text-ink-3" />
           <h2 className="text-lg font-semibold text-ink-1">Chance de passar</h2>
         </div>
-        <Badge variant="accent">
-          <TrendingUp className="w-3 h-3" />
-          {Math.round(data.passProbability * 100)}%
-        </Badge>
+        <div className="flex items-center gap-2">
+          <Badge variant="accent">{Math.round(data.passProbability * 100)}%</Badge>
+          {mostrarPotencial && (
+            <span className="inline-flex items-center gap-1 text-xs font-medium text-success">
+              <TrendingUp className="w-3 h-3" />
+              {Math.round(data.potential.passProbability * 100)}% possível
+            </span>
+          )}
+        </div>
       </div>
 
       {/* Nota projetada */}
@@ -154,6 +179,19 @@ export function ReadinessCard() {
           className={`absolute inset-y-0 left-0 rounded-full ${style.bar}`}
           style={{ width: `${pct}%` }}
         />
+        {mostrarPotencial && (
+          <div
+            className="absolute inset-y-0 rounded-r-full"
+            style={{
+              left: `${pct}%`,
+              width: `${potencialPct - pct}%`,
+              backgroundImage:
+                'repeating-linear-gradient(45deg, var(--success) 0 3px, transparent 3px 7px)',
+              opacity: 0.55,
+            }}
+            title={`Alcançável: ${Math.round(data.potential.projectedCorrect)} questões`}
+          />
+        )}
         <div
           className="absolute inset-y-0 w-px bg-ink-1/60"
           style={{ left: `${cutPct}%` }}
@@ -185,7 +223,16 @@ export function ReadinessCard() {
       )}
 
       {/* CTA contextual */}
-      {gap > 0 ? (
+      {gap > 0 && mostrarPotencial && materiaFoco ? (
+        <p className="text-sm text-ink-2 mb-4">
+          Levando <span className="font-semibold text-ink-1">{materiaFoco}</span> a 60% de
+          acerto, sua chance sobe para{' '}
+          <span className="font-semibold text-success">
+            {Math.round(data.potential.passProbability * 100)}%
+          </span>
+          . Faltam {gap} pontos para o corte.
+        </p>
+      ) : gap > 0 ? (
         <p className="text-sm text-ink-2 mb-4">
           Faltam <span className="font-semibold text-ink-1">{gap} pontos</span> para a
           aprovação. Foque nas matérias acima.
@@ -197,10 +244,29 @@ export function ReadinessCard() {
         </p>
       )}
 
-      <Link href="/simulations">
-        <Button fullWidth variant={data.status === 'green' ? 'secondary' : 'primary'}>
-          {data.status === 'green' ? 'Manter ritmo — fazer simulado' : 'Atacar pontos fracos'}
-        </Button>
+      {/* "Atacar pontos fracos" ia para /simulations — a tela de ESCOLHER tipo
+          de simulado, que não ataca ponto fraco nenhum. Agora leva direto às
+          questões da matéria que o próprio card acabou de nomear.
+          As classes vão no Link: <a> com <button> dentro é aninhamento
+          inválido e quebra o foco por teclado. */}
+      <Link
+        href={
+          materiaFocoId
+            ? `/practice?subject=${materiaFocoId}`
+            : '/simulations'
+        }
+        className={clsx(
+          'inline-flex w-full items-center justify-center gap-2 h-10 px-4 rounded-md text-sm font-medium transition-all',
+          data.status === 'green'
+            ? 'bg-surface text-ink-1 border hover:bg-surface-2'
+            : 'bg-accent text-accent-fg shadow-sm hover:bg-accent-hover'
+        )}
+      >
+        {data.status === 'green'
+          ? 'Manter ritmo — fazer simulado'
+          : materiaFoco
+            ? `Praticar ${materiaFoco}`
+            : 'Atacar pontos fracos'}
       </Link>
 
       <p className="text-[10px] text-ink-3 mt-3">

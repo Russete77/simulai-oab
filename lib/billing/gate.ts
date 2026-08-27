@@ -52,8 +52,7 @@ export async function requirePaidPlan(userId: string | null | undefined): Promis
         select: {
           subscriptions: {
             orderBy: { createdAt: 'desc' },
-            take: 1,
-            select: { status: true, trialEnd: true },
+            select: { status: true, trialEnd: true, gateway: true },
           },
         },
       },
@@ -68,9 +67,9 @@ export async function requirePaidPlan(userId: string | null | undefined): Promis
     return { allowed: true, reason: 'ok', planType: 'PREMIUM', subscriptionStatus: 'ACTIVE' };
   }
 
-  const sub = user.customer?.subscriptions[0];
+  const subs = user.customer?.subscriptions ?? [];
 
-  if (!sub) {
+  if (subs.length === 0) {
     return {
       allowed: false,
       reason: 'no_subscription',
@@ -79,14 +78,19 @@ export async function requirePaidPlan(userId: string | null | undefined): Promis
     };
   }
 
-  const allowed = ACTIVE_STATUSES.includes(sub.status);
+  // Vale QUALQUER assinatura ativa, não só a mais recente. Durante a migração
+  // Asaas -> Stripe o usuário tem as duas: a antiga ACTIVE (período já pago) e
+  // a nova INCOMPLETE (checkout aberto e ainda não pago). Olhar só a mais
+  // recente cortaria o acesso de quem está justamente tentando pagar.
+  const ativa = subs.find((s) => ACTIVE_STATUSES.includes(s.status));
+  const referencia = ativa ?? subs[0];
 
   return {
-    allowed,
-    reason: allowed ? 'ok' : 'subscription_inactive',
+    allowed: Boolean(ativa),
+    reason: ativa ? 'ok' : 'subscription_inactive',
     planType: user.planType,
-    subscriptionStatus: sub.status,
-    trialEndsAt: sub.trialEnd,
+    subscriptionStatus: referencia.status,
+    trialEndsAt: referencia.trialEnd,
   };
 }
 
@@ -110,8 +114,7 @@ export async function requirePaidPlanByClerkId(
         select: {
           subscriptions: {
             orderBy: { createdAt: 'desc' },
-            take: 1,
-            select: { status: true, trialEnd: true },
+            select: { status: true, trialEnd: true, gateway: true },
           },
         },
       },
@@ -126,9 +129,9 @@ export async function requirePaidPlanByClerkId(
     return { allowed: true, reason: 'ok', planType: 'PREMIUM', subscriptionStatus: 'ACTIVE' };
   }
 
-  const sub = user.customer?.subscriptions[0];
+  const subs = user.customer?.subscriptions ?? [];
 
-  if (!sub) {
+  if (subs.length === 0) {
     return {
       allowed: false,
       reason: 'no_subscription',
@@ -137,13 +140,18 @@ export async function requirePaidPlanByClerkId(
     };
   }
 
-  const allowed = ACTIVE_STATUSES.includes(sub.status);
+  // Vale QUALQUER assinatura ativa, não só a mais recente. Durante a migração
+  // Asaas -> Stripe o usuário tem as duas: a antiga ACTIVE (período já pago) e
+  // a nova INCOMPLETE (checkout aberto e ainda não pago). Olhar só a mais
+  // recente cortaria o acesso de quem está justamente tentando pagar.
+  const ativa = subs.find((s) => ACTIVE_STATUSES.includes(s.status));
+  const referencia = ativa ?? subs[0];
 
   return {
-    allowed,
-    reason: allowed ? 'ok' : 'subscription_inactive',
+    allowed: Boolean(ativa),
+    reason: ativa ? 'ok' : 'subscription_inactive',
     planType: user.planType,
-    subscriptionStatus: sub.status,
-    trialEndsAt: sub.trialEnd,
+    subscriptionStatus: referencia.status,
+    trialEndsAt: referencia.trialEnd,
   };
 }

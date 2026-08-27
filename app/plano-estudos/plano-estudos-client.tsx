@@ -268,15 +268,15 @@ export default function PlanoEstudosClient() {
                 </Card>
               </Link>
 
-              <Link href="/review">
+              <Link href="/simulations">
                 <Card variant="glass" className="p-6 hover:border-purple-500/50 transition-colors cursor-pointer">
                   <div className="flex items-center gap-3">
                     <div className="p-2 bg-purple-500/10 rounded-lg">
                       <TrendingUp className="w-6 h-6 text-purple-400" />
                     </div>
                     <div>
-                      <p className="text-ink-1 font-semibold">Revisar Erros</p>
-                      <p className="text-sm text-ink-2">Caderno de erros</p>
+                      <p className="text-ink-1 font-semibold">Fazer Simulado</p>
+                      <p className="text-sm text-ink-2">Prova completa</p>
                     </div>
                   </div>
                 </Card>
