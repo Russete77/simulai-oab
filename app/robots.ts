@@ -23,7 +23,6 @@ export default function robots(): MetadataRoute.Robots {
           '/checkout/*',     // Checkout - privado
           '/practice/*',     // Practice mode - privado (requer auth)
           '/simulations/*',  // Simulados - privado (requer auth)
-          '/review/*',       // Review - privado (requer auth)
         ],
       },
     ],

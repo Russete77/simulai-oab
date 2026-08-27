@@ -2,8 +2,7 @@
 
 import { useState } from 'react';
 import { Card } from '@/components/ui';
-import { QuestionChat } from '@/components/question-chat';
-import { MessageCircle, ChevronDown, ChevronUp, CheckCircle, XCircle } from 'lucide-react';
+import { ChevronDown, ChevronUp, CheckCircle, XCircle } from 'lucide-react';
 
 interface Alternative {
   id: string;
@@ -53,7 +52,6 @@ const SUBJECT_LABELS: Record<string, string> = {
 
 export function WrongQuestionsReview({ wrongAnswers }: WrongQuestionsReviewProps) {
   const [expandedQuestions, setExpandedQuestions] = useState<Set<string>>(new Set());
-  const [chatOpen, setChatOpen] = useState<string | null>(null);
 
   const toggleQuestion = (questionId: string) => {
     const newExpanded = new Set(expandedQuestions);
@@ -63,10 +61,6 @@ export function WrongQuestionsReview({ wrongAnswers }: WrongQuestionsReviewProps
       newExpanded.add(questionId);
     }
     setExpandedQuestions(newExpanded);
-  };
-
-  const toggleChat = (questionId: string) => {
-    setChatOpen(chatOpen === questionId ? null : questionId);
   };
 
   if (wrongAnswers.length === 0) {
@@ -80,14 +74,13 @@ export function WrongQuestionsReview({ wrongAnswers }: WrongQuestionsReviewProps
           Questões Erradas ({wrongAnswers.length})
         </h3>
         <p className="text-ink-2 text-sm">
-          Revise suas respostas incorretas e tire dúvidas com a IA
+          Revise suas respostas incorretas
         </p>
       </div>
 
       <div className="space-y-4">
         {wrongAnswers.map((answer, index) => {
           const isExpanded = expandedQuestions.has(answer.questionId);
-          const isChatOpen = chatOpen === answer.questionId;
           const correctAlternative = answer.question.alternatives.find(a => a.isCorrect);
           const selectedAlternative = answer.question.alternatives.find(
             a => a.id === answer.selectedAlternativeId
@@ -203,23 +196,6 @@ export function WrongQuestionsReview({ wrongAnswers }: WrongQuestionsReviewProps
                       </div>
                     </div>
 
-                    {/* AI Chat Toggle */}
-                    <button
-                      onClick={() => toggleChat(answer.questionId)}
-                      className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-accent-soft hover:bg-accent-soft border-accent/50 rounded-lg transition-colors"
-                    >
-                      <MessageCircle className="w-5 h-5 text-accent" />
-                      <span className="text-accent font-medium">
-                        {isChatOpen ? 'Fechar Chat com IA' : 'Tirar Dúvida com IA'}
-                      </span>
-                    </button>
-
-                    {/* AI Chat */}
-                    {isChatOpen && (
-                      <div className="border-t border pt-4">
-                        <QuestionChat questionId={answer.questionId} onClose={() => setChatOpen(null)} />
-                      </div>
-                    )}
                   </div>
                 </div>
               )}

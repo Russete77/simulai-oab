@@ -2,17 +2,15 @@
 
 import { useExplanation } from "@/hooks/use-explanation";
 import { Card, Button } from "@/components/ui";
-import { Sparkles, MessageCircle } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { ExplanationCards } from "@/components/explanation-cards";
 
 interface QuestionExplanationProps {
   questionId: string;
-  onOpenChat: () => void;
 }
 
 export function QuestionExplanation({
   questionId,
-  onOpenChat,
 }: QuestionExplanationProps) {
   const { data, loading, error, fetchExplanation } = useExplanation(questionId);
 
@@ -104,15 +102,6 @@ export function QuestionExplanation({
               </p>
             </div>
           </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onOpenChat}
-            className="flex items-center gap-2"
-          >
-            <MessageCircle className="w-4 h-4" />
-            <span className="hidden sm:inline">Tirar Dúvidas</span>
-          </Button>
         </div>
 
         {/* Badge de resultado */}
