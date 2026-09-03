@@ -18,14 +18,23 @@ export const PUBLIC_ROUTES = [
   // O matcher do Next só pula _next/static, _next/image e favicon.ico —
   // qualquer outro arquivo em public/ passa pelo middleware e, sem isso,
   // é redirecionado pro /login pra visitante anônimo (quebra o service
-  // worker do PWA e o push, que dependem de sw.js/push-sw.js/manifest.json).
+  // worker do PWA, que depende de sw.js/manifest.json).
   '/manifest.json',
   '/sw.js',
-  '/push-sw.js',
+  // Sem isso o middleware redireciona o Googlebot (que é visitante anônimo)
+  // pro /login, e o sitemap com as ~5.600 páginas de SEO nunca é lido.
+  '/sitemap.xml',
+  '/robots.txt',
   '/workbox-(.*)',
   '/icon-192.png',
   '/icon-512.png',
   '/logo.png',
+  // As duas peças do logo (ver components/layout/logo.tsx). Sem isto o
+  // middleware redireciona o arquivo pro /login, e o next/image — que busca
+  // no servidor, sem o cookie do usuário — recebe HTML e devolve 400.
+  // Sintoma: logo quebrado para TODO mundo, logado ou não.
+  '/logo-wordmark.png',
+  '/logo-badge.png',
   '/og-image.png',
   // ===== PÁGINAS PÚBLICAS PARA SEO =====
   // Todas as páginas que devem ser indexadas pelo Google

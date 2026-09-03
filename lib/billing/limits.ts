@@ -26,6 +26,19 @@ export interface PlanLimits {
   hasPrioritySupport: boolean;
 }
 
+/**
+ * Teto diário de explicações com IA, por usuário.
+ *
+ * Antes era Infinity. Num plano de R$ 9,99 isso é exposição aberta: o
+ * `cost-guard` só tem teto GLOBAL, então um único usuário abusando consome o
+ * orçamento de todos. 20/dia é ~30x a atividade mensal inteira do usuário
+ * mediano (16 questões/mês), então quem usa de verdade nunca esbarra —
+ * e o pior caso fica limitado.
+ */
+export const DAILY_AI_EXPLANATIONS = Number(
+  process.env.DAILY_AI_EXPLANATIONS_LIMIT ?? 20
+);
+
 export const PLAN_LIMITS: Record<PlanType, PlanLimits> = {
   // FREE = legado — não vendemos mais, mas o enum continua para compat com dados antigos.
   // Tudo zerado: usuários FREE NÃO têm acesso (gate.ts bloqueia antes de checar limits).
@@ -51,7 +64,7 @@ export const PLAN_LIMITS: Record<PlanType, PlanLimits> = {
     dailyQuestions: Infinity,
     questionBankSize: 5875,
     monthlySimulations: Infinity,
-    dailyAiExplanations: 3,
+    dailyAiExplanations: DAILY_AI_EXPLANATIONS,
     dailyAiChats: 0,
     canUseAdaptiveSimulations: true,
     canExportPdf: false,
@@ -65,8 +78,8 @@ export const PLAN_LIMITS: Record<PlanType, PlanLimits> = {
     dailyQuestions: Infinity,
     questionBankSize: 5875,
     monthlySimulations: Infinity,
-    dailyAiExplanations: Infinity,
-    dailyAiChats: Infinity,
+    dailyAiExplanations: DAILY_AI_EXPLANATIONS,
+    dailyAiChats: 0,
     canUseAdaptiveSimulations: true,
     canExportPdf: true,
     hasAnalytics: 'complete',
@@ -79,8 +92,8 @@ export const PLAN_LIMITS: Record<PlanType, PlanLimits> = {
     dailyQuestions: Infinity,
     questionBankSize: 5875,
     monthlySimulations: Infinity,
-    dailyAiExplanations: Infinity,
-    dailyAiChats: Infinity,
+    dailyAiExplanations: DAILY_AI_EXPLANATIONS,
+    dailyAiChats: 0,
     canUseAdaptiveSimulations: true,
     canExportPdf: true,
     hasAnalytics: 'complete',

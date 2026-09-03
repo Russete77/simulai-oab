@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Header } from '@/components/layout/header';
-import { Card, Badge } from '@/components/ui';
+import { Card } from '@/components/ui';
+import { AssinarButton } from '@/components/billing/assinar-button';
 import { HeroCountdown } from '@/components/countdown/hero-countdown';
 import { ArrowRight, Check, ChevronDown } from 'lucide-react';
 
@@ -33,7 +34,7 @@ export default function Home() {
         name: 'Quanto custa o Simulai OAB?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Plano Essencial R$ 19,90/mês com acesso a todas as 5.875 questões, simulados ilimitados e analytics. Plano Pro R$ 89,90/mês inclui IA integrada com explicações detalhadas e chat. Garantia de 7 dias.',
+          text: 'R$ 9,99 por mês, no cartão, com tudo liberado: as 5.875 questões oficiais, simulados ilimitados, plano de estudos e explicações com IA. Sem fidelidade — cancele quando quiser.',
         },
       },
       {
@@ -122,7 +123,7 @@ export default function Home() {
                   href="/pricing"
                   className="text-sm text-ink-2 hover:text-ink-1 transition-colors px-1 py-1.5"
                 >
-                  ou assinar direto · a partir de R$ 19,90/mês →
+                  ou assinar direto · R$ 9,99/mês →
                 </Link>
               </div>
 
@@ -266,7 +267,7 @@ export default function Home() {
                   </li>
                   <li className="flex items-start gap-2.5">
                     <Check className="w-4 h-4 text-success shrink-0 mt-0.5" />
-                    <span>Gera flashcards do que você errou</span>
+                    <span>Aponta a matéria em que você mais erra</span>
                   </li>
                 </ul>
               </div>
@@ -323,9 +324,9 @@ export default function Home() {
                 ['Simulados em grupo', 'Compita com amigos via link compartilhado.'],
                 ['Analytics por matéria', 'Veja onde está fraco antes da prova.'],
                 ['Plano de estudos', 'Cronograma diário ajustado pra próxima OAB.'],
-                ['Flashcards e desafios', 'Sessões curtas pra reforço.'],
+                ['Filtro por matéria', 'Treine só onde você está fraco.'],
                 ['Funciona offline', 'PWA — instala como app, sincroniza depois.'],
-                ['Push notifications', 'Lembretes diários pra não perder o ritmo.'],
+                ['Questão do dia', 'Uma por dia pra manter a sequência.'],
               ].map(([title, body]) => (
                 <div key={title} className="flex items-start gap-3 py-2">
                   <div className="w-1 h-1 rounded-full bg-accent mt-2.5 shrink-0" />
@@ -340,77 +341,36 @@ export default function Home() {
         </section>
 
         {/* ============================================================
-            PRICING TEASER — duas cards, mas com mais textura
+            PRICING — plano único
         ============================================================ */}
         <section className="container-page py-20 sm:py-28">
-          <div className="max-w-2xl mb-12 mx-auto text-center">
-            <p className="text-eyebrow mb-3">Planos</p>
+          <div className="max-w-2xl mb-10 mx-auto text-center">
+            <p className="text-eyebrow mb-3">Plano</p>
             <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-ink-1 mb-4 leading-tight">
-              R$ 19,90 ou R$ 89,90.<br />
-              <span className="text-ink-3">Você decide se quer IA junto.</span>
+              R$ 9,99 por mês.<br />
+              <span className="text-ink-3">Tudo dentro, sem versão de cima.</span>
             </h2>
             <p className="text-ink-2 text-sm">
-              Mensal, sem fidelidade. Garantia de 7 dias com devolução total.
+              No cartão, renovando sozinho. Sem fidelidade — cancele em 2 cliques.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
-            <Card className="flex flex-col">
-              <div className="flex items-baseline justify-between mb-1">
-                <h3 className="text-xl font-semibold text-ink-1">Essencial</h3>
-                <span className="text-xs text-ink-3">sem IA</span>
-              </div>
-              <p className="text-sm text-ink-2 mb-6">
-                Tudo pra estudar com seriedade.
-              </p>
-              <div className="mb-6 flex items-baseline gap-1">
-                <span className="text-4xl font-semibold tracking-tight text-ink-1 text-mono-tabular">
-                  R$ 19,90
-                </span>
-                <span className="text-sm text-ink-3">/mês</span>
-              </div>
-              <ul className="space-y-2.5 mb-8 text-sm text-ink-2 flex-1">
-                {[
-                  '5.875 questões oficiais',
-                  'Simulados ilimitados',
-                  'Analytics por matéria',
-                  'Flashcards e revisão SRS',
-                  'PWA offline',
-                ].map((i) => (
-                  <li key={i} className="flex items-start gap-2.5">
-                    <Check className="w-4 h-4 text-success mt-0.5 shrink-0" />
-                    <span>{i}</span>
-                  </li>
-                ))}
-              </ul>
-              <Link href="/checkout/BASIC_MONTHLY" className="mt-auto">
-                <button className="w-full inline-flex items-center justify-center gap-2 h-10 px-4 rounded-md border bg-surface text-ink-1 text-sm font-medium hover:bg-surface-2 transition-all">
-                  Assinar Essencial
-                </button>
-              </Link>
-            </Card>
-
+          <div className="max-w-md mx-auto">
             <Card variant="highlighted" className="flex flex-col">
-              <div className="flex items-baseline justify-between mb-1">
-                <h3 className="text-xl font-semibold text-ink-1">Pro</h3>
-                <Badge variant="accent">popular</Badge>
-              </div>
-              <p className="text-sm text-ink-2 mb-6">
-                Tudo do Essencial + IA integrada.
-              </p>
-              <div className="mb-6 flex items-baseline gap-1">
-                <span className="text-4xl font-semibold tracking-tight text-ink-1 text-mono-tabular">
-                  R$ 89,90
+              <div className="mb-6 flex items-baseline gap-1.5">
+                <span className="text-5xl font-semibold tracking-tight text-ink-1 text-mono-tabular">
+                  R$ 9,99
                 </span>
                 <span className="text-sm text-ink-3">/mês</span>
               </div>
               <ul className="space-y-2.5 mb-8 text-sm text-ink-2 flex-1">
                 {[
-                  'Tudo do Essencial',
-                  'Explicações por IA ilimitadas',
-                  'Chat com IA em tempo real',
-                  'Coaching virtual',
-                  'Relatórios em PDF',
+                  '5.875 questões oficiais da FGV',
+                  'Simulados ilimitados no formato do exame',
+                  'Filtro por matéria',
+                  'Plano de estudos personalizado',
+                  'Explicações com IA',
+                  'Acesso offline (PWA)',
                 ].map((i) => (
                   <li key={i} className="flex items-start gap-2.5">
                     <Check className="w-4 h-4 text-success mt-0.5 shrink-0" />
@@ -418,11 +378,7 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <Link href="/checkout/PRO_MONTHLY" className="mt-auto">
-                <button className="w-full inline-flex items-center justify-center gap-2 h-10 px-4 rounded-md bg-accent text-accent-fg text-sm font-medium hover:bg-accent-hover shadow-sm transition-all">
-                  Assinar Pro
-                </button>
-              </Link>
+              <AssinarButton fullWidth />
             </Card>
           </div>
         </section>
@@ -443,7 +399,7 @@ export default function Home() {
               {[
                 {
                   q: 'Quanto custa?',
-                  a: 'Essencial R$ 19,90/mês com tudo liberado (questões, simulados, analytics, flashcards). Pro R$ 89,90/mês adiciona IA integrada (explicações + chat). Garantia de 7 dias.',
+                  a: 'R$ 9,99 por mês, no cartão. Um plano só, com tudo dentro: questões, simulados, plano de estudos, analytics e explicações com IA. Sem fidelidade.',
                 },
                 {
                   q: 'Quantas questões tem?',
@@ -496,7 +452,7 @@ export default function Home() {
               <span className="text-ink-3">A sua preparação ainda não.</span>
             </h2>
             <p className="text-ink-2 mb-8 max-w-md mx-auto">
-              Comece em 30 segundos. R$ 19,90/mês. Cancele quando quiser.
+              Comece em 30 segundos. R$ 9,99/mês. Cancele quando quiser.
             </p>
             <Link href="/register">
               <button className="inline-flex items-center gap-2 h-12 px-8 rounded-md bg-accent text-accent-fg font-medium shadow-sm hover:bg-accent-hover transition-all">

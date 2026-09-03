@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono, Hanken_Grotesk } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ptBR } from "@clerk/localizations";
 import { Toaster } from "sonner";
@@ -25,6 +25,14 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   display: "swap",
   weight: ["400", "500"],
+});
+
+// Headline do design system v2.0 (Stitch, jul/2026) — títulos e destaques.
+const hankenGrotesk = Hanken_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-hanken-grotesk",
+  display: "swap",
+  weight: ["500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -88,8 +96,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#FBFAF9" },
-    { media: "(prefers-color-scheme: dark)", color: "#191919" },
+    { media: "(prefers-color-scheme: light)", color: "#FFF8F4" },
+    { media: "(prefers-color-scheme: dark)", color: "#1A1A1A" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -98,7 +106,9 @@ export const viewport: Viewport = {
 
 function RootBody({ children }: { children: React.ReactNode }) {
   return (
-    <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
+    <body
+      className={`${inter.variable} ${jetbrainsMono.variable} ${hankenGrotesk.variable} font-sans antialiased`}
+    >
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-accent focus:text-accent-fg focus:rounded-md focus:top-4 focus:left-1/2 focus:-translate-x-1/2"

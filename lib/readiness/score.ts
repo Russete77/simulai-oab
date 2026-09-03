@@ -45,6 +45,28 @@ export interface ReadinessResult {
   windowDays: number;
   subjects: SubjectReadiness[];
   weakSubjects: SubjectReadiness[];
+  /**
+   * Onde a projeção chega se as matérias fracas subirem para 60% de acerto.
+   *
+   * Mesma matemática do número principal, aplicada a um cenário concreto e
+   * alcançável — é o que transforma "3%" de veredito em meta. O alvo de 60%
+   * é o mesmo que já define uma matéria como fraca (ver `weakSubjects`).
+   */
+  potential: {
+    projectedCorrect: number;
+    projectedPercent: number;
+    passProbability: number;
+    /** Ganho em pontos percentuais na chance de passar. */
+    gainPoints: number;
+    /** Matérias que produzem esse ganho, da maior para a menor. */
+    subjects: { subject: string; label: string }[];
+  };
+}
+
+/** Probabilidade logística centrada na nota de corte. Escala 3.5 ≈ desvio
+ *  típico de variação entre simulados. */
+function passProbabilityFor(projectedCorrect: number): number {
+  return 1 / (1 + Math.exp(-(projectedCorrect - OAB_PASSING_CORRECT) / 3.5));
 }
 
 export async function computeReadiness(userId: string): Promise<ReadinessResult> {
@@ -92,10 +114,7 @@ export async function computeReadiness(userId: string): Promise<ReadinessResult>
     Math.round(subjects.reduce((sum, s) => sum + s.projectedCorrect, 0) * 10) / 10;
   const projectedPercent = Math.round((projectedCorrect / OAB_TOTAL_QUESTIONS) * 100);
 
-  // Probabilidade aproximada via logística centrada na nota de corte.
-  // Escala 3.5 ≈ desvio típico de variação entre simulados.
-  const passProbability =
-    1 / (1 + Math.exp(-(projectedCorrect - OAB_PASSING_CORRECT) / 3.5));
+  const passProbability = passProbabilityFor(projectedCorrect);
 
   const status: ReadinessResult["status"] =
     projectedCorrect >= OAB_PASSING_CORRECT + 4
@@ -116,7 +135,19 @@ export async function computeReadiness(userId: string): Promise<ReadinessResult>
     .sort((a, b) => b.gap - a.gap)
     .slice(0, 3);
 
+  // Cenário: as três matérias mais fracas chegam a 60% de acerto.
+  const ganho = weakSubjects.reduce((sum, s) => sum + s.gap, 0);
+  const potentialCorrect = Math.round((projectedCorrect + ganho) * 10) / 10;
+  const potentialProbability = passProbabilityFor(potentialCorrect);
+
   return {
+    potential: {
+      projectedCorrect: potentialCorrect,
+      projectedPercent: Math.round((potentialCorrect / OAB_TOTAL_QUESTIONS) * 100),
+      passProbability: Math.round(potentialProbability * 100) / 100,
+      gainPoints: Math.round((potentialProbability - passProbability) * 100),
+      subjects: weakSubjects.map((s) => ({ subject: s.subject, label: s.label })),
+    },
     projectedCorrect,
     projectedPercent,
     passingScore: OAB_PASSING_CORRECT,

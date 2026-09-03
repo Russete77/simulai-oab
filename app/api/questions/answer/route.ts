@@ -10,7 +10,6 @@ import { createError } from "@/lib/errors";
 import { logger } from "@/lib/logger";
 import { incrementQuestionCount } from "@/lib/billing/limits";
 import { ensureReviewCard } from "@/lib/srs/service";
-import { dispatch } from "@/lib/notifications/dispatcher";
 
 export async function POST(request: NextRequest) {
   try {
@@ -269,23 +268,6 @@ export async function POST(request: NextRequest) {
             });
           }
 
-          // Notificar na hora — antes disso a conquista só aparecia se o
-          // usuário fosse espontaneamente ao perfil (recompensa variável
-          // jogada fora por falta de um push no momento certo).
-          for (const achievement of newAchievements) {
-            await dispatch({
-              userId: user.id,
-              type: 'ACHIEVEMENT',
-              title: `${achievement.icon} Conquista desbloqueada!`,
-              body: `${achievement.name} — ${achievement.description}`,
-              channels: ['IN_APP', 'PUSH'],
-              metadata: { achievementKey: achievement.key },
-            }).catch((err) => logger.error('Achievement dispatch failed', {
-              error: err instanceof Error ? err.message : 'Unknown error',
-              userId: user.id,
-              achievementKey: achievement.key,
-            }));
-          }
         }).catch(err => logger.error('Achievement processing error', {
           error: err instanceof Error ? err.message : 'Unknown error',
           userId: user.id

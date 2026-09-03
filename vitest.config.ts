@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitest/config';
+import { defineConfig, configDefaults } from 'vitest/config';
 import path from 'path';
 
 export default defineConfig({
@@ -17,6 +17,10 @@ export default defineConfig({
       ],
     },
     include: ['**/__tests__/**/*.test.ts', '**/__tests__/**/*.spec.ts'],
+    // Worktrees do Claude em .claude/worktrees/ são cópias completas do repo.
+    // Sem isso o vitest varre cada cópia e reporta os mesmos testes N vezes
+    // (chegou a rodar 22 cópias: "616 testes" quando são 28).
+    exclude: [...configDefaults.exclude, '**/.claude/**'],
   },
   resolve: {
     alias: {

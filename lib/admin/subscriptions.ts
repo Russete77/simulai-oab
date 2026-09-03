@@ -6,6 +6,7 @@
 import { Prisma, SubscriptionStatus } from '@prisma/client';
 import { prisma } from '@/lib/db/prisma';
 import { logger } from '@/lib/logger';
+import { temFimMarcado } from '@/lib/stripe/assinatura';
 
 export interface AdminSubscriptionListFilters {
   search?: string;
@@ -25,7 +26,8 @@ export interface AdminSubscriptionRow {
   trialEnd: Date | null;
   currentPeriodEnd: Date | null;
   canceledAt: Date | null;
-  cancelAtPeriodEnd: boolean;
+  /** Tem fim marcado — cancelAtPeriodEnd OU cancelAt. Ver lib/stripe/assinatura. */
+  cancelamentoAgendado: boolean;
   user: {
     id: string;
     email: string;
@@ -100,7 +102,7 @@ export async function listAdminSubscriptions(
       trialEnd: s.trialEnd,
       currentPeriodEnd: s.currentPeriodEnd,
       canceledAt: s.canceledAt,
-      cancelAtPeriodEnd: s.cancelAtPeriodEnd,
+      cancelamentoAgendado: temFimMarcado(s),
       user: s.customer.user
         ? {
             id: s.customer.user.id,

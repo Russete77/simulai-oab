@@ -18,6 +18,7 @@ vi.mock('@/lib/db/prisma', () => ({
     },
     customer: {
       findFirst: vi.fn(),
+      create: vi.fn(),
     },
     user: {
       findUnique: vi.fn(),
@@ -41,12 +42,17 @@ vi.mock('@/lib/logger', () => ({
 }));
 
 // Mock email service
+// O objeto precisa ser ESTÁVEL entre chamadas. Antes era `vi.fn(() => ({...}))`,
+// que devolvia spies novos a cada getServicoEmail() — o teste inspecionava um
+// spy diferente do que o handler tinha usado, e a assertiva nunca passava.
+const mockEmailService = vi.hoisted(() => ({
+  enviarPagamentoConfirmado: vi.fn(),
+  enviarPagamentoFalhou: vi.fn(),
+  enviarAssinaturaCancelada: vi.fn(),
+}));
+
 vi.mock('@/lib/email/servico-email', () => ({
-  getServicoEmail: vi.fn(() => ({
-    enviarPagamentoConfirmado: vi.fn(),
-    enviarPagamentoFalhou: vi.fn(),
-    enviarAssinaturaCancelada: vi.fn(),
-  })),
+  getServicoEmail: vi.fn(() => mockEmailService),
 }));
 
 import { prisma } from '@/lib/db/prisma';
@@ -95,7 +101,10 @@ describe('Asaas Webhook Handlers', () => {
         user: { id: 'user_123', planType: 'BASIC' },
       } as any;
 
-      vi.mocked(prisma.customer.findFirst).mockResolvedValueOnce(mockCustomer);
+      // Persistente, não Once: o handler busca o customer, e activatePremium
+      // busca de novo dentro da transação. Com Once, a 2ª busca vinha vazia e
+      // o código caía no branch de criar customer.
+      vi.mocked(prisma.customer.findFirst).mockResolvedValue(mockCustomer);
       vi.mocked(prisma.$transaction).mockImplementationOnce(async (fn: any) => {
         return fn(prisma);
       });
@@ -155,8 +164,7 @@ describe('Asaas Webhook Handlers', () => {
       await handlePaymentConfirmed(payload);
 
       expect(logger.info).toHaveBeenCalledWith(
-        expect.stringContaining('avulso'),
-        expect.any(Object)
+        expect.stringContaining('avulso')
       );
     });
 
@@ -179,14 +187,25 @@ describe('Asaas Webhook Handlers', () => {
         },
       };
 
-      vi.mocked(prisma.customer.findFirst).mockResolvedValueOnce(null);
-      vi.mocked(prisma.user.findUnique).mockResolvedValueOnce({
+      // Caminho de fallback: customer não existe no banco em nenhuma das duas
+      // buscas, então activatePremium cria um a partir do User.
+      vi.mocked(prisma.customer.findFirst).mockResolvedValue(null);
+      vi.mocked(prisma.user.findUnique).mockResolvedValue({
         id: 'user_124',
         email: 'fallback@example.com',
         clerkId: 'clerk_124',
         planType: 'BASIC',
         createdAt: new Date(),
         updatedAt: new Date(),
+      } as any);
+      vi.mocked(prisma.customer.create).mockResolvedValue({
+        id: 'cust_124',
+        userId: 'user_124',
+        asaasCustomerId: 'cus_457',
+        gateway: 'asaas',
+        name: 'fallback@example.com',
+        email: 'fallback@example.com',
+        cpfCnpj: '',
       } as any);
       vi.mocked(prisma.$transaction).mockImplementationOnce(async (fn: any) => {
         return fn(prisma);
@@ -239,8 +258,7 @@ describe('Asaas Webhook Handlers', () => {
       await handlePaymentConfirmed(payload);
 
       expect(logger.warn).toHaveBeenCalledWith(
-        expect.stringContaining('PAYMENT_CONFIRMED sem dados de payment'),
-        expect.any(Object)
+        expect.stringContaining('PAYMENT_CONFIRMED sem dados de payment')
       );
     });
   });
@@ -507,8 +525,7 @@ describe('Asaas Webhook Handlers', () => {
       await handleSubscriptionInactivated(payload);
 
       expect(logger.warn).toHaveBeenCalledWith(
-        expect.stringContaining('SUBSCRIPTION_INACTIVATED sem dados de subscription'),
-        expect.any(Object)
+        expect.stringContaining('SUBSCRIPTION_INACTIVATED sem dados de subscription')
       );
     });
   });

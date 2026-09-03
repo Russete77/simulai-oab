@@ -18,9 +18,11 @@ export function Progress({
   className,
   ...props
 }: ProgressProps) {
+  // v2.0: blue/green alinhados com accent/success do design system (#004ac6 /
+  // #059669). purple/cyan seguem decorativos, fora da paleta semântica core.
   const gradients = {
-    blue: 'from-blue-500 to-cyan-400',
-    green: 'from-green-500 to-emerald-400',
+    blue: 'from-[#004ac6] to-[#2563eb]',
+    green: 'from-[#059669] to-[#10b981]',
     purple: 'from-purple-500 to-pink-400',
     cyan: 'from-cyan-500 to-blue-400',
   };

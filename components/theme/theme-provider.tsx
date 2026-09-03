@@ -54,10 +54,10 @@ function applyTheme(resolved: ResolvedTheme) {
   const root = document.documentElement;
   root.classList.toggle('dark', resolved === 'dark');
   root.style.colorScheme = resolved;
-  // meta theme-color pra mobile browser chrome
+  // meta theme-color pra mobile browser chrome — alinhado com --bg do design system v2.0
   const meta = document.querySelector('meta[name="theme-color"]');
   if (meta) {
-    meta.setAttribute('content', resolved === 'dark' ? '#191919' : '#FBFAF9');
+    meta.setAttribute('content', resolved === 'dark' ? '#1A1A1A' : '#FFF8F4');
   }
 }
 

@@ -32,9 +32,6 @@ export const swrKeys = {
   simulationQuestion: (id: string, index: number) =>
     `/api/simulations/${id}/questions/${index}`,
 
-  // Review
-  wrongQuestions: '/api/review/wrong-questions',
-
   // User
   userProfile: '/api/user/profile',
 } as const;
@@ -46,6 +43,5 @@ export const mutationKeys = {
   answerQuestion: '/api/questions/answer',
   createSimulation: '/api/simulations/create',
   finishSimulation: '/api/simulations/finish',
-  chatQuestion: (id: string) => `/api/questions/${id}/chat`,
   explainQuestion: (id: string) => `/api/questions/${id}/explain`,
 } as const;

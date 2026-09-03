@@ -9,6 +9,10 @@ import type { Config } from "tailwindcss";
  *   text-accent, bg-accent, bg-accent-soft, ring-default, etc.
  *
  * Paleta legada (navy.*) mantida pra compat durante migração — remover gradualmente.
+ *
+ * v2.0 (jul/2026): paleta atualizada pro design system Material 3 azul/creme
+ * prototipado no Stitch — ver DESIGN_SYSTEM.md e app/globals.css. Adicionado
+ * font-heading (Hanken Grotesk) pros títulos, mantendo Inter no corpo.
  */
 const config: Config = {
   darkMode: "class",
@@ -88,7 +92,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "sans-serif"],
-        heading: ["Inter", "system-ui", "sans-serif"],
+        heading: ["var(--font-hanken-grotesk)", "Inter", "system-ui", "sans-serif"],
         mono: ["var(--font-jetbrains-mono)", "ui-monospace", "monospace"],
       },
       fontSize: {

@@ -3,58 +3,60 @@
 @tailwind utilities;
 
 /* ============================================================================
- * Design Tokens — Notion/Reflect-inspired
- * Premium feel: contraste crisp, hairlines visíveis, sombras macias.
+ * Design Tokens — Simulai OAB v2.0 (Material Design 3 azul/creme)
+ * Atualizado a partir do design system prototipado no Google Stitch (jul/2026).
+ * Estrutura de tokens semânticos mantida (Notion/Reflect); valores atualizados
+ * para a nova paleta primária azul (#004AC6) sobre fundo creme/off-white.
  * ============================================================================ */
 
 @layer base {
   :root {
     /* === LIGHT (default) === */
-    /* Backgrounds — uma escala suave de neutros */
-    --bg: #fafaf9;
+    /* Backgrounds — creme quente, igual ao mockup Stitch (surface-container*) */
+    --bg: #fff8f4;
     --surface: #ffffff;
-    --surface-2: #f5f4f2;
-    --surface-3: #ededeb;
+    --surface-2: #faf2ed;
+    --surface-3: #f4ece8;
     --surface-overlay: rgba(255, 255, 255, 0.92);
 
-    /* Borders — hairlines visíveis mas elegantes */
-    --border: rgba(15, 15, 15, 0.1);
-    --border-strong: rgba(15, 15, 15, 0.18);
-    --divider: rgba(15, 15, 15, 0.07);
+    /* Borders — hairlines com tinta quente (baseado em on-surface) */
+    --border: rgba(30, 27, 25, 0.1);
+    --border-strong: rgba(30, 27, 25, 0.18);
+    --divider: rgba(30, 27, 25, 0.07);
 
-    /* Text — escala com contraste crisp tipo Notion */
-    --text-1: #2c2c2c;
-    --text-2: #5a5a5a;
-    --text-3: #8a8a8a;
-    --text-disabled: #b8b8b8;
+    /* Text — on-surface / on-surface-variant do design system */
+    --text-1: #1e1b19;
+    --text-2: #434655;
+    --text-3: #737686;
+    --text-disabled: #a8aab5;
 
-    /* Accent — Notion blue, vibrante mas não saturado */
-    --accent: #2383e2;
-    --accent-hover: #1a76d2;
-    --accent-soft: rgba(35, 131, 226, 0.1);
+    /* Accent — Primary do design system (azul Simulai) */
+    --accent: #004ac6;
+    --accent-hover: #0b57d0;
+    --accent-soft: rgba(0, 74, 198, 0.1);
     --accent-foreground: #ffffff;
 
-    /* Status colors — calibrados pra light mode */
-    --success: #0f7b6c;
-    --success-soft: rgba(15, 123, 108, 0.1);
-    --warning: #cb7d20;
-    --warning-soft: rgba(203, 125, 32, 0.1);
-    --danger: #b5392a;
-    --danger-soft: rgba(181, 57, 42, 0.1);
+    /* Status colors — success-legal / warning-caution / error do design system */
+    --success: #059669;
+    --success-soft: rgba(5, 150, 105, 0.1);
+    --warning: #d97706;
+    --warning-soft: rgba(217, 119, 6, 0.1);
+    --danger: #ba1a1a;
+    --danger-soft: rgba(186, 26, 26, 0.1);
 
-    /* Shadows — macias e premium */
-    --shadow-sm: 0 1px 2px rgba(15, 15, 15, 0.05);
+    /* Shadows — macias e premium (tinta quente) */
+    --shadow-sm: 0 1px 2px rgba(30, 27, 25, 0.05);
     --shadow-md:
-      0 1px 2px rgba(15, 15, 15, 0.04),
-      0 4px 12px rgba(15, 15, 15, 0.06);
+      0 1px 2px rgba(30, 27, 25, 0.04),
+      0 4px 12px rgba(30, 27, 25, 0.06);
     --shadow-lg:
-      0 4px 8px rgba(15, 15, 15, 0.04),
-      0 16px 40px rgba(15, 15, 15, 0.1);
+      0 4px 8px rgba(30, 27, 25, 0.04),
+      0 16px 40px rgba(30, 27, 25, 0.1);
     --shadow-popover:
-      0 0 0 1px rgba(15, 15, 15, 0.06),
-      0 8px 24px rgba(15, 15, 15, 0.12);
+      0 0 0 1px rgba(30, 27, 25, 0.06),
+      0 8px 24px rgba(30, 27, 25, 0.12);
 
-    --ring: rgba(35, 131, 226, 0.4);
+    --ring: rgba(0, 74, 198, 0.4);
 
     --radius-sm: 6px;
     --radius-md: 8px;
@@ -65,7 +67,11 @@
     color-scheme: light;
   }
 
-  /* === DARK === */
+  /* === DARK ===
+   * Sem mockup dark do Stitch — derivado seguindo convenção Material 3
+   * (tons "fixed-dim": accent e status ficam mais claros/dessaturados no
+   * escuro; neutros mantêm a mesma relação estrutural do v1, só a matiz
+   * de texto secundário ganha um leve tom azulado pra ecoar on-surface-variant). */
   .dark {
     --bg: #1a1a1a;
     --surface: #232323;
@@ -78,21 +84,21 @@
     --divider: rgba(255, 255, 255, 0.06);
 
     --text-1: #ebebeb;
-    --text-2: #a8a8a8;
-    --text-3: #777777;
-    --text-disabled: #555555;
+    --text-2: #a3a8b5;
+    --text-3: #7a7f8c;
+    --text-disabled: #55585f;
 
-    --accent: #4a9eff;
-    --accent-hover: #6cb0ff;
-    --accent-soft: rgba(74, 158, 255, 0.16);
-    --accent-foreground: #ffffff;
+    --accent: #7bacff;
+    --accent-hover: #9cc2ff;
+    --accent-soft: rgba(123, 172, 255, 0.16);
+    --accent-foreground: #00214d;
 
-    --success: #4cb89e;
-    --success-soft: rgba(76, 184, 158, 0.16);
-    --warning: #e0a361;
-    --warning-soft: rgba(224, 163, 97, 0.16);
-    --danger: #e07060;
-    --danger-soft: rgba(224, 112, 96, 0.16);
+    --success: #34c795;
+    --success-soft: rgba(52, 199, 149, 0.16);
+    --warning: #f0a94e;
+    --warning-soft: rgba(240, 169, 78, 0.16);
+    --danger: #ff8a80;
+    --danger-soft: rgba(255, 138, 128, 0.16);
 
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
     --shadow-md:
@@ -105,7 +111,7 @@
       0 0 0 1px rgba(255, 255, 255, 0.08),
       0 8px 24px rgba(0, 0, 0, 0.6);
 
-    --ring: rgba(74, 158, 255, 0.5);
+    --ring: rgba(123, 172, 255, 0.5);
 
     color-scheme: dark;
   }
@@ -130,8 +136,10 @@
     transition: background-color 200ms ease, color 200ms ease;
   }
 
+  /* Títulos usam Hanken Grotesk (headline do design system Stitch), com
+     fallback pra Inter — ver app/layout.tsx pro next/font que carrega ela. */
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: var(--font-hanken-grotesk), 'Inter', system-ui, -apple-system, sans-serif;
     color: var(--text-1);
     letter-spacing: -0.012em;
     line-height: 1.25;
@@ -207,6 +215,7 @@
   }
 
   .text-display {
+    font-family: var(--font-hanken-grotesk), 'Inter', system-ui, sans-serif;
     font-size: clamp(2.5rem, 4vw + 1rem, 4rem);
     font-weight: 700;
     letter-spacing: -0.028em;
@@ -232,6 +241,16 @@
   }
   .animate-fade-up[style*='--stagger'] {
     animation-delay: calc(var(--stagger, 0) * var(--stagger-step, 60ms));
+  }
+
+  /* A barra de navegação inferior é fixa e só existe no mobile para usuário
+     logado. A classe é posta no <body> pelo próprio componente, então o
+     espaço só é reservado quando a barra está de fato na tela. */
+  .has-bottom-nav {
+    padding-bottom: calc(4rem + env(safe-area-inset-bottom));
+  }
+  @media (min-width: 768px) {
+    .has-bottom-nav { padding-bottom: 0; }
   }
 }
 

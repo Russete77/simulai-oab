@@ -36,8 +36,16 @@ describe('isPublicRoute (middleware)', () => {
 
   it('classifica assets estáticos do PWA como públicos (regressão do middleware)', () => {
     expect(pub('/sw.js')).toBe(true);
-    expect(pub('/push-sw.js')).toBe(true);
     expect(pub('/manifest.json')).toBe(true);
+    // O next/image busca estes no servidor, sem cookie: se caírem no /login
+    // ele recebe HTML e responde 400, e o logo quebra para todo mundo.
+    expect(pub('/logo.png')).toBe(true);
+    expect(pub('/logo-wordmark.png')).toBe(true);
+    expect(pub('/logo-badge.png')).toBe(true);
+    // Googlebot é visitante anônimo: se estes caírem no /login, o sitemap
+    // com as páginas de SEO nunca é indexado.
+    expect(pub('/sitemap.xml')).toBe(true);
+    expect(pub('/robots.txt')).toBe(true);
     expect(pub('/workbox-f1770938.js')).toBe(true);
   });
 
