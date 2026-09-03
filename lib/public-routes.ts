@@ -51,6 +51,7 @@ export const PUBLIC_ROUTES = [
   '/simulados-oab(.*)', // Hub de simulados
   '/proxima-prova-oab', // Contagem regressiva pública do próximo exame
   '/api/oab/exam-dates', // Usada pelo countdown público (fetch client-side sem sessão)
+  '/api/atividade', // Pulso do ranking, que é página pública. Só devolve contagens agregadas — nenhum nome, nenhum id.
   '/simulado-amigos/(.*)', // Preview público do desafio (não a página de criar, essa continua exigindo login)
   '/api/challenges/friend', // GET público (preview); POST/PUT verificam sessão dentro da própria rota
 ] as const;
