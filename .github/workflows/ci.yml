@@ -36,5 +36,8 @@ jobs:
       - name: Run tests
         run: npm run test
 
-      - name: Build project
-        run: npm run build
+      # Sem `npm run build` de proposito. O build precisa de banco de verdade
+      # — /gabarito/[slug] falha ao coletar dados sem ele — e dar credencial
+      # do banco de producao ao CI e pior do que nao buildar aqui. Quem cobre
+      # isso e a Vercel, que builda toda PR e todo push na main com o env
+      # real. Este CI cuida do que da pra checar sem segredo nenhum.
