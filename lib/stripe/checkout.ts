@@ -46,28 +46,76 @@ export async function findOrCreateStripeCustomer(
 }
 
 /**
- * Sessão do portal do cliente: cancelar, trocar cartão, ver faturas.
- * Substitui a tela caseira que existia por causa do Asaas, que não tinha portal.
+ * Sessão do portal do cliente.
+ *
+ * Dois retornos diferentes, e a distinção importa:
+ *
+ *   return_url                                  link "voltar" no cabeçalho,
+ *                                               clicado por quem desistiu
+ *   flow_data.after_completion.redirect         redireciona SOZINHO quando a
+ *                                               pessoa conclui a ação
+ *
+ * Sem o segundo, quem cancela conclui o fluxo e fica parado no domínio da
+ * Stripe, tendo que achar o link de volta.
  */
 export async function criarPortalSession(params: {
   userId: string;
   baseUrl: string;
+  /** 'cancelar' abre direto o fluxo de cancelamento e volta ao concluir. */
+  acao?: 'cancelar';
+  /** Para onde voltar. Padrão: a tela de assinatura. */
+  voltarPara?: string;
 }): Promise<string> {
   const customer = await prisma.customer.findUnique({
     where: { userId: params.userId },
-    select: { stripeCustomerId: true },
+    select: { id: true, stripeCustomerId: true },
   });
 
   if (!customer?.stripeCustomerId) {
     throw new Error('Nenhuma assinatura Stripe encontrada para este usuário');
   }
 
+  const volta = `${params.baseUrl}${params.voltarPara ?? '/dashboard/assinatura'}`;
   const stripe = getStripe();
-  const session = await stripe.billingPortal.sessions.create({
+
+  if (params.acao === 'cancelar') {
+    const assinatura = await prisma.subscription.findFirst({
+      where: {
+        customerId: customer.id,
+        gateway: 'stripe',
+        status: { in: ['ACTIVE', 'TRIALING', 'PAST_DUE'] },
+        stripeSubscriptionId: { not: null },
+      },
+      orderBy: { createdAt: 'desc' },
+      select: { stripeSubscriptionId: true },
+    });
+
+    if (assinatura?.stripeSubscriptionId) {
+      const sessao = await stripe.billingPortal.sessions.create({
+        customer: customer.stripeCustomerId,
+        return_url: volta,
+        locale: 'pt-BR',
+        flow_data: {
+          type: 'subscription_cancel',
+          subscription_cancel: {
+            subscription: assinatura.stripeSubscriptionId,
+          },
+          after_completion: {
+            type: 'redirect',
+            redirect: { return_url: `${volta}?assinatura=cancelada` },
+          },
+        },
+      });
+      return sessao.url;
+    }
+    // Sem assinatura ativa identificada: cai no portal completo.
+  }
+
+  const sessao = await stripe.billingPortal.sessions.create({
     customer: customer.stripeCustomerId,
-    return_url: `${params.baseUrl}/dashboard`,
+    return_url: volta,
     locale: 'pt-BR',
   });
 
-  return session.url;
+  return sessao.url;
 }

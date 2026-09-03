@@ -80,3 +80,9 @@ MIGRATION_INVENTORY.md
 LOGS.txt
 
 .vercel
+.env*
+
+# Chaves live temporarias (stripe-live-setup / vercel-subir-env)
+.env.producao.local
+.env.producao.vercel
+.vercel-token

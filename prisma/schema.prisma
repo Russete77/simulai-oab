@@ -555,7 +555,12 @@ model Subscription {
   // Períodos
   currentPeriodStart DateTime?
   currentPeriodEnd   DateTime?
+  // Dois campos, e a diferença importa. A Stripe agenda o cancelamento de
+  // DUAS formas: o booleano `cancel_at_period_end` OU a data `cancel_at`.
+  // O portal do cliente usa a DATA e deixa o booleano em false — ler só o
+  // booleano faz o app achar que a assinatura vai renovar normalmente.
   cancelAtPeriodEnd  Boolean   @default(false)
+  cancelAt           DateTime?
 
   // Trial
   trialStart DateTime?

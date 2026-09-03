@@ -19,6 +19,7 @@ import { getAdminUserDetail } from '@/lib/admin/users';
 import { SubscriptionRowActions } from '@/app/admin/subscriptions/_components/subscription-row-actions';
 import type { SubscriptionStatus } from '@prisma/client';
 import { cn } from '@/lib/utils';
+import { temFimMarcado } from '@/lib/stripe/assinatura';
 
 const SUB_STATUS_STYLES: Record<SubscriptionStatus, string> = {
   ACTIVE: 'bg-green-500/10 text-green-400 border-green-500/30',
@@ -178,7 +179,7 @@ export default async function AdminUserDetailPage({
                   >
                     {currentSub.status}
                   </span>
-                  {currentSub.cancelAtPeriodEnd && (
+                  {temFimMarcado(currentSub) && (
                     <span className="text-[11px] text-amber-400">cancela ao fim</span>
                   )}
                 </div>

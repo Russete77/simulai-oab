@@ -32,7 +32,20 @@ export async function POST(req: NextRequest) {
     const baseUrl =
       process.env.NEXT_PUBLIC_APP_URL || req.headers.get('origin') || '';
 
-    const url = await criarPortalSession({ userId: dbUser.id, baseUrl });
+    const corpo = await req.json().catch(() => ({}));
+    const acao = corpo?.acao === 'cancelar' ? ('cancelar' as const) : undefined;
+    // Só aceita caminho interno — nunca redireciona para fora do app.
+    const voltarPara =
+      typeof corpo?.voltarPara === 'string' && corpo.voltarPara.startsWith('/')
+        ? corpo.voltarPara
+        : undefined;
+
+    const url = await criarPortalSession({
+      userId: dbUser.id,
+      baseUrl,
+      acao,
+      voltarPara,
+    });
     return NextResponse.json({ url });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Erro interno';

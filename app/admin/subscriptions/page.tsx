@@ -205,7 +205,7 @@ export default async function AdminSubscriptionsPage({ searchParams }: PageProps
                     >
                       {STATUS_LABEL[s.status]}
                     </span>
-                    {s.cancelAtPeriodEnd && (
+                    {s.cancelamentoAgendado && (
                       <span className="ml-1.5 text-[10px] text-amber-400">
                         cancela ao fim
                       </span>
