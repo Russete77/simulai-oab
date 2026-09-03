@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { loadStripe } from '@stripe/stripe-js';
 import { Header } from '@/components/layout/header';
 import { Card, Button } from '@/components/ui';
 import {
@@ -16,18 +15,30 @@ import {
   ClipboardList,
   Target,
 } from 'lucide-react';
-import { PLANO } from '@/lib/stripe/plan';
-
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ''
-);
+import { CICLOS, PLANO, PRECO_BASE_FORMATADO, formatarBRL } from '@/lib/stripe/plan';
+import { carregarStripe } from '@/lib/stripe/browser';
 
 type Estado = 'verificando' | 'pago' | 'processando' | 'falhou';
 
-function proximaCobranca(): string {
+/**
+ * Quando a próxima cobrança cai.
+ *
+ * Depende do ciclo: antes somava sempre um mês, o que prometeria cobrança em
+ * outubro para quem acabou de pagar o ano inteiro.
+ */
+function proximaCobranca(meses: number): string {
   const d = new Date();
-  d.setMonth(d.getMonth() + 1);
-  return d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long' });
+  d.setMonth(d.getMonth() + meses);
+  return d.toLocaleDateString('pt-BR', {
+    day: '2-digit',
+    month: 'long',
+    ...(meses > 6 ? { year: 'numeric' as const } : {}),
+  });
+}
+
+/** Descobre o ciclo pelo valor cobrado — os quatro têm valores distintos. */
+function cicloPagoDe(centavos: number | null) {
+  return CICLOS.find((c) => c.totalCentavos === centavos) ?? null;
 }
 
 /**
@@ -42,6 +53,7 @@ export function ConfirmacaoClient() {
   const params = useSearchParams();
   const [estado, setEstado] = useState<Estado>('verificando');
   const [mensagem, setMensagem] = useState<string | null>(null);
+  const [pagoCentavos, setPagoCentavos] = useState<number | null>(null);
 
   useEffect(() => {
     const secret = params.get('payment_intent_client_secret');
@@ -51,8 +63,13 @@ export function ConfirmacaoClient() {
       return;
     }
 
-    stripePromise.then(async (stripe) => {
-      if (!stripe) return;
+    carregarStripe().then(async (stripe) => {
+      if (!stripe) {
+        // O pagamento pode ter dado certo mesmo assim: quem libera acesso é
+        // o webhook. Não afirme falha por não conseguir consultar.
+        setEstado('processando');
+        return;
+      }
       const { paymentIntent, error } = await stripe.retrievePaymentIntent(secret);
 
       if (error || !paymentIntent) {
@@ -60,6 +77,10 @@ export function ConfirmacaoClient() {
         setMensagem(error?.message ?? 'Não foi possível verificar o pagamento.');
         return;
       }
+
+      // O valor cobrado diz qual ciclo a pessoa assinou — é a fonte mais
+      // confiável aqui, porque não depende do webhook já ter chegado.
+      setPagoCentavos(paymentIntent.amount ?? null);
 
       switch (paymentIntent.status) {
         case 'succeeded':
@@ -75,7 +96,7 @@ export function ConfirmacaoClient() {
         default:
           setEstado('processando');
       }
-    });
+    }).catch(() => setEstado('processando'));
   }, [params]);
 
   return (
@@ -175,13 +196,17 @@ export function ConfirmacaoClient() {
               <div className="flex flex-wrap gap-x-8 gap-y-3">
                 <div>
                   <div className="text-sm font-medium text-ink-1 text-mono-tabular">
-                    {PLANO.precoFormatado}/mês
+                    {pagoCentavos !== null
+                      ? formatarBRL(pagoCentavos)
+                      : PRECO_BASE_FORMATADO}
                   </div>
-                  <div className="text-xs text-ink-3 mt-0.5">Valor</div>
+                  <div className="text-xs text-ink-3 mt-0.5">
+                    {cicloPagoDe(pagoCentavos)?.rotulo ?? 'Valor'}
+                  </div>
                 </div>
                 <div>
                   <div className="text-sm font-medium text-ink-1">
-                    {proximaCobranca()}
+                    {proximaCobranca(cicloPagoDe(pagoCentavos)?.meses ?? 1)}
                   </div>
                   <div className="text-xs text-ink-3 mt-0.5">Próxima cobrança</div>
                 </div>

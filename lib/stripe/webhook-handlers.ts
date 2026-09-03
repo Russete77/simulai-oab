@@ -13,7 +13,8 @@ import { SubscriptionStatus } from '@prisma/client';
 import { prisma } from '@/lib/db/prisma';
 import { logger } from '@/lib/logger';
 import { getStripe } from './client';
-import { PLAN_KEY } from './plan';
+import { PLAN_KEY, ciclo as cicloPorChave } from './plan';
+import { cicloDePreco, cicloDePrecoId } from './precos';
 
 // ============================================================================
 // Helpers
@@ -114,7 +115,17 @@ export async function handleInvoicePaid(invoice: Stripe.Invoice) {
     return;
   }
 
-  const periodo = invoice.lines?.data?.[0]?.period;
+  const linha = invoice.lines?.data?.[0];
+  const periodo = linha?.period;
+
+  // O ciclo sai do preço cobrado, não de um padrão: uma assinatura anual
+  // gravada como MONTHLY faz o relatório somar receita errada.
+  //
+  // A linha da fatura traz só o ID do preço (`pricing.price_details.price`
+  // substituiu o antigo `line.price` na API 2025-03-31.basil), então é
+  // preciso buscar o objeto para chegar na lookup_key. Uma chamada por
+  // fatura paga — isso acontece uma vez por assinante por período.
+  const cicloDaFatura = await cicloDePrecoId(idDe(linha?.pricing?.price_details?.price));
 
   await prisma.$transaction(async (tx) => {
     const sub = await tx.subscription.upsert({
@@ -131,7 +142,7 @@ export async function handleInvoicePaid(invoice: Stripe.Invoice) {
         plan: PLAN_KEY,
         status: 'ACTIVE',
         value: (invoice.amount_paid ?? 0) / 100,
-        cycle: 'MONTHLY',
+        cycle: cicloDaFatura?.cicloBanco ?? cicloPorChave('mensal').cicloBanco,
         currentPeriodStart: paraData(periodo?.start),
         currentPeriodEnd: paraData(periodo?.end),
       },
@@ -215,6 +226,10 @@ export async function handleSubscriptionChanged(subscription: Stripe.Subscriptio
     data: {
       status,
       cancelAtPeriodEnd: subscription.cancel_at_period_end ?? false,
+      // O portal agenda o cancelamento gravando SO esta data e deixa
+      // cancel_at_period_end em false. Guardar as duas e a unica forma de
+      // saber que a assinatura tem fim marcado.
+      cancelAt: paraData(subscription.cancel_at),
       canceledAt: paraData(subscription.canceled_at),
       currentPeriodStart: paraData(item?.current_period_start),
       currentPeriodEnd: paraData(item?.current_period_end),
@@ -246,8 +261,10 @@ export async function handleSubscriptionChanged(subscription: Stripe.Subscriptio
         plan: PLAN_KEY,
         status,
         value: (item?.price?.unit_amount ?? 0) / 100,
-        cycle: 'MONTHLY',
+        cycle:
+          cicloDePreco(item?.price)?.cicloBanco ?? cicloPorChave('mensal').cicloBanco,
         cancelAtPeriodEnd: subscription.cancel_at_period_end ?? false,
+        cancelAt: paraData(subscription.cancel_at),
         canceledAt: paraData(subscription.canceled_at),
         currentPeriodStart: paraData(item?.current_period_start),
         currentPeriodEnd: paraData(item?.current_period_end),

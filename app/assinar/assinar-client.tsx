@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
-import { loadStripe, type Appearance } from '@stripe/stripe-js';
+import type { Appearance, Stripe } from '@stripe/stripe-js';
 import {
   Elements,
   PaymentElement,
@@ -9,15 +9,24 @@ import {
   useElements,
 } from '@stripe/react-stripe-js';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { Header } from '@/components/layout/header';
 import { Card, Button } from '@/components/ui';
 import { Loader2, Check, ShieldCheck, Lock, AlertCircle } from 'lucide-react';
 import { useTheme } from '@/components/theme/theme-provider';
-import { PLANO } from '@/lib/stripe/plan';
-
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ''
-);
+import { carregarStripe } from '@/lib/stripe/browser';
+import { SeletorCiclo } from '@/components/billing/seletor-ciclo';
+import {
+  CICLO_PADRAO,
+  PLANO,
+  ciclo,
+  economiaCentavos,
+  ehCicloChave,
+  formatarBRL,
+  porMesCentavos,
+  type Ciclo,
+  type CicloChave,
+} from '@/lib/stripe/plan';
 
 /**
  * Aparência do Payment Element derivada dos nossos tokens.
@@ -72,7 +81,7 @@ function aparencia(tema: 'light' | 'dark'): Appearance {
   };
 }
 
-function Formulario() {
+function Formulario({ atual }: { atual: Ciclo }) {
   const stripe = useStripe();
   const elements = useElements();
   const [enviando, setEnviando] = useState(false);
@@ -131,9 +140,13 @@ function Formulario() {
             Confirmando...
           </span>
         ) : (
-          `Assinar por ${PLANO.precoFormatado}/mês`
+          `Pagar ${formatarBRL(atual.totalCentavos)}`
         )}
       </Button>
+
+      <p className="text-xs text-ink-3 text-center mt-2.5">
+        Renova {atual.rotuloCobranca}. Cancele quando quiser.
+      </p>
 
       <p className="flex items-center justify-center gap-1.5 text-xs text-ink-3 mt-3">
         <Lock className="w-3 h-3" />
@@ -145,14 +158,32 @@ function Formulario() {
 
 export function AssinarClient() {
   const { resolvedTheme } = useTheme();
+  const params = useSearchParams();
+
+  // Chega escolhido de /pricing. Entrada estranha na URL vira mensal.
+  const [escolha, setEscolha] = useState<CicloChave>(() =>
+    ehCicloChave(params.get('ciclo')) ? (params.get('ciclo') as CicloChave) : CICLO_PADRAO
+  );
+  const atual = ciclo(escolha);
+
   const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [stripe, setStripe] = useState<Stripe | null>(null);
   const [erro, setErro] = useState<string | null>(null);
   const [jaAssinante, setJaAssinante] = useState(false);
+  const [trocando, setTrocando] = useState(false);
 
-  const iniciar = useCallback(async () => {
+  const iniciar = useCallback(async (chave: CicloChave) => {
     setErro(null);
+    setClientSecret(null);
     try {
-      const res = await fetch('/api/billing/subscription', { method: 'POST' });
+      // Pergunta ao servidor ANTES de carregar o Stripe.js: quem já assina
+      // não precisa do formulário, e baixar 300 KB para mostrar "você já é
+      // assinante" é desperdício — além de dar chance de erro à toa.
+      const res = await fetch('/api/billing/subscription', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ciclo: chave }),
+      });
       const dados = await res.json();
 
       if (res.status === 409 && dados.jaAssinante) {
@@ -162,15 +193,36 @@ export function AssinarClient() {
       if (!res.ok || !dados.clientSecret) {
         throw new Error(dados.error || 'Não foi possível iniciar o pagamento.');
       }
+
+      // Carregado aqui, e não no import: falha vira mensagem com "tentar de
+      // novo", não um erro de runtime em tela cheia numa página de pagamento.
+      const sdk = await carregarStripe().catch(() => null);
+      if (!sdk) {
+        throw new Error(
+          'Não conseguimos carregar o formulário de pagamento. Recarregue a página.'
+        );
+      }
+
+      setStripe(sdk);
       setClientSecret(dados.clientSecret);
     } catch (e) {
       setErro(e instanceof Error ? e.message : 'Erro ao iniciar o pagamento.');
+    } finally {
+      setTrocando(false);
     }
   }, []);
 
   useEffect(() => {
-    iniciar();
-  }, [iniciar]);
+    iniciar(escolha);
+  }, [iniciar, escolha]);
+
+  // Trocar de ciclo troca o valor cobrado, então a intenção de pagamento
+  // inteira é refeita no servidor — não dá para só mudar o rótulo na tela.
+  const trocarCiclo = (chave: CicloChave) => {
+    if (chave === escolha) return;
+    setTrocando(true);
+    setEscolha(chave);
+  };
 
   return (
     <div className="min-h-screen bg-bg">
@@ -183,10 +235,15 @@ export function AssinarClient() {
             <h1 className="text-2xl font-semibold tracking-tight text-ink-1 mb-1.5">
               Finalizar assinatura
             </h1>
-            <p className="text-sm text-ink-2 mb-7">
-              {PLANO.precoFormatado} por mês, renovando sozinho. Cancele quando
-              quiser, em 2 cliques.
+            <p className="text-sm text-ink-2 mb-6">
+              Renova sozinho. Cancele quando quiser, em 2 cliques.
             </p>
+
+            {!jaAssinante && (
+              <div className="mb-7">
+                <SeletorCiclo valor={escolha} aoMudar={trocarCiclo} compacto />
+              </div>
+            )}
 
             {jaAssinante ? (
               <div className="py-4">
@@ -206,25 +263,29 @@ export function AssinarClient() {
                   <AlertCircle className="w-4 h-4 text-danger shrink-0 mt-0.5" />
                   <p className="text-sm text-ink-1">{erro}</p>
                 </div>
-                <Button variant="secondary" onClick={iniciar}>
+                <Button variant="secondary" onClick={() => iniciar(escolha)}>
                   Tentar de novo
                 </Button>
               </div>
-            ) : !clientSecret ? (
+            ) : !clientSecret || !stripe ? (
               <div className="flex items-center gap-3 text-ink-2 py-10 justify-center">
                 <Loader2 className="w-5 h-5 animate-spin" />
-                Preparando o pagamento...
+                {trocando ? 'Atualizando o valor...' : 'Preparando o pagamento...'}
               </div>
             ) : (
+              // A chave force o Elements a remontar quando o ciclo muda: a
+              // Stripe não deixa trocar o clientSecret de um Elements já
+              // montado, e sem remontar o formulário cobraria o valor antigo.
               <Elements
-                stripe={stripePromise}
+                key={clientSecret}
+                stripe={stripe}
                 options={{
                   clientSecret,
                   appearance: aparencia(resolvedTheme),
                   locale: 'pt-BR',
                 }}
               >
-                <Formulario />
+                <Formulario atual={atual} />
               </Elements>
             )}
           </Card>
@@ -234,17 +295,34 @@ export function AssinarClient() {
             <Card>
               <p className="text-eyebrow mb-3">Resumo</p>
 
-              <div className="flex items-baseline justify-between gap-3 pb-4 border-b">
-                <div>
-                  <p className="font-medium text-ink-1">{PLANO.nome}</p>
-                  <p className="text-xs text-ink-3 mt-0.5">Mensal, sem fidelidade</p>
+              <div className="pb-4 border-b">
+                <div className="flex items-baseline justify-between gap-3">
+                  <div>
+                    <p className="font-medium text-ink-1">{PLANO.nome}</p>
+                    <p className="text-xs text-ink-3 mt-0.5">
+                      {atual.rotulo}, sem fidelidade
+                    </p>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <span className="text-xl font-semibold text-ink-1 text-mono-tabular">
+                      {formatarBRL(atual.totalCentavos)}
+                    </span>
+                    <span className="text-xs text-ink-3">
+                      {atual.meses === 1 ? '/mês' : ` /${atual.meses} meses`}
+                    </span>
+                  </div>
                 </div>
-                <div className="text-right shrink-0">
-                  <span className="text-xl font-semibold text-ink-1 text-mono-tabular">
-                    {PLANO.precoFormatado}
-                  </span>
-                  <span className="text-xs text-ink-3">/mês</span>
-                </div>
+
+                {atual.meses > 1 && (
+                  <p className="flex items-center justify-between gap-3 text-xs mt-2.5">
+                    <span className="text-ink-3">
+                      Sai a {formatarBRL(porMesCentavos(atual))} por mês
+                    </span>
+                    <span className="font-medium text-success">
+                      economize {formatarBRL(economiaCentavos(atual))}
+                    </span>
+                  </p>
+                )}
               </div>
 
               <ul className="space-y-2.5 py-5">
@@ -259,8 +337,9 @@ export function AssinarClient() {
               <div className="flex items-start gap-2.5 pt-4 border-t">
                 <ShieldCheck className="w-4 h-4 text-ink-3 shrink-0 mt-0.5" />
                 <p className="text-xs text-ink-3 leading-relaxed">
-                  Cobrança recorrente no cartão. Você cancela pelo próprio app,
-                  sem falar com ninguém, e mantém o acesso até o fim do mês pago.
+                  Cobrança recorrente no cartão, {atual.rotuloCobranca}. Você
+                  cancela pelo próprio app, sem falar com ninguém, e mantém o
+                  acesso até o fim do período já pago.
                 </p>
               </div>
             </Card>

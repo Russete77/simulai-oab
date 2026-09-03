@@ -14,10 +14,11 @@ import { auth, currentUser } from '@clerk/nextjs/server';
 import { prisma } from '@/lib/db/prisma';
 import { logger } from '@/lib/logger';
 import { getStripe } from '@/lib/stripe/client';
-import { getPriceId, PLAN_KEY } from '@/lib/stripe/plan';
+import { ciclo, PLAN_KEY } from '@/lib/stripe/plan';
+import { precoIdDe } from '@/lib/stripe/precos';
 import { findOrCreateStripeCustomer } from '@/lib/stripe/checkout';
 
-export async function POST(_req: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
     const { userId: clerkId } = await auth();
     if (!clerkId) {
@@ -59,6 +60,12 @@ export async function POST(_req: NextRequest) {
       );
     }
 
+    // O ciclo vem do cliente, então `ciclo()` nunca lança: entrada estranha
+    // vira o mensal em vez de erro 500.
+    const corpo = await req.json().catch(() => ({}));
+    const escolhido = ciclo(corpo?.ciclo);
+    const precoId = await precoIdDe(escolhido.chave);
+
     const stripe = getStripe();
     const stripeCustomerId = await findOrCreateStripeCustomer(dbUser.id, {
       email,
@@ -70,28 +77,38 @@ export async function POST(_req: NextRequest) {
     const pendentes = await stripe.subscriptions.list({
       customer: stripeCustomerId,
       status: 'incomplete',
-      limit: 1,
+      limit: 5,
     });
 
-    let subscription =
-      pendentes.data[0] &&
-      (await stripe.subscriptions.retrieve(pendentes.data[0].id, {
-        expand: ['latest_invoice.confirmation_secret'],
-      }));
+    // Só serve a pendente que cobra o MESMO ciclo. Quem voltou e trocou de
+    // trimestral para anual estaria pagando o valor antigo com a tela nova.
+    const compativel = pendentes.data.find(
+      (s) => s.items.data[0]?.price?.id === precoId
+    );
 
-    if (!subscription) {
-      subscription = await stripe.subscriptions.create({
-        customer: stripeCustomerId,
-        items: [{ price: getPriceId() }],
-        payment_behavior: 'default_incomplete',
-        payment_settings: {
-          save_default_payment_method: 'on_subscription',
-          payment_method_types: ['card'],
-        },
-        metadata: { userId: dbUser.id },
-        expand: ['latest_invoice.confirmation_secret'],
-      });
+    // As de outro ciclo viram lixo: sem cancelar, a próxima visita reaproveita
+    // uma delas e o problema volta.
+    for (const velha of pendentes.data) {
+      if (velha.id !== compativel?.id) {
+        await stripe.subscriptions.cancel(velha.id).catch(() => {});
+      }
     }
+
+    const subscription = compativel
+      ? await stripe.subscriptions.retrieve(compativel.id, {
+          expand: ['latest_invoice.confirmation_secret'],
+        })
+      : await stripe.subscriptions.create({
+          customer: stripeCustomerId,
+          items: [{ price: precoId }],
+          payment_behavior: 'default_incomplete',
+          payment_settings: {
+            save_default_payment_method: 'on_subscription',
+            payment_method_types: ['card'],
+          },
+          metadata: { userId: dbUser.id, ciclo: escolhido.chave },
+          expand: ['latest_invoice.confirmation_secret'],
+        });
 
     const invoice = subscription.latest_invoice;
     const clientSecret =
@@ -125,8 +142,8 @@ export async function POST(_req: NextRequest) {
           gateway: 'stripe',
           plan: PLAN_KEY,
           status: 'INCOMPLETE',
-          value: 9.99,
-          cycle: 'MONTHLY',
+          value: escolhido.totalCentavos / 100,
+          cycle: escolhido.cicloBanco,
         },
       });
     }
@@ -134,6 +151,7 @@ export async function POST(_req: NextRequest) {
     return NextResponse.json({
       clientSecret,
       subscriptionId: subscription.id,
+      ciclo: escolhido.chave,
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Erro interno';

@@ -46,9 +46,16 @@ const envSchema = z.object({
   STRIPE_WEBHOOK_SECRET: z
     .string()
     .startsWith('whsec_', 'STRIPE_WEBHOOK_SECRET deve começar com whsec_'),
+  // Opcional desde que passaram a existir quatro ciclos: os preços são
+  // achados na Stripe por `lookup_key`, que é igual em teste e em live.
+  // Guardar ID viraria oito variáveis em dois ambientes, e trocar um preço
+  // de teste por um de produção não daria erro — só cobrança errada.
+  // Ver lib/stripe/precos.ts. Continua valendo como atalho do mensal.
   STRIPE_PRICE_ID: z
     .string()
-    .startsWith('price_', 'STRIPE_PRICE_ID deve começar com price_'),
+    .startsWith('price_', 'STRIPE_PRICE_ID deve começar com price_')
+    .optional()
+    .or(z.literal('')),
   // Pública por design — vai pro browser para montar o Payment Element.
   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z
     .string()

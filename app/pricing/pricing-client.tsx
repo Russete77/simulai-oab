@@ -1,15 +1,28 @@
 'use client';
 
+import { useState } from 'react';
 import { Header } from '@/components/layout/header';
 import { Card } from '@/components/ui';
 import { Check, ShieldCheck } from 'lucide-react';
 import { AssinarButton } from '@/components/billing/assinar-button';
-import { PLANO } from '@/lib/stripe/plan';
+import { SeletorCiclo } from '@/components/billing/seletor-ciclo';
+import {
+  CICLO_PADRAO,
+  PLANO,
+  ciclo,
+  formatarBRL,
+  porMesCentavos,
+  type CicloChave,
+} from '@/lib/stripe/plan';
 
 const PERGUNTAS = [
   {
     q: 'Como funciona a cobrança?',
-    a: 'R$ 9,99 por mês no cartão de crédito, renovando sozinho. Sem fidelidade e sem multa: você cancela quando quiser e mantém o acesso até o fim do mês já pago.',
+    a: 'No cartão de crédito, renovando sozinho. Você escolhe de quanto em quanto tempo quer pagar: todo mês, ou adiantado por 3, 6 ou 12 meses com desconto. Sem fidelidade e sem multa — cancele quando quiser e mantenha o acesso até o fim do período já pago.',
+  },
+  {
+    q: 'Pagar adiantado vale a pena?',
+    a: 'O acesso é o mesmo, só o preço por mês cai: 5% no trimestral, 10% no semestral e 15% no anual. No anual dá R$ 8,49 por mês em vez de R$ 9,99 — R$ 17,98 de economia no ano.',
   },
   {
     q: 'Como eu cancelo?',
@@ -17,15 +30,18 @@ const PERGUNTAS = [
   },
   {
     q: 'Aceita PIX ou boleto?',
-    a: 'Só cartão de crédito. É a única forma que renova sozinha todo mês sem você precisar lembrar de pagar — e é o que permite manter o preço em R$ 9,99.',
+    a: 'Só cartão de crédito. É a única forma que renova sozinha sem você precisar lembrar de pagar — e é o que permite manter o preço em R$ 9,99.',
   },
   {
-    q: 'Tem tudo mesmo por R$ 9,99?',
-    a: 'Tem. Não existe plano de cima: as 5.875 questões, os simulados, o plano de estudos e as explicações com IA entram todos no mesmo preço.',
+    q: 'Tem tudo mesmo?',
+    a: 'Tem. Não existe plano de cima: as 5.875 questões, os simulados, o plano de estudos e as explicações com IA entram todos no mesmo preço, em qualquer ciclo.',
   },
 ];
 
 export function PricingClient() {
+  const [escolha, setEscolha] = useState<CicloChave>(CICLO_PADRAO);
+  const atual = ciclo(escolha);
+
   return (
     <div className="min-h-screen bg-bg">
       <Header />
@@ -52,16 +68,30 @@ export function PricingClient() {
 
             <div className="flex items-baseline gap-1.5 mb-1">
               <span className="text-5xl font-semibold tracking-tight text-ink-1 text-mono-tabular">
-                {PLANO.precoFormatado}
+                {formatarBRL(porMesCentavos(atual))}
               </span>
               <span className="text-ink-2">/mês</span>
             </div>
-            <p className="text-sm text-ink-2 mb-7">{PLANO.descricao}</p>
+            <p className="text-sm text-ink-2 mb-6">
+              {atual.meses === 1 ? (
+                <>{PLANO.descricao}</>
+              ) : (
+                <>
+                  {formatarBRL(atual.totalCentavos)} {atual.rotuloCobranca} ·{' '}
+                  {PLANO.descricao.toLowerCase()}
+                </>
+              )}
+            </p>
 
-            <AssinarButton fullWidth />
+            <div className="mb-6">
+              <SeletorCiclo valor={escolha} aoMudar={setEscolha} />
+            </div>
+
+            <AssinarButton fullWidth ciclo={escolha} />
 
             <p className="text-xs text-ink-3 text-center mt-3">
-              Cartão de crédito · renova todo mês · cancele em 2 cliques
+              Cartão de crédito · renova {atual.rotuloCobranca} · cancele em 2
+              cliques
             </p>
 
             <ul className="mt-8 space-y-3 border-t pt-7">
