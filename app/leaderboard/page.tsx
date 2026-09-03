@@ -2,6 +2,8 @@ import { Metadata } from 'next';
 import { Header } from '@/components/layout/header';
 import { prisma } from '@/lib/db/prisma';
 import { LeaderboardClient, type LeaderboardData } from './leaderboard-client';
+import { PulsoAtividade } from '@/components/leaderboard/pulso-atividade';
+import { lerPulso, type Pulso } from '@/lib/atividade/pulso';
 
 // Página pública e indexável: o ranking é renderizado no servidor (ISR a cada
 // 5 min). Antes era 'use client' e buscava via /api/leaderboard (que exige
@@ -91,6 +93,16 @@ export default async function LeaderboardPage() {
     initialData = EMPTY_LEADERBOARD;
   }
 
+  // Renderizado já no servidor para o bloco não aparecer piscando depois de
+  // hidratar. Fica até 5 min velho por causa do ISR; o cliente atualiza a
+  // cada 30s. Falhar aqui só esconde o bloco, nunca derruba o ranking.
+  let pulso: Pulso | null = null;
+  try {
+    pulso = await lerPulso();
+  } catch (error) {
+    console.error('Erro ao ler o pulso de atividade:', error);
+  }
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -111,6 +123,9 @@ export default async function LeaderboardPage() {
       />
       <Header />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mb-6">
+          <PulsoAtividade inicial={pulso} />
+        </div>
         <LeaderboardClient initialData={initialData} />
       </div>
     </div>

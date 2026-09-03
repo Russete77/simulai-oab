@@ -84,7 +84,13 @@ export default function config(phase: string) {
   // Falta de env var obrigatória quebra o BUILD — nada mal configurado chega
   // em produção. Só na fase de build: nunca em `next dev` nem em `next start`,
   // pra não repetir o incidente em que a validação derrubou o servidor no boot.
-  if (phase === PHASE_PRODUCTION_BUILD) {
+  //
+  // Fora no GitHub Actions. Lá não existe segredo nenhum e nada é publicado:
+  // o CI só roda typecheck, lint e testes. Como `next lint` carrega este
+  // arquivo, a trava derrubava o CI — vermelho desde julho, escondendo
+  // qualquer falha de verdade. Quem guarda o deploy é o build da Vercel, que
+  // roda com o env real em toda PR e em todo push na main.
+  if (phase === PHASE_PRODUCTION_BUILD && !process.env.GITHUB_ACTIONS) {
     assertEnvOrThrow();
 
     // Não quebram o build, mas ficam registrados no log da Vercel — é config
