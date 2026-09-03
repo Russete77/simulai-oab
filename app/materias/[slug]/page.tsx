@@ -164,7 +164,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
       title,
       description,
       type: 'website',
-      url: `https://simulaioab.com/materias/${params.slug}`,
+      url: `https://www.simulaioab.com/materias/${params.slug}`,
     },
     twitter: {
       card: 'summary_large_image',
@@ -188,7 +188,7 @@ export default async function SubjectPage(props: PageProps) {
     '@type': 'Course',
     name: `Questões OAB - ${data.name}`,
     description: data.description,
-    provider: { '@type': 'Organization', name: 'Simulai OAB', url: 'https://simulaioab.com' },
+    provider: { '@type': 'Organization', name: 'Simulai OAB', url: 'https://www.simulaioab.com' },
     numberOfCredits: data.totalQuestions,
     educationalLevel: 'Graduação em Direito',
     hasPart: { '@type': 'Quiz', name: `Simulado de ${data.name}`, numberOfQuestions: data.totalQuestions },
@@ -198,9 +198,9 @@ export default async function SubjectPage(props: PageProps) {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://simulaioab.com' },
-      { '@type': 'ListItem', position: 2, name: 'Matérias', item: 'https://simulaioab.com/questoes-oab' },
-      { '@type': 'ListItem', position: 3, name: data.name, item: `https://simulaioab.com/materias/${params.slug}` },
+      { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://www.simulaioab.com' },
+      { '@type': 'ListItem', position: 2, name: 'Matérias', item: 'https://www.simulaioab.com/questoes-oab' },
+      { '@type': 'ListItem', position: 3, name: data.name, item: `https://www.simulaioab.com/materias/${params.slug}` },
     ],
   };
 

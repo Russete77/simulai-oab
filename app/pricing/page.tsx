@@ -6,12 +6,12 @@ export const metadata: Metadata = {
   description: 'Compare os planos do Simulai OAB: Essencial (R$19,90/mês) e Pro com IA (R$89,90/mês). Simulados ilimitados, IA integrada e analytics completos para aprovação na OAB. Garantia de 7 dias.',
   keywords: ['preço simulado oab', 'planos simulado oab', 'quanto custa simulai oab', 'assinatura oab', 'simulado oab preço'],
   alternates: {
-    canonical: 'https://simulaioab.com/pricing',
+    canonical: 'https://www.simulaioab.com/pricing',
   },
   openGraph: {
     title: 'Planos e Preços - Simulai OAB',
     description: 'Compare os planos do Simulai OAB. Simulados ilimitados, IA integrada e analytics. Garantia 7 dias.',
-    url: 'https://simulaioab.com/pricing',
+    url: 'https://www.simulaioab.com/pricing',
     type: 'website',
   },
   twitter: {
@@ -32,7 +32,7 @@ export default function PricingPage() {
             '@type': 'CollectionPage',
             name: 'Planos e Preços - Simulai OAB',
             description: 'Compare os planos do Simulai OAB: Essencial e Pro. Mensalidade direta, garantia 7 dias.',
-            url: 'https://simulaioab.com/pricing',
+            url: 'https://www.simulaioab.com/pricing',
             offers: [
               {
                 '@type': 'Offer',
@@ -41,7 +41,7 @@ export default function PricingPage() {
                 price: '19.90',
                 priceCurrency: 'BRL',
                 billingDuration: 'P1M',
-                url: 'https://simulaioab.com/pricing',
+                url: 'https://www.simulaioab.com/pricing',
               },
               {
                 '@type': 'Offer',
@@ -50,7 +50,7 @@ export default function PricingPage() {
                 price: '89.90',
                 priceCurrency: 'BRL',
                 billingDuration: 'P1M',
-                url: 'https://simulaioab.com/pricing',
+                url: 'https://www.simulaioab.com/pricing',
               },
             ],
           }),

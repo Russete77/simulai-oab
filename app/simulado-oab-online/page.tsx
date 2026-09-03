@@ -17,11 +17,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Simulado OAB Online Grátis 2026 — Simulai OAB',
     description: 'Faça simulados com 5.875 questões oficiais FGV. IA explica cada questão. Comece grátis!',
-    url: 'https://simulaioab.com/simulado-oab-online',
+    url: 'https://www.simulaioab.com/simulado-oab-online',
     type: 'website',
   },
   alternates: {
-    canonical: 'https://simulaioab.com/simulado-oab-online',
+    canonical: 'https://www.simulaioab.com/simulado-oab-online',
   },
 };
 
@@ -62,7 +62,7 @@ export default async function SimuladoOabOnlinePage() {
     '@type': 'Course',
     name: 'Simulado OAB Online — Simulai OAB',
     description: `Simulados online para o Exame da OAB com ${totalQuestions} questões oficiais FGV. Explicações por IA, cronômetro real e predição de aprovação.`,
-    provider: { '@type': 'Organization', name: 'Simulai OAB', url: 'https://simulaioab.com' },
+    provider: { '@type': 'Organization', name: 'Simulai OAB', url: 'https://www.simulaioab.com' },
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'BRL', availability: 'https://schema.org/InStock' },
     educationalLevel: 'Advanced',
     inLanguage: 'pt-BR',
@@ -115,8 +115,8 @@ export default async function SimuladoOabOnlinePage() {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://simulaioab.com' },
-      { '@type': 'ListItem', position: 2, name: 'Simulado OAB Online', item: 'https://simulaioab.com/simulado-oab-online' },
+      { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://www.simulaioab.com' },
+      { '@type': 'ListItem', position: 2, name: 'Simulado OAB Online', item: 'https://www.simulaioab.com/simulado-oab-online' },
     ],
   };
 

@@ -75,6 +75,18 @@ const nextConfig: NextConfig = {
           source: '/:path*',
           headers: securityHeaders,
         },
+        {
+          // simulai-oab.vercel.app respondia 200 com "index, follow": uma
+          // cópia inteira do site, indexável, competindo com o www por
+          // conteúdo duplicado. O mesmo vale para toda URL de preview.
+          //
+          // Só o domínio de verdade deve ser indexado, e ele não casa aqui.
+          source: '/:path*',
+          has: [{ type: 'host', value: '.*\\.vercel\\.app' }],
+          headers: [
+            { key: 'X-Robots-Tag', value: 'noindex, nofollow' },
+          ],
+        },
       ];
     },
   }),

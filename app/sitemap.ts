@@ -12,7 +12,7 @@ import { unstable_cache } from 'next/cache';
 import { prisma } from '@/lib/db/prisma';
 import { getAllBlogPosts } from '@/content/blog';
 
-const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://simulaioab.com';
+const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.simulaioab.com';
 
 // As duas queries pesadas (groupBy de exames e findMany de ~6.000 questões)
 // são cacheadas por 24h. Sem isso, cada hit do crawler em /sitemap.xml puxava

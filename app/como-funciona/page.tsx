@@ -13,10 +13,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Como Funciona o Simulai OAB',
     description: 'Plataforma de simulados para OAB com IA integrada, gamificação e predição de aprovação.',
-    url: 'https://simulaioab.com/como-funciona',
+    url: 'https://www.simulaioab.com/como-funciona',
   },
   alternates: {
-    canonical: 'https://simulaioab.com/como-funciona',
+    canonical: 'https://www.simulaioab.com/como-funciona',
   },
 };
 
@@ -25,8 +25,8 @@ export default function ComoFuncionaPage() {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://simulaioab.com' },
-      { '@type': 'ListItem', position: 2, name: 'Como Funciona', item: 'https://simulaioab.com/como-funciona' },
+      { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://www.simulaioab.com' },
+      { '@type': 'ListItem', position: 2, name: 'Como Funciona', item: 'https://www.simulaioab.com/como-funciona' },
     ],
   };
 

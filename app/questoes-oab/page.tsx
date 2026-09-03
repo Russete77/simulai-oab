@@ -17,11 +17,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Questões OAB Comentadas com IA — Simulai OAB',
     description: 'Resolva 5.875 questões OAB oficiais com explicações por IA. Grátis!',
-    url: 'https://simulaioab.com/questoes-oab',
+    url: 'https://www.simulaioab.com/questoes-oab',
     type: 'website',
   },
   alternates: {
-    canonical: 'https://simulaioab.com/questoes-oab',
+    canonical: 'https://www.simulaioab.com/questoes-oab',
   },
 };
 
@@ -75,8 +75,8 @@ export default async function QuestoesOabPage() {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://simulaioab.com' },
-      { '@type': 'ListItem', position: 2, name: 'Questões OAB', item: 'https://simulaioab.com/questoes-oab' },
+      { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://www.simulaioab.com' },
+      { '@type': 'ListItem', position: 2, name: 'Questões OAB', item: 'https://www.simulaioab.com/questoes-oab' },
     ],
   };
 

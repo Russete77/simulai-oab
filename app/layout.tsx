@@ -36,7 +36,7 @@ const hankenGrotesk = Hanken_Grotesk({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://simulaioab.com"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://www.simulaioab.com"),
   title: {
     default: "Simulai OAB — 5.875 Questões Oficiais com IA",
     template: "%s | Simulai OAB",
@@ -51,7 +51,9 @@ export const metadata: Metadata = {
       { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
       { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
     ],
-    apple: [{ url: "/icon-192.png", sizes: "180x180", type: "image/png" }],
+    // 180 é o tamanho que o iOS pede. Antes apontava para o arquivo de 192
+    // declarando 180 — o sistema recebia uma imagem do tamanho errado.
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
   },
   appleWebApp: {
     capable: true,
@@ -72,7 +74,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "pt_BR",
-    url: "https://simulaioab.com",
+    url: "https://www.simulaioab.com",
     siteName: "Simulai OAB",
     title: "Simulai OAB — Preparação Inteligente para a OAB",
     description:

@@ -112,7 +112,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title,
     description,
     alternates: {
-      canonical: `https://simulaioab.com/gabarito/${slug}`,
+      canonical: `https://www.simulaioab.com/gabarito/${slug}`,
     },
     openGraph: {
       title,
@@ -179,7 +179,7 @@ export default async function GabaritoPage({ params }: PageProps) {
     '@type': 'Dataset',
     name: `Gabarito ${parsed.label}`,
     description: `Gabarito oficial do Exame ${parsed.label} com ${allQuestions.length} questões comentadas`,
-    url: `https://simulaioab.com/gabarito/${slug}`,
+    url: `https://www.simulaioab.com/gabarito/${slug}`,
     creator: { '@type': 'Organization', name: 'Simulai OAB' },
     temporalCoverage: allQuestions[0]?.examYear || '',
     variableMeasured: 'Respostas do Exame da OAB',
@@ -189,9 +189,9 @@ export default async function GabaritoPage({ params }: PageProps) {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://simulaioab.com' },
-      { '@type': 'ListItem', position: 2, name: 'Gabaritos', item: 'https://simulaioab.com/gabarito' },
-      { '@type': 'ListItem', position: 3, name: `Gabarito ${parsed.label}`, item: `https://simulaioab.com/gabarito/${slug}` },
+      { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://www.simulaioab.com' },
+      { '@type': 'ListItem', position: 2, name: 'Gabaritos', item: 'https://www.simulaioab.com/gabarito' },
+      { '@type': 'ListItem', position: 3, name: `Gabarito ${parsed.label}`, item: `https://www.simulaioab.com/gabarito/${slug}` },
     ],
   };
 
