@@ -5,6 +5,14 @@ import { AssinarButton } from '@/components/billing/assinar-button';
 import { HeroCountdown } from '@/components/countdown/hero-countdown';
 import { ArrowRight, Check, ChevronDown } from 'lucide-react';
 
+// A home não declarava canonical — e é a página mais linkada do site, a que
+// mais corre risco de ser indexada sob o host errado. Relativo de propósito:
+// resolve contra o `metadataBase` do layout, então existe UM lugar que decide
+// o domínio, em vez de mais um endereço escrito à mão.
+export const metadata = {
+  alternates: { canonical: '/' },
+};
+
 export default function Home() {
   const jsonLdWebApp = {
     '@context': 'https://schema.org',
