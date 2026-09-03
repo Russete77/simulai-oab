@@ -28,6 +28,15 @@ export const PUBLIC_ROUTES = [
   '/workbox-(.*)',
   '/icon-192.png',
   '/icon-512.png',
+  '/icon-maskable-512.png',
+  // O Next serve app/icon.png e app/apple-icon.png nestes caminhos, e o iOS
+  // ainda tenta /apple-touch-icon.png sozinho. Sem isto o middleware manda
+  // o pedido do ícone para o login e ele vira 307 — foi o que aconteceu com
+  // a logo antes.
+  '/icon.png',
+  '/apple-icon.png',
+  '/apple-touch-icon.png',
+  '/apple-touch-icon-precomposed.png',
   '/logo.png',
   // As duas peças do logo (ver components/layout/logo.tsx). Sem isto o
   // middleware redireciona o arquivo pro /login, e o next/image — que busca
