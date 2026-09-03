@@ -99,25 +99,67 @@ function main() {
     // `env add` não sobrescreve: reclama que a variável já existe.
     vercel(['env', 'rm', v.nome, AMBIENTE, '--yes']);
 
+    // `--yes` e obrigatorio aqui. Depois de ler o valor do stdin, a CLI
+    // ainda pergunta "Git branch?" (vazio = todas as branches de preview).
+    // Sem responder, ela aborta sem criar a variavel — e mesmo assim sai
+    // com codigo 0, o que fez a versao anterior deste script reportar
+    // sucesso para tres variaveis que nunca existiram.
     const r = vercel(
-      ['env', 'add', v.nome, AMBIENTE, v.sensivel ? '--sensitive' : '--no-sensitive'],
+      [
+        'env',
+        'add',
+        v.nome,
+        AMBIENTE,
+        v.sensivel ? '--sensitive' : '--no-sensitive',
+        '--yes',
+      ],
       `${v.valor}\n`
     );
-    const ok = r.status === 0;
-    console.log(
-      `  ${ok ? 'DEFINIDA      ' : 'FALHOU        '}  ${v.nome.padEnd(36)} ${mascara(v.valor)}  (${etiqueta})`
-    );
-    if (!ok) {
-      console.log(`      ${(r.stderr || r.stdout || '').trim().split('\n').slice(-2).join(' ')}`);
+
+    console.log(`  enviei          ${v.nome.padEnd(36)} ${mascara(v.valor)}  (${etiqueta})`);
+
+    // O codigo de saida NAO e confiavel aqui: no Windows a CLI e um .cmd
+    // rodado por dentro do shell, e o status que volta e o do shell, nao o
+    // do processo. Uma versao anterior deste script imprimiu "DEFINIDA"
+    // para tres variaveis que nunca foram criadas. Por isso a conferencia
+    // de verdade acontece no fim, lendo o que a Vercel diz que tem.
+    const saida = `${r.stdout ?? ''}${r.stderr ?? ''}`.trim();
+    if (saida) {
+      for (const linha of saida.split('\n').map((l) => l.trim()).filter(Boolean)) {
+        console.log(`                  | ${linha}`);
+      }
     }
   }
 
+  if (!APLICAR) {
+    console.log('');
+    console.log('  Para valer:  npx tsx scripts/vercel-preview-stripe.ts --aplicar');
+    console.log('');
+    return;
+  }
+
+  // Confere lendo de volta. Sem isto o script so sabe que "mandou".
   console.log('');
-  console.log(
-    APLICAR
-      ? '  Confira:  vercel env ls preview'
-      : '  Para valer:  npx tsx scripts/vercel-preview-stripe.ts --aplicar'
-  );
+  console.log('  --- conferindo no que a Vercel realmente tem ---');
+
+  const lista = vercel(['env', 'ls', AMBIENTE]);
+  const texto2 = `${lista.stdout ?? ''}${lista.stderr ?? ''}`;
+  const faltaram = achadas.filter((v) => !new RegExp(`\\b${v.nome}\\b`).test(texto2));
+
+  for (const v of achadas) {
+    const presente = !faltaram.includes(v);
+    console.log(`  ${presente ? 'CONFIRMADA' : 'NAO ENTROU'}      ${v.nome}`);
+  }
+
+  console.log('');
+  if (faltaram.length) {
+    console.log('  Nao deu certo. Adicione pelo painel:');
+    console.log('    Settings > Environment Variables > Add');
+    console.log('    marcando SOMENTE Preview, com os valores de teste do .env.local.');
+    process.exitCode = 1;
+  } else {
+    console.log('  Tudo no lugar. Agora sim: Redeploy.');
+  }
   console.log('');
 }
 
