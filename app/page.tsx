@@ -10,7 +10,7 @@ export default function Home() {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
     name: 'Simulai OAB',
-    url: 'https://simulaioab.com',
+    url: 'https://www.simulaioab.com',
     description:
       'Plataforma de simulados para o Exame da OAB com IA integrada. 5.875 questões oficiais de 2010 a 2026.',
     applicationCategory: 'EducationalApplication',
@@ -21,7 +21,7 @@ export default function Home() {
     ],
     featureList:
       'Simulados OAB, Questões comentadas com IA, Chat inteligente, Gamificação, Analytics de performance, PWA offline',
-    screenshot: 'https://simulaioab.com/logo.png',
+    screenshot: 'https://www.simulaioab.com/logo.png',
     author: { '@type': 'Organization', name: 'Simulai OAB' },
   };
 

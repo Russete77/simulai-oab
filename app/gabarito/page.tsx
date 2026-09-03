@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: 'Gabaritos OAB - Todos os Exames com Respostas Comentadas',
   description: 'Gabaritos oficiais de todos os Exames da OAB com respostas corretas, explicações detalhadas com IA e estatísticas por matéria. De 2010 até o exame mais recente.',
   alternates: {
-    canonical: 'https://simulaioab.com/gabarito',
+    canonical: 'https://www.simulaioab.com/gabarito',
   },
   openGraph: {
     title: 'Gabaritos OAB - Todos os Exames',
@@ -52,7 +52,7 @@ export default async function GabaritosIndexPage() {
     '@type': 'CollectionPage',
     name: 'Gabaritos OAB',
     description: 'Lista de gabaritos oficiais de todos os Exames da OAB',
-    url: 'https://simulaioab.com/gabarito',
+    url: 'https://www.simulaioab.com/gabarito',
     numberOfItems: exams.length,
   };
 
@@ -60,8 +60,8 @@ export default async function GabaritosIndexPage() {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://simulaioab.com' },
-      { '@type': 'ListItem', position: 2, name: 'Gabaritos OAB', item: 'https://simulaioab.com/gabarito' },
+      { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://www.simulaioab.com' },
+      { '@type': 'ListItem', position: 2, name: 'Gabaritos OAB', item: 'https://www.simulaioab.com/gabarito' },
     ],
   };
 

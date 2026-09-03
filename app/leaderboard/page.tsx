@@ -14,13 +14,13 @@ export const metadata: Metadata = {
   title: 'Ranking Global — Os melhores estudantes de OAB | Simulai OAB',
   description:
     'Veja o ranking dos estudantes que mais pontuam estudando para a 1ª fase da OAB no Simulai OAB. Compare pontos, nível, sequência de dias e taxa de acerto.',
-  alternates: { canonical: 'https://simulaioab.com/leaderboard' },
+  alternates: { canonical: 'https://www.simulaioab.com/leaderboard' },
   openGraph: {
     title: 'Ranking Global de Estudantes de OAB — Simulai OAB',
     description:
       'Os estudantes que mais pontuam na preparação para a 1ª fase da OAB. Veja onde você se compara.',
     type: 'website',
-    url: 'https://simulaioab.com/leaderboard',
+    url: 'https://www.simulaioab.com/leaderboard',
   },
 };
 

@@ -27,7 +27,7 @@ export function AssinaturaCriadaEmail({
   nomePlano = 'Pro Anual',
   valorMensal = 'R$ 54,16',
   proximaCobranca = '1 de dezembro de 2025',
-  linkDashboard = 'https://simulaioab.com/dashboard',
+  linkDashboard = 'https://www.simulaioab.com/dashboard',
 }: AssinaturaCriadaEmailProps) {
   return (
     <Html>

@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       type: 'article',
       publishedTime: post.publishedAt,
       modifiedTime: post.updatedAt,
-      url: `https://simulaioab.com/blog/${post.slug}`,
+      url: `https://www.simulaioab.com/blog/${post.slug}`,
       siteName: 'Simulai OAB',
     },
     twitter: {
@@ -290,25 +290,25 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             '@type': 'Article',
             headline: post.title,
             description: post.description,
-            image: post.image || 'https://simulaioab.com/og-image.png',
+            image: post.image || 'https://www.simulaioab.com/og-image.png',
             datePublished: post.publishedAt,
             dateModified: post.updatedAt || post.publishedAt,
             author: {
               '@type': 'Organization',
               name: post.author,
-              url: 'https://simulaioab.com',
+              url: 'https://www.simulaioab.com',
             },
             publisher: {
               '@type': 'Organization',
               name: 'Simulai OAB',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://simulaioab.com/logo.png',
+                url: 'https://www.simulaioab.com/logo.png',
               },
             },
             mainEntityOfPage: {
               '@type': 'WebPage',
-              '@id': `https://simulaioab.com/blog/${post.slug}`,
+              '@id': `https://www.simulaioab.com/blog/${post.slug}`,
             },
             keywords: post.tags.join(', '),
             articleBody: post.content.replace(/<[^>]*>/g, ''),

@@ -94,7 +94,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title,
     description,
     alternates: {
-      canonical: `https://simulaioab.com/simulado/${slug}`,
+      canonical: `https://www.simulaioab.com/simulado/${slug}`,
     },
     openGraph: { title, description, type: 'website' },
   };
@@ -147,7 +147,7 @@ export default async function SimuladoPage({ params }: PageProps) {
     '@type': 'Quiz',
     name: `Simulado ${parsed.label}`,
     description: `Simulado completo do Exame ${parsed.label} com ${questions.length} questões oficiais`,
-    url: `https://simulaioab.com/simulado/${slug}`,
+    url: `https://www.simulaioab.com/simulado/${slug}`,
     educationalAlignment: {
       '@type': 'AlignmentObject',
       alignmentType: 'educationalLevel',
@@ -161,9 +161,9 @@ export default async function SimuladoPage({ params }: PageProps) {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://simulaioab.com' },
-      { '@type': 'ListItem', position: 2, name: 'Simulados', item: 'https://simulaioab.com/simulations' },
-      { '@type': 'ListItem', position: 3, name: `Simulado ${parsed.label}`, item: `https://simulaioab.com/simulado/${slug}` },
+      { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://www.simulaioab.com' },
+      { '@type': 'ListItem', position: 2, name: 'Simulados', item: 'https://www.simulaioab.com/simulations' },
+      { '@type': 'ListItem', position: 3, name: `Simulado ${parsed.label}`, item: `https://www.simulaioab.com/simulado/${slug}` },
     ],
   };
 

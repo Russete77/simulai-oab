@@ -11,13 +11,13 @@ export const metadata: Metadata = {
   description: 'Dicas, estratégias e conteúdos para você se preparar melhor para o Exame da OAB. Aprenda com especialistas em preparação para OAB.',
   keywords: ['blog OAB', 'dicas OAB', 'preparação OAB', 'estratégias OAB', 'como passar na OAB', 'simulai'],
   alternates: {
-    canonical: 'https://simulaioab.com/blog',
+    canonical: 'https://www.simulaioab.com/blog',
   },
   openGraph: {
     title: 'Blog - Simulai OAB',
     description: 'Dicas, estratégias e conteúdos para você se preparar melhor para o Exame da OAB',
     type: 'website',
-    url: 'https://simulaioab.com/blog',
+    url: 'https://www.simulaioab.com/blog',
   },
   twitter: {
     card: 'summary_large_image',

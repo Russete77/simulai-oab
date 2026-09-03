@@ -24,7 +24,7 @@ export function PagamentoFalhouEmail({
   nomeUsuario = 'Estudante',
   nomePlano = 'Pro Anual',
   valor = 'R$ 649,90',
-  linkAtualizar = 'https://simulaioab.com/dashboard/assinatura',
+  linkAtualizar = 'https://www.simulaioab.com/dashboard/assinatura',
 }: PagamentoFalhouEmailProps) {
   return (
     <Html>

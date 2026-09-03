@@ -36,7 +36,7 @@ const hankenGrotesk = Hanken_Grotesk({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://simulaioab.com"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://www.simulaioab.com"),
   title: {
     default: "Simulai OAB — 5.875 Questões Oficiais com IA",
     template: "%s | Simulai OAB",
@@ -72,7 +72,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "pt_BR",
-    url: "https://simulaioab.com",
+    url: "https://www.simulaioab.com",
     siteName: "Simulai OAB",
     title: "Simulai OAB — Preparação Inteligente para a OAB",
     description:

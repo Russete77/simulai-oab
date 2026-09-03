@@ -125,7 +125,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
       title,
       description,
       type: 'article',
-      url: `https://simulaioab.com/questoes/${params.id}`,
+      url: `https://www.simulaioab.com/questoes/${params.id}`,
     },
     twitter: {
       card: 'summary_large_image',
@@ -133,7 +133,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
       description,
     },
     alternates: {
-      canonical: `https://simulaioab.com/questoes/${params.id}`,
+      canonical: `https://www.simulaioab.com/questoes/${params.id}`,
     },
   };
 }
