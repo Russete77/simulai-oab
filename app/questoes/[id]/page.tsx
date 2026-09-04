@@ -11,7 +11,24 @@ import Link from 'next/link';
 import { Header } from '@/components/layout/header';
 import { Card, Button } from '@/components/ui';
 import { prisma } from '@/lib/db/prisma';
-import { BookOpen, Calendar, Hash, Lock, ArrowRight, Home } from 'lucide-react';
+import {
+  BookOpen,
+  Calendar,
+  Hash,
+  ArrowRight,
+  Home,
+  Check,
+  X,
+  Scale,
+  Lightbulb,
+  AlertTriangle,
+  Sparkles,
+} from 'lucide-react';
+import {
+  lerExplicacao,
+  temConteudo,
+  explicacaoEmTexto,
+} from '@/lib/questoes/explicacao';
 
 interface PageProps {
   params: Promise<{
@@ -72,6 +89,11 @@ async function getQuestionUncached(id: string) {
       alternatives: {
         orderBy: { label: 'asc' },
       },
+      // A explicação SAI na página. Antes ficava atrás de cadastro, e o
+      // resultado é que o Google via só o enunciado da FGV — o mesmo texto
+      // que outros vinte sites publicam, e neles com o gabarito. Dava
+      // "Rastreada, mas não indexada" em 3.673 das 5.875 páginas.
+      aiExplanation: true,
     },
   });
 
@@ -107,7 +129,14 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const title = `Questão ${question.questionNumber} de ${subjectName} — OAB ${question.examYear} (Fase ${question.examPhase})`;
   // Limpar HTML e truncar statement para descrição SEO
   const cleanStatement = question.statement.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
-  const description = `Resolva a questão ${question.questionNumber} de ${subjectName} do Exame OAB ${question.examYear} com gabarito comentado e explicação com IA. ${cleanStatement.substring(0, 120)}...`;
+
+  // A descrição prometia "gabarito comentado" enquanto a resposta estava
+  // atrás de cadastro. Agora que ela aparece na página, a promessa passa a
+  // ser verdadeira — e dizer a letra da correta melhora o clique.
+  const letraCorreta = question.alternatives.find((a) => a.isCorrect)?.label;
+  const description = letraCorreta
+    ? `Gabarito: alternativa ${letraCorreta}. Questão ${question.questionNumber} de ${subjectName} do Exame OAB ${question.examYear}, comentada com fundamento legal. ${cleanStatement.substring(0, 100)}...`
+    : `Questão ${question.questionNumber} de ${subjectName} do Exame OAB ${question.examYear} com gabarito comentado. ${cleanStatement.substring(0, 120)}...`;
 
   return {
     title,
@@ -149,18 +178,45 @@ export default async function QuestionPage(props: PageProps) {
   const subjectName = SUBJECT_NAMES[question.subject] || question.subject;
   const subjectSlug = SUBJECT_SLUGS[question.subject] || 'geral';
 
-  // JSON-LD para SEO
+  const correta = question.alternatives.find((a) => a.isCorrect) ?? null;
+  const explicacao = lerExplicacao(question.aiExplanation?.explanation);
+  const temExplicacao = temConteudo(explicacao);
+
+  // Dado estruturado de "practice problem". O tipo Quiz com hasPart/Question
+  // e acceptedAnswer é o formato documentado pelo Google para questões de
+  // prova — antes era um Quiz solto, sem resposta, que não descreve nada
+  // além do enunciado e não concorre a resultado enriquecido.
   const jsonLd = {
-    '@context': 'https://schema.org',
+    '@context': 'https://schema.org/',
     '@type': 'Quiz',
-    name: `Questão OAB ${question.examId} - Questão ${question.questionNumber}`,
-    about: {
-      '@type': 'Thing',
-      name: subjectName,
-    },
+    name: `Questão ${question.questionNumber} de ${subjectName} — OAB ${question.examId}`,
+    about: { '@type': 'Thing', name: `Exame da OAB — ${subjectName}` },
     educationalLevel: 'Professional',
-    assesses: 'Exame da Ordem dos Advogados do Brasil',
-    text: question.statement,
+    hasPart: {
+      '@type': 'Question',
+      eduQuestionType: 'Multiple choice',
+      learningResourceType: 'Practice problem',
+      name: `Questão ${question.questionNumber} de ${subjectName} — OAB ${question.examId}`,
+      text: question.statement,
+      ...(correta && {
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `${correta.label}) ${correta.text}`,
+          ...(temExplicacao && {
+            answerExplanation: {
+              '@type': 'Comment',
+              text: explicacaoEmTexto(explicacao),
+            },
+          }),
+        },
+      }),
+      suggestedAnswer: question.alternatives
+        .filter((a) => !a.isCorrect)
+        .map((a) => ({
+          '@type': 'Answer',
+          text: `${a.label}) ${a.text}`,
+        })),
+    },
   };
 
   return (
@@ -216,74 +272,185 @@ export default async function QuestionPage(props: PageProps) {
           <Card variant="glass" className="mb-6">
             <h2 className="text-xl font-semibold text-ink-1 mb-6">Alternativas</h2>
             <div className="space-y-4">
-              {question.alternatives.map((alt) => (
-                <div
-                  key={alt.id}
-                  className="p-4 bg-surface-2 border rounded-xl"
-                >
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-accent-soft border-accent flex items-center justify-center flex-shrink-0">
-                      <span className="text-accent font-semibold">{alt.label}</span>
+              {question.alternatives.map((alt) => {
+                const acertou = alt.isCorrect;
+                const porQueErrada = explicacao?.incorretas.find(
+                  (i) => i.alternativa.toUpperCase() === alt.label.toUpperCase()
+                )?.motivo;
+
+                return (
+                  <div
+                    key={alt.id}
+                    className={
+                      acertou
+                        ? 'p-4 rounded-xl border border-success/40 bg-success-soft'
+                        : 'p-4 rounded-xl border bg-surface-2'
+                    }
+                  >
+                    <div className="flex items-start gap-3">
+                      <div
+                        className={[
+                          'w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0',
+                          acertou
+                            ? 'bg-success text-white'
+                            : 'bg-accent-soft border-accent text-accent',
+                        ].join(' ')}
+                      >
+                        {acertou ? (
+                          <Check className="w-4 h-4" strokeWidth={3} />
+                        ) : (
+                          <span className="font-semibold">{alt.label}</span>
+                        )}
+                      </div>
+
+                      <div className="flex-1">
+                        <p className="text-ink-1/90 leading-relaxed">{alt.text}</p>
+
+                        {acertou && (
+                          <p className="mt-2 text-sm font-semibold text-success">
+                            Alternativa {alt.label} — resposta correta
+                          </p>
+                        )}
+
+                        {/* O porquê de cada errada é o que diferencia esta
+                            página do enunciado solto que os outros sites
+                            publicam. */}
+                        {!acertou && porQueErrada && (
+                          <p className="mt-2 flex items-start gap-1.5 text-sm text-ink-2">
+                            <X className="w-3.5 h-3.5 text-danger shrink-0 mt-0.5" />
+                            <span>{porQueErrada}</span>
+                          </p>
+                        )}
+                      </div>
                     </div>
-                    <p className="text-ink-1/90 leading-relaxed flex-1">{alt.text}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </Card>
+
+          {/* Gabarito comentado — aberto de propósito. É o que faz esta
+              página valer mais que o enunciado publicado em outros sites, e
+              é a única razão pela qual o Google indexaria. O paywall foi
+              para o que é nosso e ninguém copia: IA, estatística, simulado. */}
+          {temExplicacao && explicacao && (
+            <Card variant="glass" className="mb-6">
+              <h2 className="text-xl font-semibold text-ink-1 mb-5">
+                Gabarito comentado
+              </h2>
+
+              {explicacao.resumo && (
+                <p className="text-ink-1/90 leading-relaxed mb-5">
+                  {explicacao.resumo}
+                </p>
+              )}
+
+              {explicacao.motivoCorreta && (
+                <div className="p-4 rounded-xl border border-success/30 bg-success-soft mb-4">
+                  <p className="flex items-center gap-2 text-sm font-semibold text-success mb-1.5">
+                    <Check className="w-4 h-4" strokeWidth={3} />
+                    Por que a alternativa {correta?.label} está correta
+                  </p>
+                  <p className="text-ink-1/90 leading-relaxed">
+                    {explicacao.motivoCorreta}
+                  </p>
+                </div>
+              )}
+
+              {explicacao.baseLegal && (
+                <div className="flex items-start gap-2.5 p-4 rounded-xl border bg-surface-2 mb-4">
+                  <Scale className="w-4 h-4 text-accent shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-xs uppercase tracking-wide text-ink-3 mb-0.5">
+                      Fundamento legal
+                    </p>
+                    <p className="text-ink-1 font-medium">{explicacao.baseLegal}</p>
                   </div>
                 </div>
-              ))}
-            </div>
-          </Card>
+              )}
 
-          {/* Paywall - Resposta bloqueada */}
-          <Card variant="glass" className="border-2 border-accent">
-            <div className="text-center py-8">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-accent-soft border-accent flex items-center justify-center">
-                <Lock className="w-8 h-8 text-accent" />
-              </div>
-              <h3 className="text-2xl font-bold text-ink-1 mb-2">
-                Resposta Correta Bloqueada
-              </h3>
-              <p className="text-ink-2 mb-6 max-w-md mx-auto">
-                Faça o diagnóstico grátis e descubra sua chance de passar, além de ver a resposta correta e acessar milhares de questões oficiais da OAB
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <Link href="/diagnostico">
-                  <Button variant="primary" size="lg" className="flex items-center gap-2">
-                    Fazer Diagnóstico Grátis
-                    <ArrowRight className="w-4 h-4" />
-                  </Button>
-                </Link>
-                <Link href="/login">
-                  <Button variant="ghost" size="lg">
-                    Já tenho conta
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </Card>
+              {explicacao.dica && (
+                <div className="flex items-start gap-2.5 p-4 rounded-xl border bg-surface-2 mb-4">
+                  <Lightbulb className="w-4 h-4 text-warning shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-xs uppercase tracking-wide text-ink-3 mb-0.5">
+                      Dica
+                    </p>
+                    <p className="text-ink-1/90 leading-relaxed">{explicacao.dica}</p>
+                  </div>
+                </div>
+              )}
 
-          {/* CTA Adicional */}
-          <div className="mt-8 bg-gradient-to-r from-blue-600/10 to-purple-600/10 border-accent rounded-2xl p-6 sm:p-8">
-            <div className="max-w-3xl mx-auto text-center">
-              <h3 className="text-2xl font-bold text-ink-1 mb-3">
-                Pratique com +10.000 questões oficiais
+              {explicacao.pegadinhas.length > 0 && (
+                <div className="flex items-start gap-2.5 p-4 rounded-xl border bg-surface-2">
+                  <AlertTriangle className="w-4 h-4 text-warning shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-xs uppercase tracking-wide text-ink-3 mb-1">
+                      Pegadinhas
+                    </p>
+                    <ul className="space-y-1">
+                      {explicacao.pegadinhas.map((p) => (
+                        <li key={p} className="text-ink-1/90 leading-relaxed">
+                          {p}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
+            </Card>
+          )}
+
+          {/* O convite agora é pelo que o gabarito NÃO entrega. Prometer o
+              que já está acima da dobra queimaria a confiança de quem
+              acabou de ler a resposta de graça. */}
+          <Card variant="glass" className="border border-accent/40">
+            <div className="max-w-2xl mx-auto text-center py-4">
+              <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-accent-soft border border-accent/30 flex items-center justify-center">
+                <Sparkles className="w-6 h-6 text-accent" />
+              </div>
+              <h3 className="text-xl font-semibold text-ink-1 mb-2">
+                Entendeu esta. E as outras 5.874?
               </h3>
-              <p className="text-ink-2 mb-6">
-                Acesse todas as questões de todos os exames da OAB, com estatísticas detalhadas,
-                explicações com IA e simulados personalizados
+              <p className="text-ink-2 mb-6 leading-relaxed">
+                Descubra em quais matérias você erra mais, treine simulados no
+                formato da prova e pergunte à IA o que ficou em aberto nesta
+                questão.
               </p>
+
+              <ul className="grid sm:grid-cols-3 gap-3 text-left mb-7">
+                {[
+                  'Simulados cronometrados no formato da FGV',
+                  'Suas estatísticas por matéria e ponto fraco',
+                  'Chat com IA para tirar dúvida da questão',
+                ].map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-start gap-2 text-sm text-ink-2 p-3 rounded-lg bg-surface-2 border"
+                  >
+                    <Check className="w-4 h-4 text-accent shrink-0 mt-0.5" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Link href="/diagnostico">
                   <Button variant="primary" size="lg">
-                    Fazer Diagnóstico Grátis
+                    <span className="flex items-center gap-2">
+                      Fazer diagnóstico grátis
+                      <ArrowRight className="w-4 h-4" />
+                    </span>
                   </Button>
                 </Link>
-                <Link href="/pricing">
+                <Link href={`/materias/${subjectSlug}`}>
                   <Button variant="ghost" size="lg">
-                    Ver Planos
+                    Mais questões de {subjectName}
                   </Button>
                 </Link>
               </div>
             </div>
-          </div>
+          </Card>
         </div>
       </div>
     </>
