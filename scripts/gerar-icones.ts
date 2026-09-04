@@ -33,7 +33,11 @@ const SAIDAS = [
 ];
 
 /** Tamanhos dentro do .ico. 48 é o mínimo que o Google aceita. */
-const NO_ICO = [16, 32, 48];
+// Maior primeiro: o Next declara o `sizes` do link a partir da PRIMEIRA
+// entrada do arquivo. Com 16 na frente ele anunciava sizes="16x16", abaixo
+// do minimo de 48 do Google, mesmo o arquivo tendo 48 dentro. Conferido num
+// build de producao servido localmente.
+const NO_ICO = [48, 32, 16];
 
 /**
  * O badge de origem tem uma moldura branca de alguns pixels. Recortar pela
