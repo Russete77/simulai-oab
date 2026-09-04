@@ -97,6 +97,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
+  // A prova jogável, uma por exame. Prioridade acima da página que só
+  // descreve o exame: é ela que responde a quem busca "simulado oab",
+  // porque dá para fazer a prova ali mesmo, sem cadastro.
+  const simuladoJogavelPages: MetadataRoute.Sitemap = exams.map((exam) => ({
+    url: `${baseUrl}/simulado/${exam.examId}/jogar`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.9,
+  }));
+
   // ==========================================
   // 4. Blog posts
   // ==========================================
@@ -125,6 +135,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...subjectPages,
     ...gabaritoPages,
     ...simuladoPages,
+    ...simuladoJogavelPages,
     ...blogPages,
     ...questionPages,
   ];
