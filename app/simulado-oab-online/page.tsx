@@ -47,15 +47,22 @@ async function getPageData() {
       where: { nullified: false },
     });
     const examIds = groupResult.map((e) => e.examId);
-    return { totalQuestions, examIds };
+    // O exame mais recente é para onde o botão principal aponta: quem busca
+    // "simulado oab" quer fazer a prova mais nova, e cai direto nela.
+    const maisRecente = [...examIds].sort().reverse()[0] ?? null;
+    return { totalQuestions, examIds, maisRecente };
   } catch (error) {
     console.error('Erro ao buscar dados para simulado-oab-online:', error);
-    return { totalQuestions: 5875, examIds: [] as string[] };
+    return { totalQuestions: 5875, examIds: [] as string[], maisRecente: null };
   }
 }
 
 export default async function SimuladoOabOnlinePage() {
-  const { totalQuestions, examIds } = await getPageData();
+  const { totalQuestions, examIds, maisRecente } = await getPageData();
+
+  // Sem exame no banco o botao volta a mandar para o cadastro — ruim, mas
+  // melhor que um link para lugar nenhum.
+  const comecarAgora = maisRecente ? `/simulado/${maisRecente}/jogar` : '/register';
 
   const jsonLdCourse = {
     '@context': 'https://schema.org',
@@ -81,7 +88,7 @@ export default async function SimuladoOabOnlinePage() {
       {
         '@type': 'Question',
         name: 'O simulado OAB do Simulai é grátis?',
-        acceptedAnswer: { '@type': 'Answer', text: 'Sim! O plano gratuito permite fazer simulados e resolver questões diárias. Para acesso ilimitado com IA integrada e analytics completos, existem planos a partir de R$ 19,99/mês.' },
+        acceptedAnswer: { '@type': 'Answer', text: 'Sim. Você faz a prova completa aqui mesmo, sem criar conta, e vê o gabarito comentado de cada questão. A assinatura de R$ 9,99/mês libera o acompanhamento por matéria, o chat com IA e os simulados personalizados.' },
       },
       {
         '@type': 'Question',
@@ -91,12 +98,12 @@ export default async function SimuladoOabOnlinePage() {
       {
         '@type': 'Question',
         name: 'O simulado OAB tem gabarito comentado?',
-        acceptedAnswer: { '@type': 'Answer', text: 'Sim! Cada questão possui gabarito oficial e, no plano Pro, explicação detalhada gerada por Inteligência Artificial, com fundamentação legal, doutrina e jurisprudência relevantes.' },
+        acceptedAnswer: { '@type': 'Answer', text: 'Sim, e sem pagar nada: cada questão tem o gabarito com explicação gerada por Inteligência Artificial, com o fundamento legal, a dica de memorização e as pegadinhas. Basta abrir a página da questão.' },
       },
       {
         '@type': 'Question',
         name: 'Como o Simulai compara com outros simulados OAB online?',
-        acceptedAnswer: { '@type': 'Answer', text: `O Simulai OAB é a única plataforma com IA integrada para explicações e chat em tempo real. Com ${totalQuestions} questões (o maior banco do mercado), 5 modos de estudo, gamificação completa e predição de aprovação, oferece a preparação mais completa por um preço a partir de R$ 19,99/mês.` },
+        acceptedAnswer: { '@type': 'Answer', text: `O Simulai OAB é a única plataforma com IA integrada para explicações e chat em tempo real. Com ${totalQuestions} questões (o maior banco do mercado), 5 modos de estudo, gamificação completa e predição de aprovação, oferece a preparação mais completa por R$ 9,99/mês — e o simulado completo com gabarito comentado é aberto, sem cadastro.` },
       },
       {
         '@type': 'Question',
@@ -147,7 +154,7 @@ export default async function SimuladoOabOnlinePage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/register"
+                href={comecarAgora}
                 className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-white font-semibold rounded-xl hover:bg-accent-hover transition-all text-lg"
               >
                 <Play className="w-5 h-5" />
@@ -291,7 +298,7 @@ export default async function SimuladoOabOnlinePage() {
             <div className="space-y-4">
               {[
                 { q: 'Como funciona o simulado OAB online do Simulai?', a: `O Simulai oferece simulados com ${totalQuestions.toLocaleString('pt-BR')} questões oficiais da FGV. Escolha entre 5 modos de estudo, responda com cronômetro real e receba explicações detalhadas por IA para cada questão.` },
-                { q: 'O simulado OAB do Simulai é grátis?', a: 'Sim! O plano gratuito permite fazer simulados e resolver questões diárias. Para acesso ilimitado com IA integrada, existem planos a partir de R$ 19,99/mês.' },
+                { q: 'O simulado OAB do Simulai é grátis?', a: 'Sim. Você faz a prova completa aqui mesmo, sem criar conta, e vê o gabarito comentado de cada questão. A assinatura de R$ 9,99/mês libera o acompanhamento por matéria, o chat com IA e os simulados personalizados.' },
                 { q: 'Quantas questões OAB tem no banco?', a: `São ${totalQuestions.toLocaleString('pt-BR')} questões oficiais da FGV, de ${examIds.length}+ exames (2010-2026), em 17 matérias.` },
                 { q: 'O simulado tem gabarito comentado?', a: 'Sim! Cada questão tem gabarito oficial. No plano Pro, a IA gera explicações detalhadas com fundamentação legal e jurisprudência.' },
                 { q: 'Funciona no celular?', a: 'Sim! O Simulai é um PWA — funciona como app nativo no celular sem precisar baixar da loja.' },
@@ -318,11 +325,11 @@ export default async function SimuladoOabOnlinePage() {
               Junte-se a centenas de estudantes que já estão se preparando com o Simulai OAB. Sem cartão de crédito, sem compromisso.
             </p>
             <Link
-              href="/register"
+              href={comecarAgora}
               className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-white font-semibold rounded-xl hover:bg-accent-hover transition-all text-lg"
             >
               <Play className="w-5 h-5" />
-              Criar Conta Grátis e Começar
+              Começar Agora, Sem Cadastro
             </Link>
           </section>
 

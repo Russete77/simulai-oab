@@ -9,69 +9,15 @@ import Link from 'next/link';
 import { Header } from '@/components/layout/header';
 import { prisma } from '@/lib/db/prisma';
 import { Play, Home, ChevronRight, Clock, BookOpen, Target, BarChart3 } from 'lucide-react';
+// Parser e nomes de materia vivem em lib/simulado/exame: esta pagina e a de
+// jogar precisam aceitar exatamente os mesmos slugs.
+import { lerSlugDoExame, NOMES_DE_MATERIA as SUBJECT_NAMES } from '@/lib/simulado/exame';
 
 interface PageProps {
   params: Promise<{
     slug: string;
   }>;
 }
-
-function toRoman(num: number): string {
-  const romanNumerals: [number, string][] = [
-    [1000, 'M'], [900, 'CM'], [500, 'D'], [400, 'CD'],
-    [100, 'C'], [90, 'XC'], [50, 'L'], [40, 'XL'],
-    [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I'],
-  ];
-  let result = '';
-  for (const [value, numeral] of romanNumerals) {
-    while (num >= value) {
-      result += numeral;
-      num -= value;
-    }
-  }
-  return result;
-}
-
-function parseSimuladoSlug(slug: string): { examId: string; label: string; examNumber: number; phase: number } | null {
-  const oabMatch = slug.match(/^oab-(\d+)(?:-fase-(\d))?$/);
-  if (oabMatch) {
-    const examNumber = parseInt(oabMatch[1]);
-    const phase = parseInt(oabMatch[2] || '1');
-    return { examId: `oab-${examNumber}`, label: `OAB ${toRoman(examNumber)}`, examNumber, phase };
-  }
-
-  const yearMatch = slug.match(/^(\d{4})-(\d)$/);
-  if (yearMatch) {
-    return {
-      examId: `${yearMatch[1]}-0${yearMatch[2]}`,
-      label: `OAB ${yearMatch[1]}`,
-      examNumber: 0,
-      phase: parseInt(yearMatch[2]),
-    };
-  }
-
-  return null;
-}
-
-const SUBJECT_NAMES: Record<string, string> = {
-  ETHICS: 'Ética e Estatuto',
-  CONSTITUTIONAL: 'Constitucional',
-  CIVIL: 'Civil',
-  CIVIL_PROCEDURE: 'Processo Civil',
-  CRIMINAL: 'Penal',
-  CRIMINAL_PROCEDURE: 'Processo Penal',
-  LABOUR: 'Trabalho',
-  LABOUR_PROCEDURE: 'Processo do Trabalho',
-  ADMINISTRATIVE: 'Administrativo',
-  TAXES: 'Tributário',
-  BUSINESS: 'Empresarial',
-  CONSUMER: 'Consumidor',
-  ENVIRONMENTAL: 'Ambiental',
-  CHILDREN: 'ECA',
-  INTERNATIONAL: 'Internacional',
-  HUMAN_RIGHTS: 'Direitos Humanos',
-  GENERAL: 'Geral',
-};
 
 export async function generateStaticParams() {
   const exams = await prisma.question.groupBy({
@@ -83,7 +29,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const parsed = parseSimuladoSlug(slug);
+  const parsed = lerSlugDoExame(slug);
 
   if (!parsed) return { title: 'Simulado não encontrado' };
 
@@ -102,7 +48,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function SimuladoPage({ params }: PageProps) {
   const { slug } = await params;
-  const parsed = parseSimuladoSlug(slug);
+  const parsed = lerSlugDoExame(slug);
 
   if (!parsed) notFound();
 
@@ -240,16 +186,22 @@ export default async function SimuladoPage({ params }: PageProps) {
                 Pronto para testar seus conhecimentos?
               </h2>
               <p className="text-gray-400 mb-6 max-w-lg mx-auto">
-                Crie sua conta grátis e faça este simulado completo com correção instantânea, explicações com IA e ranking comparativo.
+                Prova completa com as questões oficiais da FGV, correção na hora e
+                nota projetada. Sem criar conta.
               </p>
+              {/* Vai direto para o simulado. Antes mandava para /register:
+                  quem busca "simulado oab" quer FAZER um, recebia um
+                  formulário, voltava para o Google e clicava no concorrente. */}
               <Link
-                href="/register"
+                href={`/simulado/${slug}/jogar`}
                 className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-500 transition text-lg"
               >
                 <Play className="w-5 h-5" />
-                Iniciar simulado grátis
+                Começar agora, sem cadastro
               </Link>
-              <p className="text-sm text-gray-500 mt-3">Sem cartão de crédito necessário</p>
+              <p className="text-sm text-gray-500 mt-3">
+                Nada de cadastro, nada de cartão — começa na próxima tela.
+              </p>
               <p className="text-sm text-gray-500 mt-1">
                 Prefere algo mais rápido?{' '}
                 <Link href="/diagnostico" className="text-accent hover:text-accent font-medium">
