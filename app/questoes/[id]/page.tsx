@@ -19,7 +19,6 @@ import {
   Home,
   Check,
   X,
-  Scale,
   Lightbulb,
   AlertTriangle,
   Sparkles,
@@ -357,17 +356,18 @@ export default async function QuestionPage(props: PageProps) {
                 </div>
               )}
 
-              {explicacao.baseLegal && (
-                <div className="flex items-start gap-2.5 p-4 rounded-xl border bg-surface-2 mb-4">
-                  <Scale className="w-4 h-4 text-accent shrink-0 mt-0.5" />
-                  <div>
-                    <p className="text-xs uppercase tracking-wide text-ink-3 mb-0.5">
-                      Fundamento legal
-                    </p>
-                    <p className="text-ink-1 font-medium">{explicacao.baseLegal}</p>
-                  </div>
-                </div>
-              )}
+              {/* O fundamento legal está ESCONDIDO de propósito.
+                  As 5.857 explicações foram geradas por gpt-4o-mini, que
+                  raciocina bem sobre o enunciado que tem na frente mas
+                  inventa número de artigo — 477 delas caem em "Art. 5º da
+                  CF", o curinga de quando o modelo não sabe. Das duas que
+                  conferi à mão, as duas citavam artigo errado.
+                  Em página de Direito, artigo errado custa mais caro que
+                  artigo nenhum: o leitor é advogado e percebe na hora.
+                  O resto da explicação continua — raciocínio impreciso o
+                  leitor perdoa, citação falsa não.
+                  Volta quando as citações forem validadas contra a lei.
+                  Ver _PLANO-CLAUDE/AUDITORIA-BANCO-QUESTOES.md */}
 
               {explicacao.dica && (
                 <div className="flex items-start gap-2.5 p-4 rounded-xl border bg-surface-2 mb-4">

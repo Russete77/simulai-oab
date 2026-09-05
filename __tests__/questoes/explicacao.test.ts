@@ -130,8 +130,17 @@ describe('explicacaoEmTexto', () => {
   it('junta os campos numa linha só, para o dado estruturado', () => {
     const t = explicacaoEmTexto(lerExplicacao(COMPLETA));
     expect(t).toContain('alternativa A');
-    expect(t).toContain('Lei nº 8.906/94');
+    expect(t).toContain('efeito suspensivo'); // o resumo entra
     expect(t).not.toContain('\n');
+  });
+
+  it('NÃO leva a base legal para o dado estruturado', () => {
+    // As citações são geradas por IA e não são confiáveis. Já estão
+    // escondidas na tela; se vazassem por aqui, o Google as leria como
+    // afirmação nossa sobre a lei.
+    const t = explicacaoEmTexto(lerExplicacao(COMPLETA));
+    expect(t).not.toContain('8.906');
+    expect(t).not.toContain('Art.');
   });
 
   it('null vira string vazia', () => {
