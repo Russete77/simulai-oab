@@ -21,7 +21,7 @@ const getExamsForSitemap = unstable_cache(
   async () =>
     prisma.question.groupBy({
       by: ['examId'],
-      where: { nullified: false },
+      where: { nullified: false, duplicataDe: null },
     }),
   ['sitemap-exams'],
   { revalidate: 86400, tags: ['sitemap'] }
@@ -31,7 +31,7 @@ const getQuestionsForSitemap = unstable_cache(
   async () =>
     prisma.question.findMany({
       select: { id: true, updatedAt: true },
-      where: { nullified: false },
+      where: { nullified: false, duplicataDe: null },
       orderBy: { examYear: 'desc' },
     }),
   ['sitemap-questions'],

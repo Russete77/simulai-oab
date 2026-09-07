@@ -6,7 +6,7 @@ export const revalidate = 604800;
 
 import { cache } from 'react';
 import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import Link from 'next/link';
 import { Header } from '@/components/layout/header';
 import { Card, Button } from '@/components/ui';
@@ -106,7 +106,7 @@ async function getQuestionUncached(id: string) {
 export async function generateStaticParams() {
   const currentYear = new Date().getFullYear();
   const recentQuestions = await prisma.question.findMany({
-    where: { nullified: false, examYear: { gte: currentYear - 3 } },
+    where: { nullified: false, duplicataDe: null, examYear: { gte: currentYear - 3 } },
     select: { id: true },
     orderBy: { examYear: 'desc' },
     take: 200, // só o exame mais recente pré-gerado; resto vira ISR on-demand (economiza build + egress)
@@ -172,6 +172,17 @@ export default async function QuestionPage(props: PageProps) {
 
   if (!question) {
     notFound();
+  }
+
+  // 2.250 questões são cópia do mesmo enunciado dentro do mesmo exame — a
+  // prova foi importada duas vezes. Elas continuam no banco (as respostas de
+  // usuário vivem nelas), mas a página redireciona para a que fica.
+  //
+  // 301 e não 404: essas URLs estão no índice do Google. Deixá-las morrer
+  // seria jogar fora a autoridade que juntaram e ainda somar 2.250 erros ao
+  // relatório de cobertura.
+  if (question.duplicataDe) {
+    permanentRedirect(`/questoes/${question.duplicataDe}`);
   }
 
   const subjectName = SUBJECT_NAMES[question.subject] || question.subject;

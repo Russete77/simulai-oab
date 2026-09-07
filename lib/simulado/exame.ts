@@ -28,6 +28,14 @@ export interface ExameDoSlug {
   examId: string;
   label: string;
   examNumber: number;
+  /**
+   * O segundo número do slug — `2011-04` devolve 4.
+   *
+   * NÃO é a fase do exame, apesar do nome herdado. É a sequência do exame,
+   * e o banco só tem questões de 1ª fase (todas de múltipla escolha).
+   * A página do simulado filtrava por este valor contra `examPhase` e
+   * escondia a prova inteira: 25 dos 46 exames respondiam 404.
+   */
   phase: number;
 }
 

@@ -107,7 +107,7 @@ export async function GET(request: NextRequest) {
 
     // Construir where clause
     const where: Prisma.QuestionWhereInput = {
-      nullified: false,
+      nullified: false, duplicataDe: null,
       ...(params.subject && { subject: params.subject as any }),
       ...(params.difficulty && { difficulty: params.difficulty as any }),
     };

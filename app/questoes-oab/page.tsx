@@ -48,12 +48,12 @@ export default async function QuestoesOabPage() {
   let totalQuestions = 3607;
   let countMap: Record<string, number> = {};
   try {
-    totalQuestions = await prisma.question.count({ where: { nullified: false } });
+    totalQuestions = await prisma.question.count({ where: { nullified: false, duplicataDe: null } });
 
     // Get count per subject
     const subjectCounts = await prisma.question.groupBy({
       by: ['subject'],
-      where: { nullified: false },
+      where: { nullified: false, duplicataDe: null },
       _count: { id: true },
     });
 

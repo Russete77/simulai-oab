@@ -41,10 +41,10 @@ const subjects = [
 
 async function getPageData() {
   try {
-    const totalQuestions = await prisma.question.count({ where: { nullified: false } });
+    const totalQuestions = await prisma.question.count({ where: { nullified: false, duplicataDe: null } });
     const groupResult = await prisma.question.groupBy({
       by: ['examId'],
-      where: { nullified: false },
+      where: { nullified: false, duplicataDe: null },
     });
     const examIds = groupResult.map((e) => e.examId);
     // O exame mais recente é para onde o botão principal aponta: quem busca

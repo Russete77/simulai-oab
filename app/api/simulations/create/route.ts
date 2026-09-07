@@ -283,7 +283,7 @@ export async function POST(request: NextRequest) {
     const questionCount = data.questionCount || config.questionCount;
 
     // Construir where clause baseado no tipo de simulado
-    let where: Prisma.QuestionWhereInput = { nullified: false };
+    let where: Prisma.QuestionWhereInput = { nullified: false, duplicataDe: null };
 
     if (data.type === "FULL_EXAM") {
       // Simulado completo usa distribuição específica
@@ -312,7 +312,7 @@ export async function POST(request: NextRequest) {
         const availableCount = await prisma.question.count({
           where: {
             subject: subject as any,
-            nullified: false,
+            nullified: false, duplicataDe: null,
             id: { notIn: Array.from(answeredQuestionIds) },
           },
         });
@@ -322,7 +322,7 @@ export async function POST(request: NextRequest) {
         const questions = await prisma.question.findMany({
           where: {
             subject: subject as any,
-            nullified: false,
+            nullified: false, duplicataDe: null,
           },
           select: {
             id: true,

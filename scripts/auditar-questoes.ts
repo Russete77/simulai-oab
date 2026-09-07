@@ -136,10 +136,16 @@ async function main() {
   // -------------------------------------------------------------- metadados
   titulo('2 · METADADOS');
 
-  const faseInvalida = questoes.filter((q) => ![1, 2].includes(q.examPhase));
-  const numeroAlto = questoes.filter((q) => q.questionNumber > 80);
-  const semSuccessRate = questoes.filter((q) => q.successRate === null);
-  const anoEstranho = questoes.filter((q) => q.examYear < 2010 || q.examYear > new Date().getFullYear() + 1);
+  // Só as VISÍVEIS. Metadado sujo numa duplicata marcada não incomoda
+  // ninguém: ela não aparece em listagem, não entra no sitemap e a página
+  // redireciona. O que importa é o catálogo que o usuário encontra.
+  const visiveis = questoes.filter((q) => !q.duplicataDe);
+  console.log(`       (${visiveis.length} visíveis; duplicatas marcadas ficam de fora)`);
+
+  const faseInvalida = visiveis.filter((q) => ![1, 2].includes(q.examPhase));
+  const numeroAlto = visiveis.filter((q) => q.questionNumber > 80);
+  const semSuccessRate = visiveis.filter((q) => q.successRate === null);
+  const anoEstranho = visiveis.filter((q) => q.examYear < 2010 || q.examYear > new Date().getFullYear() + 1);
 
   linha('examPhase fora de {1,2}', faseInvalida.length);
   linha('questionNumber acima de 80', numeroAlto.length);
@@ -167,11 +173,21 @@ async function main() {
   const excedentes = grupos.reduce((s, g) => s + g.length - 1, 0);
   const unicas = porEnunciado.size;
 
+  // Duplicata marcada com `duplicataDe` já está resolvida: some das
+  // listagens, sai do sitemap e a página redireciona 301. O que interessa
+  // agora é a que escapou da marcação.
+  const marcadas = questoes.filter((q) => q.duplicataDe).length;
+  const soltas = grupos.reduce(
+    (s, g) => s + g.filter((q) => !q.duplicataDe).length - 1,
+    0
+  );
+
   console.log(`  ${grupos.length} grupos de enunciado repetido`);
-  console.log(`  ${excedentes} cópias excedentes`);
-  console.log(`  ${unicas} questões únicas de verdade`);
-  if (excedentes) {
-    registrar('duplicação', 'alta', excedentes, `${total} linhas, ${unicas} únicas`);
+  console.log(`  ${excedentes} cópias no total, ${marcadas} já marcadas`);
+  console.log(`  ${unicas} questões únicas`);
+  console.log(`  ${soltas === 0 ? 'ok  ' : 'ACHE'} ${soltas} duplicata sem marcação`);
+  if (soltas > 0) {
+    registrar('duplicata solta', 'alta', soltas, 'rode scripts/marcar-duplicatas.ts --aplicar');
   }
 
   // O número anunciado no site vive em lib/questoes/catalogo.ts. Antes estava
