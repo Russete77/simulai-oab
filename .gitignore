@@ -86,3 +86,7 @@ LOGS.txt
 .env.producao.local
 .env.producao.vercel
 .vercel-token
+
+# PDFs oficiais da FGV: baixados sob demanda, ver _PLANO-CLAUDE/provas-fgv/BAIXAR-AQUI.md
+_PLANO-CLAUDE/provas-fgv/*.pdf
+_PLANO-CLAUDE/provas-fgv/*.txt
