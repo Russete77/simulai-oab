@@ -20,7 +20,7 @@ export default function Home() {
     name: 'Simulai OAB',
     url: 'https://www.simulaioab.com',
     description:
-      'Plataforma de simulados para o Exame da OAB com IA integrada. 5.875 questões oficiais de 2010 a 2026.',
+      'Plataforma de simulados para o Exame da OAB com IA integrada. 3.607 questões oficiais de 2010 a 2026.',
     applicationCategory: 'EducationalApplication',
     operatingSystem: 'Web',
     offers: [
@@ -42,7 +42,7 @@ export default function Home() {
         name: 'Quanto custa o Simulai OAB?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'R$ 9,99 por mês, no cartão, com tudo liberado: as 5.875 questões oficiais, simulados ilimitados, plano de estudos e explicações com IA. Sem fidelidade — cancele quando quiser.',
+          text: 'R$ 9,99 por mês, no cartão, com tudo liberado: as 3.607 questões oficiais, simulados ilimitados, plano de estudos e explicações com IA. Sem fidelidade — cancele quando quiser.',
         },
       },
       {
@@ -50,7 +50,7 @@ export default function Home() {
         name: 'Quantas questões o Simulai OAB tem?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: '5.875 questões oficiais da OAB/FGV cobrindo todos os exames de 2010 a 2026, em 17 matérias. Atualizado a cada novo exame.',
+          text: '3.607 questões oficiais da OAB/FGV cobrindo todos os exames de 2010 a 2026, em 17 matérias. Atualizado a cada novo exame.',
         },
       },
       {
@@ -115,7 +115,7 @@ export default function Home() {
               </h1>
 
               <p className="text-base sm:text-lg text-ink-2 max-w-xl leading-relaxed mb-8">
-                5.875 questões oficiais da FGV. Algoritmo que aprende seus pontos
+                3.607 questões oficiais da FGV. Algoritmo que aprende seus pontos
                 fracos. IA que <em className="not-italic text-ink-1 font-medium">ensina</em>,
                 não que entrega a resposta. Mensal, sem fidelidade.
               </p>
@@ -150,7 +150,7 @@ export default function Home() {
           <div className="mt-20 pt-10 border-t">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-8 gap-x-6">
               {[
-                { num: '5.875', label: 'Questões oficiais' },
+                { num: '3.607', label: 'Questões oficiais' },
                 { num: '16 anos', label: 'Histórico FGV (2010–26)' },
                 { num: '17', label: 'Matérias cobertas' },
                 { num: '24/7', label: 'IA explicando' },
@@ -230,7 +230,7 @@ export default function Home() {
                 <ul className="space-y-2 text-sm text-ink-2">
                   <li className="flex items-start gap-2.5">
                     <Check className="w-4 h-4 text-success shrink-0 mt-0.5" />
-                    <span>5.875 questões — 18 exames de 1ª fase</span>
+                    <span>3.607 questões — 46 exames, de 2010 a 2026</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <Check className="w-4 h-4 text-success shrink-0 mt-0.5" />
@@ -373,7 +373,7 @@ export default function Home() {
               </div>
               <ul className="space-y-2.5 mb-8 text-sm text-ink-2 flex-1">
                 {[
-                  '5.875 questões oficiais da FGV',
+                  '3.607 questões oficiais da FGV',
                   'Simulados ilimitados no formato do exame',
                   'Filtro por matéria',
                   'Plano de estudos personalizado',
@@ -411,7 +411,7 @@ export default function Home() {
                 },
                 {
                   q: 'Quantas questões tem?',
-                  a: '5.875 questões oficiais da OAB/FGV cobrindo todos os exames de 2010 a 2026. Atualizado a cada novo exame.',
+                  a: '3.607 questões oficiais da OAB/FGV cobrindo todos os exames de 2010 a 2026. Atualizado a cada novo exame.',
                 },
                 {
                   q: 'A IA é confiável pra Direito?',
@@ -649,7 +649,7 @@ function BankVisual() {
   ];
   return (
     <div className="rounded-xl border bg-surface p-6 sm:p-7 shadow-sm">
-      <div className="text-eyebrow mb-1">5.875 questões</div>
+      <div className="text-eyebrow mb-1">3.607 questões</div>
       <div className="text-sm text-ink-2 mb-6">16 anos de FGV, em uma busca.</div>
       <div className="flex items-end gap-2 h-32 mb-3">
         {[34, 56, 72, 60, 88, 76, 92, 80, 96, 84, 100, 88, 96].map((h, i) => (

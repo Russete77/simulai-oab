@@ -25,7 +25,7 @@ export async function GET() {
 
     // Contar total de questões não anuladas
     const totalQuestions = await prisma.question.count({
-      where: { nullified: false },
+      where: { nullified: false, duplicataDe: null },
     });
 
     if (totalQuestions === 0) {
@@ -44,7 +44,7 @@ export async function GET() {
 
     // Buscar a questão no índice calculado usando OFFSET e LIMIT
     const question = await prisma.question.findFirst({
-      where: { nullified: false },
+      where: { nullified: false, duplicataDe: null },
       include: {
         alternatives: {
           orderBy: { label: 'asc' },

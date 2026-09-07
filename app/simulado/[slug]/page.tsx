@@ -22,7 +22,7 @@ interface PageProps {
 export async function generateStaticParams() {
   const exams = await prisma.question.groupBy({
     by: ['examId'],
-    where: { nullified: false },
+    where: { nullified: false, duplicataDe: null },
   });
   return exams.map((exam) => ({ slug: exam.examId }));
 }
@@ -56,8 +56,7 @@ export default async function SimuladoPage({ params }: PageProps) {
   let questions = await prisma.question.findMany({
     where: {
       examId: parsed.examId,
-      examPhase: parsed.phase,
-      nullified: false,
+      nullified: false, duplicataDe: null,
     },
     include: { alternatives: true },
     orderBy: { questionNumber: 'asc' },
@@ -68,8 +67,7 @@ export default async function SimuladoPage({ params }: PageProps) {
     questions = await prisma.question.findMany({
       where: {
         examId: { contains: String(parsed.examNumber) },
-        examPhase: parsed.phase,
-        nullified: false,
+        nullified: false, duplicataDe: null,
       },
       include: { alternatives: true },
       orderBy: { questionNumber: 'asc' },
@@ -137,7 +135,7 @@ export default async function SimuladoPage({ params }: PageProps) {
             Simulado {parsed.label} — Prova Completa
           </h1>
           <p className="text-lg text-gray-400 mb-8">
-            Reproduza a prova oficial do Exame {parsed.label} (Fase {parsed.phase}) com questões reais da FGV
+            Reproduza a prova oficial do Exame {parsed.label} — 1ª fase, com as questões reais da FGV
           </p>
 
           {/* Stats cards */}

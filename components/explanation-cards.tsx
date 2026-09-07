@@ -42,13 +42,11 @@ export function ExplanationCards({ explanation, isCorrect }: ExplanationCardsPro
             <p className="text-ink-1/90 text-[15px] leading-relaxed mb-3">
               {explanation.correta.motivo}
             </p>
-            {explanation.correta.baseLegal && (
-              <div className="flex items-center gap-2 mt-3 pt-3 border-t border-green-500/20">
-                <span className="text-xs font-mono text-green-500 bg-green-500/10 px-2 py-1 rounded">
-                  {explanation.correta.baseLegal}
-                </span>
-              </div>
-            )}
+            {/* Fundamento legal escondido: as citações foram geradas por
+                gpt-4o-mini e não são confiáveis — 477 caem em "Art. 5º da
+                CF", e as duas que conferi à mão estavam erradas. Mesma
+                decisão de app/questoes/[id]/page.tsx.
+                Ver _PLANO-CLAUDE/AUDITORIA-BANCO-QUESTOES.md */}
           </div>
         </div>
       </Card>

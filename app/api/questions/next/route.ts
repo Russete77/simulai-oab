@@ -107,7 +107,7 @@ export async function GET(request: NextRequest) {
 
     // Construir where clause
     const where: Prisma.QuestionWhereInput = {
-      nullified: false,
+      nullified: false, duplicataDe: null,
       ...(params.subject && { subject: params.subject as any }),
       ...(params.difficulty && { difficulty: params.difficulty as any }),
     };
@@ -125,7 +125,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Contagem por ano (agregado — não carrega as questões inteiras pra
-    // memória, evita full scan de até 5.875 linhas a cada requisição)
+    // memória, evita full scan de todas as questões a cada requisição)
     const yearGroups = await prisma.question.groupBy({
       by: ["examYear"],
       where,

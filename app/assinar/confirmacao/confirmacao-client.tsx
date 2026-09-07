@@ -168,7 +168,7 @@ export function ConfirmacaoClient() {
                     <BookOpen className="w-4 h-4" />
                   </div>
                   <h2 className="text-sm font-semibold text-ink-1 mb-1">
-                    5.875 questões
+                    3.607 questões
                   </h2>
                   <p className="text-xs text-ink-2 leading-relaxed">
                     Todos os exames de 2010 a 2026.

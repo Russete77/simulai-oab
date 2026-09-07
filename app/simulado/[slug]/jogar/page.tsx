@@ -30,7 +30,7 @@ interface PageProps {
 export async function generateStaticParams() {
   const exames = await prisma.question.groupBy({
     by: ['examId'],
-    where: { nullified: false },
+    where: { nullified: false, duplicataDe: null },
     orderBy: { examId: 'desc' },
     take: 3,
   });
@@ -39,7 +39,7 @@ export async function generateStaticParams() {
 
 async function buscarQuestoes(examId: string): Promise<QuestaoJogo[]> {
   const questoes = await prisma.question.findMany({
-    where: { examId, nullified: false },
+    where: { examId, nullified: false, duplicataDe: null },
     orderBy: { questionNumber: 'asc' },
     select: {
       id: true,

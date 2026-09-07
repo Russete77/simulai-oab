@@ -42,7 +42,7 @@ export default async function GabaritosIndexPage() {
   const exams = await prisma.question.groupBy({
     by: ['examId', 'examYear', 'examPhase'],
     _count: { id: true },
-    where: { nullified: false },
+    where: { nullified: false, duplicataDe: null },
     orderBy: [{ examYear: 'desc' }, { examPhase: 'asc' }],
   });
 

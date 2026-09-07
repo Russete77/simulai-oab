@@ -1,12 +1,12 @@
 
 
 // Questões de provas passadas são imutáveis — 7 dias de cache corta o egress
-// do Supabase (5.875 páginas revalidando a cada 1h sob crawl estouravam o free tier)
+// do Supabase (milhares de páginas revalidando a cada 1h sob crawl estouravam o free tier)
 export const revalidate = 604800;
 
 import { cache } from 'react';
 import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import Link from 'next/link';
 import { Header } from '@/components/layout/header';
 import { Card, Button } from '@/components/ui';
@@ -19,7 +19,6 @@ import {
   Home,
   Check,
   X,
-  Scale,
   Lightbulb,
   AlertTriangle,
   Sparkles,
@@ -92,7 +91,7 @@ async function getQuestionUncached(id: string) {
       // A explicação SAI na página. Antes ficava atrás de cadastro, e o
       // resultado é que o Google via só o enunciado da FGV — o mesmo texto
       // que outros vinte sites publicam, e neles com o gabarito. Dava
-      // "Rastreada, mas não indexada" em 3.673 das 5.875 páginas.
+      // "Rastreada, mas não indexada" em 3.673 das páginas de questão.
       aiExplanation: true,
     },
   });
@@ -107,7 +106,7 @@ async function getQuestionUncached(id: string) {
 export async function generateStaticParams() {
   const currentYear = new Date().getFullYear();
   const recentQuestions = await prisma.question.findMany({
-    where: { nullified: false, examYear: { gte: currentYear - 3 } },
+    where: { nullified: false, duplicataDe: null, examYear: { gte: currentYear - 3 } },
     select: { id: true },
     orderBy: { examYear: 'desc' },
     take: 200, // só o exame mais recente pré-gerado; resto vira ISR on-demand (economiza build + egress)
@@ -173,6 +172,17 @@ export default async function QuestionPage(props: PageProps) {
 
   if (!question) {
     notFound();
+  }
+
+  // 2.250 questões são cópia do mesmo enunciado dentro do mesmo exame — a
+  // prova foi importada duas vezes. Elas continuam no banco (as respostas de
+  // usuário vivem nelas), mas a página redireciona para a que fica.
+  //
+  // 301 e não 404: essas URLs estão no índice do Google. Deixá-las morrer
+  // seria jogar fora a autoridade que juntaram e ainda somar 2.250 erros ao
+  // relatório de cobertura.
+  if (question.duplicataDe) {
+    permanentRedirect(`/questoes/${question.duplicataDe}`);
   }
 
   const subjectName = SUBJECT_NAMES[question.subject] || question.subject;
@@ -357,17 +367,18 @@ export default async function QuestionPage(props: PageProps) {
                 </div>
               )}
 
-              {explicacao.baseLegal && (
-                <div className="flex items-start gap-2.5 p-4 rounded-xl border bg-surface-2 mb-4">
-                  <Scale className="w-4 h-4 text-accent shrink-0 mt-0.5" />
-                  <div>
-                    <p className="text-xs uppercase tracking-wide text-ink-3 mb-0.5">
-                      Fundamento legal
-                    </p>
-                    <p className="text-ink-1 font-medium">{explicacao.baseLegal}</p>
-                  </div>
-                </div>
-              )}
+              {/* O fundamento legal está ESCONDIDO de propósito.
+                  As 3.607 explicações foram geradas por gpt-4o-mini, que
+                  raciocina bem sobre o enunciado que tem na frente mas
+                  inventa número de artigo — 477 delas caem em "Art. 5º da
+                  CF", o curinga de quando o modelo não sabe. Das duas que
+                  conferi à mão, as duas citavam artigo errado.
+                  Em página de Direito, artigo errado custa mais caro que
+                  artigo nenhum: o leitor é advogado e percebe na hora.
+                  O resto da explicação continua — raciocínio impreciso o
+                  leitor perdoa, citação falsa não.
+                  Volta quando as citações forem validadas contra a lei.
+                  Ver _PLANO-CLAUDE/AUDITORIA-BANCO-QUESTOES.md */}
 
               {explicacao.dica && (
                 <div className="flex items-start gap-2.5 p-4 rounded-xl border bg-surface-2 mb-4">

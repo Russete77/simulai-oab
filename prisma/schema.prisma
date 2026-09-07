@@ -204,6 +204,19 @@ model UserProfile {
 // QUESTIONS & ALTERNATIVES
 // ============================================================================
 
+/// Marca a cópia duplicada, apontando para a questão que fica.
+///
+/// 2.250 das 5.857 questões são o mesmo enunciado repetido DENTRO do mesmo
+/// exame — a prova foi importada duas vezes (Tipo 1 e Tipo 2 embaralham a
+/// ordem, e viraram linhas distintas).
+///
+/// Marcar em vez de apagar, de propósito: 1.458 respostas de usuário vivem
+/// nessas cópias, e `UserAnswer` tem `onDelete: Cascade` — apagar a questão
+/// levaria as respostas junto, em silêncio, quebrando ranking e histórico.
+/// Marcando, nada se perde e a volta atrás é um UPDATE.
+///
+/// Quem tem `duplicataDe` preenchido some das listagens, sai do sitemap, e
+/// a página redireciona 301 para a questão apontada.
 model Question {
   id             String  @id @default(cuid())
   examId         String // "2023-01"
@@ -221,6 +234,11 @@ model Question {
   nullified   Boolean   @default(false)
   nullifiedAt DateTime? // P3 FIX: Quando foi anulada
   nullifiedBy String? // P3 FIX: "FGV" | "ADMIN" — quem anulou
+
+  // Cópia duplicada: aponta para a questão que fica. Ver o comentário do
+  // modelo. Sem relação declarada de propósito — é auto-referência e o
+  // Prisma exigiria um par de campos que não acrescenta nada aqui.
+  duplicataDe String?
 
   // Metadados calculados
   difficulty  Difficulty?

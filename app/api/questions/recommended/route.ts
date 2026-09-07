@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
     // Se usuário ainda não respondeu nada, retornar questões aleatórias
     if (subjectStats.length === 0) {
       const randomQuestions = await prisma.question.findMany({
-        where: { nullified: false },
+        where: { nullified: false, duplicataDe: null },
         include: { alternatives: true },
         take: 10,
         orderBy: { examYear: "desc" },
@@ -144,7 +144,7 @@ async function getQuestionsForSubjects(
   const questions = await prisma.question.findMany({
     where: {
       subject: { in: subjects },
-      nullified: false,
+      nullified: false, duplicataDe: null,
       id: { notIn: Array.from(answeredIds) },
     },
     include: { alternatives: true },
@@ -160,7 +160,7 @@ async function getQuestionsForSubjects(
     const additionalQuestions = await prisma.question.findMany({
       where: {
         subject: { in: subjects },
-        nullified: false,
+        nullified: false, duplicataDe: null,
       },
       include: { alternatives: true },
       take: 20 - questions.length,

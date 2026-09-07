@@ -94,7 +94,7 @@ const SUBJECT_NAMES: Record<string, string> = {
 export async function generateStaticParams() {
   const exams = await prisma.question.groupBy({
     by: ['examId'],
-    where: { nullified: false },
+    where: { nullified: false, duplicataDe: null },
   });
   return exams.map((exam) => ({ slug: exam.examId }));
 }
@@ -133,7 +133,7 @@ export default async function GabaritoPage({ params }: PageProps) {
     where: {
       examId: parsed.examId,
       examPhase: parsed.phase,
-      nullified: false,
+      nullified: false, duplicataDe: null,
     },
     include: {
       alternatives: {
@@ -151,7 +151,7 @@ export default async function GabaritoPage({ params }: PageProps) {
       where: {
         examId: { contains: String(parsed.examNumber) },
         examPhase: parsed.phase,
-        nullified: false,
+        nullified: false, duplicataDe: null,
       },
       include: {
         alternatives: {

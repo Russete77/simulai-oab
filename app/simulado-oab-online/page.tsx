@@ -7,8 +7,8 @@ import { Play, BookOpen, Brain, BarChart3, Clock, Target, ArrowRight, CheckCircl
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: 'Simulado OAB Online Grátis 2026 — 5.875 Questões Oficiais com IA | Simulai',
-  description: 'Faça simulados OAB online grátis com 5.875 questões oficiais FGV (2010-2026). Explicações por IA, cronômetro real, 5 modos de estudo, predição de aprovação e gamificação. A plataforma mais completa para passar na OAB.',
+  title: 'Simulado OAB Online Grátis 2026 — 3.607 Questões Oficiais com IA | Simulai',
+  description: 'Faça simulados OAB online grátis com 3.607 questões oficiais FGV (2010-2026). Explicações por IA, cronômetro real, 5 modos de estudo, predição de aprovação e gamificação. A plataforma mais completa para passar na OAB.',
   keywords: [
     'simulado OAB', 'simulado OAB online', 'simulado OAB grátis', 'simulado OAB 2026',
     'questões OAB', 'prova OAB', 'exame OAB simulado', 'teste OAB online',
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'Simulado OAB Online Grátis 2026 — Simulai OAB',
-    description: 'Faça simulados com 5.875 questões oficiais FGV. IA explica cada questão. Comece grátis!',
+    description: 'Faça simulados com 3.607 questões oficiais FGV. IA explica cada questão. Comece grátis!',
     url: 'https://www.simulaioab.com/simulado-oab-online',
     type: 'website',
   },
@@ -41,10 +41,10 @@ const subjects = [
 
 async function getPageData() {
   try {
-    const totalQuestions = await prisma.question.count({ where: { nullified: false } });
+    const totalQuestions = await prisma.question.count({ where: { nullified: false, duplicataDe: null } });
     const groupResult = await prisma.question.groupBy({
       by: ['examId'],
-      where: { nullified: false },
+      where: { nullified: false, duplicataDe: null },
     });
     const examIds = groupResult.map((e) => e.examId);
     // O exame mais recente é para onde o botão principal aponta: quem busca
@@ -53,7 +53,7 @@ async function getPageData() {
     return { totalQuestions, examIds, maisRecente };
   } catch (error) {
     console.error('Erro ao buscar dados para simulado-oab-online:', error);
-    return { totalQuestions: 5875, examIds: [] as string[], maisRecente: null };
+    return { totalQuestions: 3607, examIds: [] as string[], maisRecente: null };
   }
 }
 

@@ -10,7 +10,7 @@
  * campo faltando, e `pegadinhas` aparece ora como texto, ora como lista.
  *
  * Nada aqui lança. Uma explicação malformada vira uma página com menos
- * conteúdo — nunca uma página quebrada. São 5.875 páginas públicas e
+ * conteúdo — nunca uma página quebrada. São milhares de páginas públicas e
  * estáticas: um erro de parse derrubaria a que o Google estivesse rastreando.
  */
 
@@ -115,7 +115,11 @@ export function temConteudo(e: Explicacao | null): e is Explicacao {
  */
 export function explicacaoEmTexto(e: Explicacao | null): string {
   if (!e) return '';
-  return [e.motivoCorreta, e.baseLegal, e.resumo]
+  // `baseLegal` fica de fora de propósito. As citações foram geradas por
+  // gpt-4o-mini e não são confiáveis; elas já não aparecem na tela, e
+  // deixá-las aqui as mandaria para o dado estruturado — onde o Google as
+  // leria como afirmação nossa sobre a lei.
+  return [e.motivoCorreta, e.resumo]
     .filter(Boolean)
     .join(' ')
     .replace(/\s+/g, ' ')

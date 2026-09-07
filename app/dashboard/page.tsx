@@ -98,7 +98,7 @@ function PrimeiroAcesso({ nome }: { nome: string }) {
             <div className="hairline mt-8 pt-6 flex flex-wrap gap-x-10 gap-y-4">
               <div>
                 <div className="text-lg font-semibold text-ink-1 text-mono-tabular">
-                  5.875
+                  3.607
                 </div>
                 <div className="text-xs text-ink-3 mt-0.5">questões oficiais</div>
               </div>

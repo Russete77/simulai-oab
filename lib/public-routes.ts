@@ -47,7 +47,7 @@ export const PUBLIC_ROUTES = [
   '/og-image.png',
   // ===== PÁGINAS PÚBLICAS PARA SEO =====
   // Todas as páginas que devem ser indexadas pelo Google
-  '/questoes(.*)', // Questões individuais (5.605 páginas)
+  '/questoes(.*)', // Questões individuais (3.607 páginas)
   '/materias(.*)', // Páginas por matéria (17 páginas)
   '/blog(.*)', // Blog posts
   '/gabarito(.*)', // Gabaritos de exames (43+ páginas)
