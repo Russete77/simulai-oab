@@ -13,6 +13,7 @@
 import 'dotenv/config';
 import { prisma } from '../lib/db/prisma';
 import { lerExplicacao } from '../lib/questoes/explicacao';
+import { TOTAL_QUESTOES } from '../lib/questoes/catalogo';
 
 const problemas: { area: string; gravidade: 'alta' | 'media' | 'baixa'; quantos: number; nota: string }[] = [];
 
@@ -168,9 +169,27 @@ async function main() {
 
   console.log(`  ${grupos.length} grupos de enunciado repetido`);
   console.log(`  ${excedentes} cópias excedentes`);
-  console.log(`  ${unicas} questões únicas de verdade  (anunciamos ${total})`);
+  console.log(`  ${unicas} questões únicas de verdade`);
   if (excedentes) {
-    registrar('duplicação', 'alta', excedentes, `banco real tem ${unicas}, não ${total}`);
+    registrar('duplicação', 'alta', excedentes, `${total} linhas, ${unicas} únicas`);
+  }
+
+  // O número anunciado no site vive em lib/questoes/catalogo.ts. Antes estava
+  // copiado à mão em 47 lugares e ninguém percebeu que tinha ficado 63% acima
+  // do real. Este é o portão que pega a divergência de volta.
+  const desvio = Math.abs(TOTAL_QUESTOES - unicas);
+  const ok = desvio === 0;
+  console.log(
+    `  ${ok ? 'ok  ' : 'ACHE'} anunciamos ${TOTAL_QUESTOES}, o banco tem ${unicas}` +
+      (ok ? '' : ` — diferença de ${desvio}`)
+  );
+  if (!ok) {
+    registrar(
+      'número anunciado',
+      'alta',
+      desvio,
+      `TOTAL_QUESTOES=${TOTAL_QUESTOES} mas o banco tem ${unicas} — ajuste lib/questoes/catalogo.ts`
+    );
   }
 
   // ------------------------------------------------------------- explicações

@@ -7,8 +7,8 @@ import { BookOpen, ArrowRight, Target, Brain, BarChart3 } from 'lucide-react';
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: 'Questões OAB Comentadas — 5.875 Questões Oficiais FGV com Gabarito e IA | Simulai',
-  description: 'Resolva questões OAB comentadas com gabarito oficial e explicação por IA. 5.875 questões oficiais FGV de 2010 a 2026, organizadas por matéria, ano e dificuldade. Grátis!',
+  title: 'Questões OAB Comentadas — 3.607 Questões Oficiais FGV com Gabarito e IA | Simulai',
+  description: 'Resolva questões OAB comentadas com gabarito oficial e explicação por IA. 3.607 questões oficiais FGV de 2010 a 2026, organizadas por matéria, ano e dificuldade. Grátis!',
   keywords: [
     'questões OAB', 'questões OAB comentadas', 'questões OAB com gabarito',
     'questões OAB FGV', 'questões OAB 2026', 'questões OAB por matéria',
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'Questões OAB Comentadas com IA — Simulai OAB',
-    description: 'Resolva 5.875 questões OAB oficiais com explicações por IA. Grátis!',
+    description: 'Resolva 3.607 questões OAB oficiais com explicações por IA. Grátis!',
     url: 'https://www.simulaioab.com/questoes-oab',
     type: 'website',
   },
@@ -45,7 +45,7 @@ const subjects = [
 ];
 
 export default async function QuestoesOabPage() {
-  let totalQuestions = 5875;
+  let totalQuestions = 3607;
   let countMap: Record<string, number> = {};
   try {
     totalQuestions = await prisma.question.count({ where: { nullified: false } });

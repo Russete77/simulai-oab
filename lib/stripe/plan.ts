@@ -44,7 +44,7 @@ export const PLANO = {
   /** Preço de referência por mês, sem desconto. */
   baseCentavos: 999,
   beneficios: [
-    '5.875 questões oficiais da FGV',
+    '3.607 questões oficiais da FGV',
     'Simulados ilimitados no formato do exame',
     'Filtro por matéria',
     'Plano de estudos personalizado',

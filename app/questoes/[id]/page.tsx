@@ -1,7 +1,7 @@
 
 
 // Questões de provas passadas são imutáveis — 7 dias de cache corta o egress
-// do Supabase (5.875 páginas revalidando a cada 1h sob crawl estouravam o free tier)
+// do Supabase (milhares de páginas revalidando a cada 1h sob crawl estouravam o free tier)
 export const revalidate = 604800;
 
 import { cache } from 'react';
@@ -91,7 +91,7 @@ async function getQuestionUncached(id: string) {
       // A explicação SAI na página. Antes ficava atrás de cadastro, e o
       // resultado é que o Google via só o enunciado da FGV — o mesmo texto
       // que outros vinte sites publicam, e neles com o gabarito. Dava
-      // "Rastreada, mas não indexada" em 3.673 das 5.875 páginas.
+      // "Rastreada, mas não indexada" em 3.673 das páginas de questão.
       aiExplanation: true,
     },
   });
@@ -357,7 +357,7 @@ export default async function QuestionPage(props: PageProps) {
               )}
 
               {/* O fundamento legal está ESCONDIDO de propósito.
-                  As 5.857 explicações foram geradas por gpt-4o-mini, que
+                  As 3.607 explicações foram geradas por gpt-4o-mini, que
                   raciocina bem sobre o enunciado que tem na frente mas
                   inventa número de artigo — 477 delas caem em "Art. 5º da
                   CF", o curinga de quando o modelo não sabe. Das duas que

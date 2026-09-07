@@ -10,7 +10,7 @@
  * campo faltando, e `pegadinhas` aparece ora como texto, ora como lista.
  *
  * Nada aqui lança. Uma explicação malformada vira uma página com menos
- * conteúdo — nunca uma página quebrada. São 5.875 páginas públicas e
+ * conteúdo — nunca uma página quebrada. São milhares de páginas públicas e
  * estáticas: um erro de parse derrubaria a que o Google estivesse rastreando.
  */
 

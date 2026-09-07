@@ -38,11 +38,11 @@ const hankenGrotesk = Hanken_Grotesk({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://www.simulaioab.com"),
   title: {
-    default: "Simulai OAB — 5.875 Questões Oficiais com IA",
+    default: "Simulai OAB — 3.607 Questões Oficiais com IA",
     template: "%s | Simulai OAB",
   },
   description:
-    "Plataforma de preparação para o Exame da OAB com 5.875 questões oficiais (2010-2026), simulados adaptativos, analytics por matéria e IA integrada (no Pro).",
+    "Plataforma de preparação para o Exame da OAB com 3.607 questões oficiais (2010-2026), simulados adaptativos, analytics por matéria e IA integrada (no Pro).",
   applicationName: "Simulai OAB",
   authors: [{ name: "Simulai OAB" }],
   manifest: "/manifest.json",
@@ -78,7 +78,7 @@ export const metadata: Metadata = {
     siteName: "Simulai OAB",
     title: "Simulai OAB — Preparação Inteligente para a OAB",
     description:
-      "5.875 questões oficiais, simulados adaptativos e (no Pro) IA integrada com explicações e chat.",
+      "3.607 questões oficiais, simulados adaptativos e (no Pro) IA integrada com explicações e chat.",
     images: [
       {
         url: "/og-image.png",
@@ -91,7 +91,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Simulai OAB",
-    description: "Plataforma com 5.875 questões oficiais e IA integrada.",
+    description: "Plataforma com 3.607 questões oficiais e IA integrada.",
     images: ["/og-image.png"],
   },
 };

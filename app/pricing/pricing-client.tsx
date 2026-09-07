@@ -34,7 +34,7 @@ const PERGUNTAS = [
   },
   {
     q: 'Tem tudo mesmo?',
-    a: 'Tem. Não existe plano de cima: as 5.875 questões, os simulados, o plano de estudos e as explicações com IA entram todos no mesmo preço, em qualquer ciclo.',
+    a: 'Tem. Não existe plano de cima: as 3.607 questões, os simulados, o plano de estudos e as explicações com IA entram todos no mesmo preço, em qualquer ciclo.',
   },
 ];
 
